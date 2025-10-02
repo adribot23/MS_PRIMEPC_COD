@@ -11,6 +11,8 @@ import presentacion.vista.IGUI;
 
 
 public class Controlador {
+	
+	//Hay que quitar los static
 	private static SAEmpleado saEmpleado = FactoriaNegocio.obtenerInstancia().generaSAEmpleado();
 	private static SACliente saCliente = FactoriaNegocio.obtenerInstancia().generaSACliente();
 	private static SAAlmacen saAlmacen = FactoriaNegocio.obtenerInstancia().generaSAAlmacen();
@@ -40,7 +42,7 @@ public class Controlador {
 			TEmpleado tEmpleado = (TEmpleado) datos;
 			int res = saEmpleado.altaEmpleado(tEmpleado);
 			if (res > 0)
-				guiEmpleado.actualizar(Evento.RES_ALTA_EMPLEADO_OK, res);
+				guiEmpleado.actualizar(Evento.RES_ALTA_EMPLEADO_OK, res); // LLamar a la factoria cada vez que actualizemos la vista
 			else
 				guiEmpleado.actualizar(Evento.RES_ALTA_EMPLEADO_KO, null);
 			break;
