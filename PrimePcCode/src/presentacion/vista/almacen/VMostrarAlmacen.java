@@ -6,7 +6,6 @@ import java.awt.GridLayout;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
-
 import javax.swing.JPanel;
 
 import presentacion.controlador.Controlador;

@@ -1,6 +1,9 @@
 package negocio.SA.tests;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -14,7 +17,6 @@ import org.junit.Test;
 
 import negocio.factoria.FactoriaNegocio;
 import negocio.serviciosAplicacion.SAAlmacen;
-
 import negocio.serviciosAplicacion.SAProducto;
 import negocio.transfers.TAlmacen;
 import negocio.transfers.TProducto;

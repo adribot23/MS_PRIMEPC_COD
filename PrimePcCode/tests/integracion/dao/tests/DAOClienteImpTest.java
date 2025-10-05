@@ -1,6 +1,8 @@
 package integracion.dao.tests;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -12,10 +14,10 @@ import org.junit.After;
 import org.junit.Test;
 
 import integracion.daos.DAOCliente;
+import integracion.factoria.FactoriaIntegracion;
 import negocio.transfers.TCliente;
 import negocio.transfers.TClienteNoSocio;
 import negocio.transfers.TClienteSocio;
-import integracion.factoria.FactoriaIntegracion;
 
 public class DAOClienteImpTest {
 

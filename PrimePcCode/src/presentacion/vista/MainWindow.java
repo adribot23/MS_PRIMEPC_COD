@@ -8,7 +8,13 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
 
-import javax.swing.*;
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 import presentacion.vista.almacen.GUIAlmacen;
 import presentacion.vista.cliente.GUICliente;

@@ -1,13 +1,12 @@
 package presentacion.vista.producto;
 
-import javax.swing.JPanel;
-
 import java.awt.Color;
 import java.awt.GridLayout;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import presentacion.controlador.Controlador;

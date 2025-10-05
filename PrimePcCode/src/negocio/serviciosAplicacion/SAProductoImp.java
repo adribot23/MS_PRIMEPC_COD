@@ -1,6 +1,7 @@
 package negocio.serviciosAplicacion;
 
 import java.util.Collection;
+
 import integracion.daos.DAOAlmacen;
 import integracion.daos.DAOProducto;
 import integracion.factoria.FactoriaIntegracion;

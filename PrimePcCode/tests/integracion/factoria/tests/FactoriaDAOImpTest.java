@@ -1,10 +1,23 @@
 package integracion.factoria.tests;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Before;
 import org.junit.Test;
 
-import integracion.daos.*;
+import integracion.daos.DAOAlmacen;
+import integracion.daos.DAOAlmacenImp;
+import integracion.daos.DAOCliente;
+import integracion.daos.DAOClienteImp;
+import integracion.daos.DAOEmpleado;
+import integracion.daos.DAOEmpleadoImp;
+import integracion.daos.DAOProducto;
+import integracion.daos.DAOProductoImp;
+import integracion.daos.DAOProveedor;
+import integracion.daos.DAOProveedorImp;
+import integracion.daos.DAOVenta;
+import integracion.daos.DAOVentaImp;
 import integracion.factoria.FactoriaIntegracionImp;
 
 public class FactoriaDAOImpTest {

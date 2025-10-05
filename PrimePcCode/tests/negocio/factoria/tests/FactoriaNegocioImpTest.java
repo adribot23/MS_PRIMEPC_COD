@@ -1,10 +1,9 @@
 package negocio.factoria.tests;
 
-import static org.junit.Assert.*;
-
-import org.junit.Test;
-
 import static org.junit.Assert.assertNotNull;
+
+import org.junit.Before;
+import org.junit.Test;
 
 import negocio.factoria.FactoriaNegocioImp;
 import negocio.serviciosAplicacion.SAAlmacen;
@@ -13,7 +12,6 @@ import negocio.serviciosAplicacion.SAEmpleado;
 import negocio.serviciosAplicacion.SAProducto;
 import negocio.serviciosAplicacion.SAProveedor;
 import negocio.serviciosAplicacion.SAVenta;
-import org.junit.Before;
 
 public class FactoriaNegocioImpTest {
 

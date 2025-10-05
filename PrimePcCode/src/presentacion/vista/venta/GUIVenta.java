@@ -1,7 +1,5 @@
 package presentacion.vista.venta;
 
-import javax.swing.*;
-
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
@@ -9,6 +7,16 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.util.Collection;
 import java.util.Map;
+
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.SwingConstants;
 
 import negocio.transfers.TVenta;
 import presentacion.vista.Evento;

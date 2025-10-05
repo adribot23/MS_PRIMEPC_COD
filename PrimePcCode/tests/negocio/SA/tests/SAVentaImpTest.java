@@ -1,27 +1,26 @@
 package negocio.SA.tests;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
-import java.util.HashMap;
-
-import java.util.Map;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import negocio.serviciosAplicacion.SAVenta;
 import negocio.factoria.FactoriaNegocio;
 import negocio.serviciosAplicacion.SAAlmacen;
 import negocio.serviciosAplicacion.SACliente;
 import negocio.serviciosAplicacion.SAEmpleado;
 import negocio.serviciosAplicacion.SAProducto;
-
 import negocio.serviciosAplicacion.SAProveedor;
+import negocio.serviciosAplicacion.SAVenta;
 import negocio.transfers.TAlmacen;
 import negocio.transfers.TClienteNoSocio;
 import negocio.transfers.TClienteSocio;

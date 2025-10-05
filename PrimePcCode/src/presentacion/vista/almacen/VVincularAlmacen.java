@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import presentacion.controlador.Controlador;
+import presentacion.controlador.ControladorImp;
 import presentacion.vista.Evento;
 
 public class VVincularAlmacen extends JPanel {
@@ -19,7 +20,7 @@ public class VVincularAlmacen extends JPanel {
 	private Controlador ctrl;
 
 	public VVincularAlmacen() {
-		ctrl = Controlador.obtenerInstancia();
+		ctrl = ControladorImp.obtenerInstancia();
 		initGUI();
 	}
 
