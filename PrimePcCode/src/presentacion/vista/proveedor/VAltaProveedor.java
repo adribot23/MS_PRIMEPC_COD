@@ -16,28 +16,28 @@ import presentacion.vista.Evento;
 public class VAltaProveedor extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-    private Controlador ctrl;
+	private Controlador ctrl;
 
-    public VAltaProveedor() {
-        ctrl = Controlador.obtenerInstancia();
-        initGui();
-    }
+	public VAltaProveedor() {
+		ctrl = Controlador.obtenerInstancia();
+		initGui();
+	}
 
-    private void initGui() {
-        setLayout(new GridLayout(3, 1));
-        setBorder(BorderFactory.createTitledBorder("Alta Proveedor"));
+	private void initGui() {
+		setLayout(new GridLayout(3, 1));
+		setBorder(BorderFactory.createTitledBorder("Alta Proveedor"));
 
-        JTextField altaNombre = new JTextField();
-        JButton btnAlta = new JButton("Dar de Alta");
-        btnAlta.setBackground(new Color(200, 255, 200));
-        btnAlta.addActionListener(e -> {
-            String nombre = altaNombre.getText();
-            TProveedor p = new TProveedor(0, nombre);
-            ctrl.accion(Evento.ALTA_PROVEEDOR, p);
-        });
+		JTextField altaNombre = new JTextField();
+		JButton btnAlta = new JButton("Dar de Alta");
+		btnAlta.setBackground(new Color(200, 255, 200));
+		btnAlta.addActionListener(e -> {
+			String nombre = altaNombre.getText();
+			TProveedor p = new TProveedor(0, nombre);
+			ctrl.accion(Evento.ALTA_PROVEEDOR, p);
+		});
 
-        add(new JLabel("Nombre:"));
-        add(altaNombre);
-        add(btnAlta);
-    }
+		add(new JLabel("Nombre:"));
+		add(altaNombre);
+		add(btnAlta);
+	}
 }

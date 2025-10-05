@@ -6,8 +6,9 @@ public class TClienteSocio extends TCliente {
 	protected int numero_socio;
 	protected int puntos;
 
-    public TClienteSocio(){}
-    
+	public TClienteSocio() {
+	}
+
 	public TClienteSocio(int id, String nombre, String dni, int puntos) {
 		super(id, nombre, dni);
 		this.puntos = puntos;

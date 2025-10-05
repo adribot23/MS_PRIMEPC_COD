@@ -16,15 +16,15 @@ import presentacion.vista.Evento;
 public class VBajaProveedor extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-    private Controlador ctrl;
+	private Controlador ctrl;
 
-    public VBajaProveedor() {
-        ctrl = Controlador.obtenerInstancia();
-        initGui();
-    }
+	public VBajaProveedor() {
+		ctrl = Controlador.obtenerInstancia();
+		initGui();
+	}
 
-    private void initGui() {
-    	setLayout(new GridLayout(3, 1));
+	private void initGui() {
+		setLayout(new GridLayout(3, 1));
 		setBorder(BorderFactory.createTitledBorder("Baja Proveedor"));
 		JTextField bajaId = new JTextField();
 		JButton btnBaja = new JButton("Dar de baja");
@@ -41,5 +41,5 @@ public class VBajaProveedor extends JPanel {
 		add(new JLabel("ID Proveedor:"));
 		add(bajaId);
 		add(btnBaja);
-    }
+	}
 }

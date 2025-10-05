@@ -16,15 +16,15 @@ import presentacion.vista.Evento;
 public class VBajaVenta extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	 private Controlador ctrl;
-	
-	public VBajaVenta(){
-		ctrl=Controlador.obtenerInstancia();
+	private Controlador ctrl;
+
+	public VBajaVenta() {
+		ctrl = Controlador.obtenerInstancia();
 		initGui();
 	}
 
 	private void initGui() {
-		
+
 		setLayout(new GridLayout(3, 1));
 		setBorder(BorderFactory.createTitledBorder("Devolucion"));
 
@@ -43,8 +43,7 @@ public class VBajaVenta extends JPanel {
 		add(new JLabel("ID Venta:"));
 		add(devId);
 		add(btnDevolucion);
-		
+
 	}
-	
-	
+
 }

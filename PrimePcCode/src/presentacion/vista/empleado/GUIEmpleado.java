@@ -27,7 +27,7 @@ import presentacion.vista.IGUI;
 public class GUIEmpleado extends JPanel implements IGUI {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	public GUIEmpleado() {
 		initGui();
 	}

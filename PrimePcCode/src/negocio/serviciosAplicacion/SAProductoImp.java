@@ -26,7 +26,7 @@ public class SAProductoImp implements SAProducto {
 			if (leido == null) {
 				id = daoProducto.crear(producto);
 			} else if (leido.getActivo() == 0) {
-				
+
 				producto.setId(leido.getId());
 				daoProducto.actualizar(producto);
 				id = producto.getId();
@@ -52,28 +52,32 @@ public class SAProductoImp implements SAProducto {
 
 	@Override
 	public int modificarProducto(TProducto producto) {
-		if (producto == null) return -1;
+		if (producto == null)
+			return -1;
 
-	    TProducto productoExistente = daoProducto.leer(producto.getId());
-	    if (productoExistente == null || productoExistente.getActivo() != 1) return -1;
+		TProducto productoExistente = daoProducto.leer(producto.getId());
+		if (productoExistente == null || productoExistente.getActivo() != 1)
+			return -1;
 
-	    if (productoExistente.getIdAlmacen() != -1) {
-	        TAlmacen almacen = daoAlmacen.leer(productoExistente.getIdAlmacen());
-	        if (almacen == null || almacen.getActivo() != 1) return -1;
+		if (productoExistente.getIdAlmacen() != -1) {
+			TAlmacen almacen = daoAlmacen.leer(productoExistente.getIdAlmacen());
+			if (almacen == null || almacen.getActivo() != 1)
+				return -1;
 
-	        int nuevaOcupacion = almacen.getOcupacion() - productoExistente.getUnidades() + producto.getUnidades();
-	        if (nuevaOcupacion > almacen.getCapacidadMaxima()) return -1;
+			int nuevaOcupacion = almacen.getOcupacion() - productoExistente.getUnidades() + producto.getUnidades();
+			if (nuevaOcupacion > almacen.getCapacidadMaxima())
+				return -1;
 
-	        almacen.setOcupacion(nuevaOcupacion);
-	        daoAlmacen.actualizar(almacen);
-	    }
+			almacen.setOcupacion(nuevaOcupacion);
+			daoAlmacen.actualizar(almacen);
+		}
 
-	    producto.setIdAlmacen(productoExistente.getIdAlmacen());
-	    producto.setIdProveedor(productoExistente.getIdProveedor());
+		producto.setIdAlmacen(productoExistente.getIdAlmacen());
+		producto.setIdProveedor(productoExistente.getIdProveedor());
 
-	    return daoProducto.actualizar(producto);
+		return daoProducto.actualizar(producto);
 	}
-	
+
 	@Override
 	public int bajaProducto(int id) {
 		int res = -1;

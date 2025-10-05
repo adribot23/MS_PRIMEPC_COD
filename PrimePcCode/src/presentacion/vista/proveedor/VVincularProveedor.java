@@ -14,7 +14,7 @@ import presentacion.controlador.Controlador;
 import presentacion.vista.Evento;
 
 public class VVincularProveedor extends JPanel {
-	
+
 	private static final long serialVersionUID = 1L;
 	private Controlador ctrl;
 
@@ -28,7 +28,7 @@ public class VVincularProveedor extends JPanel {
 		setBorder(BorderFactory.createTitledBorder("Vincular / Desvincular Producto"));
 		JTextField txtProducto = new JTextField();
 		JTextField txtProveedor = new JTextField();
-		
+
 		JButton btnVincular = new JButton("Vincular");
 		btnVincular.setBackground(new Color(200, 255, 200));
 		btnVincular.addActionListener(e -> {

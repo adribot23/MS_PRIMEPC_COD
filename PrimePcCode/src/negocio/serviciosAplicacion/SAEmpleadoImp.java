@@ -48,7 +48,7 @@ public class SAEmpleadoImp implements SAEmpleado {
 	@Override
 	public int modificarEmpleado(TEmpleado tEmpleado) {
 		int res = -1;
-		
+
 		TEmpleado existente = daoEmpleado.leer(tEmpleado.getId());
 
 		if (existente != null && existente.getActivo() == 1 && existente.getClass().equals(tEmpleado.getClass())

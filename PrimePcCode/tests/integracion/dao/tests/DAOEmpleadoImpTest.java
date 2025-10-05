@@ -20,137 +20,136 @@ import integracion.factoria.FactoriaIntegracion;
 
 public class DAOEmpleadoImpTest {
 
-    private DAOEmpleado daoEmpleado;
-    private int idGenerado = -1;
+	private DAOEmpleado daoEmpleado;
+	private int idGenerado = -1;
 
-    @Before
-    public void setUp() {
-        daoEmpleado = FactoriaIntegracion.obtenerInstancia().generaDAOEmpleado();
-    }
-
-    @After
-    public void tearDown() {
-        if (idGenerado > 0) {
-            eliminarFisicamente(idGenerado);
-            idGenerado = -1; // Reset para el siguiente test
-        }
-        daoEmpleado = null;
-    }
-    
-    public int eliminarFisicamente(int id) {  //solo para el test
-    	int filasAfectadas = 0;
-	    try {
-	        Connection conexion = DriverManager.getConnection("jdbc:sqlite:bd/IS2PrimePC.db", "root", "root");
-
-	        String sqlParcial = "DELETE FROM PARCIAL WHERE ID = ?";
-	        PreparedStatement psParcial = conexion.prepareStatement(sqlParcial);
-	        psParcial.setInt(1, id);
-	        filasAfectadas += psParcial.executeUpdate();
-	        psParcial.close();
-
-	        String sqlCompleto = "DELETE FROM COMPLETO WHERE ID = ?";
-	        PreparedStatement psCompleto = conexion.prepareStatement(sqlCompleto);
-	        psCompleto.setInt(1, id);
-	        filasAfectadas += psCompleto.executeUpdate();
-	        psCompleto.close();
-
-	        String sqlEmpleado = "DELETE FROM EMPLEADO WHERE ID = ?";
-	        PreparedStatement psEmpleado = conexion.prepareStatement(sqlEmpleado);
-	        psEmpleado.setInt(1, id);
-	        filasAfectadas += psEmpleado.executeUpdate();
-	        psEmpleado.close();
-
-	        conexion.close();
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	    }
-	    return filasAfectadas;
+	@Before
+	public void setUp() {
+		daoEmpleado = FactoriaIntegracion.obtenerInstancia().generaDAOEmpleado();
 	}
-    
 
-    @Test
-    public void testCrearYLeerEmpleadoCompleto() {
-        TEmpleadoCompleto empleadoCompleto = new TEmpleadoCompleto(-1, "Juan Perez", "12345678A", "600600600", 1, 10);
-        idGenerado = daoEmpleado.crear(empleadoCompleto);
+	@After
+	public void tearDown() {
+		if (idGenerado > 0) {
+			eliminarFisicamente(idGenerado);
+			idGenerado = -1; // Reset para el siguiente test
+		}
+		daoEmpleado = null;
+	}
 
-        assertTrue(idGenerado > 0);
+	public int eliminarFisicamente(int id) { // solo para el test
+		int filasAfectadas = 0;
+		try {
+			Connection conexion = DriverManager.getConnection("jdbc:sqlite:bd/IS2PrimePC.db", "root", "root");
 
-        TEmpleado empleadoLeido = daoEmpleado.leer(idGenerado);
+			String sqlParcial = "DELETE FROM PARCIAL WHERE ID = ?";
+			PreparedStatement psParcial = conexion.prepareStatement(sqlParcial);
+			psParcial.setInt(1, id);
+			filasAfectadas += psParcial.executeUpdate();
+			psParcial.close();
 
-        assertNotNull(empleadoLeido);
-        assertTrue(empleadoLeido instanceof TEmpleadoCompleto);
-        assertEquals("Juan Perez", empleadoLeido.getNombre());
-        assertEquals("12345678A", empleadoLeido.getDni());
-        assertEquals("600600600", empleadoLeido.getTelefono());
-    }
+			String sqlCompleto = "DELETE FROM COMPLETO WHERE ID = ?";
+			PreparedStatement psCompleto = conexion.prepareStatement(sqlCompleto);
+			psCompleto.setInt(1, id);
+			filasAfectadas += psCompleto.executeUpdate();
+			psCompleto.close();
 
-    @Test
-    public void testCrearYLeerEmpleadoParcial() {
-        TEmpleadoParcial empleadoParcial = new TEmpleadoParcial(-1, "Maria Lopez", "87654321B", "700700700", 1, 20);
-        idGenerado = daoEmpleado.crear(empleadoParcial);
+			String sqlEmpleado = "DELETE FROM EMPLEADO WHERE ID = ?";
+			PreparedStatement psEmpleado = conexion.prepareStatement(sqlEmpleado);
+			psEmpleado.setInt(1, id);
+			filasAfectadas += psEmpleado.executeUpdate();
+			psEmpleado.close();
 
-        assertTrue(idGenerado > 0);
+			conexion.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return filasAfectadas;
+	}
 
-        TEmpleado empleadoLeido = daoEmpleado.leer(idGenerado);
+	@Test
+	public void testCrearYLeerEmpleadoCompleto() {
+		TEmpleadoCompleto empleadoCompleto = new TEmpleadoCompleto(-1, "Juan Perez", "12345678A", "600600600", 1, 10);
+		idGenerado = daoEmpleado.crear(empleadoCompleto);
 
-        assertNotNull(empleadoLeido);
-        assertTrue(empleadoLeido instanceof TEmpleadoParcial);
-        assertEquals("Maria Lopez", empleadoLeido.getNombre());
-        assertEquals("87654321B", empleadoLeido.getDni());
-        assertEquals("700700700", empleadoLeido.getTelefono());
-    }
+		assertTrue(idGenerado > 0);
 
-    @Test
-    public void testActualizarEmpleadoCompleto() {
-        TEmpleadoCompleto empleadoCompleto = new TEmpleadoCompleto(-1, "Carlos Diaz", "11223344C", "800800800", 1, 5);
-        idGenerado = daoEmpleado.crear(empleadoCompleto);
+		TEmpleado empleadoLeido = daoEmpleado.leer(idGenerado);
 
-        assertTrue(idGenerado > 0);
+		assertNotNull(empleadoLeido);
+		assertTrue(empleadoLeido instanceof TEmpleadoCompleto);
+		assertEquals("Juan Perez", empleadoLeido.getNombre());
+		assertEquals("12345678A", empleadoLeido.getDni());
+		assertEquals("600600600", empleadoLeido.getTelefono());
+	}
 
-        empleadoCompleto.setId(idGenerado);
-        empleadoCompleto.setNombre("Carlos Modificado");
-        empleadoCompleto.setHorasExtra(15);
+	@Test
+	public void testCrearYLeerEmpleadoParcial() {
+		TEmpleadoParcial empleadoParcial = new TEmpleadoParcial(-1, "Maria Lopez", "87654321B", "700700700", 1, 20);
+		idGenerado = daoEmpleado.crear(empleadoParcial);
 
-        int filasActualizadas = daoEmpleado.actualizar(empleadoCompleto);
-        assertTrue(filasActualizadas > 0);
+		assertTrue(idGenerado > 0);
 
-        TEmpleado empleadoLeido = daoEmpleado.leer(idGenerado);
-        assertEquals("Carlos Modificado", empleadoLeido.getNombre());
-        assertEquals("11223344C", empleadoLeido.getDni());
-    }
+		TEmpleado empleadoLeido = daoEmpleado.leer(idGenerado);
 
-    @Test
-    public void testEliminarEmpleado() {
-        TEmpleadoParcial empleadoParcial = new TEmpleadoParcial(-1, "Lucia Ramos", "33445566D", "900900900", 1, 25);
-        idGenerado = daoEmpleado.crear(empleadoParcial);
+		assertNotNull(empleadoLeido);
+		assertTrue(empleadoLeido instanceof TEmpleadoParcial);
+		assertEquals("Maria Lopez", empleadoLeido.getNombre());
+		assertEquals("87654321B", empleadoLeido.getDni());
+		assertEquals("700700700", empleadoLeido.getTelefono());
+	}
 
-        assertTrue(idGenerado > 0);
+	@Test
+	public void testActualizarEmpleadoCompleto() {
+		TEmpleadoCompleto empleadoCompleto = new TEmpleadoCompleto(-1, "Carlos Diaz", "11223344C", "800800800", 1, 5);
+		idGenerado = daoEmpleado.crear(empleadoCompleto);
 
-        int filasEliminadas = daoEmpleado.eliminar(idGenerado);
-        assertTrue(filasEliminadas > 0);
+		assertTrue(idGenerado > 0);
 
-        TEmpleado empleadoLeido = daoEmpleado.leer(idGenerado);
-        assertNotNull(empleadoLeido);
-        assertEquals(0, empleadoLeido.getActivo());
-    }
+		empleadoCompleto.setId(idGenerado);
+		empleadoCompleto.setNombre("Carlos Modificado");
+		empleadoCompleto.setHorasExtra(15);
 
-    @Test
-    public void testLeerTodo() {
-        Collection<TEmpleado> empleados = daoEmpleado.leerTodo();
+		int filasActualizadas = daoEmpleado.actualizar(empleadoCompleto);
+		assertTrue(filasActualizadas > 0);
 
-        assertNotNull(empleados);
-        assertTrue(empleados.size() >= 0);
-    }
+		TEmpleado empleadoLeido = daoEmpleado.leer(idGenerado);
+		assertEquals("Carlos Modificado", empleadoLeido.getNombre());
+		assertEquals("11223344C", empleadoLeido.getDni());
+	}
 
-    @Test
-    public void testLeerPorDNI() {
-        TEmpleadoCompleto empleadoCompleto = new TEmpleadoCompleto(-1, "Ana Torres", "55667788E", "911911911", 1, 8);
-        idGenerado = daoEmpleado.crear(empleadoCompleto);
+	@Test
+	public void testEliminarEmpleado() {
+		TEmpleadoParcial empleadoParcial = new TEmpleadoParcial(-1, "Lucia Ramos", "33445566D", "900900900", 1, 25);
+		idGenerado = daoEmpleado.crear(empleadoParcial);
 
-        TEmpleado empleadoLeido = daoEmpleado.leerPorDNI("55667788E");
+		assertTrue(idGenerado > 0);
 
-        assertNotNull(empleadoLeido);
-        assertEquals("Ana Torres", empleadoLeido.getNombre());
-        assertEquals("55667788E", empleadoLeido.getDni());
-    }
+		int filasEliminadas = daoEmpleado.eliminar(idGenerado);
+		assertTrue(filasEliminadas > 0);
+
+		TEmpleado empleadoLeido = daoEmpleado.leer(idGenerado);
+		assertNotNull(empleadoLeido);
+		assertEquals(0, empleadoLeido.getActivo());
+	}
+
+	@Test
+	public void testLeerTodo() {
+		Collection<TEmpleado> empleados = daoEmpleado.leerTodo();
+
+		assertNotNull(empleados);
+		assertTrue(empleados.size() >= 0);
+	}
+
+	@Test
+	public void testLeerPorDNI() {
+		TEmpleadoCompleto empleadoCompleto = new TEmpleadoCompleto(-1, "Ana Torres", "55667788E", "911911911", 1, 8);
+		idGenerado = daoEmpleado.crear(empleadoCompleto);
+
+		TEmpleado empleadoLeido = daoEmpleado.leerPorDNI("55667788E");
+
+		assertNotNull(empleadoLeido);
+		assertEquals("Ana Torres", empleadoLeido.getNombre());
+		assertEquals("55667788E", empleadoLeido.getDni());
+	}
 }

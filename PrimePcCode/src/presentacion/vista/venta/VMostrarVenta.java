@@ -3,7 +3,6 @@ package presentacion.vista.venta;
 import java.awt.Color;
 import java.awt.GridLayout;
 
-
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
@@ -22,7 +21,7 @@ public class VMostrarVenta extends JPanel {
 
 	private void initGui() {
 		setLayout(new GridLayout(1, 1));
-		
+
 		JButton btnMostrarTodos = new JButton("Mostrar todas las Ventas");
 		btnMostrarTodos.setBackground(new Color(200, 255, 200));
 		btnMostrarTodos.addActionListener(e -> ctrl.accion(Evento.MOSTRAR_TODAS_VENTAS, null));

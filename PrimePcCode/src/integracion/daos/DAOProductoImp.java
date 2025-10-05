@@ -114,27 +114,25 @@ public class DAOProductoImp implements DAOProducto {
 
 		return filasAfectadas;
 	}
-	
+
 	@Override
-	public int eliminarFisicamente(int id) {  //solo para el test
-	    int filasAfectadas = 0;
+	public int eliminarFisicamente(int id) { // solo para el test
+		int filasAfectadas = 0;
 
-	    try (Connection conexion = conectar()) {
-	        String sql = "DELETE FROM PRODUCTO WHERE ID = ?";
-	        PreparedStatement ps = conexion.prepareStatement(sql);
-	        ps.setInt(1, id);
+		try (Connection conexion = conectar()) {
+			String sql = "DELETE FROM PRODUCTO WHERE ID = ?";
+			PreparedStatement ps = conexion.prepareStatement(sql);
+			ps.setInt(1, id);
 
-	        filasAfectadas = ps.executeUpdate();
-	        ps.close();
+			filasAfectadas = ps.executeUpdate();
+			ps.close();
 
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	    }
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 
-	    return filasAfectadas;
+		return filasAfectadas;
 	}
-
-	
 
 	@Override
 	public Collection<TProducto> leerTodo() {

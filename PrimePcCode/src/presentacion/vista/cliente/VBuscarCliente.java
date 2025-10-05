@@ -14,33 +14,33 @@ import presentacion.controlador.Controlador;
 import presentacion.vista.Evento;
 
 public class VBuscarCliente extends JPanel {
-	
+
 	private static final long serialVersionUID = 1L;
-    private Controlador ctrl;
-    
-    public VBuscarCliente() {
-    	ctrl = Controlador.obtenerInstancia();
-        initGUI();
-    }
-    
-    private void initGUI() {
-        setLayout(new GridLayout(3, 1));
-        setBorder(BorderFactory.createTitledBorder("Buscar cliente"));
+	private Controlador ctrl;
 
-        JTextField txtBuscarID = new JTextField();
-        JButton btnBuscar = new JButton("Buscar");
-        btnBuscar.setBackground(new Color(200, 255, 200));
-        add(new JLabel("ID cliente:"));
-        add(txtBuscarID);
-        add(btnBuscar);
+	public VBuscarCliente() {
+		ctrl = Controlador.obtenerInstancia();
+		initGUI();
+	}
 
-        btnBuscar.addActionListener(e -> {
-            try {
-                int id = Integer.parseInt(txtBuscarID.getText());
-                ctrl.accion(Evento.BUSCAR_CLIENTE, id);
-            } catch (NumberFormatException ex) {
-                JOptionPane.showMessageDialog(this, "ID debe ser un numero.");
-            }
-        });
-    }
+	private void initGUI() {
+		setLayout(new GridLayout(3, 1));
+		setBorder(BorderFactory.createTitledBorder("Buscar cliente"));
+
+		JTextField txtBuscarID = new JTextField();
+		JButton btnBuscar = new JButton("Buscar");
+		btnBuscar.setBackground(new Color(200, 255, 200));
+		add(new JLabel("ID cliente:"));
+		add(txtBuscarID);
+		add(btnBuscar);
+
+		btnBuscar.addActionListener(e -> {
+			try {
+				int id = Integer.parseInt(txtBuscarID.getText());
+				ctrl.accion(Evento.BUSCAR_CLIENTE, id);
+			} catch (NumberFormatException ex) {
+				JOptionPane.showMessageDialog(this, "ID debe ser un numero.");
+			}
+		});
+	}
 }

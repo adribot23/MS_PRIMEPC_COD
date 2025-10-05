@@ -134,35 +134,34 @@ public class DAOVentaImp implements DAOVenta {
 		}
 		return filasAfectadas;
 	}
-	
+
 	@Override
-	public int eliminarFisicamente(int id) {  //solo para el test
-	    int filasAfectadas = 0;
-	    Connection conexion = null;
+	public int eliminarFisicamente(int id) { // solo para el test
+		int filasAfectadas = 0;
+		Connection conexion = null;
 
-	    try {
-	        conexion = conectar();
-	        String sql = "DELETE FROM VENTA WHERE ID = ?";
-	        PreparedStatement ps = conexion.prepareStatement(sql);
-	        ps.setInt(1, id);
-	        filasAfectadas = ps.executeUpdate();
+		try {
+			conexion = conectar();
+			String sql = "DELETE FROM VENTA WHERE ID = ?";
+			PreparedStatement ps = conexion.prepareStatement(sql);
+			ps.setInt(1, id);
+			filasAfectadas = ps.executeUpdate();
 
-	        ps.close();
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	    } finally {
-	        try {
-	            if (conexion != null && !conexion.isClosed()) {
-	                conexion.close();
-	            }
-	        } catch (SQLException e) {
-	            e.printStackTrace();
-	        }
-	    }
+			ps.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (conexion != null && !conexion.isClosed()) {
+					conexion.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
 
-	    return filasAfectadas;
+		return filasAfectadas;
 	}
-
 
 	@Override
 	public Collection<TVenta> leerTodo() {

@@ -10,7 +10,6 @@ import java.awt.GridLayout;
 
 import java.util.Collection;
 
-
 import negocio.transfers.TAlmacen;
 import presentacion.vista.Evento;
 import presentacion.vista.IGUI;

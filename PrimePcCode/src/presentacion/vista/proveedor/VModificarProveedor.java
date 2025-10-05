@@ -15,19 +15,19 @@ import presentacion.controlador.Controlador;
 import presentacion.vista.Evento;
 
 public class VModificarProveedor extends JPanel {
-	
+
 	private static final long serialVersionUID = 1L;
-    private Controlador ctrl;
+	private Controlador ctrl;
 
-    public VModificarProveedor() {
-        ctrl = Controlador.obtenerInstancia();
-        initGui();
-    }
+	public VModificarProveedor() {
+		ctrl = Controlador.obtenerInstancia();
+		initGui();
+	}
 
-    private void initGui() {
-        setLayout(new GridLayout(5, 1));
-        setBorder(BorderFactory.createTitledBorder("Modificar Proveedor"));
-      
+	private void initGui() {
+		setLayout(new GridLayout(5, 1));
+		setBorder(BorderFactory.createTitledBorder("Modificar Proveedor"));
+
 		JTextField modId = new JTextField();
 		JTextField modNombre = new JTextField();
 		JButton btnModificar = new JButton("Modificar");
@@ -48,5 +48,5 @@ public class VModificarProveedor extends JPanel {
 		add(modNombre);
 		add(btnModificar);
 
-    }
+	}
 }

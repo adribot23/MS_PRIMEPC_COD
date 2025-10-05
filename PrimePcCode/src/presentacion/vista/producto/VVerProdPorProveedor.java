@@ -14,7 +14,7 @@ import presentacion.controlador.Controlador;
 import presentacion.vista.Evento;
 
 public class VVerProdPorProveedor extends JPanel {
-	
+
 	private static final long serialVersionUID = 1L;
 	private Controlador ctrl;
 

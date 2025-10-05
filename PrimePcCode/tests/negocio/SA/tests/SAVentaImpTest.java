@@ -9,8 +9,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.Collection;
-
 
 import org.junit.After;
 import org.junit.Before;
@@ -89,15 +87,14 @@ public class SAVentaImpTest {
 	}
 
 	@After
-	public void tearDown() {		
-		if(idCliente > 0)  
-		    eliminarFisicamenteCliente(idCliente);  
-		
-		if(idProducto > 0){
+	public void tearDown() {
+		if (idCliente > 0)
+			eliminarFisicamenteCliente(idCliente);
+
+		if (idProducto > 0) {
 			saAlmacen.desvincularProductoAlmacen(idProducto, idAlmacen);
 			saProveedor.desvincularProductoProveedor(idProducto, idProveedor);
-		    eliminarFisicamenteProducto(idProducto); 
-		    
+			eliminarFisicamenteProducto(idProducto);
 
 		}
 
@@ -107,179 +104,170 @@ public class SAVentaImpTest {
 			eliminarFisicamenteProducto(idProductoDescuento);
 		}
 
+		if (idEmpleado > 0)
+			eliminarFisicamenteEmpleado(idEmpleado);
 
+		if (idProveedor > 0)
+			eliminarFisicamenteProveedor(idProveedor);
 
-		if(idEmpleado > 0)  
-		    eliminarFisicamenteEmpleado(idEmpleado);  
-
-		if(idProveedor > 0)  
-			eliminarFisicamenteProveedor(idProveedor);  
-
-		if(idAlmacen > 0)  
+		if (idAlmacen > 0)
 			eliminarFisicamenteAlmacen(idAlmacen);
-		
-		if(idClienteSocio > 0){
+
+		if (idClienteSocio > 0) {
 			eliminarFisicamenteCliente(idClienteSocio);
 		}
-		
-		if(idVenta > 0){ 
+
+		if (idVenta > 0) {
 			eliminarFisicamenteVenta(idVenta);
 			eliminarFisicamenteProductoVenta(idVenta);
 		}
-		
-		
-		if(idVentaConDescuento > 0)  
-			eliminarFisicamenteVenta(idVentaConDescuento); 
+
+		if (idVentaConDescuento > 0)
+			eliminarFisicamenteVenta(idVentaConDescuento);
 		eliminarFisicamenteProductoVenta(idVentaConDescuento);
-		
-	}
-	
-	public int eliminarFisicamenteCliente(int id) {  // Solo para el test
-	    int filasAfectadas = 0;
-	    try {
-	        Connection conexion = DriverManager.getConnection("jdbc:sqlite:bd/IS2PrimePC.db", "root", "root");
 
-	        String sqlNoSocio = "DELETE FROM NOSOCIO WHERE ID = ?";
-	        PreparedStatement psNoSocio = conexion.prepareStatement(sqlNoSocio);
-	        psNoSocio.setInt(1, id);
-	        filasAfectadas += psNoSocio.executeUpdate();
-	        psNoSocio.close();
-
-	        String sqlSocio = "DELETE FROM SOCIO WHERE ID = ?";
-	        PreparedStatement psSocio = conexion.prepareStatement(sqlSocio);
-	        psSocio.setInt(1, id);
-	        filasAfectadas += psSocio.executeUpdate();
-	        psSocio.close();
-
-	        String sqlCliente = "DELETE FROM CLIENTE WHERE ID = ?";
-	        PreparedStatement psCliente = conexion.prepareStatement(sqlCliente);
-	        psCliente.setInt(1, id);
-	        filasAfectadas += psCliente.executeUpdate();
-	        psCliente.close();
-
-	        conexion.close();
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	    }
-	    return filasAfectadas;
-	}
-	
-	
-	
-	public int eliminarFisicamenteProducto(int id) {  //solo para el test
-	    int filasAfectadas = 0;
-	    try {
-	    	Connection conexion = DriverManager.getConnection("jdbc:sqlite:bd/IS2PrimePC.db", "root", "root");
-	        String sql = "DELETE FROM PRODUCTO WHERE ID = ?";
-	        PreparedStatement ps = conexion.prepareStatement(sql);
-	        ps.setInt(1, id);
-	        filasAfectadas = ps.executeUpdate();
-	        ps.close();
-	        conexion.close();
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	    }
-	    return filasAfectadas;
-	}
-	
-	public int eliminarFisicamenteEmpleado(int id) {  // Solo para el test
-	    int filasAfectadas = 0;
-	    try {
-	        Connection conexion = DriverManager.getConnection("jdbc:sqlite:bd/IS2PrimePC.db", "root", "root");
-
-	        String sqlParcial = "DELETE FROM PARCIAL WHERE ID = ?";
-	        PreparedStatement psParcial = conexion.prepareStatement(sqlParcial);
-	        psParcial.setInt(1, id);
-	        filasAfectadas += psParcial.executeUpdate();
-	        psParcial.close();
-
-	        String sqlCompleto = "DELETE FROM COMPLETO WHERE ID = ?";
-	        PreparedStatement psCompleto = conexion.prepareStatement(sqlCompleto);
-	        psCompleto.setInt(1, id);
-	        filasAfectadas += psCompleto.executeUpdate();
-	        psCompleto.close();
-
-	        String sqlEmpleado = "DELETE FROM EMPLEADO WHERE ID = ?";
-	        PreparedStatement psEmpleado = conexion.prepareStatement(sqlEmpleado);
-	        psEmpleado.setInt(1, id);
-	        filasAfectadas += psEmpleado.executeUpdate();
-	        psEmpleado.close();
-
-	        conexion.close();
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	    }
-	    return filasAfectadas;
 	}
 
-	
-	 public int eliminarFisicamenteProveedor(int id) {  //solo para el test
-		    int filasAfectadas = 0;
-		    try {
-		    	Connection conexion = DriverManager.getConnection("jdbc:sqlite:bd/IS2PrimePC.db", "root", "root");
-		        String sql = "DELETE FROM PROVEEDOR WHERE ID = ?";
-		        PreparedStatement ps = conexion.prepareStatement(sql);
-		        ps.setInt(1, id);
-		        filasAfectadas = ps.executeUpdate();
-		        ps.close();
-		        conexion.close();
-		    } catch (SQLException e) {
-		        e.printStackTrace();
-		    }
-		    return filasAfectadas;
-		}
-	
-	 public int eliminarFisicamenteAlmacen(int id) {  //solo para el test
-		    int filasAfectadas = 0;
-		    try {
-		    	Connection conexion = DriverManager.getConnection("jdbc:sqlite:bd/IS2PrimePC.db", "root", "root");
-		        String sql = "DELETE FROM ALMACEN WHERE ID = ?";
-		        PreparedStatement ps = conexion.prepareStatement(sql);
-		        ps.setInt(1, id);
-		        filasAfectadas = ps.executeUpdate();
-		        ps.close();
-		        conexion.close();
-		    } catch (SQLException e) {
-		        e.printStackTrace();
-		    }
-		    return filasAfectadas;
-		}
-	 
-	 public int eliminarFisicamenteVenta(int id) {  //solo para el test
-		    int filasAfectadas = 0;
-		    try {
-		    	Connection conexion = DriverManager.getConnection("jdbc:sqlite:bd/IS2PrimePC.db", "root", "root");
-		        String sql = "DELETE FROM VENTA WHERE ID = ?";
-		        PreparedStatement ps = conexion.prepareStatement(sql);
-		        ps.setInt(1, id);
-		        filasAfectadas = ps.executeUpdate();
-		        ps.close();
-		        conexion.close();
-		    } catch (SQLException e) {
-		        e.printStackTrace();
-		    }
-		    return filasAfectadas;
-		}
-	 
-	 public int eliminarFisicamenteProductoVenta(int id) {  //solo para el test
-		    int filasAfectadas = 0;
-		    try {
-		    	Connection conexion = DriverManager.getConnection("jdbc:sqlite:bd/IS2PrimePC.db", "root", "root");
-		        String sql = "DELETE FROM PRODUCTO_VENTA WHERE VENTA_ID = ?";
-		        PreparedStatement ps = conexion.prepareStatement(sql);
-		        ps.setInt(1, id);
-		        filasAfectadas = ps.executeUpdate();
-		        ps.close();
-		        conexion.close();
-		    } catch (SQLException e) {
-		        e.printStackTrace();
-		    }
-		    return filasAfectadas;
-		}
-	 
-	 
+	public int eliminarFisicamenteCliente(int id) { // Solo para el test
+		int filasAfectadas = 0;
+		try {
+			Connection conexion = DriverManager.getConnection("jdbc:sqlite:bd/IS2PrimePC.db", "root", "root");
 
-	
+			String sqlNoSocio = "DELETE FROM NOSOCIO WHERE ID = ?";
+			PreparedStatement psNoSocio = conexion.prepareStatement(sqlNoSocio);
+			psNoSocio.setInt(1, id);
+			filasAfectadas += psNoSocio.executeUpdate();
+			psNoSocio.close();
+
+			String sqlSocio = "DELETE FROM SOCIO WHERE ID = ?";
+			PreparedStatement psSocio = conexion.prepareStatement(sqlSocio);
+			psSocio.setInt(1, id);
+			filasAfectadas += psSocio.executeUpdate();
+			psSocio.close();
+
+			String sqlCliente = "DELETE FROM CLIENTE WHERE ID = ?";
+			PreparedStatement psCliente = conexion.prepareStatement(sqlCliente);
+			psCliente.setInt(1, id);
+			filasAfectadas += psCliente.executeUpdate();
+			psCliente.close();
+
+			conexion.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return filasAfectadas;
+	}
+
+	public int eliminarFisicamenteProducto(int id) { // solo para el test
+		int filasAfectadas = 0;
+		try {
+			Connection conexion = DriverManager.getConnection("jdbc:sqlite:bd/IS2PrimePC.db", "root", "root");
+			String sql = "DELETE FROM PRODUCTO WHERE ID = ?";
+			PreparedStatement ps = conexion.prepareStatement(sql);
+			ps.setInt(1, id);
+			filasAfectadas = ps.executeUpdate();
+			ps.close();
+			conexion.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return filasAfectadas;
+	}
+
+	public int eliminarFisicamenteEmpleado(int id) { // Solo para el test
+		int filasAfectadas = 0;
+		try {
+			Connection conexion = DriverManager.getConnection("jdbc:sqlite:bd/IS2PrimePC.db", "root", "root");
+
+			String sqlParcial = "DELETE FROM PARCIAL WHERE ID = ?";
+			PreparedStatement psParcial = conexion.prepareStatement(sqlParcial);
+			psParcial.setInt(1, id);
+			filasAfectadas += psParcial.executeUpdate();
+			psParcial.close();
+
+			String sqlCompleto = "DELETE FROM COMPLETO WHERE ID = ?";
+			PreparedStatement psCompleto = conexion.prepareStatement(sqlCompleto);
+			psCompleto.setInt(1, id);
+			filasAfectadas += psCompleto.executeUpdate();
+			psCompleto.close();
+
+			String sqlEmpleado = "DELETE FROM EMPLEADO WHERE ID = ?";
+			PreparedStatement psEmpleado = conexion.prepareStatement(sqlEmpleado);
+			psEmpleado.setInt(1, id);
+			filasAfectadas += psEmpleado.executeUpdate();
+			psEmpleado.close();
+
+			conexion.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return filasAfectadas;
+	}
+
+	public int eliminarFisicamenteProveedor(int id) { // solo para el test
+		int filasAfectadas = 0;
+		try {
+			Connection conexion = DriverManager.getConnection("jdbc:sqlite:bd/IS2PrimePC.db", "root", "root");
+			String sql = "DELETE FROM PROVEEDOR WHERE ID = ?";
+			PreparedStatement ps = conexion.prepareStatement(sql);
+			ps.setInt(1, id);
+			filasAfectadas = ps.executeUpdate();
+			ps.close();
+			conexion.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return filasAfectadas;
+	}
+
+	public int eliminarFisicamenteAlmacen(int id) { // solo para el test
+		int filasAfectadas = 0;
+		try {
+			Connection conexion = DriverManager.getConnection("jdbc:sqlite:bd/IS2PrimePC.db", "root", "root");
+			String sql = "DELETE FROM ALMACEN WHERE ID = ?";
+			PreparedStatement ps = conexion.prepareStatement(sql);
+			ps.setInt(1, id);
+			filasAfectadas = ps.executeUpdate();
+			ps.close();
+			conexion.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return filasAfectadas;
+	}
+
+	public int eliminarFisicamenteVenta(int id) { // solo para el test
+		int filasAfectadas = 0;
+		try {
+			Connection conexion = DriverManager.getConnection("jdbc:sqlite:bd/IS2PrimePC.db", "root", "root");
+			String sql = "DELETE FROM VENTA WHERE ID = ?";
+			PreparedStatement ps = conexion.prepareStatement(sql);
+			ps.setInt(1, id);
+			filasAfectadas = ps.executeUpdate();
+			ps.close();
+			conexion.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return filasAfectadas;
+	}
+
+	public int eliminarFisicamenteProductoVenta(int id) { // solo para el test
+		int filasAfectadas = 0;
+		try {
+			Connection conexion = DriverManager.getConnection("jdbc:sqlite:bd/IS2PrimePC.db", "root", "root");
+			String sql = "DELETE FROM PRODUCTO_VENTA WHERE VENTA_ID = ?";
+			PreparedStatement ps = conexion.prepareStatement(sql);
+			ps.setInt(1, id);
+			filasAfectadas = ps.executeUpdate();
+			ps.close();
+			conexion.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return filasAfectadas;
+	}
+
 	@Test
 	public void testVentaConProductoVinculado() {
 		// Crear producto SIN proveedor ni almacén
@@ -344,9 +332,8 @@ public class SAVentaImpTest {
 		idVenta = saVenta.altaVenta(venta);
 
 		assertEquals(-1, idVenta); // Se espera -1 o fallo porque el
-											// producto no está vinculado
+									// producto no está vinculado
 	}
-	
 
 	@Test
 	public void testVentaMasUnidadesQueStockFalla() {
@@ -380,8 +367,6 @@ public class SAVentaImpTest {
 
 		assertEquals(-1, idVenta); // Se espera -1 o fallo
 	}
-
-	
 
 	@Test
 	public void testVentaClienteSocioConDescuento() {

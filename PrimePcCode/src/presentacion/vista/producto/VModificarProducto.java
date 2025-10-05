@@ -15,7 +15,7 @@ import presentacion.controlador.Controlador;
 import presentacion.vista.Evento;
 
 public class VModificarProducto extends JPanel {
-	
+
 	private static final long serialVersionUID = 1L;
 	private Controlador ctrl;
 
@@ -47,7 +47,7 @@ public class VModificarProducto extends JPanel {
 
 		JButton btnModificar = new JButton("Modificar");
 		btnModificar.setBackground(new Color(200, 255, 200));
-		btnModificar.addActionListener(e ->{
+		btnModificar.addActionListener(e -> {
 			try {
 				int id = Integer.parseInt(txtModId.getText());
 				double precio = Double.parseDouble(txtModPrecio.getText());

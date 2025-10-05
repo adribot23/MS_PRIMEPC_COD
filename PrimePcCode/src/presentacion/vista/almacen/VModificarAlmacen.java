@@ -1,4 +1,5 @@
 package presentacion.vista.almacen;
+
 import java.awt.Color;
 import java.awt.GridLayout;
 
@@ -31,9 +32,9 @@ public class VModificarAlmacen extends JPanel {
 		JTextField nombreField = new JTextField();
 		JTextField capacidadField = new JTextField();
 		JButton modificarButton = new JButton("Modificar");
-		
+
 		modificarButton.setBackground(new Color(200, 255, 200));
-		
+
 		add(new JLabel("ID:"));
 		add(idField);
 		add(new JLabel("Nombre:"));
@@ -56,4 +57,3 @@ public class VModificarAlmacen extends JPanel {
 	}
 
 }
-

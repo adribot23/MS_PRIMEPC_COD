@@ -3,7 +3,7 @@ package negocio.transfers;
 import java.io.Serializable;
 
 public class TProveedor implements Serializable {
-	
+
 	private static final long serialVersionUID = 1L;
 
 	protected int id;
@@ -44,6 +44,6 @@ public class TProveedor implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Proveedor [ID: " + id + ", Nombre: " + nombre +"]";
+		return "Proveedor [ID: " + id + ", Nombre: " + nombre + "]";
 	}
 }

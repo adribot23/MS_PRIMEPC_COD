@@ -7,11 +7,10 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-
 import presentacion.controlador.Controlador;
 import presentacion.vista.Evento;
 
-public class VMostrarPorCliente extends JPanel{
+public class VMostrarPorCliente extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private Controlador ctrl;
@@ -35,7 +34,7 @@ public class VMostrarPorCliente extends JPanel{
 			}
 		});
 		add(btnPorCliente);
-		
+
 	}
 
 }

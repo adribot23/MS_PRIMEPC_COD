@@ -102,7 +102,7 @@ public class DAOAlmacenImp implements DAOAlmacen {
 	}
 
 	@Override
-	public int eliminar(int id) { //solo para el test
+	public int eliminar(int id) { // solo para el test
 		int filasAfectadas = 0;
 		try {
 			conexion = conectar();
@@ -119,23 +119,22 @@ public class DAOAlmacenImp implements DAOAlmacen {
 	}
 
 	@Override
-	public int eliminarFisicamente(int id) {  //solo para el test
-	    int filasAfectadas = 0;
-	    try {
-	        conexion = conectar();
-	        String sql = "DELETE FROM ALMACEN WHERE ID = ?";
-	        PreparedStatement ps = conexion.prepareStatement(sql);
-	        ps.setInt(1, id);
-	        filasAfectadas = ps.executeUpdate();
-	        ps.close();
-	        conexion.close();
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	    }
-	    return filasAfectadas;
+	public int eliminarFisicamente(int id) { // solo para el test
+		int filasAfectadas = 0;
+		try {
+			conexion = conectar();
+			String sql = "DELETE FROM ALMACEN WHERE ID = ?";
+			PreparedStatement ps = conexion.prepareStatement(sql);
+			ps.setInt(1, id);
+			filasAfectadas = ps.executeUpdate();
+			ps.close();
+			conexion.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return filasAfectadas;
 	}
 
-	
 	@Override
 	public TAlmacen leerPorNombre(String nombre) {
 		TAlmacen almacen = null;

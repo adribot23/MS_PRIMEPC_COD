@@ -14,7 +14,7 @@ import presentacion.controlador.Controlador;
 import presentacion.vista.Evento;
 
 public class VBajaProducto extends JPanel {
-	
+
 	private static final long serialVersionUID = 1L;
 	private Controlador ctrl;
 
@@ -33,7 +33,7 @@ public class VBajaProducto extends JPanel {
 		add(new JLabel("ID Producto:"));
 		add(txtBajaId);
 		add(btnBaja);
-		
+
 		btnBaja.addActionListener(e -> {
 			try {
 				int id = Integer.parseInt(txtBajaId.getText());

@@ -12,12 +12,9 @@ import java.util.Collection;
 
 import java.util.List;
 
-
-
 import negocio.transfers.TEmpleado;
 import negocio.transfers.TEmpleadoCompleto;
 import negocio.transfers.TEmpleadoParcial;
-
 
 public class DAOEmpleadoImp implements DAOEmpleado {
 
@@ -25,7 +22,6 @@ public class DAOEmpleadoImp implements DAOEmpleado {
 		return DriverManager.getConnection("jdbc:sqlite:bd/IS2PrimePC.db", "root", "root");
 	}
 
-	
 	@Override
 	public int crear(TEmpleado empleado) {
 		int id = empleado.getId();
@@ -222,33 +218,33 @@ public class DAOEmpleadoImp implements DAOEmpleado {
 
 		return filasAfectadas;
 	}
-	
+
 	@Override
-	public int eliminarFisicamente(int id) {  //solo para el test
-	    int filasAfectadas = 0;
-	    Connection conexion = null;
+	public int eliminarFisicamente(int id) { // solo para el test
+		int filasAfectadas = 0;
+		Connection conexion = null;
 
-	    try {
-	        conexion = conectar();
+		try {
+			conexion = conectar();
 
-	        String sql = "DELETE FROM EMPLEADO WHERE ID = ?";
-	        PreparedStatement ps = conexion.prepareStatement(sql);
-	        ps.setInt(1, id);
-	        filasAfectadas = ps.executeUpdate();
-	        ps.close();
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	    } finally {
-	        try {
-	            if (conexion != null && !conexion.isClosed()) {
-	                conexion.close();
-	            }
-	        } catch (SQLException e) {
-	            e.printStackTrace();
-	        }
-	    }
+			String sql = "DELETE FROM EMPLEADO WHERE ID = ?";
+			PreparedStatement ps = conexion.prepareStatement(sql);
+			ps.setInt(1, id);
+			filasAfectadas = ps.executeUpdate();
+			ps.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (conexion != null && !conexion.isClosed()) {
+					conexion.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
 
-	    return filasAfectadas;
+		return filasAfectadas;
 	}
 
 	@Override

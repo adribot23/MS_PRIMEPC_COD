@@ -24,62 +24,62 @@ public class DAOClienteImp implements DAOCliente {
 
 	@Override
 	public int crear(TCliente cliente) {
-	    int id = cliente.getId();
-	    Connection conexion = null;
+		int id = cliente.getId();
+		Connection conexion = null;
 
-	    try {
-	        conexion = conectar();
+		try {
+			conexion = conectar();
 
-	        String insertSql = "INSERT INTO CLIENTE (DNI, NOMBRE, ACTIVO) VALUES (?, ?, 1)";
-	        PreparedStatement insertPs = conexion.prepareStatement(insertSql, Statement.RETURN_GENERATED_KEYS);
-	        insertPs.setString(1, cliente.getDni());
-	        insertPs.setString(2, cliente.getNombre());
-	        insertPs.executeUpdate();
+			String insertSql = "INSERT INTO CLIENTE (DNI, NOMBRE, ACTIVO) VALUES (?, ?, 1)";
+			PreparedStatement insertPs = conexion.prepareStatement(insertSql, Statement.RETURN_GENERATED_KEYS);
+			insertPs.setString(1, cliente.getDni());
+			insertPs.setString(2, cliente.getNombre());
+			insertPs.executeUpdate();
 
-	        ResultSet insertRs = insertPs.getGeneratedKeys();
+			ResultSet insertRs = insertPs.getGeneratedKeys();
 
-	        if (insertRs.next()) {
-	            id = insertRs.getInt(1);
+			if (insertRs.next()) {
+				id = insertRs.getInt(1);
 
-	            if (cliente instanceof TClienteSocio) {
-	                TClienteSocio socio = (TClienteSocio) cliente;
-	                insertSql = "INSERT INTO SOCIO (ID, PUNTOS, NUM_SOCIO) VALUES (?, ?, ?)";
-	                PreparedStatement psSocio = conexion.prepareStatement(insertSql);
-	                if (id != -1)
-	                    psSocio.setInt(1, id);
-	                psSocio.setInt(2, socio.getPuntos());
-	                psSocio.setInt(3, generarNumSocio(conexion)); // OJO: aquí usas tu método de generar número de socio
-	                psSocio.executeUpdate();
-	                psSocio.close();
-	            } else if (cliente instanceof TClienteNoSocio) {
-	                TClienteNoSocio noSocio = (TClienteNoSocio) cliente;
-	                insertSql = "INSERT INTO NOSOCIO (ID, NUM_VISITAS) VALUES (?, ?)";
-	                PreparedStatement psNoSocio = conexion.prepareStatement(insertSql);
-	                if (id != -1)
-	                    psNoSocio.setInt(1, id);
-	                psNoSocio.setInt(2, noSocio.getNumVisitas());
-	                psNoSocio.executeUpdate();
-	                psNoSocio.close();
-	            }
-	        } else {
-	            throw new SQLException();
-	        }
+				if (cliente instanceof TClienteSocio) {
+					TClienteSocio socio = (TClienteSocio) cliente;
+					insertSql = "INSERT INTO SOCIO (ID, PUNTOS, NUM_SOCIO) VALUES (?, ?, ?)";
+					PreparedStatement psSocio = conexion.prepareStatement(insertSql);
+					if (id != -1)
+						psSocio.setInt(1, id);
+					psSocio.setInt(2, socio.getPuntos());
+					psSocio.setInt(3, generarNumSocio(conexion)); // OJO: aquí usas tu método de generar número de socio
+					psSocio.executeUpdate();
+					psSocio.close();
+				} else if (cliente instanceof TClienteNoSocio) {
+					TClienteNoSocio noSocio = (TClienteNoSocio) cliente;
+					insertSql = "INSERT INTO NOSOCIO (ID, NUM_VISITAS) VALUES (?, ?)";
+					PreparedStatement psNoSocio = conexion.prepareStatement(insertSql);
+					if (id != -1)
+						psNoSocio.setInt(1, id);
+					psNoSocio.setInt(2, noSocio.getNumVisitas());
+					psNoSocio.executeUpdate();
+					psNoSocio.close();
+				}
+			} else {
+				throw new SQLException();
+			}
 
-	        insertRs.close();
-	        insertPs.close();
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	    } finally {
-	        try {
-	            if (conexion != null && !conexion.isClosed()) {
-	                conexion.close();
-	            }
-	        } catch (SQLException e) {
-	            e.printStackTrace();
-	        }
-	    }
+			insertRs.close();
+			insertPs.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (conexion != null && !conexion.isClosed()) {
+					conexion.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
 
-	    return id;
+		return id;
 	}
 
 	@Override
@@ -107,7 +107,7 @@ public class DAOClienteImp implements DAOCliente {
 					int puntos = rsSocio.getInt("PUNTOS");
 					int numSocio = rsSocio.getInt("NUM_SOCIO");
 
-					TClienteSocio socio = new TClienteSocio(id, nombre,dni, activo, numSocio,puntos);
+					TClienteSocio socio = new TClienteSocio(id, nombre, dni, activo, numSocio, puntos);
 					cliente = socio;
 				} else {
 					PreparedStatement psNoSocio = conexion
@@ -118,7 +118,7 @@ public class DAOClienteImp implements DAOCliente {
 					if (rsNoSocio.next()) {
 						int numVisitas = rsNoSocio.getInt("NUM_VISITAS");
 
-						TClienteNoSocio noSocio = new TClienteNoSocio(id, nombre,dni, activo, numVisitas);
+						TClienteNoSocio noSocio = new TClienteNoSocio(id, nombre, dni, activo, numVisitas);
 						cliente = noSocio;
 					}
 
@@ -128,7 +128,7 @@ public class DAOClienteImp implements DAOCliente {
 
 				rsSocio.close();
 				psSocio.close();
-				
+
 			}
 
 			rsCliente.close();
@@ -205,76 +205,77 @@ public class DAOClienteImp implements DAOCliente {
 		}
 		return filasAfectadas;
 	}
-	
-	@Override
-	public int eliminarFisicamente(int id) {  //solo para el test
-	    int filasAfectadas = 0;
-	    try {
-	        conexion = conectar();
-	        String sql = "DELETE FROM CLIENTE WHERE ID = ?";
-	        PreparedStatement ps = conexion.prepareStatement(sql);
-	        ps.setInt(1, id);
-	        filasAfectadas = ps.executeUpdate();
-	        ps.close();
-	        conexion.close();
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	    }
-	    return filasAfectadas;
-	}
 
+	@Override
+	public int eliminarFisicamente(int id) { // solo para el test
+		int filasAfectadas = 0;
+		try {
+			conexion = conectar();
+			String sql = "DELETE FROM CLIENTE WHERE ID = ?";
+			PreparedStatement ps = conexion.prepareStatement(sql);
+			ps.setInt(1, id);
+			filasAfectadas = ps.executeUpdate();
+			ps.close();
+			conexion.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return filasAfectadas;
+	}
 
 	@Override
 	public TCliente leerPorDNI(String dni) {
-	    if (dni == null || dni.isEmpty()) {
-	        return null;
-	    }
+		if (dni == null || dni.isEmpty()) {
+			return null;
+		}
 
-	    TCliente cliente = null;
+		TCliente cliente = null;
 
-	    try (Connection conexion = conectar();
-	         PreparedStatement psCliente = conexion.prepareStatement("SELECT ID, NOMBRE, ACTIVO FROM CLIENTE WHERE DNI = ?")) {
+		try (Connection conexion = conectar();
+				PreparedStatement psCliente = conexion
+						.prepareStatement("SELECT ID, NOMBRE, ACTIVO FROM CLIENTE WHERE DNI = ?")) {
 
-	        psCliente.setString(1, dni);
-	        try (ResultSet rsCliente = psCliente.executeQuery()) {
-	            if (rsCliente.next()) {
-	                int id = rsCliente.getInt("ID");
-	                String nombre = rsCliente.getString("NOMBRE");
-	                int activo = rsCliente.getInt("ACTIVO");
+			psCliente.setString(1, dni);
+			try (ResultSet rsCliente = psCliente.executeQuery()) {
+				if (rsCliente.next()) {
+					int id = rsCliente.getInt("ID");
+					String nombre = rsCliente.getString("NOMBRE");
+					int activo = rsCliente.getInt("ACTIVO");
 
-	                try (PreparedStatement psSocio = conexion.prepareStatement("SELECT PUNTOS, NUM_SOCIO FROM SOCIO WHERE ID = ?")) {
-	                    psSocio.setInt(1, id);
-	                    try (ResultSet rsSocio = psSocio.executeQuery()) {
-	                        if (rsSocio.next()) {
-	                            int puntos = rsSocio.getInt("PUNTOS");
-	                            int numSocio = rsSocio.getInt("NUM_SOCIO");
-	                            cliente = new TClienteSocio(id, nombre, dni, activo, numSocio, puntos);
-	                        } else {
-	                            try (PreparedStatement psNoSocio = conexion.prepareStatement("SELECT NUM_VISITAS FROM NOSOCIO WHERE ID = ?")) {
-	                                psNoSocio.setInt(1, id);
-	                                try (ResultSet rsNoSocio = psNoSocio.executeQuery()) {
-	                                    if (rsNoSocio.next()) {
-	                                        int numVisitas = rsNoSocio.getInt("NUM_VISITAS");
-	                                        cliente = new TClienteNoSocio(id, nombre, dni, activo, numVisitas);
-	                                    }
-	                                }
-	                            }
-	                        }
-	                    }
-	                }
-	            }
-	        }
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	    }
+					try (PreparedStatement psSocio = conexion
+							.prepareStatement("SELECT PUNTOS, NUM_SOCIO FROM SOCIO WHERE ID = ?")) {
+						psSocio.setInt(1, id);
+						try (ResultSet rsSocio = psSocio.executeQuery()) {
+							if (rsSocio.next()) {
+								int puntos = rsSocio.getInt("PUNTOS");
+								int numSocio = rsSocio.getInt("NUM_SOCIO");
+								cliente = new TClienteSocio(id, nombre, dni, activo, numSocio, puntos);
+							} else {
+								try (PreparedStatement psNoSocio = conexion
+										.prepareStatement("SELECT NUM_VISITAS FROM NOSOCIO WHERE ID = ?")) {
+									psNoSocio.setInt(1, id);
+									try (ResultSet rsNoSocio = psNoSocio.executeQuery()) {
+										if (rsNoSocio.next()) {
+											int numVisitas = rsNoSocio.getInt("NUM_VISITAS");
+											cliente = new TClienteNoSocio(id, nombre, dni, activo, numVisitas);
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 
-	    return cliente;
+		return cliente;
 	}
-
 
 	@Override
 	public Collection<TCliente> leerTodo() {
-	 List<TCliente> clientes = new ArrayList<TCliente>();
+		List<TCliente> clientes = new ArrayList<TCliente>();
 
 		try {
 			conexion = conectar();
@@ -297,7 +298,7 @@ public class DAOClienteImp implements DAOCliente {
 					int puntos = rsSocio.getInt("PUNTOS");
 					int numSocio = rsSocio.getInt("NUM_SOCIO");
 
-					TClienteSocio socio = new TClienteSocio(id,nombre,dni, activo,  numSocio, puntos);
+					TClienteSocio socio = new TClienteSocio(id, nombre, dni, activo, numSocio, puntos);
 					clientes.add(socio);
 				} else {
 					String sqlNoSocio = "SELECT NUM_VISITAS FROM NOSOCIO WHERE ID = ?";
@@ -331,16 +332,15 @@ public class DAOClienteImp implements DAOCliente {
 		return clientes;
 	}
 
-	
 	private int generarNumSocio(Connection conexion) throws SQLException {
-	    String sql = "SELECT MAX(NUM_SOCIO) FROM SOCIO";
-	    Statement s = conexion.createStatement();
-	    ResultSet rs = s.executeQuery(sql);
-	    int nuevoID = 1;
-	    if (rs.next()) {
-	        nuevoID = rs.getInt(1) + 1;
-	    }
-	    return nuevoID;
+		String sql = "SELECT MAX(NUM_SOCIO) FROM SOCIO";
+		Statement s = conexion.createStatement();
+		ResultSet rs = s.executeQuery(sql);
+		int nuevoID = 1;
+		if (rs.next()) {
+			nuevoID = rs.getInt(1) + 1;
+		}
+		return nuevoID;
 	}
 
 }

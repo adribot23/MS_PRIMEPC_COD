@@ -28,7 +28,7 @@ public class VAltaAlmacen extends JPanel {
 		setBorder(BorderFactory.createTitledBorder("Alta Almacen"));
 		setLayout(new GridLayout(5, 1, 5, 5));
 
-		JTextField  nombreField = new JTextField();
+		JTextField nombreField = new JTextField();
 		JTextField capacidadField = new JTextField();
 		JButton altaButton = new JButton("Dar de alta");
 		altaButton.setBackground(new Color(200, 255, 200));
@@ -50,5 +50,4 @@ public class VAltaAlmacen extends JPanel {
 		});
 	}
 
-	
 }

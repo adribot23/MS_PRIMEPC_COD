@@ -13,7 +13,7 @@ import javax.swing.JTextField;
 import presentacion.controlador.Controlador;
 import presentacion.vista.Evento;
 
-public class VVincularAlmacen extends JPanel  {
+public class VVincularAlmacen extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private Controlador ctrl;

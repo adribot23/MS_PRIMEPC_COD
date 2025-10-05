@@ -1,7 +1,5 @@
 package integracion.factoria;
 
-
-
 import integracion.daos.DAOAlmacen;
 import integracion.daos.DAOAlmacenImp;
 import integracion.daos.DAOCliente;

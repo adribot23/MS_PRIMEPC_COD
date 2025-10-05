@@ -15,7 +15,7 @@ import presentacion.vista.Evento;
 import presentacion.vista.IGUI;
 
 public class GUIVenta extends JPanel implements IGUI {
-	
+
 	private static final long serialVersionUID = 1L;
 
 	public GUIVenta() {

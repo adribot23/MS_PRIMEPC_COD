@@ -18,138 +18,138 @@ import negocio.transfers.TProducto;
 
 public class SAProductoImpTest {
 
-    private SAProducto saProducto;
-    private int idProductoCreado;
+	private SAProducto saProducto;
+	private int idProductoCreado;
 
-    @Before
-    public void setUp() {
-        saProducto = FactoriaNegocio.obtenerInstancia().generaSAProducto();
-    }
-    
-    @After
-    public void tearDown(){
-    	if(idProductoCreado > 0){
-    		eliminarFisicamente(idProductoCreado);
-    	}
-    }
-    
-    public int eliminarFisicamente(int id) {  //solo para el test
-	    int filasAfectadas = 0;
-	    try {
-	    	Connection conexion = DriverManager.getConnection("jdbc:sqlite:bd/IS2PrimePC.db", "root", "root");
-	        String sql = "DELETE FROM PRODUCTO WHERE ID = ?";
-	        PreparedStatement ps = conexion.prepareStatement(sql);
-	        ps.setInt(1, id);
-	        filasAfectadas = ps.executeUpdate();
-	        ps.close();
-	        conexion.close();
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	    }
-	    return filasAfectadas;
+	@Before
+	public void setUp() {
+		saProducto = FactoriaNegocio.obtenerInstancia().generaSAProducto();
 	}
 
-    @Test
-    public void testAltaProducto() {
-    	//1.Alta de Producto
-        TProducto producto = new TProducto();
-        producto.setModelo("Modelo123");
-        producto.setMarca("MarcaTest");
-        producto.setUnidades(10);
-        producto.setPrecio(99.99);
-        producto.setActivo(1);
+	@After
+	public void tearDown() {
+		if (idProductoCreado > 0) {
+			eliminarFisicamente(idProductoCreado);
+		}
+	}
 
-        idProductoCreado = saProducto.altaProducto(producto);
-        assertTrue(idProductoCreado > 0);
+	public int eliminarFisicamente(int id) { // solo para el test
+		int filasAfectadas = 0;
+		try {
+			Connection conexion = DriverManager.getConnection("jdbc:sqlite:bd/IS2PrimePC.db", "root", "root");
+			String sql = "DELETE FROM PRODUCTO WHERE ID = ?";
+			PreparedStatement ps = conexion.prepareStatement(sql);
+			ps.setInt(1, id);
+			filasAfectadas = ps.executeUpdate();
+			ps.close();
+			conexion.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return filasAfectadas;
+	}
 
-    }
+	@Test
+	public void testAltaProducto() {
+		// 1.Alta de Producto
+		TProducto producto = new TProducto();
+		producto.setModelo("Modelo123");
+		producto.setMarca("MarcaTest");
+		producto.setUnidades(10);
+		producto.setPrecio(99.99);
+		producto.setActivo(1);
 
-    @Test
-    public void testLeerProducto() {
-    	//2.Leer Producto
-        TProducto producto = new TProducto();
-        producto.setModelo("ModeloLectura");
-        producto.setMarca("MarcaLectura");
-        producto.setUnidades(5);
-        producto.setPrecio(49.99);
-        producto.setActivo(1);
+		idProductoCreado = saProducto.altaProducto(producto);
+		assertTrue(idProductoCreado > 0);
 
-        idProductoCreado = saProducto.altaProducto(producto);
+	}
 
-        TProducto leido = saProducto.leerProducto(idProductoCreado);
+	@Test
+	public void testLeerProducto() {
+		// 2.Leer Producto
+		TProducto producto = new TProducto();
+		producto.setModelo("ModeloLectura");
+		producto.setMarca("MarcaLectura");
+		producto.setUnidades(5);
+		producto.setPrecio(49.99);
+		producto.setActivo(1);
 
-        assertNotNull(leido);
-        assertEquals("ModeloLectura", leido.getModelo());
+		idProductoCreado = saProducto.altaProducto(producto);
 
-        saProducto.bajaProducto(idProductoCreado);
-    }
+		TProducto leido = saProducto.leerProducto(idProductoCreado);
 
-    @Test
-    public void testLeerTodosProductos() {
-    	//3. Leer todos los productos
-        int sizeBefore = saProducto.leerTodosProductos().size();
+		assertNotNull(leido);
+		assertEquals("ModeloLectura", leido.getModelo());
 
-        TProducto producto = new TProducto();
-        producto.setModelo("ModeloLista");
-        producto.setMarca("MarcaLista");
-        producto.setUnidades(7);
-        producto.setPrecio(79.99);
-        producto.setActivo(1);
+		saProducto.bajaProducto(idProductoCreado);
+	}
 
-        idProductoCreado = saProducto.altaProducto(producto);
+	@Test
+	public void testLeerTodosProductos() {
+		// 3. Leer todos los productos
+		int sizeBefore = saProducto.leerTodosProductos().size();
 
-        Collection<TProducto> productos = saProducto.leerTodosProductos();
-        assertTrue(productos.size() >= sizeBefore + 1);
+		TProducto producto = new TProducto();
+		producto.setModelo("ModeloLista");
+		producto.setMarca("MarcaLista");
+		producto.setUnidades(7);
+		producto.setPrecio(79.99);
+		producto.setActivo(1);
 
-        // Limpieza
-        saProducto.bajaProducto(idProductoCreado);
-    }
+		idProductoCreado = saProducto.altaProducto(producto);
 
-    @Test
-    public void testModificarProducto() {
-    	//4. Modificar producto
-        TProducto producto = new TProducto();
-        producto.setModelo("ModeloModificar");
-        producto.setMarca("MarcaModificar");
-        producto.setUnidades(20);
-        producto.setPrecio(199.99);
-        producto.setActivo(1);
+		Collection<TProducto> productos = saProducto.leerTodosProductos();
+		assertTrue(productos.size() >= sizeBefore + 1);
 
-        idProductoCreado = saProducto.altaProducto(producto);
-        TProducto productoModificar = saProducto.leerProducto(idProductoCreado);
+		// Limpieza
+		saProducto.bajaProducto(idProductoCreado);
+	}
 
-        productoModificar.setModelo("Producto Modificado");
-        productoModificar.setUnidades(15); // cambia unidades
+	@Test
+	public void testModificarProducto() {
+		// 4. Modificar producto
+		TProducto producto = new TProducto();
+		producto.setModelo("ModeloModificar");
+		producto.setMarca("MarcaModificar");
+		producto.setUnidades(20);
+		producto.setPrecio(199.99);
+		producto.setActivo(1);
 
-        int resultado = saProducto.modificarProducto(productoModificar);
+		idProductoCreado = saProducto.altaProducto(producto);
+		TProducto productoModificar = saProducto.leerProducto(idProductoCreado);
 
-        assertTrue(resultado > 0);
+		productoModificar.setModelo("Producto Modificado");
+		productoModificar.setUnidades(15); // cambia unidades
 
-        TProducto modificado = saProducto.leerProducto(idProductoCreado);
-        assertEquals("Producto Modificado", modificado.getModelo());
-        assertEquals(15, modificado.getUnidades());
+		int resultado = saProducto.modificarProducto(productoModificar);
 
-        // Limpieza
-        saProducto.bajaProducto(idProductoCreado);
-    }
+		assertTrue(resultado > 0);
 
-    @Test
-    public void testBajaProducto() {
-    	//5. Baja de producto
-        TProducto producto = new TProducto();
-        producto.setModelo("ModeloBaja");
-        producto.setMarca("MarcaBaja");
-        producto.setUnidades(3);
-        producto.setPrecio(39.99);
-        producto.setActivo(1);
+		TProducto modificado = saProducto.leerProducto(idProductoCreado);
+		assertEquals("Producto Modificado", modificado.getModelo());
+		assertEquals(15, modificado.getUnidades());
 
-        idProductoCreado = saProducto.altaProducto(producto);
+		// Limpieza
+		saProducto.bajaProducto(idProductoCreado);
+	}
 
-        int resultadoBaja = saProducto.bajaProducto(idProductoCreado);
+	@Test
+	public void testBajaProducto() {
+		// 5. Baja de producto
+		TProducto producto = new TProducto();
+		producto.setModelo("ModeloBaja");
+		producto.setMarca("MarcaBaja");
+		producto.setUnidades(3);
+		producto.setPrecio(39.99);
+		producto.setActivo(1);
 
-        assertTrue(resultadoBaja>0);
+		idProductoCreado = saProducto.altaProducto(producto);
 
-        TProducto productoBaja = saProducto.leerProducto(idProductoCreado);
-        assertNull(productoBaja);
-    }
+		int resultadoBaja = saProducto.bajaProducto(idProductoCreado);
+
+		assertTrue(resultadoBaja > 0);
+
+		TProducto productoBaja = saProducto.leerProducto(idProductoCreado);
+		assertNull(productoBaja);
+	}
 }

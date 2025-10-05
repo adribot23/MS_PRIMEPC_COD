@@ -52,8 +52,7 @@ public class SAClienteImp implements SACliente {
 		TCliente existente = daoCliente.leer(cliente.getId());
 
 		if (existente != null && existente.getActivo() == 1 && existente.getClass().equals(cliente.getClass())
-				&& (cliente.getDni().equals(existente.getDni())
-						|| daoCliente.leerPorDNI(cliente.getDni()) == null)) {
+				&& (cliente.getDni().equals(existente.getDni()) || daoCliente.leerPorDNI(cliente.getDni()) == null)) {
 			res = daoCliente.actualizar(cliente);
 		}
 
