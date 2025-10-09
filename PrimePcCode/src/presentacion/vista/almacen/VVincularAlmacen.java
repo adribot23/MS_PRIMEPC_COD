@@ -12,7 +12,7 @@ import javax.swing.JTextField;
 
 import presentacion.controlador.Controlador;
 import presentacion.controlador.ControladorImp;
-import presentacion.vista.Evento;
+import presentacion.factoria.Evento;
 
 public class VVincularAlmacen extends JPanel {
 

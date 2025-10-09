@@ -16,7 +16,7 @@ import negocio.transfers.TEmpleado;
 import negocio.transfers.TEmpleadoCompleto;
 import negocio.transfers.TEmpleadoParcial;
 import presentacion.controlador.Controlador;
-import presentacion.vista.Evento;
+import presentacion.factoria.Evento;
 
 public class VModificarEmpleado extends JPanel {
 

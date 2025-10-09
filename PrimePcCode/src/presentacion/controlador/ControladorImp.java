@@ -15,8 +15,8 @@ import negocio.transfers.TEmpleado;
 import negocio.transfers.TProducto;
 import negocio.transfers.TProveedor;
 import negocio.transfers.TVenta;
+import presentacion.factoria.Evento;
 import presentacion.factoria.FactoriaPresentacion;
-import presentacion.vista.Evento;
 import presentacion.vista.IGUI;
 
 public class ControladorImp extends Controlador {
@@ -43,7 +43,9 @@ public class ControladorImp extends Controlador {
 	public void accion(Evento evento, Object datos) {
 
 		// LLamar a la factoria cada vez que actualizemos la vista
+		
 		IGUI vista = FactoriaPresentacion.obtenerInstancia(evento).GeneraVista();
+		
 		switch (evento) {
 		// Empleado
 		case ALTA_EMPLEADO: {
@@ -90,9 +92,7 @@ public class ControladorImp extends Controlador {
 			else
 				vista.actualizar(Evento.RES_MOSTRAR_TODOS_EMPLEADOS_KO, null);
 			break;
-
 		}
-
 		// Cliente
 		case ALTA_CLIENTE: {
 			TCliente tCliente = (TCliente) datos;

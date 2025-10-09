@@ -1,4 +1,4 @@
-package presentacion.vista;
+package presentacion.factoria;
 
 public enum Evento {
 	// Empleado

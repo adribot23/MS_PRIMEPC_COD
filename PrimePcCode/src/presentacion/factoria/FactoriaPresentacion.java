@@ -1,6 +1,5 @@
 package presentacion.factoria;
 
-import presentacion.vista.Evento;
 import presentacion.vista.IGUI;
 
 public abstract class FactoriaPresentacion {

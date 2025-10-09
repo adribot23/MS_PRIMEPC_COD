@@ -1,6 +1,6 @@
 package presentacion.controlador;
 
-import presentacion.vista.Evento;
+import presentacion.factoria.Evento;
 
 public abstract class Controlador {
 
