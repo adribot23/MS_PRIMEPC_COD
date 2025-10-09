@@ -19,7 +19,7 @@ import javax.swing.JTable;
 import javax.swing.SwingConstants;
 
 import negocio.transfers.TVenta;
-import presentacion.vista.Evento;
+import presentacion.factoria.Evento;
 import presentacion.vista.IGUI;
 
 public class GUIVenta extends JPanel implements IGUI {

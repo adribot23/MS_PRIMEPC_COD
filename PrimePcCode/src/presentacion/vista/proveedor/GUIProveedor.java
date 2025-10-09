@@ -18,7 +18,7 @@ import javax.swing.JTable;
 import javax.swing.SwingConstants;
 
 import negocio.transfers.TProveedor;
-import presentacion.vista.Evento;
+import presentacion.factoria.Evento;
 import presentacion.vista.IGUI;
 
 public class GUIProveedor extends JPanel implements IGUI {

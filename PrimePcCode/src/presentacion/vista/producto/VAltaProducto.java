@@ -12,7 +12,7 @@ import javax.swing.JTextField;
 
 import negocio.transfers.TProducto;
 import presentacion.controlador.Controlador;
-import presentacion.vista.Evento;
+import presentacion.factoria.Evento;
 
 public class VAltaProducto extends JPanel {
 

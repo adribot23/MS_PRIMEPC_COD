@@ -18,7 +18,7 @@ import javax.swing.JTextField;
 
 import negocio.transfers.TVenta;
 import presentacion.controlador.Controlador;
-import presentacion.vista.Evento;
+import presentacion.factoria.Evento;
 
 public class VAltaVenta extends JPanel {
 

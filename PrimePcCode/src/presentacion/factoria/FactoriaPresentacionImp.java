@@ -1,6 +1,5 @@
 package presentacion.factoria;
 
-import presentacion.vista.Evento;
 import presentacion.vista.IGUI;
 import presentacion.vista.almacen.GUIAlmacen;
 import presentacion.vista.cliente.GUICliente;
@@ -28,7 +27,7 @@ public class FactoriaPresentacionImp extends FactoriaPresentacion {
 	public IGUI GeneraVista() {
 		switch (e) {
 
-		// ===== EMPLEADO =====
+		//  EMPLEADO 
 		case ALTA_EMPLEADO:
 		case BAJA_EMPLEADO:
 		case MODIFICAR_EMPLEADO:
@@ -36,7 +35,7 @@ public class FactoriaPresentacionImp extends FactoriaPresentacion {
 		case MOSTRAR_TODOS_EMPLEADOS:
 			return new GUIEmpleado();
 
-		// ===== CLIENTE =====
+		//  CLIENTE 
 		case ALTA_CLIENTE:
 		case BAJA_CLIENTE:
 		case MODIFICAR_CLIENTE:
@@ -44,7 +43,7 @@ public class FactoriaPresentacionImp extends FactoriaPresentacion {
 		case MOSTRAR_TODOS_CLIENTES:
 			return new GUICliente();
 
-		// ===== ALMACÉN =====
+		//  ALMACÉN 
 		case ALTA_ALMACEN:
 		case BAJA_ALMACEN:
 		case MODIFICAR_ALMACEN:
@@ -54,7 +53,7 @@ public class FactoriaPresentacionImp extends FactoriaPresentacion {
 		case DESVINCULAR_PRODUCTO_ALMACEN:
 			return new GUIAlmacen();
 
-		// ===== PROVEEDOR =====
+		//  PROVEEDOR 
 		case ALTA_PROVEEDOR:
 		case BAJA_PROVEEDOR:
 		case MODIFICAR_PROVEEDOR:
@@ -65,7 +64,7 @@ public class FactoriaPresentacionImp extends FactoriaPresentacion {
 		case DESVINCULAR_PRODUCTO_PROVEEDOR:
 			return new GUIProveedor();
 
-		// ===== PRODUCTO =====
+		//  PRODUCTO 
 		case ALTA_PRODUCTO:
 		case BAJA_PRODUCTO:
 		case MODIFICAR_PRODUCTO:
@@ -75,7 +74,7 @@ public class FactoriaPresentacionImp extends FactoriaPresentacion {
 		case MOSTRAR_PRODUCTOS_POR_ALMACEN:
 			return new GUIProducto();
 
-		// ===== VENTA =====
+		//  VENTA 
 		case ALTA_VENTA:
 		case BAJA_VENTA:
 		case MODIFICAR_VENTA:

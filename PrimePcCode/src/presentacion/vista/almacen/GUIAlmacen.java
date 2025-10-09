@@ -18,7 +18,7 @@ import javax.swing.JTable;
 import javax.swing.SwingConstants;
 
 import negocio.transfers.TAlmacen;
-import presentacion.vista.Evento;
+import presentacion.factoria.Evento;
 import presentacion.vista.IGUI;
 
 public class GUIAlmacen extends JPanel implements IGUI {

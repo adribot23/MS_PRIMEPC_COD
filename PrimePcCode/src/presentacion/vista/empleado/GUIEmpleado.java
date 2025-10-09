@@ -21,7 +21,7 @@ import javax.swing.SwingConstants;
 import negocio.transfers.TEmpleado;
 import negocio.transfers.TEmpleadoCompleto;
 import negocio.transfers.TEmpleadoParcial;
-import presentacion.vista.Evento;
+import presentacion.factoria.Evento;
 import presentacion.vista.IGUI;
 
 public class GUIEmpleado extends JPanel implements IGUI {

@@ -7,7 +7,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import presentacion.controlador.Controlador;
-import presentacion.vista.Evento;
+import presentacion.factoria.Evento;
 
 public class VMostrarVenta extends JPanel {
 

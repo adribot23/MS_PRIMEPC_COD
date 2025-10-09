@@ -16,7 +16,7 @@ import negocio.transfers.TCliente;
 import negocio.transfers.TClienteNoSocio;
 import negocio.transfers.TClienteSocio;
 import presentacion.controlador.Controlador;
-import presentacion.vista.Evento;
+import presentacion.factoria.Evento;
 
 public class VAltaCliente extends JPanel {
 

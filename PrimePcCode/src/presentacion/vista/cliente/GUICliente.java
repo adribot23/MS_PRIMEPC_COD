@@ -20,7 +20,7 @@ import javax.swing.SwingConstants;
 import negocio.transfers.TCliente;
 import negocio.transfers.TClienteNoSocio;
 import negocio.transfers.TClienteSocio;
-import presentacion.vista.Evento;
+import presentacion.factoria.Evento;
 import presentacion.vista.IGUI;
 
 public class GUICliente extends JPanel implements IGUI {

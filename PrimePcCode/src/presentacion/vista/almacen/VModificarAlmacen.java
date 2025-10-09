@@ -12,7 +12,7 @@ import javax.swing.JTextField;
 
 import negocio.transfers.TAlmacen;
 import presentacion.controlador.Controlador;
-import presentacion.vista.Evento;
+import presentacion.factoria.Evento;
 
 public class VModificarAlmacen extends JPanel {
 
