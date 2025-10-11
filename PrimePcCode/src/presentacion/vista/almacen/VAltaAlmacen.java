@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import negocio.transfers.TAlmacen;
+import presentacion.controlador.Context;
 import presentacion.controlador.Controlador;
 import presentacion.factoria.Evento;
 
@@ -43,7 +44,7 @@ public class VAltaAlmacen extends JPanel {
 				String nombre = nombreField.getText().trim();
 				int capacidad = Integer.parseInt(capacidadField.getText().trim());
 				TAlmacen almacen = new TAlmacen(nombre, capacidad, 0);
-				ctrl.accion(Evento.ALTA_ALMACEN, almacen);
+				ctrl.accion(new Context(Evento.ALTA_ALMACEN, almacen));
 			} catch (NumberFormatException ex) {
 				JOptionPane.showMessageDialog(this, "Capacidad y ocupacion deben ser numeros.");
 			}

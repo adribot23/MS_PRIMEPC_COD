@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import negocio.transfers.TAlmacen;
+import presentacion.controlador.Context;
 import presentacion.controlador.Controlador;
 import presentacion.factoria.Evento;
 
@@ -49,7 +50,7 @@ public class VModificarAlmacen extends JPanel {
 				String nombre = nombreField.getText();
 				int capacidad = Integer.parseInt(capacidadField.getText());
 				TAlmacen almacen = new TAlmacen(id, nombre, capacidad, -1);
-				ctrl.accion(Evento.MODIFICAR_ALMACEN, almacen);
+				ctrl.accion(new Context(Evento.MODIFICAR_ALMACEN, almacen));
 			} catch (NumberFormatException ex) {
 				JOptionPane.showMessageDialog(this, "Campos numericos inválidos.");
 			}

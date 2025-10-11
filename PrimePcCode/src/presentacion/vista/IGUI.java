@@ -1,7 +1,7 @@
 package presentacion.vista;
 
-import presentacion.factoria.Evento;
+import presentacion.controlador.Context;
 
 public interface IGUI {
-	void actualizar(Evento evento, Object datos);
+	void actualizar(Context context);
 }

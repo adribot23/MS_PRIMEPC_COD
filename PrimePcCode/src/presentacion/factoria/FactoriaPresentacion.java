@@ -6,12 +6,12 @@ public abstract class FactoriaPresentacion {
 
 	private static FactoriaPresentacion instancia;
 
-	public static FactoriaPresentacion obtenerInstancia(Evento e) {
+	public static FactoriaPresentacion obtenerInstancia() {
 		if (instancia == null)
-			instancia = new FactoriaPresentacionImp(e);
+			instancia = new FactoriaPresentacionImp();
 		return instancia;
 	}
 
-	public abstract IGUI GeneraVista();
+	public abstract IGUI GeneraVista(Evento e);
 
 }

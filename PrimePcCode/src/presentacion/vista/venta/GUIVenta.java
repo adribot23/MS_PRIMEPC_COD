@@ -19,6 +19,7 @@ import javax.swing.JTable;
 import javax.swing.SwingConstants;
 
 import negocio.transfers.TVenta;
+import presentacion.controlador.Context;
 import presentacion.factoria.Evento;
 import presentacion.vista.IGUI;
 
@@ -80,12 +81,14 @@ public class GUIVenta extends JPanel implements IGUI {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public void actualizar(Evento evento, Object datos) {
+	public void actualizar(Context context) {
+		Evento evento = context.getEvento();
+		Object datos = context.getDatos();
 		switch (evento) {
-		case RES_ALTA_VENTA_OK:
+		case RES_ABRIR_VENTA_OK:
 			JOptionPane.showMessageDialog(this, "Venta cerrada correctamente con id: " + (int) datos);
 			break;
-		case RES_ALTA_VENTA_KO:
+		case RES_ABRIR_VENTA_KO:
 			JOptionPane.showMessageDialog(this, "Error al cerrar venta");
 			break;
 		case RES_BAJA_VENTA_OK:

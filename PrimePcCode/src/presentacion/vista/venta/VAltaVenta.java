@@ -17,6 +17,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 
 import negocio.transfers.TVenta;
+import presentacion.controlador.Context;
 import presentacion.controlador.Controlador;
 import presentacion.factoria.Evento;
 
@@ -165,7 +166,7 @@ public class VAltaVenta extends JPanel {
 				int idEmpleado = Integer.parseInt(altaIdEmpleado.getText());
 				int idCliente = Integer.parseInt(altaIdCliente.getText());
 				TVenta venta = new TVenta(-1, metodoPago, -1, -1, idEmpleado, idCliente, productosVenta);
-				ctrl.accion(Evento.ALTA_VENTA, venta);
+				//ctrl.accion(new Context(Evento.ALTA_VENTA, venta));
 				productosVenta.clear();
 				setModoEdicion(false);
 			} catch (NumberFormatException ex) {

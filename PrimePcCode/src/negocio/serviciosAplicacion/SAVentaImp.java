@@ -10,11 +10,14 @@ import integracion.daos.DAOProducto;
 import integracion.daos.DAOVenta;
 import integracion.factoria.FactoriaIntegracion;
 import negocio.transfers.TAlmacen;
+import negocio.transfers.TCarrito;
 import negocio.transfers.TCliente;
 import negocio.transfers.TClienteSocio;
 import negocio.transfers.TEmpleado;
+import negocio.transfers.TLineaVenta;
 import negocio.transfers.TProducto;
 import negocio.transfers.TVenta;
+import negocio.transfers.TVentaCompletaTOA;
 
 public class SAVentaImp implements SAVenta {
 
@@ -205,6 +208,42 @@ public class SAVentaImp implements SAVenta {
 			return precio * 0.1;
 		}
 
+		return 0;
+	}
+
+	@Override
+	public TCarrito abrirVenta(int idEmpleado) {
+		// TODO Apéndice de método generado automáticamente
+		return null;
+	}
+
+	@Override
+	public int cerrarVenta(TCarrito carrito) {
+		// TODO Apéndice de método generado automáticamente
+		return 0;
+	}
+
+	@Override
+	public int insertarProductoCarrito(TCarrito carrito) {
+		// TODO Apéndice de método generado automáticamente
+		return 0;
+	}
+
+	@Override
+	public int eliminarProductoCarrito(TCarrito carrito) {
+		// TODO Apéndice de método generado automáticamente
+		return 0;
+	}
+
+	@Override
+	public TVentaCompletaTOA leerVenta(int venta) {
+		// TODO Apéndice de método generado automáticamente
+		return null;
+	}
+
+	@Override
+	public int devolverVenta(TLineaVenta tLineaVenta) {
+		// TODO Apéndice de método generado automáticamente
 		return 0;
 	}
 }

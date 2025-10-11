@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import negocio.transfers.TProducto;
+import presentacion.controlador.Context;
 import presentacion.controlador.Controlador;
 import presentacion.factoria.Evento;
 
@@ -53,7 +54,7 @@ public class VAltaProducto extends JPanel {
 				String marca = txtAltaMarca.getText();
 
 				TProducto nuevo = new TProducto(precio, modelo, unidades, marca);
-				ctrl.accion(Evento.ALTA_PRODUCTO, nuevo);
+				ctrl.accion(new Context(Evento.ALTA_PRODUCTO, nuevo));
 			} catch (NumberFormatException ex) {
 				JOptionPane.showMessageDialog(this, "Datos erroneos.");
 			}

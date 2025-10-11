@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import presentacion.controlador.Context;
 import presentacion.controlador.Controlador;
 import presentacion.factoria.Evento;
 
@@ -32,7 +33,7 @@ public class VBuscarVenta extends JPanel {
 		btnBuscar.addActionListener(e -> {
 			try {
 				int id = Integer.parseInt(txtBuscarID.getText());
-				ctrl.accion(Evento.BUSCAR_VENTA, id);
+				ctrl.accion(new Context(Evento.BUSCAR_VENTA, id));
 			} catch (NumberFormatException ex) {
 				JOptionPane.showMessageDialog(this, "ID debe ser numerico");
 			}

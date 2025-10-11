@@ -6,6 +6,7 @@ import java.awt.GridLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import presentacion.controlador.Context;
 import presentacion.controlador.Controlador;
 import presentacion.factoria.Evento;
 
@@ -24,7 +25,7 @@ public class VMostrarVenta extends JPanel {
 
 		JButton btnMostrarTodos = new JButton("Mostrar todas las Ventas");
 		btnMostrarTodos.setBackground(new Color(200, 255, 200));
-		btnMostrarTodos.addActionListener(e -> ctrl.accion(Evento.MOSTRAR_TODAS_VENTAS, null));
+		btnMostrarTodos.addActionListener(e -> ctrl.accion(new Context(Evento.MOSTRAR_TODAS_VENTAS, null)));
 
 		add(btnMostrarTodos);
 

@@ -15,6 +15,7 @@ import javax.swing.JTextField;
 import negocio.transfers.TCliente;
 import negocio.transfers.TClienteNoSocio;
 import negocio.transfers.TClienteSocio;
+import presentacion.controlador.Context;
 import presentacion.controlador.Controlador;
 import presentacion.factoria.Evento;
 
@@ -68,7 +69,7 @@ public class VModificarCliente extends JPanel {
 					cliente = new TClienteNoSocio(id, nombre, dni, visitas);
 				}
 
-				ctrl.accion(Evento.MODIFICAR_CLIENTE, cliente);
+				ctrl.accion(new Context(Evento.MODIFICAR_CLIENTE, cliente));
 			} catch (NumberFormatException ex) {
 				JOptionPane.showMessageDialog(this, "ID y visitas/puntos deben ser numeros válidos.");
 			}

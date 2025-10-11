@@ -15,6 +15,7 @@ import javax.swing.JTextField;
 import negocio.transfers.TCliente;
 import negocio.transfers.TClienteNoSocio;
 import negocio.transfers.TClienteSocio;
+import presentacion.controlador.Context;
 import presentacion.controlador.Controlador;
 import presentacion.factoria.Evento;
 
@@ -66,7 +67,7 @@ public class VAltaCliente extends JPanel {
 					cliente = new TClienteNoSocio(nombre, dni, visitas);
 				}
 
-				ctrl.accion(Evento.ALTA_CLIENTE, cliente);
+				ctrl.accion(new Context(Evento.ALTA_CLIENTE, cliente));
 			} catch (NumberFormatException ex) {
 				JOptionPane.showMessageDialog(this, "Visitas y numero de socio deben ser numeros validos.");
 			}

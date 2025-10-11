@@ -18,6 +18,7 @@ import javax.swing.JTable;
 import javax.swing.SwingConstants;
 
 import negocio.transfers.TProveedor;
+import presentacion.controlador.Context;
 import presentacion.factoria.Evento;
 import presentacion.vista.IGUI;
 
@@ -82,7 +83,9 @@ public class GUIProveedor extends JPanel implements IGUI {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public void actualizar(Evento evento, Object datos) {
+	public void actualizar(Context context) {
+		Evento evento = context.getEvento();
+		Object datos = context.getDatos();
 		switch (evento) {
 		case RES_ALTA_PROVEEDOR_OK:
 			JOptionPane.showMessageDialog(null, "Proveedor dado de alta con ID: " + datos);

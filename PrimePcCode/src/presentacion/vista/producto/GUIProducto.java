@@ -19,6 +19,7 @@ import javax.swing.JTable;
 import javax.swing.SwingConstants;
 
 import negocio.transfers.TProducto;
+import presentacion.controlador.Context;
 import presentacion.factoria.Evento;
 import presentacion.vista.IGUI;
 
@@ -80,7 +81,9 @@ public class GUIProducto extends JPanel implements IGUI {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public void actualizar(Evento evento, Object datos) {
+	public void actualizar(Context context) {
+		Evento evento = context.getEvento();
+		Object datos = context.getDatos();
 		switch (evento) {
 		case RES_ALTA_PRODUCTO_OK:
 			JOptionPane.showMessageDialog(null, "Producto dado de alta con ID: " + datos);

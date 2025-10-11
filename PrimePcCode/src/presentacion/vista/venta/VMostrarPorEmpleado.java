@@ -7,6 +7,7 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import presentacion.controlador.Context;
 import presentacion.controlador.Controlador;
 import presentacion.factoria.Evento;
 
@@ -28,7 +29,7 @@ public class VMostrarPorEmpleado extends JPanel {
 			try {
 				String id = JOptionPane.showInputDialog("ID Empleado:");
 				if (id != null)
-					ctrl.accion(Evento.MOSTRAR_VENTAS_POR_EMPLEADO, Integer.parseInt(id));
+					ctrl.accion(new Context(Evento.MOSTRAR_VENTAS_POR_EMPLEADO, Integer.parseInt(id)));
 			} catch (NumberFormatException ex) {
 				JOptionPane.showMessageDialog(this, "Campos numericos invalidos");
 			}

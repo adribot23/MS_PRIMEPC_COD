@@ -15,6 +15,7 @@ import javax.swing.JTextField;
 import negocio.transfers.TEmpleado;
 import negocio.transfers.TEmpleadoCompleto;
 import negocio.transfers.TEmpleadoParcial;
+import presentacion.controlador.Context;
 import presentacion.controlador.Controlador;
 import presentacion.factoria.Evento;
 
@@ -68,7 +69,7 @@ public class VAltaEmpleado extends JPanel {
 					empleado = new TEmpleadoParcial(-1, nombre, dni, tlf, horas);
 				}
 
-				ctrl.accion(Evento.ALTA_EMPLEADO, empleado);
+				ctrl.accion(new Context(Evento.ALTA_EMPLEADO, empleado));
 			} catch (NumberFormatException ex) {
 				JOptionPane.showMessageDialog(this, "Telefono y horas deben ser numeros.");
 			}

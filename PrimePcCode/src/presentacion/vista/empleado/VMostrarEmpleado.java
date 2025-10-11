@@ -7,6 +7,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import presentacion.controlador.Context;
 import presentacion.controlador.Controlador;
 import presentacion.factoria.Evento;
 
@@ -26,7 +27,7 @@ public class VMostrarEmpleado extends JPanel {
 		JButton btnMostrarTodos = new JButton("Mostrar todos los empleados");
 		btnMostrarTodos.setBackground(new Color(200, 255, 200));
 		btnMostrarTodos.addActionListener(e -> {
-			ctrl.accion(Evento.MOSTRAR_TODOS_EMPLEADOS, null);
+			ctrl.accion(new Context(Evento.MOSTRAR_TODOS_EMPLEADOS, null));
 		});
 
 		add(btnMostrarTodos);
