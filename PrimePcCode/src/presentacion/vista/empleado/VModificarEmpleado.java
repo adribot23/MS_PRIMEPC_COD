@@ -15,6 +15,7 @@ import javax.swing.JTextField;
 import negocio.transfers.TEmpleado;
 import negocio.transfers.TEmpleadoCompleto;
 import negocio.transfers.TEmpleadoParcial;
+import presentacion.controlador.Context;
 import presentacion.controlador.Controlador;
 import presentacion.factoria.Evento;
 
@@ -70,7 +71,7 @@ public class VModificarEmpleado extends JPanel {
 					empleado = new TEmpleadoParcial(id, nombre, dni, tlf, horas);
 				}
 
-				ctrl.accion(Evento.MODIFICAR_EMPLEADO, empleado);
+				ctrl.accion(new Context(Evento.MODIFICAR_EMPLEADO, empleado));
 			} catch (NumberFormatException ex) {
 				JOptionPane.showMessageDialog(this, "ID, teléfono y horas deben ser números.");
 			}

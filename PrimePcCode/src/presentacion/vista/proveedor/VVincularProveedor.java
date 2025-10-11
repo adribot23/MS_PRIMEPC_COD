@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import presentacion.controlador.Context;
 import presentacion.controlador.Controlador;
 import presentacion.factoria.Evento;
 
@@ -36,7 +37,7 @@ public class VVincularProveedor extends JPanel {
 				int idProducto = Integer.parseInt(txtProducto.getText());
 				int idProveedor = Integer.parseInt(txtProveedor.getText());
 				int[] datos = { idProducto, idProveedor };
-				ctrl.accion(Evento.VINCULAR_PRODUCTO_PROVEEDOR, datos);
+				ctrl.accion(new Context(Evento.VINCULAR_PRODUCTO_PROVEEDOR, datos));
 			} catch (NumberFormatException ex) {
 				JOptionPane.showMessageDialog(this, "IDs invalidos.");
 			}
@@ -48,7 +49,7 @@ public class VVincularProveedor extends JPanel {
 				int idProducto = Integer.parseInt(txtProducto.getText());
 				int idProveedor = Integer.parseInt(txtProveedor.getText());
 				int[] datos = { idProducto, idProveedor };
-				ctrl.accion(Evento.DESVINCULAR_PRODUCTO_PROVEEDOR, datos);
+				ctrl.accion(new Context(Evento.DESVINCULAR_PRODUCTO_PROVEEDOR, datos));
 			} catch (NumberFormatException ex) {
 				JOptionPane.showMessageDialog(this, "IDs invalidos.");
 			}

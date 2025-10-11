@@ -13,8 +13,6 @@ public class TVenta implements Serializable {
 	protected int id_empleado;
 	protected int id_cliente;
 	protected int activo;
-	protected Map<Integer, Integer> productos; // id de producto, cantidad de
-												// producto
 
 	public TVenta() {
 	};
@@ -27,7 +25,7 @@ public class TVenta implements Serializable {
 		this.descuento = descuento;
 		this.id_empleado = id_empleado;
 		this.id_cliente = id_cliente;
-		this.productos = productos;
+
 	}
 
 	public int getId() {
@@ -88,14 +86,6 @@ public class TVenta implements Serializable {
 
 	public void setActivo(int activo) {
 		this.activo = activo;
-	}
-
-	public Map<Integer, Integer> getProductos() {
-		return productos;
-	}
-
-	public void setProductos(Map<Integer, Integer> productos) {
-		this.productos = productos;
 	}
 
 	@Override

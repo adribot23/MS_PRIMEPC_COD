@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import presentacion.controlador.Context;
 import presentacion.controlador.Controlador;
 import presentacion.factoria.Evento;
 
@@ -32,7 +33,7 @@ public class VBajaProveedor extends JPanel {
 		btnBaja.addActionListener(e -> {
 			try {
 				int id = Integer.parseInt(bajaId.getText());
-				ctrl.accion(Evento.BAJA_PROVEEDOR, id);
+				ctrl.accion(new Context(Evento.BAJA_PROVEEDOR, id));
 			} catch (NumberFormatException ex) {
 				JOptionPane.showMessageDialog(this, "ID invalido.");
 			}

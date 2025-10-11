@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import negocio.transfers.TProveedor;
+import presentacion.controlador.Context;
 import presentacion.controlador.Controlador;
 import presentacion.factoria.Evento;
 
@@ -33,7 +34,7 @@ public class VAltaProveedor extends JPanel {
 		btnAlta.addActionListener(e -> {
 			String nombre = altaNombre.getText();
 			TProveedor p = new TProveedor(0, nombre);
-			ctrl.accion(Evento.ALTA_PROVEEDOR, p);
+			ctrl.accion(new Context(Evento.ALTA_PROVEEDOR, p));
 		});
 
 		add(new JLabel("Nombre:"));

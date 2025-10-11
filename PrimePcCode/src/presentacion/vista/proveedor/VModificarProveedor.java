@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import negocio.transfers.TProveedor;
+import presentacion.controlador.Context;
 import presentacion.controlador.Controlador;
 import presentacion.factoria.Evento;
 
@@ -37,7 +38,7 @@ public class VModificarProveedor extends JPanel {
 				int id = Integer.parseInt(modId.getText());
 				String nombre = modNombre.getText();
 				TProveedor p = new TProveedor(id, nombre);
-				ctrl.accion(Evento.MODIFICAR_PROVEEDOR, p);
+				ctrl.accion(new Context(Evento.MODIFICAR_PROVEEDOR, p));
 			} catch (NumberFormatException ex) {
 				JOptionPane.showMessageDialog(this, "ID invalido.");
 			}

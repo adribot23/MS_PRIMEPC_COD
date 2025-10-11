@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import presentacion.controlador.Context;
 import presentacion.controlador.Controlador;
 import presentacion.factoria.Evento;
 
@@ -33,7 +34,7 @@ public class VBuscarProveedor extends JPanel {
 		btnBuscar.addActionListener(e -> {
 			try {
 				int id = Integer.parseInt(buscarId.getText());
-				ctrl.accion(Evento.BUSCAR_PROVEEDOR, id);
+				ctrl.accion(new Context(Evento.BUSCAR_PROVEEDOR, id));
 			} catch (NumberFormatException ex) {
 				JOptionPane.showMessageDialog(this, "ID invalido.");
 			}

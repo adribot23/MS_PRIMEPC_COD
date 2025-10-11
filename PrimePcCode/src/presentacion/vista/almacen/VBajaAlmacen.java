@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import presentacion.controlador.Context;
 import presentacion.controlador.Controlador;
 import presentacion.factoria.Evento;
 
@@ -37,7 +38,7 @@ public class VBajaAlmacen extends JPanel {
 		bajaButton.addActionListener(e -> {
 			try {
 				int id = Integer.parseInt(idField.getText().trim());
-				ctrl.accion(Evento.BAJA_ALMACEN, id);
+				ctrl.accion(new Context(Evento.BAJA_ALMACEN, id));
 			} catch (NumberFormatException ex) {
 				JOptionPane.showMessageDialog(this, "ID invalido.");
 			}

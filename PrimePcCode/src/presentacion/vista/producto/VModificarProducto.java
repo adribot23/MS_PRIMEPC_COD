@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import negocio.transfers.TProducto;
+import presentacion.controlador.Context;
 import presentacion.controlador.Controlador;
 import presentacion.factoria.Evento;
 
@@ -56,7 +57,7 @@ public class VModificarProducto extends JPanel {
 				String marca = txtModMarca.getText();
 
 				TProducto modificado = new TProducto(id, precio, modelo, unidades, marca);
-				ctrl.accion(Evento.MODIFICAR_PRODUCTO, modificado);
+				ctrl.accion(new Context(Evento.MODIFICAR_PRODUCTO, modificado));
 			} catch (NumberFormatException ex) {
 				JOptionPane.showMessageDialog(this, "Datos erroneos.");
 			}

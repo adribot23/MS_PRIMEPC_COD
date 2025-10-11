@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import presentacion.controlador.Context;
 import presentacion.controlador.Controlador;
 import presentacion.factoria.Evento;
 
@@ -34,7 +35,7 @@ public class VBajaVenta extends JPanel {
 		btnDevolucion.addActionListener(e -> {
 			try {
 				int id = Integer.parseInt(devId.getText());
-				ctrl.accion(Evento.BAJA_VENTA, id);
+				ctrl.accion(new Context(Evento.BAJA_VENTA, id));
 			} catch (NumberFormatException ex) {
 				JOptionPane.showMessageDialog(this, "Error en campos numericos");
 			}

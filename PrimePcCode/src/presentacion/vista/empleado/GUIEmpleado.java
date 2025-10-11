@@ -21,6 +21,7 @@ import javax.swing.SwingConstants;
 import negocio.transfers.TEmpleado;
 import negocio.transfers.TEmpleadoCompleto;
 import negocio.transfers.TEmpleadoParcial;
+import presentacion.controlador.Context;
 import presentacion.factoria.Evento;
 import presentacion.vista.IGUI;
 
@@ -82,7 +83,9 @@ public class GUIEmpleado extends JPanel implements IGUI {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public void actualizar(Evento evento, Object datos) {
+	public void actualizar(Context context) {
+		Evento evento = context.getEvento();
+		Object datos = context.getDatos();
 		switch (evento) {
 		case RES_ALTA_EMPLEADO_OK:
 			JOptionPane.showMessageDialog(null, "Empleado dado de alta con ID: " + datos);

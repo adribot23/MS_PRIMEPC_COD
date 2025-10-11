@@ -18,6 +18,7 @@ import javax.swing.JTable;
 import javax.swing.SwingConstants;
 
 import negocio.transfers.TAlmacen;
+import presentacion.controlador.Context;
 import presentacion.factoria.Evento;
 import presentacion.vista.IGUI;
 
@@ -56,7 +57,6 @@ public class GUIAlmacen extends JPanel implements IGUI {
 		panelDerecha.add(Box.createVerticalStrut(10));
 		panelDerecha.add(new VBajaAlmacen());
 		panelDerecha.add(Box.createVerticalStrut(10));
-		panelDerecha.add(new VVincularAlmacen());
 		panelDerecha.add(Box.createVerticalStrut(10));
 		panelDerecha.add(new VAltaAlmacen());
 		panelDerecha.add(Box.createVerticalStrut(10));
@@ -80,7 +80,9 @@ public class GUIAlmacen extends JPanel implements IGUI {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public void actualizar(Evento evento, Object datos) {
+	public void actualizar(Context context) {
+		Evento evento = context.getEvento();
+		Object datos = context.getDatos();
 		switch (evento) {
 		case RES_ALTA_ALMACEN_OK:
 			JOptionPane.showMessageDialog(null, "Almacen dado de alta con ID: " + (int) datos);
@@ -111,18 +113,6 @@ public class GUIAlmacen extends JPanel implements IGUI {
 			break;
 		case RES_MOSTRAR_TODOS_ALMACENES_KO:
 			JOptionPane.showMessageDialog(null, "No hay almacenes para mostrar.");
-			break;
-		case RES_VINCULAR_PRODUCTO_ALMACEN_OK:
-			JOptionPane.showMessageDialog(null, "Producto vinculado al almacen correctamente.");
-			break;
-		case RES_VINCULAR_PRODUCTO_ALMACEN_KO:
-			JOptionPane.showMessageDialog(null, "No se pudo vincular el producto al almacen.");
-			break;
-		case RES_DESVINCULAR_PRODUCTO_ALMACEN_OK:
-			JOptionPane.showMessageDialog(null, "Producto desvinculado del almacen correctamente.");
-			break;
-		case RES_DESVINCULAR_PRODUCTO_ALMACEN_KO:
-			JOptionPane.showMessageDialog(null, "No se pudo desvincular el producto del almacen.");
 			break;
 		default:
 			JOptionPane.showMessageDialog(null, "Evento no reconocido: " + evento);

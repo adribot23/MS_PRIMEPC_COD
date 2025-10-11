@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import negocio.transfers.TVenta;
+import presentacion.controlador.Context;
 import presentacion.controlador.Controlador;
 import presentacion.factoria.Evento;
 
@@ -40,7 +41,7 @@ public class VModificarVenta extends JPanel {
 				v.setMetodoPago(modMetodoPago.getText());
 				v.setIdEmpleado(Integer.parseInt(modEmpleado.getText()));
 				v.setIdCliente(Integer.parseInt(modCliente.getText()));
-				ctrl.accion(Evento.MODIFICAR_VENTA, v);
+				ctrl.accion(new Context(Evento.MODIFICAR_VENTA, v));
 			} catch (NumberFormatException ex) {
 				JOptionPane.showMessageDialog(this, "Error en campos numericos");
 			}

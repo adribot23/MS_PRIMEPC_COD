@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import presentacion.controlador.Context;
 import presentacion.controlador.Controlador;
 import presentacion.factoria.Evento;
 
@@ -37,7 +38,7 @@ public class VBuscarAlmacen extends JPanel {
 		buscarButton.addActionListener(e -> {
 			try {
 				int id = Integer.parseInt(idField.getText().trim());
-				ctrl.accion(Evento.BUSCAR_ALMACEN, id);
+				ctrl.accion(new Context(Evento.BUSCAR_ALMACEN, id));
 			} catch (NumberFormatException ex) {
 				JOptionPane.showMessageDialog(this, "El ID debe ser un numero.");
 			}

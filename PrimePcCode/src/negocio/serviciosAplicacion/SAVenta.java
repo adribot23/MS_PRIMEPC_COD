@@ -1,21 +1,36 @@
 package negocio.serviciosAplicacion;
 
 import java.util.Collection;
+import java.util.Set;
 
+import negocio.transfers.TCarrito;
+import negocio.transfers.TLineaVenta;
 import negocio.transfers.TVenta;
+import negocio.transfers.TVentaCompletaTOA;
 
 public interface SAVenta {
-	public int altaVenta(TVenta tVenta);
 
-	public TVenta leerVenta(int id);
+	public TCarrito abrirVenta(int idEmpleado);
 
-	public Collection<TVenta> leerTodasVentas();
+	public int cerrarVenta(TCarrito carrito);
+
+	public int insertarProductoCarrito(TCarrito carrito);
+
+	public int eliminarProductoCarrito(TCarrito carrito);
+
+	public TVentaCompletaTOA leerVenta(int venta);
 
 	public int modificarVenta(TVenta tVenta);
 
+	public Collection<TVentaCompletaTOA> leerTodasVentas();
+
+	public Collection<TVentaCompletaTOA> leerVentasPorEmpleado(int idEmpleado);
+
+	public Collection<TVentaCompletaTOA> leerVentasPorCliente(int idCliente);
+
 	public int bajaVenta(int id);
 
-	public Collection<TVenta> leerVentasPorEmpleado(int idEmpleado);
+	public int devolverVenta(TLineaVenta tLineaVenta);
 
-	public Collection<TVenta> leerVentasPorCliente(int idCliente);
+
 }

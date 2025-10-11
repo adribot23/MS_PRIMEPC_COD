@@ -7,6 +7,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import presentacion.controlador.Context;
 import presentacion.controlador.Controlador;
 import presentacion.factoria.Evento;
 
@@ -25,7 +26,7 @@ public class VMostrarProducto extends JPanel {
 		setBorder(BorderFactory.createTitledBorder("Mostrar Productos"));
 		JButton btnMostrar = new JButton("Mostrar todos");
 		btnMostrar.setBackground(new Color(200, 255, 200));
-		btnMostrar.addActionListener(e -> ctrl.accion(Evento.MOSTRAR_TODOS_PRODUCTOS, null));
+		btnMostrar.addActionListener(e -> ctrl.accion(new Context(Evento.MOSTRAR_TODOS_PRODUCTOS, null)));
 
 		add(btnMostrar);
 	}

@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import presentacion.controlador.Context;
 import presentacion.controlador.Controlador;
 import presentacion.factoria.Evento;
 
@@ -33,7 +34,7 @@ public class VVerPorProducto extends JPanel {
 		btnMostrarPorProducto.addActionListener(e -> {
 			try {
 				int idProducto = Integer.parseInt(mostrarProductoId.getText());
-				ctrl.accion(Evento.MOSTRAR_PROVEEDORES_POR_PRODUCTO, idProducto);
+				ctrl.accion(new Context(Evento.MOSTRAR_PROVEEDORES_POR_PRODUCTO, idProducto));
 			} catch (NumberFormatException ex) {
 				JOptionPane.showMessageDialog(this, "ID invalido.");
 			}
