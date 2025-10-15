@@ -25,12 +25,14 @@ public class SAAlmacenImp implements SAAlmacen {
 		if (almacen != null) {
 
 			TAlmacen leido = daoAlmacen.leerPorNombre(almacen.getNombre());
-			if (leido == null) {
-				id = daoAlmacen.crear(almacen);
-			} else if (leido.getActivo() == 0) {
-				almacen.setId(leido.getId());
-				daoAlmacen.actualizar(almacen);
-				id = almacen.getId();
+			if (almacen.getCapacidadMaxima() > 0) {
+				if (leido == null) {
+					id = daoAlmacen.crear(almacen);
+				} else if (leido.getActivo() == 0) {
+					almacen.setId(leido.getId());
+					daoAlmacen.actualizar(almacen);
+					id = almacen.getId();
+				}
 			}
 		}
 		return id;
@@ -54,9 +56,9 @@ public class SAAlmacenImp implements SAAlmacen {
 	public int modificarAlmacen(TAlmacen almacen) {
 		int res = -1;
 		TAlmacen existente = daoAlmacen.leer(almacen.getId());
-
+		almacen.setOcupacion(existente.getOcupacion());
 		if (existente != null && existente.getActivo() == 1 && almacen.getCapacidadMaxima() >= existente.getOcupacion()
-				&& (almacen.getNombre().equals(existente.getNombre())
+				&& almacen.getCapacidadMaxima() > 0 && (almacen.getNombre().equals(existente.getNombre())
 						|| daoAlmacen.leerPorNombre(almacen.getNombre()) == null)) {
 			res = daoAlmacen.actualizar(almacen);
 		}
