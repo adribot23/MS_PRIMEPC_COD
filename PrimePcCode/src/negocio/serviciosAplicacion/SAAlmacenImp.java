@@ -10,20 +10,14 @@ import negocio.transfers.TProducto;
 
 public class SAAlmacenImp implements SAAlmacen {
 
-	private DAOAlmacen daoAlmacen;
-	private DAOProducto daoProducto;
-
-	public SAAlmacenImp() {
-		this.daoAlmacen = FactoriaIntegracion.obtenerInstancia().generaDAOAlmacen();
-		this.daoProducto = FactoriaIntegracion.obtenerInstancia().generaDAOProducto();
-	}
+	
 
 	@Override
 	public int altaAlmacen(TAlmacen almacen) {
 
 		int id = -1;
 		if (almacen != null) {
-
+			DAOAlmacen daoAlmacen = FactoriaIntegracion.obtenerInstancia().generaDAOAlmacen();
 			TAlmacen leido = daoAlmacen.leerPorNombre(almacen.getNombre());
 			if (almacen.getCapacidadMaxima() > 0) {
 				if (leido == null) {
@@ -40,6 +34,7 @@ public class SAAlmacenImp implements SAAlmacen {
 
 	@Override
 	public TAlmacen leerAlmacen(int id) {
+		DAOAlmacen daoAlmacen = FactoriaIntegracion.obtenerInstancia().generaDAOAlmacen();
 		TAlmacen leido = daoAlmacen.leer(id);
 		if (leido != null && leido.getActivo() == 1) {
 			return leido;
@@ -49,12 +44,14 @@ public class SAAlmacenImp implements SAAlmacen {
 
 	@Override
 	public Collection<TAlmacen> leerTodosAlmacenes() {
+		DAOAlmacen daoAlmacen = FactoriaIntegracion.obtenerInstancia().generaDAOAlmacen();
 		return daoAlmacen.leerTodo();
 	}
 
 	@Override
 	public int modificarAlmacen(TAlmacen almacen) {
 		int res = -1;
+		DAOAlmacen daoAlmacen = FactoriaIntegracion.obtenerInstancia().generaDAOAlmacen();
 		TAlmacen existente = daoAlmacen.leer(almacen.getId());
 		almacen.setOcupacion(existente.getOcupacion());
 		if (existente != null && existente.getActivo() == 1 && almacen.getCapacidadMaxima() >= existente.getOcupacion()
@@ -69,6 +66,8 @@ public class SAAlmacenImp implements SAAlmacen {
 	@Override
 	public int bajaAlmacen(int id) {
 		int res = -1;
+		DAOAlmacen daoAlmacen = FactoriaIntegracion.obtenerInstancia().generaDAOAlmacen();
+		DAOProducto daoProducto = FactoriaIntegracion.obtenerInstancia().generaDAOProducto();
 		TAlmacen almacen = daoAlmacen.leer(id);
 
 		if (almacen != null && almacen.getActivo() == 1 && daoProducto.leerPorAlmacen(almacen.getId()).isEmpty()) {
@@ -80,6 +79,8 @@ public class SAAlmacenImp implements SAAlmacen {
 	@Override
 	public int vincularProductoAlmacen(int idProducto, int idAlmacen) {
 		int res = -1;
+		DAOAlmacen daoAlmacen = FactoriaIntegracion.obtenerInstancia().generaDAOAlmacen();
+		DAOProducto daoProducto = FactoriaIntegracion.obtenerInstancia().generaDAOProducto();
 		TProducto productoLeido = daoProducto.leer(idProducto);
 		TAlmacen almacenLeido = daoAlmacen.leer(idAlmacen);
 
@@ -103,6 +104,8 @@ public class SAAlmacenImp implements SAAlmacen {
 	@Override
 	public int desvincularProductoAlmacen(int idProducto, int idAlmacen) {
 		int res = -1;
+		DAOAlmacen daoAlmacen = FactoriaIntegracion.obtenerInstancia().generaDAOAlmacen();
+		DAOProducto daoProducto = FactoriaIntegracion.obtenerInstancia().generaDAOProducto();
 		TProducto productoLeido = daoProducto.leer(idProducto);
 		TAlmacen almacenLeido = daoAlmacen.leer(idAlmacen);
 
