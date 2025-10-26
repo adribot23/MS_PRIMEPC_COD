@@ -1,13 +1,22 @@
-/**
- * 
- */
+
 package Integracion.FactoriaQuery;
 
-/** 
- * <!-- begin-UML-doc -->
- * <!-- end-UML-doc -->
- * @author adria
- * @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
- */
 public class FactoriaQueryImp extends FactoriaQuery {
+	
+	@Override
+	public Query getNewQuery(String nombre) {
+
+		//switch (nombre) {
+
+		//case "CalcularImporteEmpleado" -> {
+			//return new CalcularElImporteTotalDelEmpleadoQueMasHaVendidoUnProducto();
+		//}
+
+		//case "CalcularProveedorMasUnidades" -> {
+			//return new ObtenerElProveedorQueMasUnidadesHaSuministradoDeUnProducto();
+		//}
+		//}
+
+		return null;
+	}
 }
