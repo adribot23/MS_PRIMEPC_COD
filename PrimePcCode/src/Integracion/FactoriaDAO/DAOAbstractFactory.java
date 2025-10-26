@@ -1,129 +1,41 @@
-/**
- * 
- */
+
 package Integracion.FactoriaDAO;
 
 import Integracion.Almacen.DAOAlmacen;
 import Integracion.Cliente.DAOCliente;
+import Integracion.Venta.DAOLineaVenta;
 import Integracion.Venta.DAOVenta;
 import Integracion.Empleado.DAOEmpleado;
 import Integracion.Proveedor.DAOProveedor;
 import Integracion.Proveedor.DaoProveedorProducto;
+import Integracion.Producto.DAOProducto;
 
-/** 
-* <!-- begin-UML-doc -->
-* <!-- end-UML-doc -->
-* @author adria
-* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-*/
-public class DAOAbstractFactory {
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	*/
+public abstract class DAOAbstractFactory {
+
 	private static DAOAbstractFactory instancia;
 
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @return
-	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	*/
-	public static DAOAbstractFactory getInstancia() {
-		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
-		return null;
-		// end-user-code
+	public static synchronized DAOAbstractFactory getInstancia() {
+		if (instancia == null) {
+			instancia = new DAOAbstractFactoryImp();
+		}
+		return instancia;
 	}
 
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @return
-	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	*/
-	public DAOAlmacen generaDAOAlmacen() {
-		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
-		return null;
-		// end-user-code
-	}
 
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @return
-	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	*/
-	public DAOCliente generaDAOCliente() {
-		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
-		return null;
-		// end-user-code
-	}
+	public abstract DAOAlmacen generaDAOAlmacen(); 
 
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @return
-	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	*/
-	public DAOVenta generaDAOVenta() {
-		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
-		return null;
-		// end-user-code
-	}
 
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @return
-	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	*/
-	public DAOEmpleado generaDAOEmpleado() {
-		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
-		return null;
-		// end-user-code
-	}
+	public abstract DAOCliente generaDAOCliente();
+	public abstract DAOVenta generaDAOVenta(); 
+	public abstract DAOLineaVenta generaDAOLineaVenta();
+	
+	public abstract DAOEmpleado generaDAOEmpleado(); 
 
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	*/
-	public void generaDAOProducto() {
-		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+	public abstract DAOProducto generaDAOProducto(); 
 
-		// end-user-code
-	}
+	
+	public abstract DAOProveedor generaDAOProveedor(); 
 
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @return
-	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	*/
-	public DAOProveedor generaDAOProveedor() {
-		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
-		return null;
-		// end-user-code
-	}
-
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @return
-	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	*/
-	public DaoProveedorProducto generaDAOProveedorProducto() {
-		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
-		return null;
-		// end-user-code
-	}
+	
+	public abstract DaoProveedorProducto generaDAOProveedorProducto(); 
 }
