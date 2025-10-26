@@ -1,49 +1,53 @@
-/**
- * 
- */
+
 package Integracion.Transaction;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 
-/** 
-* <!-- begin-UML-doc -->
-* <!-- end-UML-doc -->
-* @author adria
-* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-*/
 public class TransactionMySQL implements Transaction {
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	*/
 	private Connection connection;
 
+	@Override
 	public void start() {
-		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
-
-		// end-user-code
+		try {
+			
+			//CUANDO TENGAMOS LA CONFIGURACION DE LA BD DESCOMENTAR
+			//this.connection = DriverManager.getConnection(ConfgBD.URL, ConfgBD.USER, ConfgBD.PASSWORD);
+			this.connection.setAutoCommit(false);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
+	@Override
 	public void commit() {
-		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		try {
+			this.connection.commit();
+			this.connection.close();
+			TManager tm = TManager.getInstance();
+			tm.deleteTransaction();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 
-		// end-user-code
 	}
 
+	@Override
 	public void rollback() {
-		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
 
-		// end-user-code
+		try {
+			this.connection.rollback();
+			this.connection.close();
+			TManager tm = TManager.getInstance();
+			tm.deleteTransaction();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
 	}
 
-	public void getResource() {
-		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
-
-		// end-user-code
+	@Override
+	public Object getResource() {
+		return this.connection;
 	}
 }
