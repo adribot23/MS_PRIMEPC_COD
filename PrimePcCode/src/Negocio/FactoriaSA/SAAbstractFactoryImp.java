@@ -1,61 +1,41 @@
-/**
- * 
- */
+
 package Negocio.FactoriaSA;
 
 import Negocio.Almacen.SAAlmacen;
+import Negocio.Almacen.SAAlmacenImp;
 import Negocio.Cliente.SACliente;
+import Negocio.Cliente.SAClienteImp;
 import Negocio.Empleado.SAEmpleado;
+import Negocio.Empleado.SAEmpleadoImp;
 import Negocio.Venta.SAVenta;
+import Negocio.Venta.SAVentaImp;
 import Negocio.Producto.SAProducto;
+import Negocio.Producto.SAProductoImp;
 import Negocio.Proveedor.SAProveedor;
+import Negocio.Proveedor.SAProveedorImp;
 
-/** 
-* <!-- begin-UML-doc -->
-* <!-- end-UML-doc -->
-* @author adria
-* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-*/
 public class SAAbstractFactoryImp extends SAAbstractFactory {
 	public SAAlmacen generarSAAlmacen() {
-		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
-		return null;
-		// end-user-code
+		return new SAAlmacenImp();
 	}
 
 	public SACliente generarSACliente() {
-		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
-		return null;
-		// end-user-code
+		return new SAClienteImp();
 	}
 
 	public SAEmpleado generarSAEmpleado() {
-		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
-		return null;
-		// end-user-code
+		return new SAEmpleadoImp();
 	}
 
 	public SAVenta generarSAVenta() {
-		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
-		return null;
-		// end-user-code
+		return new SAVentaImp();
 	}
 
 	public SAProducto generarSAProducto() {
-		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
-		return null;
-		// end-user-code
+		return new SAProductoImp();
 	}
 
 	public SAProveedor generarSAProveedor() {
-		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
-		return null;
-		// end-user-code
+		return new SAProveedorImp();
 	}
 }
