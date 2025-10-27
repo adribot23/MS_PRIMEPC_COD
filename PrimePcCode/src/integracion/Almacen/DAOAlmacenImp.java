@@ -1,4 +1,9 @@
-package integracion.daos;
+/**
+ * 
+ */
+package integracion.Almacen;
+
+import negocio.Almacen.TAlmacen;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -7,21 +12,18 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
-import negocio.transfers.TAlmacen;
-
-public class DAOAlmacenImp implements DAOAlmacen {
+public class DAOAlmacenImp implements DAOAlmacen{
 
 	private Connection conexion;
 
 	private Connection conectar() throws SQLException {
 		return DriverManager.getConnection("jdbc:sqlite:bd/IS2PrimePC.db", "root", "root");
 	}
-
-	@Override
-	public int crear(TAlmacen almacen) {
+	
+	public Integer create(TAlmacen almacen) {
 		int id = -1;
 		try {
 			conexion = conectar();
@@ -49,8 +51,7 @@ public class DAOAlmacenImp implements DAOAlmacen {
 		return id;
 	}
 
-	@Override
-	public TAlmacen leer(int id) {
+	public TAlmacen read(Integer id) {
 		TAlmacen almacen = null;
 		try {
 			conexion = conectar();
@@ -78,8 +79,7 @@ public class DAOAlmacenImp implements DAOAlmacen {
 		return almacen;
 	}
 
-	@Override
-	public int actualizar(TAlmacen almacen) {
+	public Integer update(TAlmacen almacen) {
 		int filasAfectadas = 0;
 
 		try {
@@ -101,8 +101,7 @@ public class DAOAlmacenImp implements DAOAlmacen {
 		return filasAfectadas;
 	}
 
-	@Override
-	public int eliminar(int id) { // solo para el test
+	public Integer delete(Integer id) {
 		int filasAfectadas = 0;
 		try {
 			conexion = conectar();
@@ -118,25 +117,7 @@ public class DAOAlmacenImp implements DAOAlmacen {
 		return filasAfectadas;
 	}
 
-	@Override
-	public int eliminarFisicamente(int id) { // solo para el test
-		int filasAfectadas = 0;
-		try {
-			conexion = conectar();
-			String sql = "DELETE FROM ALMACEN WHERE ID = ?";
-			PreparedStatement ps = conexion.prepareStatement(sql);
-			ps.setInt(1, id);
-			filasAfectadas = ps.executeUpdate();
-			ps.close();
-			conexion.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return filasAfectadas;
-	}
-
-	@Override
-	public TAlmacen leerPorNombre(String nombre) {
+	public TAlmacen read_by_name(String nombre) {
 		TAlmacen almacen = null;
 		try {
 			conexion = conectar();
@@ -162,8 +143,7 @@ public class DAOAlmacenImp implements DAOAlmacen {
 		return almacen;
 	}
 
-	@Override
-	public Collection<TAlmacen> leerTodo() {
+	public Set<TAlmacen> read_all() {
 		List<TAlmacen> almacenes = new ArrayList<>();
 		try {
 			conexion = conectar();
@@ -192,5 +172,24 @@ public class DAOAlmacenImp implements DAOAlmacen {
 		}
 		return almacenes;
 	}
-
+	
+	
+	/*@Override
+	public int eliminarFisicamente(int id) { // solo para el test
+		int filasAfectadas = 0;
+		try {
+			conexion = conectar();
+			String sql = "DELETE FROM ALMACEN WHERE ID = ?";
+			PreparedStatement ps = conexion.prepareStatement(sql);
+			ps.setInt(1, id);
+			filasAfectadas = ps.executeUpdate();
+			ps.close();
+			conexion.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return filasAfectadas;
+	}*/
+	
+	
 }

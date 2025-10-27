@@ -1,21 +1,21 @@
 
-package Integracion.FactoriaDAO;
+package integracion.FactoriaDAO;
 
-import Integracion.Almacen.DAOAlmacen;
-import Integracion.Almacen.DAOAlmacenImp;
-import Integracion.Cliente.DAOCliente;
-import Integracion.Cliente.DAOClienteImp;
-import Integracion.Empleado.DAOEmpleado;
-import Integracion.Empleado.DAOEmpleadoImp;
-import Integracion.Producto.DAOProducto;
-import Integracion.Producto.DAOProductoImp;
-import Integracion.Proveedor.DAOProveedor;
-import Integracion.Proveedor.DaoProveedorProducto;
-import Integracion.Proveedor.DaoProveedorProductoImp;
-import Integracion.Venta.DAOLineaVenta;
-import Integracion.Venta.DAOLineaVentaImp;
-import Integracion.Venta.DAOVenta;
-import Integracion.Venta.DAOVentaImp;
+import integracion.Almacen.DAOAlmacen;
+import integracion.Almacen.DAOAlmacenImp;
+import integracion.Cliente.DAOCliente;
+import integracion.Cliente.DAOClienteImp;
+import integracion.Empleado.DAOEmpleado;
+import integracion.Empleado.DAOEmpleadoImp;
+import integracion.Producto.DAOProducto;
+import integracion.Producto.DAOProductoImp;
+import integracion.Proveedor.DAOProveedor;
+import integracion.Proveedor.DaoProveedorProducto;
+import integracion.Proveedor.DaoProveedorProductoImp;
+import integracion.Venta.DAOLineaVenta;
+import integracion.Venta.DAOLineaVentaImp;
+import integracion.Venta.DAOVenta;
+import integracion.Venta.DAOVentaImp;
 
 public class DAOAbstractFactoryImp extends DAOAbstractFactory {
 
