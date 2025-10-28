@@ -1,38 +1,15 @@
-/**
- * 
- */
+
 package Presentacion.GUI;
 
-/** 
- * <!-- begin-UML-doc -->
- * <!-- end-UML-doc -->
- * @author adria
- * @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
- */
-public class Evento {
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	*/
+
+public enum Evento {
+	
 	private int ALTA_ALMACEN;
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	*/
+
 	private int ALTA_ALMACEN_OK;
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	*/
+
 	private int ALTA_ALMACEN_KO;
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	*/
+
 	private int BAJA_ALMACEN;
 	/** 
 	* <!-- begin-UML-doc -->
@@ -645,19 +622,19 @@ public class Evento {
 	* <!-- end-UML-doc -->
 	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	*/
-	private int AÑADIR_PRODUCTO;
+	private int Aï¿½ADIR_PRODUCTO;
 	/** 
 	* <!-- begin-UML-doc -->
 	* <!-- end-UML-doc -->
 	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	*/
-	private int AÑADIR_PRODUCTO_OK;
+	private int Aï¿½ADIR_PRODUCTO_OK;
 	/** 
 	* <!-- begin-UML-doc -->
 	* <!-- end-UML-doc -->
 	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	*/
-	private int AÑADIR_PRODUCTO_KO;
+	private int Aï¿½ADIR_PRODUCTO_KO;
 	/** 
 	* <!-- begin-UML-doc -->
 	* <!-- end-UML-doc -->
