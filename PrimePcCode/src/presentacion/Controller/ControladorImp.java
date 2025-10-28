@@ -1,10 +1,10 @@
 
-package Presentacion.Controller;
+package presentacion.Controller;
 
-import Presentacion.Controller.Command.Command;
-import Presentacion.Controller.Command.CommandFactory;
-import Presentacion.Controller.Command.Context;
-import Presentacion.GUI.GUIAbstractFactory;
+import presentacion.Controller.Command.Command;
+import presentacion.Controller.Command.CommandFactory;
+import presentacion.Controller.Command.Context;
+import presentacion.GUI.GUIAbstractFactory;
 
 
 public class ControladorImp extends Controlador {
@@ -18,7 +18,7 @@ public class ControladorImp extends Controlador {
 			context = command.execute(context.getDatos());
 		}
 
-		GUIAbstractFactory.obtenerInstancia().generarVistas(context.getEvento()).actualizar(context);
+		GUIAbstractFactory.getInstancia().generarVistas(context.getEvento()).actualizar(context);
 
 	}
 }

@@ -14,11 +14,10 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import integracion.daos.DAOEmpleado;
 import integracion.factoria.FactoriaIntegracion;
-import negocio.transfers.TEmpleado;
-import negocio.transfers.TEmpleadoCompleto;
-import negocio.transfers.TEmpleadoParcial;
+import negocio.Empleado.TEmpleado;
+import negocio.Empleado.TEmpleadoCompleto;
+import negocio.Empleado.TEmpleadoParcial;
 
 public class DAOEmpleadoImpTest {
 

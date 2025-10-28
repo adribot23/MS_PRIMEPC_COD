@@ -1,10 +1,11 @@
 /**
  * 
  */
-package Integracion.Almacen;
+package integracion.Almacen;
 
-import Negocio.Almacen.TAlmacen;
 import java.util.Set;
+
+import negocio.Almacen.TAlmacen;
 
 /** 
 * <!-- begin-UML-doc -->

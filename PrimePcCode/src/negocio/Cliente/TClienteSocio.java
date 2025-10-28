@@ -1,7 +1,7 @@
 /**
  * 
  */
-package Negocio.Cliente;
+package negocio.Cliente;
 
 /** 
  * <!-- begin-UML-doc -->
@@ -10,83 +10,46 @@ package Negocio.Cliente;
  * @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
  */
 public class TClienteSocio extends TCliente {
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	*/
-	private Integer puntos;
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	*/
-	private Integer numero_socio;
+	private int numero_socio;
+	private int puntos;
 
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @param puntos
-	* @param numero_socio
-	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	*/
-	public TClienteSocio(Integer puntos, Integer numero_socio) {
-		// begin-user-code
-		// TODO Apéndice de constructor generado automáticamente
-		// end-user-code
+	public TClienteSocio() {
 	}
 
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @return
-	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	*/
-	public Integer getNumeroSocio() {
-		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
-		return null;
-		// end-user-code
+	public TClienteSocio(int id, String nombre, String dni, int puntos) {
+		super(id, nombre, dni);
+		this.puntos = puntos;
 	}
 
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @param numero_socio
-	* @return
-	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	*/
-	public Void setNumeroSocio(Integer numero_socio) {
-		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
-		return null;
-		// end-user-code
+	public TClienteSocio(String nombre, String dni, int puntos) {
+		super(nombre, dni);
+		this.puntos = puntos;
 	}
 
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @return
-	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	*/
-	public Integer getPuntos() {
-		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
-		return null;
-		// end-user-code
+	public TClienteSocio(int id, String nombre, String dni, int activo, int num_socio, int puntos) {
+		super(id, nombre, dni, activo);
+		this.numero_socio = num_socio;
+		this.puntos = puntos;
 	}
 
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @param puntos
-	* @return
-	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	*/
-	public Void setPuntos(Integer puntos) {
-		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
-		return null;
-		// end-user-code
+	public int getNumeroDeSocio() {
+		return this.numero_socio;
+	}
+
+	public void setNumeroSocio(int numero_socio) {
+		this.numero_socio = numero_socio;
+	}
+
+	public int getPuntos() {
+		return puntos;
+	}
+
+	public void setPuntos(int puntos) {
+		this.puntos = puntos;
+	}
+
+	@Override
+	public String toString() {
+		return super.toString() + ", Socio con nÃ¯Â¿Â½mero : " + numero_socio + ", Puntos: " + puntos + "]";
 	}
 }

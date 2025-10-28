@@ -1,7 +1,7 @@
 /**
  * 
  */
-package Negocio.Venta;
+package negocio.Venta;
 
 /** 
  * <!-- begin-UML-doc -->

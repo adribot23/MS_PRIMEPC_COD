@@ -1,7 +1,7 @@
 /**
  * 
  */
-package Negocio.Empleado;
+package negocio.Empleado;
 
 /** 
  * <!-- begin-UML-doc -->
@@ -10,49 +10,33 @@ package Negocio.Empleado;
  * @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
  */
 public class TEmpleadoParcial extends TEmpleado {
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	*/
-	private Integer horas_semanales;
 
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @param horas_semanales
-	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	*/
-	public TEmpleadoParcial(Integer horas_semanales) {
-		// begin-user-code
-		// TODO Apéndice de constructor generado automáticamente
-		// end-user-code
+	private int horas_semanales;
+
+	public TEmpleadoParcial(int id, String nombre, String dni, String tlf, int activo, int horas_semanales) {
+		super(id, nombre, dni, tlf, activo);
+		this.horas_semanales = horas_semanales;
 	}
 
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @return
-	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	*/
-	public Integer getHorasSemanales() {
-		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
-		return null;
-		// end-user-code
+	public TEmpleadoParcial(int id, String nombre, String dni, String tlf, int horas_semanales) {
+		super(id, nombre, dni, tlf);
+		this.horas_semanales = horas_semanales;
 	}
 
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @param horas
-	* @return
-	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	*/
-	public Void setHorasSemanales(Integer horas) {
-		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
-		return null;
-		// end-user-code
+	public TEmpleadoParcial() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public int getHorasSemanales() {
+		return this.horas_semanales;
+	}
+
+	public void setHorasSemanales(int horas) {
+		this.horas_semanales = horas;
+	}
+
+	public String toString() {
+		return super.toString() + ",Tipo: Parcial, Horas Semanales: " + this.horas_semanales + "]";
+
 	}
 }

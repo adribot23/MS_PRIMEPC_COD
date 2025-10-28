@@ -1,7 +1,7 @@
 /**
  * 
  */
-package Negocio.Venta;
+package negocio.Venta;
 
 /** 
  * <!-- begin-UML-doc -->
@@ -49,7 +49,7 @@ public class TLineaVenta {
 	*/
 	public int get_producto() {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 		return 0;
 		// end-user-code
 	}
@@ -62,7 +62,7 @@ public class TLineaVenta {
 	*/
 	public int get_venta() {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 		return 0;
 		// end-user-code
 	}
@@ -75,7 +75,7 @@ public class TLineaVenta {
 	*/
 	public int get_num_unidades() {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 		return 0;
 		// end-user-code
 	}
@@ -88,7 +88,7 @@ public class TLineaVenta {
 	*/
 	public int get_precio_unidades() {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 		return 0;
 		// end-user-code
 	}
@@ -101,7 +101,7 @@ public class TLineaVenta {
 	*/
 	public int get_activo() {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 		return 0;
 		// end-user-code
 	}
@@ -114,7 +114,7 @@ public class TLineaVenta {
 	*/
 	public void set_producto(int id_producto) {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 
 		// end-user-code
 	}
@@ -127,7 +127,7 @@ public class TLineaVenta {
 	*/
 	public void set_venta(int id_venta) {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 
 		// end-user-code
 	}
@@ -140,7 +140,7 @@ public class TLineaVenta {
 	*/
 	public void set_num_unidades(int num_unidades) {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 
 		// end-user-code
 	}
@@ -153,7 +153,7 @@ public class TLineaVenta {
 	*/
 	public void set_precio_unidades(int precio_unidades) {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 
 		// end-user-code
 	}
@@ -166,7 +166,7 @@ public class TLineaVenta {
 	*/
 	public void set_activo(int activo) {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 
 		// end-user-code
 	}

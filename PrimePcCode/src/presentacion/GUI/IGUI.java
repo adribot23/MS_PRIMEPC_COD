@@ -1,9 +1,9 @@
 /**
  * 
  */
-package Presentacion.GUI;
+package presentacion.GUI;
 
-import Presentacion.Controller.Command.Context;
+import presentacion.Controller.Command.Context;
 
 /** 
 * <!-- begin-UML-doc -->

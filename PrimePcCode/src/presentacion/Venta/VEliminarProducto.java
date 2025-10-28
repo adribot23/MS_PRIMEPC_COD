@@ -1,13 +1,11 @@
 /**
  * 
  */
-package Presentacion.Venta;
+package presentacion.Venta;
 
-import javax.swing.JFrame;
 import javax.swing.JPanel;
-import Presentacion.Controller.Controlador;
-import Presentacion.GUI.IGUI;
-import Presentacion.Controller.Command.Context;
+
+import presentacion.Controller.Controlador;
 
 /** 
  * <!-- begin-UML-doc -->
@@ -31,14 +29,14 @@ public class VEliminarProducto extends JPanel {
 	*/
 	public Void initGUI() {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 		return null;
 		// end-user-code
 	}
 
 	public void actualizar(Context context) {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 
 		// end-user-code
 	}

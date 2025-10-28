@@ -1,18 +1,18 @@
 
-package Negocio.FactoriaSA;
+package negocio.FactoriaSA;
 
-import Negocio.Almacen.SAAlmacen;
-import Negocio.Almacen.SAAlmacenImp;
-import Negocio.Cliente.SACliente;
-import Negocio.Cliente.SAClienteImp;
-import Negocio.Empleado.SAEmpleado;
-import Negocio.Empleado.SAEmpleadoImp;
-import Negocio.Venta.SAVenta;
-import Negocio.Venta.SAVentaImp;
-import Negocio.Producto.SAProducto;
-import Negocio.Producto.SAProductoImp;
-import Negocio.Proveedor.SAProveedor;
-import Negocio.Proveedor.SAProveedorImp;
+import negocio.Almacen.SAAlmacen;
+import negocio.Almacen.SAAlmacenImp;
+import negocio.Cliente.SACliente;
+import negocio.Cliente.SAClienteImp;
+import negocio.Empleado.SAEmpleado;
+import negocio.Empleado.SAEmpleadoImp;
+import negocio.Producto.SAProducto;
+import negocio.Producto.SAProductoImp;
+import negocio.Proveedor.SAProveedor;
+import negocio.Proveedor.SAProveedorImp;
+import negocio.Venta.SAVenta;
+import negocio.Venta.SAVentaImp;
 
 public class SAAbstractFactoryImp extends SAAbstractFactory {
 	public SAAlmacen generarSAAlmacen() {

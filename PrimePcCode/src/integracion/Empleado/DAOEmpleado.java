@@ -1,11 +1,12 @@
 /**
  * 
  */
-package Integracion.Empleado;
+package integracion.Empleado;
 
-import Negocio.Empleado.TEmpleado;
-import Negocio.Producto.TProducto;
 import java.util.Set;
+
+import negocio.Empleado.TEmpleado;
+import negocio.Producto.TProducto;
 
 /** 
 * <!-- begin-UML-doc -->

@@ -1,15 +1,15 @@
 /**
  * 
  */
-package Presentacion.Cliente;
+package presentacion.Cliente;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JPanel;
-import Presentacion.GUI.IGUI;
-import java.desktop.java.awt.event.ActionListener;
-import static java.desktop.javax.swing.JLabel.*;
-import Presentacion.Controller.Controlador;
-import Presentacion.Controller.Command.Context;
-import java.awt.event.ActionEvent;
+
+import presentacion.Controller.Controlador;
+import presentacion.GUI.IGUI;
 
 /** 
 * <!-- begin-UML-doc -->
@@ -33,21 +33,21 @@ public class VAltaCliente extends JPanel implements IGUI, ActionListener {
 	*/
 	public Void initGUI() {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 		return null;
 		// end-user-code
 	}
 
 	public void actualizar(Context context) {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 
 		// end-user-code
 	}
 
 	public void actionPerformed(ActionEvent e) {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 
 		// end-user-code
 	}

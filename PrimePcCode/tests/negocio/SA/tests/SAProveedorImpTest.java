@@ -15,9 +15,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import negocio.Proveedor.SAProveedor;
+import negocio.Proveedor.TProveedor;
 import negocio.factoria.FactoriaNegocio;
-import negocio.serviciosAplicacion.SAProveedor;
-import negocio.transfers.TProveedor;
 
 public class SAProveedorImpTest {
 

@@ -1,13 +1,15 @@
 /**
  * 
  */
-package Presentacion.Controller.Command.CommandProducto;
+package presentacion.Controller.Command.CommandProducto;
 
-import Presentacion.Controller.Command.Command;
-import Negocio.Producto.SAProducto;
-import Presentacion.Controller.Command.Context;
-import Negocio.Producto.TProducto;
 import java.util.Set;
+
+import negocio.FactoriaSA.SAAbstractFactory;
+import negocio.Producto.TProducto;
+import presentacion.Controller.Command.Command;
+import presentacion.Controller.Command.Context;
+import presentacion.GUI.Evento;
 
 /** 
 * <!-- begin-UML-doc -->
@@ -15,60 +17,14 @@ import java.util.Set;
 * @author adria
 * @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 */
-public class VerProdPorAlmacenCommand implements Command, SAProducto {
+public class VerProdPorAlmacenCommand implements Command{
 	public Context execute(Object data) {
-		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
-		return null;
-		// end-user-code
+		Set<TProducto> productos = SAAbstractFactory.getInstancia().generarSAProducto().leerProductosPorProveedor((int) data);
+		if (productos != null && !productos.isEmpty())
+			return new Context(Evento.RES_MOSTRAR_PRODUCTOS_POR_PROVEEDOR_OK, productos);
+		else
+			return new Context(Evento.RES_MOSTRAR_PRODUCTOS_POR_PROVEEDOR_KO, null);
 	}
 
-	public Integer altaProducto(TProducto producto) {
-		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
-		return null;
-		// end-user-code
-	}
-
-	public Set<TProducto> leerProductosPorAlmacen(Integer idAlmacen) {
-		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
-		return null;
-		// end-user-code
-	}
-
-	public Set<TProducto> leerProductosPorProveedor(Integer idProveedor) {
-		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
-		return null;
-		// end-user-code
-	}
-
-	public Integer bajaProducto(Integer id) {
-		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
-		return null;
-		// end-user-code
-	}
-
-	public Integer modificarProducto(TProducto producto) {
-		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
-		return null;
-		// end-user-code
-	}
-
-	public TProducto leerProducto(Integer id) {
-		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
-		return null;
-		// end-user-code
-	}
-
-	public Set<TProducto> leerTodosProductos() {
-		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
-		return null;
-		// end-user-code
-	}
+	
 }

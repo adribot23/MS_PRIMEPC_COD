@@ -1,11 +1,12 @@
 /**
  * 
  */
-package Negocio.Venta;
+package negocio.Venta;
 
 import java.util.Set;
-import Negocio.Empleado.TEmpleado;
-import Negocio.Producto.TProducto;
+
+import negocio.Empleado.TEmpleado;
+import negocio.Producto.TProducto;
 
 /** 
 * <!-- begin-UML-doc -->
@@ -49,7 +50,7 @@ public class TVentaTOA {
 	*/
 	public void colocar_datos(TVenta venta, Object empleado, Object... lista_producto) {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 
 		// end-user-code
 	}
@@ -62,7 +63,7 @@ public class TVentaTOA {
 	*/
 	public Set<TLineaVenta> get_lista_lineasVenta() {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 		return null;
 		// end-user-code
 	}
@@ -75,7 +76,7 @@ public class TVentaTOA {
 	*/
 	public void set_lista_lineasVenta(TLineaVenta... lista_lineasVenta) {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 
 		// end-user-code
 	}
@@ -88,7 +89,7 @@ public class TVentaTOA {
 	*/
 	public TVenta get_venta() {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 		return null;
 		// end-user-code
 	}
@@ -101,7 +102,7 @@ public class TVentaTOA {
 	*/
 	public void set_venta(TVenta venta) {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 
 		// end-user-code
 	}
@@ -114,7 +115,7 @@ public class TVentaTOA {
 	*/
 	public TEmpleado get_empleado() {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 		return null;
 		// end-user-code
 	}
@@ -127,7 +128,7 @@ public class TVentaTOA {
 	*/
 	public void set_empleado(TEmpleado empleado) {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 
 		// end-user-code
 	}
@@ -140,7 +141,7 @@ public class TVentaTOA {
 	*/
 	public Set<TProducto> get_lista_producto() {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 		return null;
 		// end-user-code
 	}
@@ -153,7 +154,7 @@ public class TVentaTOA {
 	*/
 	public void set_lista_producto(TProducto... lista_producto) {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 
 		// end-user-code
 	}

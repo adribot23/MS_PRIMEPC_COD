@@ -1,10 +1,11 @@
 /**
  * 
  */
-package Integracion.Producto;
+package integracion.Producto;
 
-import Negocio.Producto.TProducto;
 import java.util.Set;
+
+import negocio.Producto.TProducto;
 
 /** 
 * <!-- begin-UML-doc -->

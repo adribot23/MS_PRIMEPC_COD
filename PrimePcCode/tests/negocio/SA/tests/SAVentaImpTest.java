@@ -14,20 +14,20 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import negocio.Almacen.SAAlmacen;
+import negocio.Almacen.TAlmacen;
+import negocio.Cliente.SACliente;
+import negocio.Cliente.TClienteNoSocio;
+import negocio.Cliente.TClienteSocio;
+import negocio.Empleado.SAEmpleado;
+import negocio.Empleado.TEmpleadoParcial;
+import negocio.Producto.SAProducto;
+import negocio.Producto.TProducto;
+import negocio.Proveedor.SAProveedor;
+import negocio.Proveedor.TProveedor;
+import negocio.Venta.SAVenta;
+import negocio.Venta.TVenta;
 import negocio.factoria.FactoriaNegocio;
-import negocio.serviciosAplicacion.SAAlmacen;
-import negocio.serviciosAplicacion.SACliente;
-import negocio.serviciosAplicacion.SAEmpleado;
-import negocio.serviciosAplicacion.SAProducto;
-import negocio.serviciosAplicacion.SAProveedor;
-import negocio.serviciosAplicacion.SAVenta;
-import negocio.transfers.TAlmacen;
-import negocio.transfers.TClienteNoSocio;
-import negocio.transfers.TClienteSocio;
-import negocio.transfers.TEmpleadoParcial;
-import negocio.transfers.TProducto;
-import negocio.transfers.TProveedor;
-import negocio.transfers.TVenta;
 
 public class SAVentaImpTest {
 

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package Negocio.Cliente;
+package negocio.Cliente;
 
 import java.util.Set;
 

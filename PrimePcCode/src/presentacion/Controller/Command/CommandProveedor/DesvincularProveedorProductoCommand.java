@@ -1,10 +1,10 @@
 /**
  * 
  */
-package Presentacion.Controller.Command.CommandProveedor;
+package presentacion.Controller.Command.CommandProveedor;
 
-import Presentacion.Controller.Command.Command;
-import Presentacion.Controller.Command.Context;
+import negocio.FactoriaSA.SAAbstractFactory;
+import presentacion.Controller.Command.Command;
 
 /** 
 * <!-- begin-UML-doc -->
@@ -14,9 +14,14 @@ import Presentacion.Controller.Command.Context;
 */
 public class DesvincularProveedorProductoCommand implements Command {
 	public Context execute(Object data) {
-		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
-		return null;
-		// end-user-code
+		int[] datos = (int[]) data;
+		int idProducto = datos[0];
+		int idProveedor = datos[1];
+
+		int res =  SAAbstractFactory.getInstancia().generarSAProveedor().desvincularProductoProveedor(idProducto,idProveedor);
+		if (res > 0)
+			return new Context(Evento.RES_DESVINCULAR_PRODUCTO_PROVEEDOR_OK, res);
+		else
+			return new Context(Evento.RES_DESVINCULAR_PRODUCTO_PROVEEDOR_KO, null);
 	}
 }

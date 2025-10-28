@@ -15,11 +15,11 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import negocio.Empleado.SAEmpleado;
+import negocio.Empleado.TEmpleado;
+import negocio.Empleado.TEmpleadoCompleto;
+import negocio.Empleado.TEmpleadoParcial;
 import negocio.factoria.FactoriaNegocio;
-import negocio.serviciosAplicacion.SAEmpleado;
-import negocio.transfers.TEmpleado;
-import negocio.transfers.TEmpleadoCompleto;
-import negocio.transfers.TEmpleadoParcial;
 
 public class SAEmpleadoImpTest {
 

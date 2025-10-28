@@ -14,9 +14,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import integracion.daos.DAOProducto;
+import integracion.Producto.DAOProducto;
 import integracion.factoria.FactoriaIntegracion;
-import negocio.transfers.TProducto;
+import negocio.Producto.TProducto;
 
 public class DAOProductoImpTest {
 

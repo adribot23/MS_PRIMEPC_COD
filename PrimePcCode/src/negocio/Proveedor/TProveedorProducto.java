@@ -1,7 +1,7 @@
 /**
  * 
  */
-package Negocio.Proveedor;
+package negocio.Proveedor;
 
 /** 
  * <!-- begin-UML-doc -->
@@ -37,7 +37,7 @@ public class TProveedorProducto {
 	*/
 	public Integer get_id_proveedor() {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 		return null;
 		// end-user-code
 	}
@@ -50,7 +50,7 @@ public class TProveedorProducto {
 	*/
 	public int get_id_producto() {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 		return 0;
 		// end-user-code
 	}
@@ -63,7 +63,7 @@ public class TProveedorProducto {
 	*/
 	public int get_activo() {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 		return 0;
 		// end-user-code
 	}
@@ -76,7 +76,7 @@ public class TProveedorProducto {
 	*/
 	public void set_id_proveedor(int id_proveedor) {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 
 		// end-user-code
 	}
@@ -89,7 +89,7 @@ public class TProveedorProducto {
 	*/
 	public void set_id_producto(int id_producto) {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 
 		// end-user-code
 	}
@@ -102,7 +102,7 @@ public class TProveedorProducto {
 	*/
 	public void set_activo(int activo) {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 
 		// end-user-code
 	}
@@ -117,7 +117,7 @@ public class TProveedorProducto {
 	*/
 	public void colocar_datos(int id_proveedor, int id_producto, int activo) {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 
 		// end-user-code
 	}

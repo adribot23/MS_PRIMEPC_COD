@@ -1,12 +1,12 @@
 
-package Negocio.FactoriaSA;
+package negocio.FactoriaSA;
 
-import Negocio.Almacen.SAAlmacen;
-import Negocio.Cliente.SACliente;
-import Negocio.Empleado.SAEmpleado;
-import Negocio.Venta.SAVenta;
-import Negocio.Producto.SAProducto;
-import Negocio.Proveedor.SAProveedor;
+import negocio.Almacen.SAAlmacen;
+import negocio.Cliente.SACliente;
+import negocio.Empleado.SAEmpleado;
+import negocio.Producto.SAProducto;
+import negocio.Proveedor.SAProveedor;
+import negocio.Venta.SAVenta;
 
 
 public abstract class SAAbstractFactory {

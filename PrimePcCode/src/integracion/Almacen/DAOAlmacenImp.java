@@ -1,10 +1,11 @@
 /**
  * 
  */
-package Integracion.Almacen;
+package integracion.Almacen;
 
-import Negocio.Almacen.TAlmacen;
 import java.util.Set;
+
+import negocio.Almacen.TAlmacen;
 
 /** 
 * <!-- begin-UML-doc -->
@@ -15,42 +16,42 @@ import java.util.Set;
 public class DAOAlmacenImp implements DAOAlmacen, DAOAlmacen {
 	public Integer create(TAlmacen almacen) {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 		return null;
 		// end-user-code
 	}
 
 	public TAlmacen read(Integer id) {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 		return null;
 		// end-user-code
 	}
 
 	public Integer update(TAlmacen almacen) {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 		return null;
 		// end-user-code
 	}
 
 	public Integer delete(Integer id) {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 		return null;
 		// end-user-code
 	}
 
 	public TAlmacen read_by_name(String nombre) {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 		return null;
 		// end-user-code
 	}
 
 	public Set<TAlmacen> read_all() {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 		return null;
 		// end-user-code
 	}

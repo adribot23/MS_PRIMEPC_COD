@@ -1,9 +1,9 @@
 /**
  * 
  */
-package Presentacion.Proveedor;
+package presentacion.Proveedor;
 
-import Presentacion.Controller.Controlador;
+import presentacion.Controller.Controlador;
 
 /** 
 * <!-- begin-UML-doc -->
@@ -27,7 +27,7 @@ public class VProveedorConMasUnidadesDeProductoVendidas {
 	*/
 	public Void initGUI() {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 		return null;
 		// end-user-code
 	}

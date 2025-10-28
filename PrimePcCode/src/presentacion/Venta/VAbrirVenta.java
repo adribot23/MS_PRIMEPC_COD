@@ -1,17 +1,18 @@
 /**
  * 
  */
-package Presentacion.Venta;
+package presentacion.Venta;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import Presentacion.GUI.IGUI;
-import java.util.Set;
-import javax.swing.JLabel;
 import java.awt.event.ActionListener;
-import javax.swing.JTextField;
+import java.util.Set;
+
 import javax.swing.JButton;
-import Presentacion.Controller.Command.Context;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+import presentacion.GUI.IGUI;
 
 /** 
 * <!-- begin-UML-doc -->
@@ -53,7 +54,7 @@ public class VAbrirVenta extends JFrame implements IGUI {
 
 	public void actualizar(Context context) {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 
 		// end-user-code
 	}
