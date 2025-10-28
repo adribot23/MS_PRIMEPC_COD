@@ -1,10 +1,9 @@
 /**
  * 
  */
-package Presentacion.Controller.Command.CommandVenta;
+package presentacion.Controller.Command.CommandVenta;
 
-import Presentacion.Controller.Command.Command;
-import Presentacion.Controller.Command.Context;
+import presentacion.Controller.Command.Command;
 
 /** 
 * <!-- begin-UML-doc -->
@@ -15,7 +14,7 @@ import Presentacion.Controller.Command.Context;
 public class VerVentasPorEmpleadoCommand implements Command {
 	public Context execute(Object data) {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 		return null;
 		// end-user-code
 	}

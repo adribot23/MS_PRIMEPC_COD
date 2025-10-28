@@ -1,10 +1,9 @@
 /**
  * 
  */
-package Presentacion.Venta;
+package presentacion.Venta;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 /** 
 * <!-- begin-UML-doc -->

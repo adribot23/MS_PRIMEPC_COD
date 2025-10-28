@@ -1,9 +1,9 @@
 /**
  * 
  */
-package Integracion.Cliente;
+package integracion.Cliente;
 
-import Negocio.Cliente.TCliente;
+import negocio.Cliente.TCliente;
 
 /** 
 * <!-- begin-UML-doc -->

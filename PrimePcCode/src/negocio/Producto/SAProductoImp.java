@@ -1,7 +1,7 @@
 /**
  * 
  */
-package Negocio.Producto;
+package negocio.Producto;
 
 import java.util.Set;
 
@@ -14,49 +14,49 @@ import java.util.Set;
 public class SAProductoImp implements SAProducto {
 	public Integer altaProducto(TProducto producto) {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 		return null;
 		// end-user-code
 	}
 
 	public Set<TProducto> leerProductosPorAlmacen(Integer idAlmacen) {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 		return null;
 		// end-user-code
 	}
 
 	public Set<TProducto> leerProductosPorProveedor(Integer idProveedor) {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 		return null;
 		// end-user-code
 	}
 
 	public Integer bajaProducto(Integer id) {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 		return null;
 		// end-user-code
 	}
 
 	public Integer modificarProducto(TProducto producto) {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 		return null;
 		// end-user-code
 	}
 
 	public TProducto leerProducto(Integer id) {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 		return null;
 		// end-user-code
 	}
 
 	public Set<TProducto> leerTodosProductos() {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 		return null;
 		// end-user-code
 	}

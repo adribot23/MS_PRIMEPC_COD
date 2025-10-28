@@ -14,9 +14,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import integracion.daos.DAOProveedor;
+import integracion.Proveedor.DAOProveedor;
 import integracion.factoria.FactoriaIntegracion;
-import negocio.transfers.TProveedor;
+import negocio.Proveedor.TProveedor;
 
 public class DAOProveedorImpTest {
 

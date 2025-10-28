@@ -1,7 +1,7 @@
 /**
  * 
  */
-package Negocio.Venta;
+package negocio.Venta;
 
 /** 
  * <!-- begin-UML-doc -->
@@ -12,49 +12,49 @@ package Negocio.Venta;
 public class SAVentaImp implements SAVenta {
 	public Integer altaVenta(TVenta venta) {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 		return null;
 		// end-user-code
 	}
 
 	public CollectionTVenta leerVentasPorEmpleado(Integer idEmpleado) {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 		return null;
 		// end-user-code
 	}
 
 	public Integer bajaVenta(Integer id) {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 		return null;
 		// end-user-code
 	}
 
 	public Integer modificarVenta(TVenta venta) {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 		return null;
 		// end-user-code
 	}
 
 	public TVenta leerVenta(Integer id) {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 		return null;
 		// end-user-code
 	}
 
 	public CollectionTVenta leerTodasVentas() {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 		return null;
 		// end-user-code
 	}
 
 	public CollectionTVenta leerVentasPorCliente(Integer idCliente) {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 		return null;
 		// end-user-code
 	}

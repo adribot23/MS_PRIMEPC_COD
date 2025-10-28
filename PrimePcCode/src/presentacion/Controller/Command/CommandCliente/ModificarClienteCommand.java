@@ -1,10 +1,13 @@
 /**
  * 
  */
-package Presentacion.Controller.Command.CommandCliente;
+package presentacion.Controller.Command.CommandCliente;
 
-import Presentacion.Controller.Command.Command;
-import Presentacion.Controller.Command.Context;
+import negocio.Cliente.TCliente;
+import negocio.FactoriaSA.SAAbstractFactory;
+import presentacion.Controller.Command.Command;
+import presentacion.Controller.Command.Context;
+import presentacion.GUI.Evento;
 
 /** 
 * <!-- begin-UML-doc -->
@@ -14,9 +17,10 @@ import Presentacion.Controller.Command.Context;
 */
 public class ModificarClienteCommand implements Command {
 	public Context execute(Object data) {
-		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
-		return null;
-		// end-user-code
+		int res = SAAbstractFactory.getInstancia().generarSACliente().modificarCliente((TCliente) data);
+		if (res > 0)
+			return new Context(Evento.RES_MODIFICAR_CLIENTE_OK, res);
+		else
+			return new Context(Evento.RES_MODIFICAR_CLIENTE_KO, null);
 	}
 }

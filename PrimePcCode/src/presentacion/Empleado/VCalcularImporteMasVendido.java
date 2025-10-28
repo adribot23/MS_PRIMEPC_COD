@@ -1,9 +1,9 @@
 /**
  * 
  */
-package Presentacion.Empleado;
+package presentacion.Empleado;
 
-import Presentacion.Controller.Controlador;
+import presentacion.Controller.Controlador;
 
 /** 
 * <!-- begin-UML-doc -->
@@ -26,7 +26,7 @@ public class VCalcularImporteMasVendido {
 	*/
 	public void initGUI() {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 
 		// end-user-code
 	}

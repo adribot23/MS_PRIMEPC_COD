@@ -1,11 +1,11 @@
 /**
  * 
  */
-package Presentacion.Cliente;
+package presentacion.Cliente;
 
-import javax.swing.JFrame;
 import javax.swing.JPanel;
-import Presentacion.Controller.Controlador;
+
+import presentacion.Controller.Controlador;
 
 /** 
 * <!-- begin-UML-doc -->
@@ -29,7 +29,7 @@ public class VBuscarCliente extends JPanel {
 	*/
 	public Void intGUI() {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 		return null;
 		// end-user-code
 	}

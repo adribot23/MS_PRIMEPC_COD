@@ -13,11 +13,11 @@ import java.util.Collection;
 import org.junit.After;
 import org.junit.Test;
 
-import integracion.daos.DAOCliente;
+import integracion.Cliente.DAOCliente;
 import integracion.factoria.FactoriaIntegracion;
-import negocio.transfers.TCliente;
-import negocio.transfers.TClienteNoSocio;
-import negocio.transfers.TClienteSocio;
+import negocio.Cliente.TCliente;
+import negocio.Cliente.TClienteNoSocio;
+import negocio.Cliente.TClienteSocio;
 
 public class DAOClienteImpTest {
 

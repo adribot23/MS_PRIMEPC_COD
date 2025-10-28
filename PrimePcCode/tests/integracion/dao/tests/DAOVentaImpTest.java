@@ -15,9 +15,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import integracion.daos.DAOVenta;
+import integracion.Venta.DAOVenta;
 import integracion.factoria.FactoriaIntegracion;
-import negocio.transfers.TVenta;
+import negocio.Venta.TVenta;
 
 public class DAOVentaImpTest {
 

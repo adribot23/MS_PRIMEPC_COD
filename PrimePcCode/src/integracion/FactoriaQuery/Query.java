@@ -1,5 +1,5 @@
 
-package Integracion.FactoriaQuery;
+package integracion.FactoriaQuery;
 
 public interface Query {
 

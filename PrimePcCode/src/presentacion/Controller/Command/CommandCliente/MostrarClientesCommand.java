@@ -1,22 +1,30 @@
 /**
  * 
  */
-package Presentacion.Controller.Command.CommandCliente;
+package presentacion.Controller.Command.CommandCliente;
 
-import Presentacion.Controller.Command.Command;
-import Presentacion.Controller.Command.Context;
+import java.util.Set;
 
-/** 
-* <!-- begin-UML-doc -->
-* <!-- end-UML-doc -->
-* @author adria
-* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-*/
+import negocio.Cliente.TCliente;
+import negocio.FactoriaSA.SAAbstractFactory;
+import presentacion.Controller.Command.Command;
+import presentacion.Controller.Command.Context;
+import presentacion.GUI.Evento;
+
+/**
+ * <!-- begin-UML-doc --> <!-- end-UML-doc -->
+ * 
+ * @author adria
+ * @generated "UML a Java
+ *            (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+ */
 public class MostrarClientesCommand implements Command {
 	public Context execute(Object data) {
-		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
-		return null;
-		// end-user-code
+		Set<TCliente> clientes = SAAbstractFactory.getInstancia().generarSACliente().leerTodosClientes();
+
+		if (clientes != null && !clientes.isEmpty())
+			return new Context(Evento.RES_MOSTRAR_TODOS_CLIENTES_OK, clientes);
+		else
+			return new Context(Evento.RES_MOSTRAR_TODOS_CLIENTES_KO, null);
 	}
 }

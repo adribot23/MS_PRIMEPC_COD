@@ -1,15 +1,16 @@
 /**
  * 
  */
-package Presentacion.Venta;
+package presentacion.Venta;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import java.util.Set;
-import javax.swing.JTextField;
-import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.util.Set;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 /** 
 * <!-- begin-UML-doc -->

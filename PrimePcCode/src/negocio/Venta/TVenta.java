@@ -1,7 +1,7 @@
 /**
  * 
  */
-package Negocio.Venta;
+package negocio.Venta;
 
 /** 
  * <!-- begin-UML-doc -->
@@ -61,7 +61,7 @@ public class TVenta {
 	*/
 	public Integer getId() {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 		return null;
 		// end-user-code
 	}
@@ -74,7 +74,7 @@ public class TVenta {
 	*/
 	public void setId(Integer id) {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 
 		// end-user-code
 	}
@@ -87,7 +87,7 @@ public class TVenta {
 	*/
 	public String getMetodoPago() {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 		return null;
 		// end-user-code
 	}
@@ -100,7 +100,7 @@ public class TVenta {
 	*/
 	public void setMetodoPago(String metodoPago) {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 
 		// end-user-code
 	}
@@ -113,7 +113,7 @@ public class TVenta {
 	*/
 	public int getActivo() {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 		return 0;
 		// end-user-code
 	}
@@ -126,7 +126,7 @@ public class TVenta {
 	*/
 	public void setActivo(int activo) {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 
 		// end-user-code
 	}
@@ -139,7 +139,7 @@ public class TVenta {
 	*/
 	public Double getPrecio() {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 		return null;
 		// end-user-code
 	}
@@ -152,7 +152,7 @@ public class TVenta {
 	*/
 	public void setPrecio(Double precio) {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 
 		// end-user-code
 	}
@@ -165,7 +165,7 @@ public class TVenta {
 	*/
 	public Double getDescuento() {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 		return null;
 		// end-user-code
 	}
@@ -178,7 +178,7 @@ public class TVenta {
 	*/
 	public void setDescuento(Double descuento) {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 
 		// end-user-code
 	}
@@ -191,7 +191,7 @@ public class TVenta {
 	*/
 	public Integer getIdCliente() {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 		return null;
 		// end-user-code
 	}
@@ -204,7 +204,7 @@ public class TVenta {
 	*/
 	public void setIdCliente(Integer idCliente) {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 
 		// end-user-code
 	}
@@ -217,7 +217,7 @@ public class TVenta {
 	*/
 	public Integer getIdEmpleado() {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 		return null;
 		// end-user-code
 	}
@@ -230,7 +230,7 @@ public class TVenta {
 	*/
 	public void setIdEmpleado(Integer idEmpleado) {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 
 		// end-user-code
 	}

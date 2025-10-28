@@ -1,10 +1,11 @@
 /**
  * 
  */
-package Negocio.Empleado;
+package negocio.Empleado;
 
-import Negocio.Producto.TProducto;
 import java.util.Set;
+
+import negocio.Producto.TProducto;
 
 /** 
 * <!-- begin-UML-doc -->
@@ -15,42 +16,42 @@ import java.util.Set;
 public class SAEmpleadoImp implements SAEmpleado {
 	public Integer altaEmpleado(TEmpleado tEmpleado) {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 		return null;
 		// end-user-code
 	}
 
 	public void calcularImporteMasVendido(TProducto tProducto) {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 
 		// end-user-code
 	}
 
 	public Integer bajaEmpleado(Integer id) {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 		return null;
 		// end-user-code
 	}
 
 	public Integer modificarEmpleado(TEmpleado tEmpleado) {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 		return null;
 		// end-user-code
 	}
 
 	public TEmpleado leerEmpleado(Integer id) {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 		return null;
 		// end-user-code
 	}
 
 	public Set<TEmpleado> leerTodosEmpleados() {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 		return null;
 		// end-user-code
 	}

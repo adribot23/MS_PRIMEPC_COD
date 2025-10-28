@@ -1,10 +1,12 @@
 /**
  * 
  */
-package Presentacion.Controller.Command.CommandAlmacen;
+package presentacion.Controller.Command.CommandAlmacen;
 
-import Presentacion.Controller.Command.Command;
-import Presentacion.Controller.Command.Context;
+import negocio.FactoriaSA.SAAbstractFactory;
+import presentacion.Controller.Command.Command;
+import presentacion.Controller.Command.Context;
+import presentacion.GUI.Evento;
 
 /** 
 * <!-- begin-UML-doc -->
@@ -14,9 +16,13 @@ import Presentacion.Controller.Command.Context;
 */
 public class BajaAlmacenCommand implements Command {
 	public Context execute(Object data) {
-		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
-		return null;
-		// end-user-code
+		
+		int idAlmacen = (int)data;
+		int res = SAAbstractFactory.getInstancia().generarSAAlmacen().bajaAlmacen(idAlmacen);
+
+		if (res > 0)
+			return new Context(Evento.RES_BAJA_ALMACEN_OK, res);
+		else
+			return new Context(Evento.RES_BAJA_ALMACEN_KO, null);
 	}
 }

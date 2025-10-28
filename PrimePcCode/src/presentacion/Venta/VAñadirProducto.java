@@ -1,7 +1,7 @@
 /**
  * 
  */
-package Presentacion.Venta;
+package presentacion.Venta;
 
 import javax.swing.JFrame;
 import Presentacion.GUI.IGUI;
@@ -20,7 +20,7 @@ import Presentacion.Controller.Command.Context;
  * @author adria
  * @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
  */
-public class VAñadirProducto extends JPanel {
+public class VAï¿½adirProducto extends JPanel {
 	/** 
 	* <!-- begin-UML-doc -->
 	* <!-- end-UML-doc -->
@@ -36,14 +36,14 @@ public class VAñadirProducto extends JPanel {
 	*/
 	public Void initGUI() {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 		return null;
 		// end-user-code
 	}
 
 	public void actualizar(Context context) {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 
 		// end-user-code
 	}

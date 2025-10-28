@@ -1,7 +1,7 @@
 /**
  * 
  */
-package Negocio.Venta;
+package negocio.Venta;
 
 import java.util.Set;
 
@@ -57,7 +57,7 @@ public class TCarrito {
 	*/
 	public int getId() {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 		return 0;
 		// end-user-code
 	}
@@ -70,7 +70,7 @@ public class TCarrito {
 	*/
 	public void setId(Integer id) {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 
 		// end-user-code
 	}
@@ -83,7 +83,7 @@ public class TCarrito {
 	*/
 	public Integer getIdEmpleado() {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 		return null;
 		// end-user-code
 	}
@@ -96,7 +96,7 @@ public class TCarrito {
 	*/
 	public void setIdEmpleado(Integer id) {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 
 		// end-user-code
 	}
@@ -109,7 +109,7 @@ public class TCarrito {
 	*/
 	public Integer getIdCliente() {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 		return null;
 		// end-user-code
 	}
@@ -122,7 +122,7 @@ public class TCarrito {
 	*/
 	public void setIdCliente(Integer id) {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 
 		// end-user-code
 	}
@@ -135,7 +135,7 @@ public class TCarrito {
 	*/
 	public Double getTotal() {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 		return null;
 		// end-user-code
 	}
@@ -148,7 +148,7 @@ public class TCarrito {
 	*/
 	public void setTotal(Double total) {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 
 		// end-user-code
 	}
@@ -161,7 +161,7 @@ public class TCarrito {
 	*/
 	public Integer getEstado() {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 		return null;
 		// end-user-code
 	}
@@ -174,7 +174,7 @@ public class TCarrito {
 	*/
 	public void setEstado(Integer estado) {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 
 		// end-user-code
 	}
@@ -187,7 +187,7 @@ public class TCarrito {
 	*/
 	public Set<TLineaVenta> getLineasVenta() {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 		return null;
 		// end-user-code
 	}
@@ -200,7 +200,7 @@ public class TCarrito {
 	*/
 	public void setLineasVenta(TLineaVenta... lineasVenta) {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 
 		// end-user-code
 	}

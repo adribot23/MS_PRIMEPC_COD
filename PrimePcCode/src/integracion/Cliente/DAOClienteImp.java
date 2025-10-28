@@ -1,9 +1,9 @@
 /**
  * 
  */
-package Integracion.Cliente;
+package integracion.Cliente;
 
-import Negocio.Cliente.TCliente;
+import negocio.Cliente.TCliente;
 
 /** 
 * <!-- begin-UML-doc -->
@@ -14,42 +14,42 @@ import Negocio.Cliente.TCliente;
 public class DAOClienteImp implements DAOCliente {
 	public Integer create(TCliente cliente) {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 		return null;
 		// end-user-code
 	}
 
 	public TCliente read(Integer id) {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 		return null;
 		// end-user-code
 	}
 
 	public Integer update(TCliente empleado) {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 		return null;
 		// end-user-code
 	}
 
 	public Integer delete(Integer id) {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 		return null;
 		// end-user-code
 	}
 
 	public TCliente read_by_DNI(String nombre) {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 		return null;
 		// end-user-code
 	}
 
 	public CollectionTCliente read_all() {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 		return null;
 		// end-user-code
 	}

@@ -1,10 +1,13 @@
 /**
  * 
  */
-package Presentacion.Controller.Command.CommandProveedor;
+package presentacion.Controller.Command.CommandProveedor;
 
-import Presentacion.Controller.Command.Command;
-import Presentacion.Controller.Command.Context;
+import negocio.FactoriaSA.SAAbstractFactory;
+import negocio.Proveedor.TProveedor;
+import presentacion.Controller.Command.Command;
+import presentacion.Controller.Command.Context;
+import presentacion.GUI.Evento;
 
 /** 
 * <!-- begin-UML-doc -->
@@ -14,9 +17,10 @@ import Presentacion.Controller.Command.Context;
 */
 public class BuscarProveedorCommand implements Command {
 	public Context execute(Object data) {
-		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
-		return null;
-		// end-user-code
+		TProveedor tProveedor = SAAbstractFactory.getInstancia().generarSAProveedor().leerProveedor((int) data);
+		if (tProveedor != null)
+			return new Context(Evento.RES_BUSCAR_PROVEEDOR_OK, tProveedor);
+		else
+			return new Context(Evento.RES_BUSCAR_PROVEEDOR_KO, null);
 	}
-}
+	}

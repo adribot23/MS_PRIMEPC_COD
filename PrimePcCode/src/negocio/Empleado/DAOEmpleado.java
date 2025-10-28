@@ -1,10 +1,11 @@
 /**
  * 
  */
-package Negocio.Empleado;
+package negocio.Empleado;
 
-import Negocio.Producto.TProducto;
 import java.util.Set;
+
+import negocio.Producto.TProducto;
 
 /** 
 * <!-- begin-UML-doc -->

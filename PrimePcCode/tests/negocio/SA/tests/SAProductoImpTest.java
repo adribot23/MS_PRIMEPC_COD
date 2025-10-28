@@ -15,9 +15,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import negocio.Producto.SAProducto;
+import negocio.Producto.TProducto;
 import negocio.factoria.FactoriaNegocio;
-import negocio.serviciosAplicacion.SAProducto;
-import negocio.transfers.TProducto;
 
 public class SAProductoImpTest {
 

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package Negocio.Almacen;
+package negocio.Almacen;
 
 import java.util.Set;
 
@@ -19,7 +19,7 @@ public interface SAAlmacen {
 	* @return
 	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	*/
-	public Integer altaAlmacen(TAlmacen almacen);
+	public int altaAlmacen(TAlmacen almacen);
 
 	/** 
 	* <!-- begin-UML-doc -->
@@ -28,7 +28,7 @@ public interface SAAlmacen {
 	* @return
 	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	*/
-	public Integer bajaAlmacen(Integer id);
+	public int bajaAlmacen(Integer id);
 
 	/** 
 	* <!-- begin-UML-doc -->
@@ -37,7 +37,7 @@ public interface SAAlmacen {
 	* @return
 	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	*/
-	public Integer modificarAlmacen(TAlmacen almacen);
+	public int modificarAlmacen(TAlmacen almacen);
 
 	/** 
 	* <!-- begin-UML-doc -->
@@ -64,7 +64,7 @@ public interface SAAlmacen {
 	* @return
 	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	*/
-	public Integer vincularProductoAlmacen(Integer idProducto, Integer idAlmacen);
+	public int vincularProductoAlmacen(Integer idProducto, Integer idAlmacen);
 
 	/** 
 	* <!-- begin-UML-doc -->
@@ -74,5 +74,5 @@ public interface SAAlmacen {
 	* @return
 	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	*/
-	public Integer desvincularProductoAlmacen(Integer idProducto, Integer idAlmacen);
+	public int desvincularProductoAlmacen(Integer idProducto, Integer idAlmacen);
 }

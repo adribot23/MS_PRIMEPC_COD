@@ -1,10 +1,11 @@
 /**
  * 
  */
-package Presentacion.Venta;
+package presentacion.Venta;
 
 import javax.swing.JFrame;
-import Presentacion.Controller.Controlador;
+
+import presentacion.Controller.Controlador;
 
 /** 
 * <!-- begin-UML-doc -->
@@ -28,7 +29,7 @@ public class VMostrarPorEmpleado extends JFrame {
 	*/
 	public Void initGUI() {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 		return null;
 		// end-user-code
 	}

@@ -1,12 +1,13 @@
 /**
  * 
  */
-package Integracion.Proveedor;
+package integracion.Proveedor;
 
-import Negocio.Proveedor.TProveedorProducto;
 import java.util.Set;
-import Negocio.Producto.TProducto;
-import Negocio.Proveedor.TProveedor;
+
+import negocio.Producto.TProducto;
+import negocio.Proveedor.TProveedor;
+import negocio.Proveedor.TProveedorProducto;
 
 /** 
 * <!-- begin-UML-doc -->

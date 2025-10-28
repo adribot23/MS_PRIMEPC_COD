@@ -1,10 +1,12 @@
 /**
  * 
  */
-package Presentacion.Controller.Command.CommandProveedor;
+package presentacion.Controller.Command.CommandProveedor;
 
-import Presentacion.Controller.Command.Command;
-import Presentacion.Controller.Command.Context;
+import negocio.FactoriaSA.SAAbstractFactory;
+import presentacion.Controller.Command.Command;
+import presentacion.Controller.Command.Context;
+import presentacion.GUI.Evento;
 
 /** 
 * <!-- begin-UML-doc -->
@@ -14,9 +16,10 @@ import Presentacion.Controller.Command.Context;
 */
 public class BajaProveedorCommand implements Command {
 	public Context execute(Object data) {
-		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
-		return null;
-		// end-user-code
+		int res = SAAbstractFactory.getInstancia().generarSAProveedor().bajaProveedor((int) data);
+		if (res > 0)
+			return new Context(Evento.RES_BAJA_PROVEEDOR_OK, res);
+		else
+			return new Context(Evento.RES_BAJA_PROVEEDOR_KO, null);
 	}
 }

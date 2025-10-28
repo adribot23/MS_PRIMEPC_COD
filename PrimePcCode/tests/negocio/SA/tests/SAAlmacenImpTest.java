@@ -15,11 +15,11 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import negocio.Almacen.SAAlmacen;
+import negocio.Almacen.TAlmacen;
+import negocio.Producto.SAProducto;
+import negocio.Producto.TProducto;
 import negocio.factoria.FactoriaNegocio;
-import negocio.serviciosAplicacion.SAAlmacen;
-import negocio.serviciosAplicacion.SAProducto;
-import negocio.transfers.TAlmacen;
-import negocio.transfers.TProducto;
 
 public class SAAlmacenImpTest {
 

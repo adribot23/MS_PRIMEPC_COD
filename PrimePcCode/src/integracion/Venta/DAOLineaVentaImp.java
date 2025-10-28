@@ -1,10 +1,11 @@
 /**
  * 
  */
-package Integracion.Venta;
+package integracion.Venta;
 
-import Negocio.Venta.TLineaVenta;
 import java.util.Set;
+
+import negocio.Venta.TLineaVenta;
 
 /** 
 * <!-- begin-UML-doc -->
@@ -15,42 +16,42 @@ import java.util.Set;
 public class DAOLineaVentaImp implements DAOLineaVenta {
 	public int create(TLineaVenta lineaVenta) {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 		return 0;
 		// end-user-code
 	}
 
 	public int delete(TLineaVenta tlineaVenta) {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 		return 0;
 		// end-user-code
 	}
 
 	public TLineaVenta read(TLineaVenta tlineaVenta) {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 		return null;
 		// end-user-code
 	}
 
 	public Set<TLineaVenta> read_all(int id_venta) {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 		return null;
 		// end-user-code
 	}
 
 	public int update(TLineaVenta tlineaVenta) {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 		return 0;
 		// end-user-code
 	}
 
 	public TLineaVenta read_all_by_producto(int id_producto) {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 		return null;
 		// end-user-code
 	}

@@ -1,6 +1,6 @@
 package primePcMain;
 
-import presentacion.vista.MainWindow;
+import Presentacion.vista.MainWindow;
 
 public class Main {
 

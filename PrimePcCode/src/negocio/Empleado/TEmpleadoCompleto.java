@@ -1,7 +1,7 @@
 /**
  * 
  */
-package Negocio.Empleado;
+package negocio.Empleado;
 
 /** 
  * <!-- begin-UML-doc -->
@@ -10,49 +10,32 @@ package Negocio.Empleado;
  * @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
  */
 public class TEmpleadoCompleto extends TEmpleado {
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	*/
-	private Integer horas_extra;
+	protected int horas_extra;
 
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @param horas_extra
-	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	*/
-	public TEmpleadoCompleto(Integer horas_extra) {
-		// begin-user-code
-		// TODO Apéndice de constructor generado automáticamente
-		// end-user-code
+	public TEmpleadoCompleto(int id, String nombre, String dni, String tlf, int horas_extra) {
+		super(id, nombre, dni, tlf);
+		this.horas_extra = horas_extra;
 	}
 
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @return
-	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	*/
-	public Integer getHorasExtra() {
-		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
-		return null;
-		// end-user-code
+	public TEmpleadoCompleto(int id, String nombre, String dni, String tlf, int activo, int horas_extra) {
+		super(id, nombre, dni, tlf, activo);
+		this.horas_extra = horas_extra;
 	}
 
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @param horas
-	* @return
-	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	*/
-	public Void setHorasExtra(Integer horas) {
-		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
-		return null;
-		// end-user-code
+	public TEmpleadoCompleto() {
+
+	}
+
+	public int getHorasExtra() {
+		return this.horas_extra;
+	}
+
+	public void setHorasExtra(int horas) {
+		this.horas_extra = horas;
+	}
+
+	public String toString() {
+		return super.toString() + ", Tipo: Completo, Horas Extra: " + this.horas_extra + "]";
+
 	}
 }

@@ -1,13 +1,12 @@
 /**
  * 
  */
-package Presentacion.Almacen;
+package presentacion.Almacen;
 
 import javax.swing.JFrame;
-import Presentacion.GUI.IGUI;
-import static java.desktop.java.awt.Color.*;
-import Presentacion.Controller.Controlador;
-import Presentacion.Controller.Command.Context;
+
+import presentacion.Controller.Controlador;
+import presentacion.GUI.IGUI;
 
 /** 
 * <!-- begin-UML-doc -->
@@ -31,14 +30,14 @@ public class VModificarAlmacen extends JFrame implements IGUI, IGUI {
 	*/
 	public Void initGUI() {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 		return null;
 		// end-user-code
 	}
 
 	public void actualizar(Context context) {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 
 		// end-user-code
 	}

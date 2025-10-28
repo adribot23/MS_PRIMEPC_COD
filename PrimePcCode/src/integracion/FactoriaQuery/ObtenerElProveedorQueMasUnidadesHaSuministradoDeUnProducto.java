@@ -1,7 +1,7 @@
 /**
  * 
  */
-package Integracion.FactoriaQuery;
+package integracion.FactoriaQuery;
 
 /** 
  * <!-- begin-UML-doc -->
@@ -12,7 +12,7 @@ package Integracion.FactoriaQuery;
 public class ObtenerElProveedorQueMasUnidadesHaSuministradoDeUnProducto implements Query {
 	public void execute(Class param) {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 
 		// end-user-code
 	}

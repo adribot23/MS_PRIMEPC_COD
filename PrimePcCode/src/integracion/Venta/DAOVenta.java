@@ -1,10 +1,11 @@
 /**
  * 
  */
-package Integracion.Venta;
+package integracion.Venta;
 
-import Negocio.Venta.TVenta;
 import java.util.Set;
+
+import negocio.Venta.TVenta;
 
 /** 
 * <!-- begin-UML-doc -->

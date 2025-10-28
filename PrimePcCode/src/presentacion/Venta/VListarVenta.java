@@ -1,12 +1,11 @@
 /**
  * 
  */
-package Presentacion.Venta;
+package presentacion.Venta;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-import Presentacion.GUI.IGUI;
-import Presentacion.Controller.Command.Context;
+
+import presentacion.GUI.IGUI;
 
 /** 
 * <!-- begin-UML-doc -->
@@ -17,7 +16,7 @@ import Presentacion.Controller.Command.Context;
 public class VListarVenta extends JFrame implements IGUI {
 	public void actualizar(Context context) {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// TODO Apï¿½ndice de mï¿½todo generado automï¿½ticamente
 
 		// end-user-code
 	}

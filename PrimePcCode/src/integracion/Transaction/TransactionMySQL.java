@@ -1,5 +1,5 @@
 
-package Integracion.Transaction;
+package integracion.Transaction;
 
 import java.sql.Connection;
 import java.sql.SQLException;
