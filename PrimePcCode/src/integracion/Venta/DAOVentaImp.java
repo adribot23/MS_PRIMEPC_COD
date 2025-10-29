@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import integracion.Transaction.TManager;
@@ -53,17 +54,76 @@ public class DAOVentaImp implements DAOVenta {
 	}
 
 	public Set<TVenta> read_by_cliente(Integer idCliente) {
-		// begin-user-code
-		// TODO Ap�ndice de m�todo generado autom�ticamente
+		
+		Set<TVenta> ventas = new LinkedHashSet<>();
+		
+		try {
+			TManager tm = TManager.getInstance();
+			Transaction tr = tm.getTransaction();
+			Connection con = (Connection) tr.getResource();
+			
+			PreparedStatement ps = con.prepareStatement("SELECT id_venta, metodoPago, precio, descuento, id_empleado, activo FROM VENTA WHERE id_cliente = ? FOR UPDATE");
+			ps.setInt(1, idCliente);
+			
+			ResultSet rs = ps.executeQuery();
+			
+			while(rs.next()) {	
+				TVenta venta = new TVenta();
+				venta.setMetodoPago(rs.getString("metodoPago"));
+				venta.setPrecio(rs.getDouble("precio"));
+				venta.setDescuento(rs.getDouble("descuento"));
+				venta.setIdEmpleado(rs.getInt("id_empleado"));
+				venta.setIdCliente(idCliente);
+				venta.setActivo(rs.getInt("activo"));
+				
+				ventas.add(venta);
+			}
+			
+			rs.close();
+			ps.close();
+			
+			return ventas;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return null;
-		// end-user-code
 	}
 
 	public Set<TVenta> read_by_empleado(Integer idEmpleado) {
-		// begin-user-code
-		// TODO Ap�ndice de m�todo generado autom�ticamente
+		Set<TVenta> ventas = new LinkedHashSet<>();
+		
+		try {
+			TManager tm = TManager.getInstance();
+			Transaction tr = tm.getTransaction();
+			Connection con = (Connection) tr.getResource();
+			
+			PreparedStatement ps = con.prepareStatement("SELECT id_venta, metodoPago, precio, descuento, id_empleado, activo FROM VENTA WHERE id_empleado = ? FOR UPDATE");
+			ps.setInt(1, idEmpleado);
+			
+			ResultSet rs = ps.executeQuery();
+			
+			while(rs.next()) {	
+				TVenta venta = new TVenta();
+				venta.setMetodoPago(rs.getString("metodoPago"));
+				venta.setPrecio(rs.getDouble("precio"));
+				venta.setDescuento(rs.getDouble("descuento"));
+				venta.setIdEmpleado(idEmpleado);
+				venta.setIdCliente(rs.getInt("id_cliente"));
+				venta.setActivo(rs.getInt("activo"));
+				
+				ventas.add(venta);
+			}
+			
+			rs.close();
+			ps.close();
+			
+			return ventas;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return null;
-		// end-user-code
 	}
 
 	public TVenta read(Integer id_venta) {
@@ -122,9 +182,38 @@ public class DAOVentaImp implements DAOVenta {
 	}
 
 	public Set<TVenta> read_all() {
-		// begin-user-code
-		// TODO Ap�ndice de m�todo generado autom�ticamente
+		
+		Set<TVenta> ventas = new LinkedHashSet<>();
+		
+		try {
+			TManager tm = TManager.getInstance();
+			Transaction tr = tm.getTransaction();
+			Connection con = (Connection) tr.getResource();
+			
+			PreparedStatement ps = con.prepareStatement("SELECT id_venta, metodoPago, precio, descuento, id_empleado, id_cliente, activo FROM VENTA FOR UPDATE");
+			
+			ResultSet rs = ps.executeQuery();
+			
+			while(rs.next()) {	
+				TVenta venta = new TVenta();
+				venta.setMetodoPago(rs.getString("metodoPago"));
+				venta.setPrecio(rs.getDouble("precio"));
+				venta.setDescuento(rs.getDouble("descuento"));
+				venta.setIdEmpleado(rs.getInt("id_empleado"));
+				venta.setIdCliente(rs.getInt("id_cliente"));
+				venta.setActivo(rs.getInt("activo"));
+				
+				ventas.add(venta);
+			}
+			
+			rs.close();
+			ps.close();
+			
+			return ventas;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return null;
-		// end-user-code
 	}
 }
