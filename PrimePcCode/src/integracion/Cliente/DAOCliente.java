@@ -39,7 +39,7 @@ public interface DAOCliente {
 	* @return
 	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	*/
-	public Integer update(TCliente empleado);
+	public Integer update(TCliente cliente);
 
 	/** 
 	* <!-- begin-UML-doc -->
@@ -57,7 +57,7 @@ public interface DAOCliente {
 	* @return
 	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	*/
-	public TCliente read_by_DNI(String nombre);
+	public TCliente read_by_DNI(String dni);
 
 	/** 
 	* <!-- begin-UML-doc -->

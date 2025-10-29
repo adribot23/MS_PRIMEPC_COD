@@ -15,10 +15,9 @@ import presentacion.GUI.IGUI;
 * @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 */
 public class GUICliente extends JPanel implements IGUI {
+	@Override
 	public void actualizar(Context context) {
-		// begin-user-code
-		// TODO Ap�ndice de m�todo generado autom�ticamente
-
-		// end-user-code
+		// TODO Apéndice de método generado automáticamente
+		
 	}
 }
