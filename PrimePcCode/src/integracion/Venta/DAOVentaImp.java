@@ -1,34 +1,65 @@
-/**
- * 
- */
+
 package integracion.Venta;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.Set;
 
+import integracion.Transaction.TManager;
+import integracion.Transaction.Transaction;
 import negocio.Venta.TVenta;
 
-/** 
-* <!-- begin-UML-doc -->
-* <!-- end-UML-doc -->
-* @author adria
-* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-*/
+
 public class DAOVentaImp implements DAOVenta {
 	public Integer create(TVenta venta) {
+		
+		try {
+			TManager tm = TManager.getInstance();
+			Transaction tr = tm.getTransaction();
+			Connection con = (Connection) tr.getResource();
+			
+			PreparedStatement ps = con.prepareStatement("INSERT INTO ventas (metodoPago, precio, descuento, id_empleado, id_cliente, activo) VALUES (?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+			
+			
+			ps.setString(1, venta.getMetodoPago());	
+			ps.setDouble(2, venta.getPrecio());
+			ps.setDouble(3, venta.getDescuento());
+			ps.setInt(4, venta.getIdEmpleado());
+			ps.setInt(5, venta.getIdCliente());
+			ps.setInt(6, 1);
+			
+			ps.executeUpdate();
+			
+			ResultSet rs = ps.getGeneratedKeys();
+			
+			rs.next();
+			int idVenta = rs.getInt(1);
+			
+			rs.close();
+			ps.close();
+			
+			return idVenta;
+		}
+		
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		
+		return -1;
+	}
+
+	public Set<TVenta> read_by_cliente(Integer idCliente) {
 		// begin-user-code
 		// TODO Ap�ndice de m�todo generado autom�ticamente
 		return null;
 		// end-user-code
 	}
 
-	public CollectionTVenta read_by_cliente(Integer idCliente) {
-		// begin-user-code
-		// TODO Ap�ndice de m�todo generado autom�ticamente
-		return null;
-		// end-user-code
-	}
-
-	public CollectionTVenta read_by_empleado(Integer idEmpleado) {
+	public Set<TVenta> read_by_empleado(Integer idEmpleado) {
 		// begin-user-code
 		// TODO Ap�ndice de m�todo generado autom�ticamente
 		return null;
@@ -36,10 +67,44 @@ public class DAOVentaImp implements DAOVenta {
 	}
 
 	public TVenta read(Integer id_venta) {
-		// begin-user-code
-		// TODO Ap�ndice de m�todo generado autom�ticamente
+		
+		try {
+			
+			TManager tm = TManager.getInstance();
+			Transaction tr = tm.getTransaction();
+			Connection con = (Connection) tr.getResource();
+			
+			PreparedStatement ps = con.prepareStatement("SELECT metodoPago, precio, descuento, id_empleado, id_cliente, activo FROM VENTA WHERE id_venta = ? FOR UPDATE");
+			ps.setInt(1, id_venta);
+			
+			ResultSet rs = ps.executeQuery();
+			
+			TVenta venta = null;
+			
+			if(rs.next()) {	
+				venta = new TVenta();
+				venta.setMetodoPago(rs.getString("metodoPago"));
+				venta.setPrecio(rs.getDouble("precio"));
+				venta.setDescuento(rs.getDouble("descuento"));
+				venta.setIdEmpleado(rs.getInt("id_empleado"));
+				venta.setIdCliente(rs.getInt("id_cliente"));
+				venta.setActivo(rs.getInt("activo"));
+				
+				rs.close();
+				ps.close();
+				
+			}
+			
+			rs.close();
+			ps.close();
+			
+			return venta;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 		return null;
-		// end-user-code
 	}
 
 	public Integer update(TVenta venta) {
