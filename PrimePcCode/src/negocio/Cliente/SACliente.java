@@ -19,7 +19,7 @@ public interface SACliente {
 	* @return
 	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	*/
-	public Integer altaCliente(TCliente tCliente);
+	public int altaCliente(TCliente tCliente);
 
 	/** 
 	* <!-- begin-UML-doc -->
@@ -28,7 +28,7 @@ public interface SACliente {
 	* @return
 	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	*/
-	public Integer bajaCliente(Integer id);
+	public int bajaCliente(Integer id);
 
 	/** 
 	* <!-- begin-UML-doc -->
@@ -37,7 +37,7 @@ public interface SACliente {
 	* @return
 	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	*/
-	public Integer modificarCliente(TCliente tCliente);
+	public int modificarCliente(TCliente tCliente);
 
 	/** 
 	* <!-- begin-UML-doc -->
