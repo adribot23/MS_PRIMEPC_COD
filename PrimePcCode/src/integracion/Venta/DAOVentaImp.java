@@ -14,6 +14,7 @@ import negocio.Venta.TVenta;
 
 
 public class DAOVentaImp implements DAOVenta {
+	
 	public Integer create(TVenta venta) {
 		
 		try {
@@ -168,18 +169,59 @@ public class DAOVentaImp implements DAOVenta {
 	}
 
 	public Integer update(TVenta venta) {
-		// begin-user-code
-		// TODO Ap�ndice de m�todo generado autom�ticamente
-		return null;
-		// end-user-code
-	}
+		
+		try {
+			TManager tm = TManager.getInstance();
+			Transaction tr = tm.getTransaction();
+			Connection con = (Connection) tr.getResource();
+			
+			PreparedStatement ps = con.prepareStatement("UPDATE VENTA SET metodoPago = ?, precio = ?, descuento = ?, id_empleado = ?, id_cliente = ?, activo = ? WHERE id_venta = ?");
+			
+			ps.setString(1, venta.getMetodoPago());	
+			ps.setDouble(2, venta.getPrecio());
+			ps.setDouble(3, venta.getDescuento());
+			ps.setInt(4, venta.getIdEmpleado());
+			ps.setInt(5, venta.getIdCliente());
+			ps.setInt(6, venta.getActivo());
+			
+			int filas = ps.executeUpdate();
+			
+			ps.close();
+			
+			return filas;
+		}
+		
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return -1;
+		}
 
 	public Integer delete(Integer id_venta) {
-		// begin-user-code
-		// TODO Ap�ndice de m�todo generado autom�ticamente
-		return null;
-		// end-user-code
-	}
+		
+		try {
+			TManager tm = TManager.getInstance();
+			Transaction tr = tm.getTransaction();
+			Connection con = (Connection) tr.getResource();
+			
+			PreparedStatement ps = con.prepareStatement("UPDATE FROM VENTA WHERE id_venta = ? SET activo = 0");
+			ps.setInt(1, id_venta);
+			ps.setInt(2, 0);
+			
+			int filas = ps.executeUpdate();
+			
+			ps.close();
+			
+			return filas;
+		}
+		
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return -1;
+		}
 
 	public Set<TVenta> read_all() {
 		
