@@ -3,6 +3,8 @@
  */
 package negocio.Venta;
 
+import java.util.Set;
+
 /** 
  * <!-- begin-UML-doc -->
  * <!-- end-UML-doc -->
@@ -10,52 +12,65 @@ package negocio.Venta;
  * @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
  */
 public class SAVentaImp implements SAVenta {
-	public Integer altaVenta(TVenta venta) {
-		// begin-user-code
-		// TODO Ap�ndice de m�todo generado autom�ticamente
+
+	@Override
+	public TCarrito abrirVenta(int data) {
+		// TODO Auto-generated method stub
 		return null;
-		// end-user-code
 	}
 
-	public CollectionTVenta leerVentasPorEmpleado(Integer idEmpleado) {
-		// begin-user-code
-		// TODO Ap�ndice de m�todo generado autom�ticamente
-		return null;
-		// end-user-code
+	@Override
+	public int cerrarVenta(TCarrito data) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
-	public Integer bajaVenta(Integer id) {
-		// begin-user-code
-		// TODO Ap�ndice de m�todo generado autom�ticamente
+	@Override
+	public TVentaTOA leerVenta(int data) {
+		// TODO Auto-generated method stub
 		return null;
-		// end-user-code
 	}
 
-	public Integer modificarVenta(TVenta venta) {
-		// begin-user-code
-		// TODO Ap�ndice de m�todo generado autom�ticamente
-		return null;
-		// end-user-code
+	@Override
+	public int modificarVenta(TVenta data) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
-	public TVenta leerVenta(Integer id) {
-		// begin-user-code
-		// TODO Ap�ndice de m�todo generado autom�ticamente
-		return null;
-		// end-user-code
+	@Override
+	public int devolverVenta(TLineaVenta data) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
-	public CollectionTVenta leerTodasVentas() {
-		// begin-user-code
-		// TODO Ap�ndice de m�todo generado autom�ticamente
-		return null;
-		// end-user-code
+	@Override
+	public int insertarProductoCarrito(TCarrito data) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
-	public CollectionTVenta leerVentasPorCliente(Integer idCliente) {
-		// begin-user-code
-		// TODO Ap�ndice de m�todo generado autom�ticamente
-		return null;
-		// end-user-code
+	@Override
+	public int eliminarProductoCarrito(TCarrito data) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
+
+	@Override
+	public Set<TVentaTOA> leerTodasVentas() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Set<TVentaTOA> leerVentasPorCliente(int data) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Set<TVentaTOA> leerVentasPorEmpleado(int data) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 }

@@ -12,6 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import presentacion.Controller.Command.Context;
 import presentacion.GUI.IGUI;
 
 /** 

@@ -11,6 +11,8 @@ import java.sql.Statement;
 import java.util.HashSet;
 import java.util.Set;
 
+import java.util.Set;
+
 import negocio.Cliente.TCliente;
 import negocio.Cliente.TClienteNoSocio;
 import negocio.Cliente.TClienteSocio;
@@ -304,6 +306,8 @@ public class DAOClienteImp implements DAOCliente {
 	    return clientes;
 	}
 
+
+
 	private int generarNumSocio(Connection conexion) throws SQLException {
 	    String sql = "SELECT MAX(NUM_SOCIO) FROM SOCIO";
 	    Statement s = conexion.createStatement();
@@ -313,5 +317,6 @@ public class DAOClienteImp implements DAOCliente {
 	        nuevoID = rs.getInt(1) + 1;
 	    }
 	    return nuevoID;
+
 	}
 }

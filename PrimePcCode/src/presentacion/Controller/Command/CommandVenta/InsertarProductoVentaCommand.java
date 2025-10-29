@@ -3,7 +3,11 @@
  */
 package presentacion.Controller.Command.CommandVenta;
 
+import negocio.FactoriaSA.SAAbstractFactory;
+import negocio.Venta.TCarrito;
 import presentacion.Controller.Command.Command;
+import presentacion.Controller.Command.Context;
+import presentacion.GUI.Evento;
 
 /** 
 * <!-- begin-UML-doc -->
@@ -13,9 +17,10 @@ import presentacion.Controller.Command.Command;
 */
 public class InsertarProductoVentaCommand implements Command {
 	public Context execute(Object data) {
-		// begin-user-code
-		// TODO Ap�ndice de m�todo generado autom�ticamente
-		return null;
-		// end-user-code
+		int res = SAAbstractFactory.getInstancia().generarSAVenta().insertarProductoCarrito((TCarrito)data);
+		if (res > 0)
+			return new Context(Evento.RES_INSERTAR_PRODUCTO_VENTA_OK, data);
+		else
+			return new Context(Evento.RES_INSERTAR_PRODUCTO_VENTA_KO, null);
 	}
 }

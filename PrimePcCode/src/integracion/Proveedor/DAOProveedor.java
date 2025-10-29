@@ -21,7 +21,7 @@ public interface DAOProveedor {
 	* @return
 	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	*/
-	public Integer create(TProveedor proveedor);
+	public int create(TProveedor proveedor);
 
 	/** 
 	* <!-- begin-UML-doc -->
@@ -39,7 +39,7 @@ public interface DAOProveedor {
 	* @return
 	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	*/
-	public Integer update(TProveedor proveedor);
+	public int update(TProveedor proveedor);
 
 	/** 
 	* <!-- begin-UML-doc -->
@@ -48,7 +48,7 @@ public interface DAOProveedor {
 	* @return
 	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	*/
-	public Integer delete(Integer id);
+	public int delete(Integer id);
 
 	/** 
 	* <!-- begin-UML-doc -->
