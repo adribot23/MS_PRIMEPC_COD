@@ -1,23 +1,35 @@
-
-/**
- * 
- */
 package presentacion.Controller.Command.CommandVenta;
 
+import negocio.FactoriaSA.SAAbstractFactory;
+import negocio.Venta.SAVenta;
 import presentacion.Controller.Command.Command;
 import presentacion.Controller.Command.Context;
+import presentacion.GUI.Evento;
 
-/** 
-* <!-- begin-UML-doc -->
-* <!-- end-UML-doc -->
-* @author adria
-* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-*/
 public class BuscarVentaCommand implements Command {
+
+	@Override
 	public Context execute(Object data) {
-		// begin-user-code
-		// TODO Ap�ndice de m�todo generado autom�ticamente
-		return null;
-		// end-user-code
+
+		if (data == null) {
+			return new Context(Evento.BUSCAR_VENTA, null);
+		}
+
+		if (!(data instanceof Integer)) {
+			return new Context(Evento.RES_BUSCAR_VENTA_KO, "Identificador de venta no válido.");
+		}
+
+		try {
+			SAVenta saVenta = SAAbstractFactory.getInstancia().generarSAVenta();
+			Object venta = saVenta.leerVenta((Integer) data);
+
+			if (venta != null) {
+				return new Context(Evento.RES_BUSCAR_VENTA_OK, venta);
+			} else {
+				return new Context(Evento.RES_BUSCAR_VENTA_KO, data);
+			}
+		} catch (Exception ex) {
+			return new Context(Evento.RES_BUSCAR_VENTA_KO, ex.getMessage());
+		}
 	}
 }
