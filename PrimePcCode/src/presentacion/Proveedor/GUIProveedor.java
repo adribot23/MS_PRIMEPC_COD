@@ -5,6 +5,7 @@ package presentacion.Proveedor;
 
 import javax.swing.JPanel;
 
+import presentacion.Controller.Command.Context;
 import presentacion.GUI.IGUI;
 
 /** 

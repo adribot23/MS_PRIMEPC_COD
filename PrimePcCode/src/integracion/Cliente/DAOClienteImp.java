@@ -3,6 +3,8 @@
  */
 package integracion.Cliente;
 
+import java.util.Set;
+
 import negocio.Cliente.TCliente;
 
 /** 
@@ -47,7 +49,7 @@ public class DAOClienteImp implements DAOCliente {
 		// end-user-code
 	}
 
-	public CollectionTCliente read_all() {
+	public Set<TCliente> read_all() {
 		// begin-user-code
 		// TODO Ap�ndice de m�todo generado autom�ticamente
 		return null;

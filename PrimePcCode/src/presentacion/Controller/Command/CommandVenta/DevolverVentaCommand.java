@@ -3,7 +3,11 @@
  */
 package presentacion.Controller.Command.CommandVenta;
 
+import negocio.FactoriaSA.SAAbstractFactory;
+import negocio.Venta.TLineaVenta;
 import presentacion.Controller.Command.Command;
+import presentacion.Controller.Command.Context;
+import presentacion.GUI.Evento;
 
 /** 
 * <!-- begin-UML-doc -->
@@ -13,9 +17,12 @@ import presentacion.Controller.Command.Command;
 */
 public class DevolverVentaCommand implements Command {
 	public Context execute(Object data) {
-		// begin-user-code
-		// TODO Ap�ndice de m�todo generado autom�ticamente
-		return null;
-		// end-user-code
+		int result =  SAAbstractFactory.getInstancia().generarSAVenta().devolverVenta((TLineaVenta) data);
+
+		if (result != -1)
+			return new Context(Evento.RES_DEVOLVER_VENTA_OK, data);
+		
+		else
+			return new Context(Evento.RES_DEVOLVER_VENTA_KO, null);
 	}
 }

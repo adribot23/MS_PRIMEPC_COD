@@ -3,6 +3,8 @@
  */
 package integracion.Cliente;
 
+import java.util.Set;
+
 import negocio.Cliente.TCliente;
 
 /** 
@@ -63,5 +65,5 @@ public interface DAOCliente {
 	* @return
 	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	*/
-	public CollectionTCliente read_all();
+	public Set<TCliente> read_all();
 }

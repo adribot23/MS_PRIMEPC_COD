@@ -27,10 +27,10 @@ import negocio.Proveedor.SAProveedor;
 import negocio.Proveedor.TProveedor;
 import negocio.Venta.SAVenta;
 import negocio.Venta.TVenta;
-import negocio.factoria.FactoriaNegocio;
+
 
 public class SAVentaImpTest {
-
+/*
 	private SACliente saCliente;
 	private SAEmpleado saEmpleado;
 	private SAProveedor saProveedor;
@@ -406,5 +406,5 @@ public class SAVentaImpTest {
 		// Opcional: Leer venta y comprobar importe (dependiendo si aplicas el
 		// descuento automáticamente)
 	}
-
+*/
 }

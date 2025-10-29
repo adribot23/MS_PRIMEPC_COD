@@ -14,7 +14,8 @@ import org.junit.After;
 import org.junit.Test;
 
 import integracion.Cliente.DAOCliente;
-import integracion.factoria.FactoriaIntegracion;
+import integracion.FactoriaDAO.DAOAbstractFactory;
+
 import negocio.Cliente.TCliente;
 import negocio.Cliente.TClienteNoSocio;
 import negocio.Cliente.TClienteSocio;
@@ -70,27 +71,27 @@ public class DAOClienteImpTest {
 
 	@Test
 	public void testCrearClienteNoSocio() {
-		daoCliente = FactoriaIntegracion.obtenerInstancia().generaDAOCliente();
+		daoCliente = DAOAbstractFactory.getInstancia().generaDAOCliente();
 		cliente = new TClienteNoSocio(-1, "Carlos Pérez", "12345678A", 1, 5);
-		id = daoCliente.crear(cliente);
+		id = daoCliente.create(cliente);
 		assertTrue(id > 0);
 	}
 
 	@Test
 	public void testCrearClienteSocio() {
-		daoCliente = FactoriaIntegracion.obtenerInstancia().generaDAOCliente();
+		daoCliente = DAOAbstractFactory.getInstancia().generaDAOCliente();
 		cliente = new TClienteSocio(-1, "María López", "87654321B", 1, 0, 100);
-		id = daoCliente.crear(cliente);
+		id = daoCliente.create(cliente);
 		assertTrue(id > 0);
 	}
 
 	@Test
 	public void testLeerClienteNoSocio() {
-		daoCliente = FactoriaIntegracion.obtenerInstancia().generaDAOCliente();
+		daoCliente = DAOAbstractFactory.getInstancia().generaDAOCliente();
 		cliente = new TClienteNoSocio(-1, "Carlos Pérez", "12345678A", 1, 5);
-		id = daoCliente.crear(cliente);
+		id = daoCliente.create(cliente);
 
-		TCliente leido = daoCliente.leer(id);
+		TCliente leido = daoCliente.read(id);
 		assertNotNull(leido);
 		assertTrue(leido instanceof TClienteNoSocio);
 		assertEquals("Carlos Pérez", leido.getNombre());
@@ -98,11 +99,11 @@ public class DAOClienteImpTest {
 
 	@Test
 	public void testLeerClienteSocio() {
-		daoCliente = FactoriaIntegracion.obtenerInstancia().generaDAOCliente();
+		daoCliente = DAOAbstractFactory.getInstancia().generaDAOCliente();
 		cliente = new TClienteSocio(-1, "María López", "87654321B", 1, 0, 100);
-		id = daoCliente.crear(cliente);
+		id = daoCliente.create(cliente);
 
-		TCliente leido = daoCliente.leer(id);
+		TCliente leido = daoCliente.read(id);
 		assertNotNull(leido);
 		assertTrue(leido instanceof TClienteSocio);
 		assertEquals("María López", leido.getNombre());
@@ -110,84 +111,84 @@ public class DAOClienteImpTest {
 
 	@Test
 	public void testActualizarClienteNoSocio() {
-		daoCliente = FactoriaIntegracion.obtenerInstancia().generaDAOCliente();
+		daoCliente = DAOAbstractFactory.getInstancia().generaDAOCliente();
 		cliente = new TClienteNoSocio(-1, "Carlos Pérez", "12345678A", 1, 5);
-		id = daoCliente.crear(cliente);
+		id = daoCliente.create(cliente);
 
-		TClienteNoSocio noSocio = (TClienteNoSocio) daoCliente.leer(id);
+		TClienteNoSocio noSocio = (TClienteNoSocio) daoCliente.read(id);
 		int visitasAntes = noSocio.getNumVisitas();
 		noSocio.setNumVisitas(visitasAntes + 1);
 
-		int res = daoCliente.actualizar(noSocio);
+		int res = daoCliente.update(noSocio);
 		assertTrue(res > 0);
 
-		TClienteNoSocio actualizado = (TClienteNoSocio) daoCliente.leer(id);
+		TClienteNoSocio actualizado = (TClienteNoSocio) daoCliente.read(id);
 		assertEquals(visitasAntes + 1, actualizado.getNumVisitas());
 	}
 
 	@Test
 	public void testActualizarClienteSocio() {
-		daoCliente = FactoriaIntegracion.obtenerInstancia().generaDAOCliente();
+		daoCliente = DAOAbstractFactory.getInstancia().generaDAOCliente();
 		cliente = new TClienteSocio(-1, "María López", "87654321B", 1, 0, 100);
-		id = daoCliente.crear(cliente);
+		id = daoCliente.create(cliente);
 
-		TClienteSocio socio = (TClienteSocio) daoCliente.leer(id);
+		TClienteSocio socio = (TClienteSocio) daoCliente.read(id);
 		int puntosAntes = socio.getPuntos();
 		socio.setPuntos(puntosAntes + 50);
 
-		int res = daoCliente.actualizar(socio);
+		int res = daoCliente.update(socio);
 		assertTrue(res > 0);
 
-		TClienteSocio actualizado = (TClienteSocio) daoCliente.leer(id);
+		TClienteSocio actualizado = (TClienteSocio) daoCliente.read(id);
 		assertEquals(puntosAntes + 50, actualizado.getPuntos());
 	}
 
 	@Test
 	public void testLeerPorDNI() {
-		daoCliente = FactoriaIntegracion.obtenerInstancia().generaDAOCliente();
+		daoCliente = DAOAbstractFactory.getInstancia().generaDAOCliente();
 		cliente = new TClienteNoSocio(-1, "Carlos Pérez", "12345678A", 1, 5);
-		id = daoCliente.crear(cliente);
+		id = daoCliente.create(cliente);
 
-		TCliente leido = daoCliente.leerPorDNI("12345678A");
+		TCliente leido = daoCliente.read_by_DNI("12345678A");
 		assertNotNull(leido);
 		assertEquals("Carlos Pérez", leido.getNombre());
 	}
 
 	@Test
 	public void testLeerTodo() {
-		daoCliente = FactoriaIntegracion.obtenerInstancia().generaDAOCliente();
-		id = daoCliente.crear(new TClienteNoSocio(-1, "Cliente1", "11111111A", 1, 2));
-		id_extra = daoCliente.crear(new TClienteSocio(-1, "Cliente2", "22222222B", 1, 0, 50));
+		daoCliente = DAOAbstractFactory.getInstancia().generaDAOCliente();
+		id = daoCliente.create(new TClienteNoSocio(-1, "Cliente1", "11111111A", 1, 2));
+		id_extra = daoCliente.create(new TClienteSocio(-1, "Cliente2", "22222222B", 1, 0, 50));
 
-		Collection<TCliente> clientes = daoCliente.leerTodo();
+		Collection<TCliente> clientes = daoCliente.read_all();
 		assertNotNull(clientes);
 		assertTrue(clientes.size() >= 2);
 	}
 
 	@Test
 	public void testEliminarClienteNoSocio() {
-		daoCliente = FactoriaIntegracion.obtenerInstancia().generaDAOCliente();
+		daoCliente = DAOAbstractFactory.getInstancia().generaDAOCliente();
 		cliente = new TClienteNoSocio(-1, "Carlos Pérez", "12345678A", 1, 5);
-		id = daoCliente.crear(cliente);
+		id = daoCliente.create(cliente);
 
-		int res = daoCliente.eliminar(id);
+		int res = daoCliente.delete(id);
 		assertTrue(res > 0);
 
-		TCliente clienteBorrado = daoCliente.leer(id);
+		TCliente clienteBorrado = daoCliente.read(id);
 		assertNotNull(clienteBorrado);
 		assertEquals(0, clienteBorrado.getActivo());
 	}
 
 	@Test
 	public void testEliminarClienteSocio() {
-		daoCliente = FactoriaIntegracion.obtenerInstancia().generaDAOCliente();
+		daoCliente = DAOAbstractFactory.getInstancia().generaDAOCliente();
 		cliente = new TClienteSocio(-1, "María López", "87654321B", 1, 0, 100);
-		id = daoCliente.crear(cliente);
+		id = daoCliente.create(cliente);
 
-		int res = daoCliente.eliminar(id);
+		int res = daoCliente.delete(id);
 		assertTrue(res > 0);
 
-		TCliente clienteBorrado = daoCliente.leer(id);
+		TCliente clienteBorrado = daoCliente.read(id);
 		assertNotNull(clienteBorrado);
 		assertEquals(0, clienteBorrado.getActivo());
 	}

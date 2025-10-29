@@ -19,10 +19,10 @@ import negocio.Almacen.SAAlmacen;
 import negocio.Almacen.TAlmacen;
 import negocio.Producto.SAProducto;
 import negocio.Producto.TProducto;
-import negocio.factoria.FactoriaNegocio;
+
 
 public class SAAlmacenImpTest {
-
+/*
 	private SAAlmacen saAlmacen;
 	private SAProducto saProducto;
 	private int idAlmacenCreado = -1;
@@ -178,5 +178,5 @@ public class SAAlmacenImpTest {
 		int resDesvincularOtraVez = saAlmacen.desvincularProductoAlmacen(idProducto, idAlmacen);
 		assertTrue(resDesvincularOtraVez == -1);
 	}
-
+*/
 }

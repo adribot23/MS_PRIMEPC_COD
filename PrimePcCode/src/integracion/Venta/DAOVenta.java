@@ -21,7 +21,7 @@ public interface DAOVenta {
 	* @return
 	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	*/
-	public Integer create(TVenta venta);
+	public int create(TVenta venta);
 
 	/** 
 	* <!-- begin-UML-doc -->
@@ -30,7 +30,7 @@ public interface DAOVenta {
 	* @return
 	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	*/
-	public CollectionTVenta read_by_cliente(Integer idCliente);
+	public Set<TVenta> read_by_cliente(Integer idCliente);
 
 	/** 
 	* <!-- begin-UML-doc -->
@@ -39,7 +39,7 @@ public interface DAOVenta {
 	* @return
 	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	*/
-	public CollectionTVenta read_by_empleado(Integer idEmpleado);
+	public Set<TVenta> read_by_empleado(Integer idEmpleado);
 
 	/** 
 	* <!-- begin-UML-doc -->
@@ -57,7 +57,7 @@ public interface DAOVenta {
 	* @return
 	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	*/
-	public Integer update(TVenta venta);
+	public int update(TVenta venta);
 
 	/** 
 	* <!-- begin-UML-doc -->
@@ -66,7 +66,7 @@ public interface DAOVenta {
 	* @return
 	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	*/
-	public Integer delete(Integer id_venta);
+	public int delete(Integer id_venta);
 
 	/** 
 	* <!-- begin-UML-doc -->

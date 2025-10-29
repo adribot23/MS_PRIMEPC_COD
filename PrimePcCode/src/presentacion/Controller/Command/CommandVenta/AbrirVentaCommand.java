@@ -3,8 +3,11 @@
  */
 package presentacion.Controller.Command.CommandVenta;
 
+import negocio.FactoriaSA.SAAbstractFactory;
+import negocio.Venta.TCarrito;
 import presentacion.Controller.Command.Command;
 import presentacion.Controller.Command.Context;
+import presentacion.GUI.Evento;
 
 /**
  * <!-- begin-UML-doc --> <!-- end-UML-doc -->
@@ -15,9 +18,11 @@ import presentacion.Controller.Command.Context;
  */
 public class AbrirVentaCommand implements Command {
 	public Context execute(Object data) {
-		// begin-user-code
-		// TODO Ap�ndice de m�todo generado autom�ticamente
-		return null;
-		// end-user-code
+		TCarrito carrito =SAAbstractFactory.getInstancia().generarSAVenta().abrirVenta((int) data);
+
+		if (carrito != null)
+			return new Context(Evento.RES_ABRIR_VENTA_OK, carrito);
+		else
+			return new Context(Evento.RES_ABRIR_VENTA_KO, null);
 	}
 }

@@ -14,52 +14,47 @@ import negocio.Venta.TVenta;
 * @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 */
 public class DAOVentaImp implements DAOVenta {
-	public Integer create(TVenta venta) {
-		// begin-user-code
-		// TODO Ap�ndice de m�todo generado autom�ticamente
-		return null;
-		// end-user-code
+
+	@Override
+	public int create(TVenta venta) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
-	public CollectionTVenta read_by_cliente(Integer idCliente) {
-		// begin-user-code
-		// TODO Ap�ndice de m�todo generado autom�ticamente
+	@Override
+	public Set<TVenta> read_by_cliente(Integer idCliente) {
+		// TODO Auto-generated method stub
 		return null;
-		// end-user-code
 	}
 
-	public CollectionTVenta read_by_empleado(Integer idEmpleado) {
-		// begin-user-code
-		// TODO Ap�ndice de m�todo generado autom�ticamente
+	@Override
+	public Set<TVenta> read_by_empleado(Integer idEmpleado) {
+		// TODO Auto-generated method stub
 		return null;
-		// end-user-code
 	}
 
+	@Override
 	public TVenta read(Integer id_venta) {
-		// begin-user-code
-		// TODO Ap�ndice de m�todo generado autom�ticamente
+		// TODO Auto-generated method stub
 		return null;
-		// end-user-code
 	}
 
-	public Integer update(TVenta venta) {
-		// begin-user-code
-		// TODO Ap�ndice de m�todo generado autom�ticamente
-		return null;
-		// end-user-code
+	@Override
+	public int update(TVenta venta) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
-	public Integer delete(Integer id_venta) {
-		// begin-user-code
-		// TODO Ap�ndice de m�todo generado autom�ticamente
-		return null;
-		// end-user-code
+	@Override
+	public int delete(Integer id_venta) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
+	@Override
 	public Set<TVenta> read_all() {
-		// begin-user-code
-		// TODO Ap�ndice de m�todo generado autom�ticamente
+		// TODO Auto-generated method stub
 		return null;
-		// end-user-code
 	}
+	
 }

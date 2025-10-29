@@ -3,16 +3,10 @@
  */
 package presentacion.Venta;
 
-import javax.swing.JFrame;
-import Presentacion.GUI.IGUI;
-import java.util.Set;
-import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import Presentacion.Controller.Controlador;
-import javax.swing.JTextField;
-import java.awt.event.ActionListener;
-import Presentacion.Controller.Command.Context;
+
+import presentacion.Controller.Controlador;
+import presentacion.Controller.Command.Context;
 
 /** 
  * <!-- begin-UML-doc -->
@@ -20,7 +14,7 @@ import Presentacion.Controller.Command.Context;
  * @author adria
  * @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
  */
-public class VA�adirProducto extends JPanel {
+public class VInsertarProducto extends JPanel {
 	/** 
 	* <!-- begin-UML-doc -->
 	* <!-- end-UML-doc -->

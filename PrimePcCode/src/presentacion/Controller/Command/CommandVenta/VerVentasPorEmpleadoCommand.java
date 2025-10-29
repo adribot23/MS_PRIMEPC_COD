@@ -3,7 +3,13 @@
  */
 package presentacion.Controller.Command.CommandVenta;
 
+import java.util.Set;
+
+import negocio.FactoriaSA.SAAbstractFactory;
+import negocio.Venta.TVentaTOA;
 import presentacion.Controller.Command.Command;
+import presentacion.Controller.Command.Context;
+import presentacion.GUI.Evento;
 
 /** 
 * <!-- begin-UML-doc -->
@@ -13,9 +19,10 @@ import presentacion.Controller.Command.Command;
 */
 public class VerVentasPorEmpleadoCommand implements Command {
 	public Context execute(Object data) {
-		// begin-user-code
-		// TODO Ap�ndice de m�todo generado autom�ticamente
-		return null;
-		// end-user-code
+		Set<TVentaTOA> ventasEmpleado = SAAbstractFactory.getInstancia().generarSAVenta().leerVentasPorEmpleado((int)data);
+		if (ventasEmpleado != null)
+			return new Context(Evento.RES_MOSTRAR_VENTAS_POR_EMPLEADO_OK, ventasEmpleado);
+		else
+			return new Context(Evento.RES_MOSTRAR_VENTAS_POR_EMPLEADO_KO, null);
 	}
 }
