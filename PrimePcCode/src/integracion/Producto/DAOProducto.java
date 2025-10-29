@@ -14,7 +14,7 @@ public interface DAOProducto {
 
 	public int delete(int id);
 
-	public Set<TProducto> read_by_modelo(String nombre);
+	public TProducto read_by_modelo(String nombre);
 
 	public Set<TProducto> read_by_marca_and_modelo(String modelo, String marca);
 
