@@ -6,7 +6,7 @@ import integracion.Cliente.DAOCliente;
 import integracion.Empleado.DAOEmpleado;
 import integracion.Producto.DAOProducto;
 import integracion.Proveedor.DAOProveedor;
-import integracion.Proveedor.DaoProveedorProducto;
+import integracion.Proveedor.DAOProveedorProducto;
 import integracion.Venta.DAOLineaVenta;
 import integracion.Venta.DAOVenta;
 
@@ -37,5 +37,5 @@ public abstract class DAOAbstractFactory {
 	public abstract DAOProveedor generaDAOProveedor(); 
 
 	
-	public abstract DaoProveedorProducto generaDAOProveedorProducto(); 
+	public abstract DAOProveedorProducto generaDAOProveedorProducto(); 
 }

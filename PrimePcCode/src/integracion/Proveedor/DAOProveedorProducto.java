@@ -7,7 +7,7 @@ import negocio.Proveedor.TProveedor;
 import negocio.Proveedor.TProveedorProducto;
 
 
-public interface DaoProveedorProducto {
+public interface DAOProveedorProducto {
 	public int create(TProveedorProducto tProveedorProducto);
 	
 	public TProveedorProducto read(int id_proveedor, int id_producto);

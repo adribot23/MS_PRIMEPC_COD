@@ -55,7 +55,7 @@ public interface SAProveedor {
 	* @return
 	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	*/
-	public int bajaProveedor(Integer idProveedor);
+	public int bajaProveedor(int idProveedor);
 
 	/** 
 	* <!-- begin-UML-doc -->
@@ -82,4 +82,6 @@ public interface SAProveedor {
 	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	*/
 	public Set<TProveedor> leerTodosProveedores();
+	
+	public TProveedor proveedorConMasUnidadesDeProductoVendidas(int idProducto);
 }
