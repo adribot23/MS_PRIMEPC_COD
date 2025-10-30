@@ -17,7 +17,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import integracion.Almacen.DAOAlmacen;
-import integracion.factoria.FactoriaIntegracion;
+import integracion.FactoriaDAO.DAOAbstractFactory;
 import negocio.Almacen.TAlmacen;
 
 public class DAOAlmacenImpTest {
@@ -27,7 +27,7 @@ public class DAOAlmacenImpTest {
 
 	@Before
 	public void setUp() {
-		daoAlmacen = FactoriaIntegracion.obtenerInstancia().generaDAOAlmacen();
+		daoAlmacen = DAOAbstractFactory.getInstancia().generaDAOAlmacen();
 		almacenesCreados = new ArrayList<>();
 	}
 
@@ -61,27 +61,27 @@ public class DAOAlmacenImpTest {
 		almacen.setCapacidadMaxima(100);
 		almacen.setOcupacion(0);
 
-		int id = daoAlmacen.crear(almacen);
+		int id = daoAlmacen.create(almacen);
 		almacenesCreados.add(id);
 		assertTrue(id > 0);
 
-		TAlmacen almacenLeido = daoAlmacen.leer(id);
+		TAlmacen almacenLeido = daoAlmacen.read(id);
 		assertNotNull(almacenLeido);
 		assertEquals("AlmacenTest", almacenLeido.getNombre());
 
 		almacenLeido.setCapacidadMaxima(200);
 		almacenLeido.setNombre("AlmacenTestActualizado");
-		int filasActualizadas = daoAlmacen.actualizar(almacenLeido);
+		int filasActualizadas = daoAlmacen.update(almacenLeido);
 		assertEquals(1, filasActualizadas);
 
-		TAlmacen almacenActualizado = daoAlmacen.leer(id);
+		TAlmacen almacenActualizado = daoAlmacen.read(id);
 		assertEquals("AlmacenTestActualizado", almacenActualizado.getNombre());
 		assertEquals(200, almacenActualizado.getCapacidadMaxima());
 
-		int filasEliminadas = daoAlmacen.eliminar(id);
+		int filasEliminadas = daoAlmacen.delete(id);
 		assertEquals(1, filasEliminadas);
 
-		TAlmacen almacenEliminado = daoAlmacen.leer(id);
+		TAlmacen almacenEliminado = daoAlmacen.read(id);
 		assertNotNull(almacenEliminado);
 		assertEquals(0, almacenEliminado.getActivo());
 	}
@@ -93,18 +93,18 @@ public class DAOAlmacenImpTest {
 		almacen.setCapacidadMaxima(50);
 		almacen.setOcupacion(10);
 
-		int id = daoAlmacen.crear(almacen);
+		int id = daoAlmacen.create(almacen);
 		almacenesCreados.add(id);
 		assertTrue(id > 0);
 
-		TAlmacen almacenLeido = daoAlmacen.leerPorNombre("AlmacenBuscar");
+		TAlmacen almacenLeido = daoAlmacen.read_by_name("AlmacenBuscar");
 		assertNotNull(almacenLeido);
 		assertEquals(id, almacenLeido.getId());
 	}
 
 	@Test
 	public void testLeerTodo() {
-		Collection<TAlmacen> almacenes = daoAlmacen.leerTodo();
+		Collection<TAlmacen> almacenes = daoAlmacen.read_all();
 		assertNotNull(almacenes);
 	}
 
@@ -115,15 +115,15 @@ public class DAOAlmacenImpTest {
 		almacen.setCapacidadMaxima(300);
 		almacen.setOcupacion(0);
 
-		int id = daoAlmacen.crear(almacen);
+		int id = daoAlmacen.create(almacen);
 		almacenesCreados.add(id);
 		assertTrue(id > 0);
 
-		TAlmacen almacenLeido = daoAlmacen.leer(id);
+		TAlmacen almacenLeido = daoAlmacen.read(id);
 		almacenLeido.setOcupacion(150);
-		daoAlmacen.actualizar(almacenLeido);
+		daoAlmacen.update(almacenLeido);
 
-		TAlmacen almacenActualizado = daoAlmacen.leer(id);
+		TAlmacen almacenActualizado = daoAlmacen.read(id);
 		assertEquals(150, almacenActualizado.getOcupacion());
 	}
 }

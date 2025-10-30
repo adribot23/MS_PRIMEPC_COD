@@ -3,6 +3,10 @@
  */
 package negocio.Venta;
 
+import java.util.Set;
+
+
+
 /** 
  * <!-- begin-UML-doc -->
  * <!-- end-UML-doc -->
@@ -10,65 +14,31 @@ package negocio.Venta;
  * @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
  */
 public interface SAVenta {
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @param venta
-	* @return
-	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	*/
-	public Integer altaVenta(TVenta venta);
+	
 
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @param idEmpleado
-	* @return
-	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	*/
-	public CollectionTVenta leerVentasPorEmpleado(Integer idEmpleado);
+	public TCarrito abrirVenta(int data);
 
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @param id
-	* @return
-	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	*/
-	public Integer bajaVenta(Integer id);
+	public int cerrarVenta(TCarrito data);
+	
+	public TVentaTOA leerVenta(int data);
 
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @param venta
-	* @return
-	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	*/
-	public Integer modificarVenta(TVenta venta);
+	public int modificarVenta(TVenta data);
+	
+	public int devolverVenta(TLineaVenta data);
 
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @param id
-	* @return
-	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	*/
-	public TVenta leerVenta(Integer id);
+	public int insertarProductoCarrito(TCarrito data);
 
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @return
-	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	*/
-	public CollectionTVenta leerTodasVentas();
+	public int eliminarProductoCarrito(TCarrito data);
+	
+	public Set<TVentaTOA> leerTodasVentas();
 
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @param idCliente
-	* @return
-	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	*/
-	public CollectionTVenta leerVentasPorCliente(Integer idCliente);
+	public Set<TVentaTOA> leerVentasPorCliente(int data);
+
+	public Set<TVentaTOA> leerVentasPorEmpleado(int data);
+
+	
+
+
+
+	
 }

@@ -3,7 +3,13 @@
  */
 package presentacion.Controller.Command.CommandProveedor;
 
+import java.util.Set;
+
+import negocio.FactoriaSA.SAAbstractFactory;
+import negocio.Proveedor.TProveedor;
 import presentacion.Controller.Command.Command;
+import presentacion.Controller.Command.Context;
+import presentacion.GUI.Evento;
 
 /** 
 * <!-- begin-UML-doc -->
@@ -13,9 +19,11 @@ import presentacion.Controller.Command.Command;
 */
 public class MostrarProveedoresCommand implements Command {
 	public Context execute(Object data) {
-		// begin-user-code
-		// TODO Ap�ndice de m�todo generado autom�ticamente
-		return null;
-		// end-user-code
+		Set<TProveedor> proveedores =  SAAbstractFactory.getInstancia().generarSAProveedor()
+				.leerTodosProveedores();
+		if (proveedores != null && !proveedores.isEmpty())
+			return new Context(Evento.RES_MOSTRAR_TODOS_PROVEEDORES_OK, proveedores);
+		else
+			return new Context(Evento.RES_MOSTRAR_TODOS_PROVEEDORES_KO, null);
 	}
 }

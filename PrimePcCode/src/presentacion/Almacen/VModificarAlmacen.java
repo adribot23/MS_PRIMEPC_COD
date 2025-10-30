@@ -6,6 +6,7 @@ package presentacion.Almacen;
 import javax.swing.JFrame;
 
 import presentacion.Controller.Controlador;
+import presentacion.Controller.Command.Context;
 import presentacion.GUI.IGUI;
 
 /** 
@@ -14,7 +15,7 @@ import presentacion.GUI.IGUI;
 * @author adria
 * @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 */
-public class VModificarAlmacen extends JFrame implements IGUI, IGUI {
+public class VModificarAlmacen extends JFrame implements IGUI {
 	/** 
 	* <!-- begin-UML-doc -->
 	* <!-- end-UML-doc -->

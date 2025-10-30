@@ -4,7 +4,10 @@
 package presentacion.Controller.Command.CommandProveedor;
 
 import negocio.FactoriaSA.SAAbstractFactory;
+import negocio.Proveedor.TProveedorProducto;
 import presentacion.Controller.Command.Command;
+import presentacion.Controller.Command.Context;
+import presentacion.GUI.Evento;
 
 /** 
 * <!-- begin-UML-doc -->
@@ -14,11 +17,8 @@ import presentacion.Controller.Command.Command;
 */
 public class DesvincularProveedorProductoCommand implements Command {
 	public Context execute(Object data) {
-		int[] datos = (int[]) data;
-		int idProducto = datos[0];
-		int idProveedor = datos[1];
-
-		int res =  SAAbstractFactory.getInstancia().generarSAProveedor().desvincularProductoProveedor(idProducto,idProveedor);
+		
+		int res =  SAAbstractFactory.getInstancia().generarSAProveedor().desvincularProductoProveedor((TProveedorProducto) data);
 		if (res > 0)
 			return new Context(Evento.RES_DESVINCULAR_PRODUCTO_PROVEEDOR_OK, res);
 		else

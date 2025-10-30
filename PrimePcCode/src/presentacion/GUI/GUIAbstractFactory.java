@@ -5,7 +5,7 @@ public abstract class GUIAbstractFactory {
 
 	private static GUIAbstractFactory instancia;
 	
-	public static GUIAbstractFactory getInstancia() {
+	public static synchronized GUIAbstractFactory getInstancia() {
 		
 		if (instancia == null) {
 			instancia = new GUIAbstractFactoryImp();

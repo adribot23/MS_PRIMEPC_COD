@@ -9,7 +9,6 @@ public class Context {
 
 	private Evento evento;
 
-
 	public Context(Evento e, Object d) {
 		evento = e;
 		datos = d;

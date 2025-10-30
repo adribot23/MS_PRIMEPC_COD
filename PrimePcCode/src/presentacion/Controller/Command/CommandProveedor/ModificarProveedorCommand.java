@@ -3,7 +3,11 @@
  */
 package presentacion.Controller.Command.CommandProveedor;
 
+import negocio.FactoriaSA.SAAbstractFactory;
+import negocio.Proveedor.TProveedor;
 import presentacion.Controller.Command.Command;
+import presentacion.Controller.Command.Context;
+import presentacion.GUI.Evento;
 
 /** 
 * <!-- begin-UML-doc -->
@@ -13,9 +17,11 @@ import presentacion.Controller.Command.Command;
 */
 public class ModificarProveedorCommand implements Command {
 	public Context execute(Object data) {
-		// begin-user-code
-		// TODO Ap�ndice de m�todo generado autom�ticamente
-		return null;
+		int res =  SAAbstractFactory.getInstancia().generarSAProveedor().modificarProveedor((TProveedor) data);
+		if (res > 0)
+			return new Context(Evento.RES_MODIFICAR_PROVEEDOR_OK, res);
+		else
+			return new Context(Evento.RES_MODIFICAR_PROVEEDOR_KO, null);
 		// end-user-code
 	}
 }

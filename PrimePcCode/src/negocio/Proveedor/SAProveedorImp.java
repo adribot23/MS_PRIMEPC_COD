@@ -12,59 +12,53 @@ import java.util.Set;
 * @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 */
 public class SAProveedorImp implements SAProveedor {
-	public Integer altaProveedor(TProveedor proveedor) {
-		// begin-user-code
-		// TODO Ap�ndice de m�todo generado autom�ticamente
-		return null;
-		// end-user-code
+
+	@Override
+	public int altaProveedor(TProveedor proveedor) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
-	public TProveedor leerProveedorPorProducto(Integer idProducto) {
-		// begin-user-code
-		// TODO Ap�ndice de m�todo generado autom�ticamente
+	@Override
+	public Set<TProveedor> leerProveedorPorProducto(Integer idProducto) {
+		// TODO Auto-generated method stub
 		return null;
-		// end-user-code
 	}
 
-	public Integer vincularProductoProveedor(TProveedorProducto idProducto) {
-		// begin-user-code
-		// TODO Ap�ndice de m�todo generado autom�ticamente
-		return null;
-		// end-user-code
+	@Override
+	public int vincularProductoProveedor(TProveedorProducto idProducto) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
-	public Integer desvincularProductoProveedor(TProveedorProducto tProveedorProducto) {
-		// begin-user-code
-		// TODO Ap�ndice de m�todo generado autom�ticamente
-		return null;
-		// end-user-code
+	@Override
+	public int desvincularProductoProveedor(TProveedorProducto tProveedorProducto) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
-	public Integer bajaProveedor(Integer idProveedor) {
-		// begin-user-code
-		// TODO Ap�ndice de m�todo generado autom�ticamente
-		return null;
-		// end-user-code
+	@Override
+	public int bajaProveedor(Integer idProveedor) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
-	public Integer modificarProveedor(TProveedor tProveedor) {
-		// begin-user-code
-		// TODO Ap�ndice de m�todo generado autom�ticamente
-		return null;
-		// end-user-code
+	@Override
+	public int modificarProveedor(TProveedor tProveedor) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
+	@Override
 	public TProveedor leerProveedor(Integer id) {
-		// begin-user-code
-		// TODO Ap�ndice de m�todo generado autom�ticamente
+		// TODO Auto-generated method stub
 		return null;
-		// end-user-code
 	}
 
+	@Override
 	public Set<TProveedor> leerTodosProveedores() {
-		// begin-user-code
-		// TODO Ap�ndice de m�todo generado autom�ticamente
+		// TODO Auto-generated method stub
 		return null;
-		// end-user-code
 	}
+	
 }

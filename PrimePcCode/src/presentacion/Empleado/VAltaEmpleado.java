@@ -6,6 +6,7 @@ package presentacion.Empleado;
 import javax.swing.JPanel;
 
 import presentacion.Controller.Controlador;
+import presentacion.Controller.Command.Context;
 import presentacion.GUI.IGUI;
 
 /** 

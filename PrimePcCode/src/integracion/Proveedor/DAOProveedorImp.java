@@ -1,14 +1,11 @@
 /**
  * 
  */
-package integracion.Empleado;
+package integracion.Proveedor;
 
 import java.util.Set;
 
-import integracion.Almacen.DAOAlmacen;
-import negocio.Almacen.TAlmacen;
-import negocio.Empleado.TEmpleado;
-import negocio.Producto.TProducto;
+import negocio.Proveedor.TProveedor;
 
 /** 
 * <!-- begin-UML-doc -->
@@ -16,28 +13,22 @@ import negocio.Producto.TProducto;
 * @author adria
 * @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 */
-public class DAOEmpleadoImp implements  DAOEmpleado {
+public class DAOProveedorImp implements DAOProveedor {
 
 	@Override
-	public int create(TEmpleado empleado) {
+	public int create(TProveedor proveedor) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public void calculateMostSold(TProducto tProducto) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public TEmpleado read(Integer id) {
+	public TProveedor read(Integer id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public int update(TEmpleado empleado) {
+	public int update(TProveedor proveedor) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
@@ -49,13 +40,13 @@ public class DAOEmpleadoImp implements  DAOEmpleado {
 	}
 
 	@Override
-	public TEmpleado read_by_DNI(String nombre) {
+	public TProveedor read_by_name(String nombre) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Set<TEmpleado> read_all() {
+	public Set<TProveedor> read_all() {
 		// TODO Auto-generated method stub
 		return null;
 	}
