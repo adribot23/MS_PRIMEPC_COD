@@ -1,12 +1,5 @@
 package negocio.Producto;
-
-import java.util.List;
 import java.util.Set;
-
-import Integracion.FactoriaIntegracion.FactoriaIntegracion;
-import Integracion.ProductoEnPlataforma.DAOProductoEnPlataforma;
-import Negocio.Producto.TProducto;
-import Negocio.ProductoEnPlataforma.TProductoEnPlataforma;
 import integracion.FactoriaDAO.DAOAbstractFactory;
 import integracion.Producto.DAOProducto;
 import integracion.Transaction.TManager;
@@ -53,14 +46,48 @@ public class SAProductoImp implements SAProducto {
 
 	@Override
 	public Set<TProducto> leerProductosPorAlmacen(int idAlmacen) {
-		// TODO Apéndice de método generado automáticamente
-		return null;
+		Set<TProducto> tprT = null;
+
+		TManager tManager = TManager.getInstance();
+		tManager.createTransaction();
+		Transaction transaction = tManager.getTransaction();
+
+		if (transaction != null) {
+			transaction.start();
+
+			DAOProducto daoProducto = DAOAbstractFactory.getInstancia().generaDAOProducto();
+			tprT = daoProducto.read_by_almacen(idAlmacen);
+
+			if (tprT == null)
+				transaction.rollback();
+			else
+				transaction.commit();
+
+		}
+		return tprT;
 	}
 
 	@Override
 	public Set<TProducto> leerProductosPorProveedor(int idProveedor) {
-		// TODO Apéndice de método generado automáticamente
-		return null;
+		Set<TProducto> tprT = null;
+
+		TManager tManager = TManager.getInstance();
+		tManager.createTransaction();
+		Transaction transaction = tManager.getTransaction();
+
+		if (transaction != null) {
+			transaction.start();
+
+			DAOProducto daoProducto = DAOAbstractFactory.getInstancia().generaDAOProducto();
+			tprT = daoProducto.read_by_proveedor(idProveedor);
+
+			if (tprT == null)
+				transaction.rollback();
+			else
+				transaction.commit();
+
+		}
+		return tprT;
 	}
 
 	@Override
@@ -99,20 +126,74 @@ public class SAProductoImp implements SAProducto {
 
 	@Override
 	public int modificarProducto(TProducto producto) {
-		// TODO Apéndice de método generado automáticamente
-		return 0;
+		int exito = -1;
+
+		TManager tManager = TManager.getInstance();
+		tManager.createTransaction();
+		Transaction transaction = tManager.getTransaction();
+
+		if (transaction != null) {
+			transaction.start();
+
+			DAOProducto daoProducto = DAOAbstractFactory.getInstancia().generaDAOProducto();
+			TProducto tpByModelo = daoProducto.read_by_modelo(producto.getModelo());
+			TProducto tpById = daoProducto.read(producto.getId());
+
+			if (tpByModelo == null
+					|| (tpByModelo.getId() == tpById.getId() && tpByModelo.getModelo().equals(tpById.getModelo()))) {
+				exito = daoProducto.update(producto);
+				if (exito != -1)
+					transaction.commit();
+				else
+					transaction.rollback();
+			} else
+				transaction.rollback();
+		}
+		return exito;
 	}
 
 	@Override
 	public TProducto leerProducto(int id) {
-		// TODO Apéndice de método generado automáticamente
-		return null;
+		TProducto tpr = null;
+
+		TManager tManager = TManager.getInstance();
+		tManager.createTransaction();
+		Transaction transaction = tManager.getTransaction();
+
+		if (transaction != null) {
+			transaction.start();
+
+			DAOProducto daoProducto = DAOAbstractFactory.getInstancia().generaDAOProducto();
+			tpr = daoProducto.read(id);
+
+			if (tpr == null)
+				transaction.rollback();
+			else
+				transaction.commit();
+		}
+		return tpr;
 	}
 
 	@Override
 	public Set<TProducto> leerTodosProductos() {
-		// TODO Apéndice de método generado automáticamente
-		return null;
+		Set<TProducto> tpr = null;
+
+		TManager tManager = TManager.getInstance();
+		tManager.createTransaction();
+		Transaction transaction = tManager.getTransaction();
+
+		if (transaction != null) {
+			transaction.start();
+
+			DAOProducto daoProducto = DAOAbstractFactory.getInstancia().generaDAOProducto();
+			tpr = daoProducto.read_all();
+
+			if (tpr == null)
+				transaction.rollback();
+			else
+				transaction.commit();
+		}
+		return tpr;
 	}
 
 	
