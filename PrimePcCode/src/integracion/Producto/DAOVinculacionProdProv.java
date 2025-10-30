@@ -8,15 +8,13 @@ import negocio.Producto.TVinculacionProdProv;
 public interface DAOVinculacionProdProv {
 	public int create(TVinculacionProdProv producto);
 	
-	public TVinculacionProdProv read(int id);
+	public TVinculacionProdProv read(int idProducto, int idProveedor);
 
-	public int update(TVinculacionProdProv producto);
-
-	public int delete(int id);
+	public int delete(int idProducto, int idProveedor);
 
 	public Set<TVinculacionProdProv> read_all();
 
-	public Set<TVinculacionProdProv> read_all_by_almacen(int idAlmacen);
+	public Set<TVinculacionProdProv> read_all_by_producto(int idProducto);
 
 	public Set<TVinculacionProdProv> read_all_by_proveedor(int idProveedor);
 }
