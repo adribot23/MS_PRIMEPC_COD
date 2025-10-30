@@ -15,10 +15,10 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import negocio.Cliente.SACliente;
+import negocio.Cliente.TCliente;
+import negocio.Cliente.TClienteNoSocio;
 import negocio.factoria.FactoriaNegocio;
-import negocio.serviciosAplicacion.SACliente;
-import negocio.transfers.TCliente;
-import negocio.transfers.TClienteNoSocio;
 
 public class SAClienteImpTest {
 

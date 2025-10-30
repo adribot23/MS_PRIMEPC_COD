@@ -5,13 +5,13 @@ import static org.junit.Assert.assertNotNull;
 import org.junit.Before;
 import org.junit.Test;
 
+import negocio.Almacen.SAAlmacen;
+import negocio.Cliente.SACliente;
+import negocio.Empleado.SAEmpleado;
+import negocio.Producto.SAProducto;
+import negocio.Proveedor.SAProveedor;
+import negocio.Venta.SAVenta;
 import negocio.factoria.FactoriaNegocioImp;
-import negocio.serviciosAplicacion.SAAlmacen;
-import negocio.serviciosAplicacion.SACliente;
-import negocio.serviciosAplicacion.SAEmpleado;
-import negocio.serviciosAplicacion.SAProducto;
-import negocio.serviciosAplicacion.SAProveedor;
-import negocio.serviciosAplicacion.SAVenta;
 
 public class FactoriaNegocioImpTest {
 

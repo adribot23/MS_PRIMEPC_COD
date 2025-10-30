@@ -6,18 +6,17 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
-import integracion.daos.DAOAlmacen;
-import integracion.daos.DAOAlmacenImp;
-import integracion.daos.DAOCliente;
-import integracion.daos.DAOClienteImp;
-import integracion.daos.DAOEmpleado;
-import integracion.daos.DAOEmpleadoImp;
-import integracion.daos.DAOProducto;
-import integracion.daos.DAOProductoImp;
-import integracion.daos.DAOProveedor;
+import integracion.Almacen.DAOAlmacen;
+import integracion.Almacen.DAOAlmacenImp;
+import integracion.Cliente.DAOCliente;
+import integracion.Cliente.DAOClienteImp;
+import integracion.Empleado.DAOEmpleadoImp;
+import integracion.Producto.DAOProducto;
+import integracion.Producto.DAOProductoImp;
+import integracion.Proveedor.DAOProveedor;
+import integracion.Venta.DAOVenta;
+import integracion.Venta.DAOVentaImp;
 import integracion.daos.DAOProveedorImp;
-import integracion.daos.DAOVenta;
-import integracion.daos.DAOVentaImp;
 import integracion.factoria.FactoriaIntegracionImp;
 
 public class FactoriaDAOImpTest {

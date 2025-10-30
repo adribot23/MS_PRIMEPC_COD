@@ -16,9 +16,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import integracion.daos.DAOAlmacen;
+import integracion.Almacen.DAOAlmacen;
 import integracion.factoria.FactoriaIntegracion;
-import negocio.transfers.TAlmacen;
+import negocio.Almacen.TAlmacen;
 
 public class DAOAlmacenImpTest {
 
