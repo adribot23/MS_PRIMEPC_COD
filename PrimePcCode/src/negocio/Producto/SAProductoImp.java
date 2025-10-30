@@ -1,63 +1,120 @@
-/**
- * 
- */
 package negocio.Producto;
 
+import java.util.List;
 import java.util.Set;
 
-/** 
-* <!-- begin-UML-doc -->
-* <!-- end-UML-doc -->
-* @author adria
-* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-*/
+import Integracion.FactoriaIntegracion.FactoriaIntegracion;
+import Integracion.ProductoEnPlataforma.DAOProductoEnPlataforma;
+import Negocio.Producto.TProducto;
+import Negocio.ProductoEnPlataforma.TProductoEnPlataforma;
+import integracion.FactoriaDAO.DAOAbstractFactory;
+import integracion.Producto.DAOProducto;
+import integracion.Transaction.TManager;
+import integracion.Transaction.Transaction;
+
 public class SAProductoImp implements SAProducto {
-	public Integer altaProducto(TProducto producto) {
-		// begin-user-code
-		// TODO Ap�ndice de m�todo generado autom�ticamente
-		return null;
-		// end-user-code
+
+	@Override
+	public int altaProducto(TProducto producto) {
+		int exito = -1;
+
+		TManager tManager = TManager.getInstance();
+		tManager.createTransaction();
+		Transaction transaction = tManager.getTransaction();
+
+		if (transaction != null) {
+			transaction.start();
+
+			DAOProducto daoProducto = DAOAbstractFactory.getInstancia().generaDAOProducto();
+			TProducto pr = daoProducto.read_by_modelo(producto.getModelo());
+
+			if (pr == null) {
+				exito = daoProducto.create(producto);
+				if (exito != -1) {
+					transaction.commit();
+				} else
+					transaction.rollback();
+
+			} else if (pr.getActivo() == 0) {
+				producto.setId(pr.getId());
+				producto.setActivo(1);
+				exito = daoProducto.update(producto);
+				if (exito != -1) {
+					exito = pr.getId();
+					transaction.commit();
+				} else
+					transaction.rollback();
+			} else
+				transaction.rollback();
+
+		}
+		return exito;
 	}
 
-	public Set<TProducto> leerProductosPorAlmacen(Integer idAlmacen) {
-		// begin-user-code
-		// TODO Ap�ndice de m�todo generado autom�ticamente
+	@Override
+	public Set<TProducto> leerProductosPorAlmacen(int idAlmacen) {
+		// TODO Apéndice de método generado automáticamente
 		return null;
-		// end-user-code
 	}
 
-	public Set<TProducto> leerProductosPorProveedor(Integer idProveedor) {
-		// begin-user-code
-		// TODO Ap�ndice de m�todo generado autom�ticamente
+	@Override
+	public Set<TProducto> leerProductosPorProveedor(int idProveedor) {
+		// TODO Apéndice de método generado automáticamente
 		return null;
-		// end-user-code
 	}
 
-	public Integer bajaProducto(Integer id) {
-		// begin-user-code
-		// TODO Ap�ndice de m�todo generado autom�ticamente
-		return null;
-		// end-user-code
+	@Override
+	public int bajaProducto(int id) {
+		int exito = -1;
+
+	    TManager tManager = TManager.getInstance();
+	    tManager.createTransaction();
+	    Transaction transaction = tManager.getTransaction();
+
+	    if (transaction != null) {
+	        transaction.start();
+
+	        DAOProducto daoProducto = DAOAbstractFactory.getInstancia().generaDAOProducto();
+	        TProducto tpr = daoProducto.read(id);
+
+	        if (tpr == null) {
+	            transaction.rollback();
+	        } else {
+	            if (tpr.getActivo() == 1) {
+	                tpr.setActivo(0);
+	                exito = daoProducto.update(tpr);
+	                if (exito > 0)
+	                    transaction.commit();
+	                else {
+	                    transaction.rollback();
+	                }
+	            } else {
+	                transaction.rollback();
+	            }
+	        }
+	    }
+
+	    return exito;
 	}
 
-	public Integer modificarProducto(TProducto producto) {
-		// begin-user-code
-		// TODO Ap�ndice de m�todo generado autom�ticamente
-		return null;
-		// end-user-code
+	@Override
+	public int modificarProducto(TProducto producto) {
+		// TODO Apéndice de método generado automáticamente
+		return 0;
 	}
 
-	public TProducto leerProducto(Integer id) {
-		// begin-user-code
-		// TODO Ap�ndice de m�todo generado autom�ticamente
+	@Override
+	public TProducto leerProducto(int id) {
+		// TODO Apéndice de método generado automáticamente
 		return null;
-		// end-user-code
 	}
 
+	@Override
 	public Set<TProducto> leerTodosProductos() {
-		// begin-user-code
-		// TODO Ap�ndice de m�todo generado autom�ticamente
+		// TODO Apéndice de método generado automáticamente
 		return null;
-		// end-user-code
 	}
+
+	
+	
 }
