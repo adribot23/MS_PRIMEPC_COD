@@ -46,6 +46,7 @@ public class SAProductoImp implements SAProducto {
 
 	@Override
 	public Set<TProducto> leerProductosPorAlmacen(int idAlmacen) {
+
 		Set<TProducto> tprT = null;
 
 		TManager tManager = TManager.getInstance();
@@ -65,10 +66,12 @@ public class SAProductoImp implements SAProducto {
 
 		}
 		return tprT;
+
 	}
 
 	@Override
 	public Set<TProducto> leerProductosPorProveedor(int idProveedor) {
+
 		Set<TProducto> tprT = null;
 
 		TManager tManager = TManager.getInstance();
@@ -88,6 +91,8 @@ public class SAProductoImp implements SAProducto {
 
 		}
 		return tprT;
+
+
 	}
 
 	@Override
@@ -126,6 +131,7 @@ public class SAProductoImp implements SAProducto {
 
 	@Override
 	public int modificarProducto(TProducto producto) {
+
 		int exito = -1;
 		TManager tManager = TManager.getInstance();
 		tManager.createTransaction();
@@ -149,10 +155,15 @@ public class SAProductoImp implements SAProducto {
 				transaction.rollback();
 		}
 		return exito;
+
+		// TODO Apéndice de método generado automáticamente
+
+
 	}
 
 	@Override
 	public TProducto leerProducto(int id) {
+
 		TProducto tpr = null;
 
 		TManager tManager = TManager.getInstance();
@@ -171,10 +182,15 @@ public class SAProductoImp implements SAProducto {
 				transaction.commit();
 		}
 		return tpr;
+
+		// TODO Apéndice de método generado automáticamente
+
+
 	}
 
 	@Override
 	public Set<TProducto> leerTodosProductos() {
+
 		Set<TProducto> tpr = null;
 
 		TManager tManager = TManager.getInstance();
@@ -193,6 +209,9 @@ public class SAProductoImp implements SAProducto {
 				transaction.commit();
 		}
 		return tpr;
+
+		/
+
 	}
 
 	

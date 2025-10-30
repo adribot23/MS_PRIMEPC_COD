@@ -37,7 +37,7 @@ public class SAClienteImp implements SACliente {
 
 		if (tr != null) {
 			tr.start();
-			DAOCliente daoCliente = DAOAbstractFactory.getInstancia().generaDAOCliente();
+			daoCliente = DAOAbstractFactory.getInstancia().generaDAOCliente();
 
 			if (tCliente != null) {
 				TCliente leido = daoCliente.read_by_DNI(tCliente.getDni());
@@ -70,7 +70,7 @@ public class SAClienteImp implements SACliente {
 	}
 
 	@Override
-	public int bajaCliente(Integer id) {
+	public int bajaCliente(int id) {
 		int res = -1;
 
 		TManager m = TManager.getInstance();
@@ -78,9 +78,9 @@ public class SAClienteImp implements SACliente {
 
 		if (tr != null) {
 			tr.start();
-			DAOCliente daoCliente = DAOAbstractFactory.getInstancia().generaDAOCliente();
+			daoCliente = DAOAbstractFactory.getInstancia().generaDAOCliente();
 
-			if (id != null) {
+			if (id >= 0) {
 				TCliente existente = daoCliente.read(id);
 
 				if (existente != null && existente.getActivo() == 1) {
@@ -109,7 +109,7 @@ public class SAClienteImp implements SACliente {
 
 		if (tr != null) {
 			tr.start();
-			DAOCliente daoCliente = DAOAbstractFactory.getInstancia().generaDAOCliente();
+			daoCliente = DAOAbstractFactory.getInstancia().generaDAOCliente();
 
 			if (cliente != null) {
 				TCliente existente = daoCliente.read(cliente.getId());
@@ -135,7 +135,7 @@ public class SAClienteImp implements SACliente {
 	}
 
 	@Override
-	public TCliente leerCliente(Integer id) {
+	public TCliente leerCliente(int id) {
 		TCliente leido = null;
 
 		TManager m = TManager.getInstance();
@@ -143,9 +143,9 @@ public class SAClienteImp implements SACliente {
 
 		if (tr != null) {
 			tr.start();
-			DAOCliente daoCliente = DAOAbstractFactory.getInstancia().generaDAOCliente();
+			daoCliente = DAOAbstractFactory.getInstancia().generaDAOCliente();
 
-			if (id != null) {
+			if (id >= 0) {
 				TCliente t = daoCliente.read(id);
 				if (t != null && t.getActivo() == 1) {
 					leido = t;
@@ -170,7 +170,7 @@ public class SAClienteImp implements SACliente {
 
 		if (tr != null) {
 			tr.start();
-			DAOCliente daoCliente = DAOAbstractFactory.getInstancia().generaDAOCliente();
+			daoCliente = DAOAbstractFactory.getInstancia().generaDAOCliente();
 
 			clientes = new HashSet<>(daoCliente.read_all());
 			if (clientes != null) {
