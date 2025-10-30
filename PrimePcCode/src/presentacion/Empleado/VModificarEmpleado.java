@@ -84,7 +84,7 @@ public class VModificarEmpleado extends JPanel {
 					empleado = new TEmpleadoParcial(id, nombre, dni, tlf, horas);
 				}
 
-				ctrl.accion(new Context(Evento.MODIFICAR_EMPLEADO, empleado));
+				Controlador.getInstancia().accion(new Context(Evento.MODIFICAR_EMPLEADO, empleado));
 			} catch (NumberFormatException ex) {
 				JOptionPane.showMessageDialog(this, "ID, teléfono y horas deben ser números.");
 			}

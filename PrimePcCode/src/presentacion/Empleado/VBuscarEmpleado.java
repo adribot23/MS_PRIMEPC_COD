@@ -51,7 +51,7 @@ public class VBuscarEmpleado extends JPanel {
 		btnBuscar.addActionListener(e -> {
 			try {
 				int id = Integer.parseInt(txtBuscarID.getText());
-				ctrl.accion(new Context(Evento.BUSCAR_EMPLEADO, id));
+				Controlador.getInstancia().accion(new Context(Evento.BUSCAR_EMPLEADO, id));
 			} catch (NumberFormatException ex) {
 				JOptionPane.showMessageDialog(this, "ID debe ser un numero.");
 			}

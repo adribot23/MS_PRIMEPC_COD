@@ -50,7 +50,7 @@ public class VVerProdPorProveedor extends JPanel implements IGUI {
 		btnPorProveedor.addActionListener(e -> {
 			try {
 				int idProveedor = Integer.parseInt(txtIdProveedor.getText());
-				ctrl.accion(new Context(Evento.MOSTRAR_PRODUCTOS_POR_PROVEEDOR, idProveedor));
+				Controlador.getInstancia().accion(new Context(Evento.MOSTRAR_PRODUCTOS_POR_PROVEEDOR, idProveedor));
 			} catch (NumberFormatException ex) {
 				JOptionPane.showMessageDialog(this, "ID erroneo.");
 			}

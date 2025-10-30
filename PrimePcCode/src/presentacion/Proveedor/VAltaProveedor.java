@@ -48,7 +48,7 @@ public class VAltaProveedor extends JPanel  {
 		btnAlta.addActionListener(e -> {
 			String nombre = altaNombre.getText();
 			TProveedor p = new TProveedor(0, nombre);
-			ctrl.accion(new Context(Evento.ALTA_PROVEEDOR, p));
+			Controlador.getInstancia().accion(new Context(Evento.ALTA_PROVEEDOR, p));
 		});
 
 		add(new JLabel("Nombre:"));

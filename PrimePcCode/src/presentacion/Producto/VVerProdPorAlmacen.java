@@ -50,7 +50,7 @@ public class VVerProdPorAlmacen extends JPanel implements IGUI {
 		btnPorAlmacen.addActionListener(e -> {
 			try {
 				int idAlmacen = Integer.parseInt(txtIdAlmacen.getText());
-				ctrl.accion(new Context(Evento.MOSTRAR_PRODUCTOS_POR_ALMACEN, idAlmacen));
+				Controlador.getInstancia().accion(new Context(Evento.MOSTRAR_PRODUCTOS_POR_ALMACEN, idAlmacen));
 			} catch (NumberFormatException ex) {
 				JOptionPane.showMessageDialog(this, "ID erroneo.");
 			}

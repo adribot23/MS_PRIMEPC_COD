@@ -50,7 +50,7 @@ public class VCalcularImporteMasVendido extends JPanel{
 		btnBuscar.addActionListener(e -> {
 			try {
 				int id = Integer.parseInt(txtBuscarID.getText());
-				ctrl.accion(new Context(Evento.CALCULAR_MAS_VENDIDO, id));
+				Controlador.getInstancia().accion(new Context(Evento.CALCULAR_MAS_VENDIDO, id));
 			} catch (NumberFormatException ex) {
 				JOptionPane.showMessageDialog(this, "ID debe ser un numero.");
 			}

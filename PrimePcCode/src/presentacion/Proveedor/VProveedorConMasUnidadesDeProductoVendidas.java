@@ -40,7 +40,7 @@ public class VProveedorConMasUnidadesDeProductoVendidas extends JPanel implement
 		setBorder(BorderFactory.createTitledBorder("Mostrar Proveedores"));
 		JButton btnMostrar = new JButton("Mostrar todos");
 		btnMostrar.setBackground(new Color(200, 255, 200));
-		btnMostrar.addActionListener(e -> ctrl.accion(new Context(Evento.PROVEEDOR_CON_MAS_UDS, null)));
+		btnMostrar.addActionListener(e -> Controlador.getInstancia().accion(new Context(Evento.PROVEEDOR_CON_MAS_UDS, null)));
 
 		add(btnMostrar);
 	}

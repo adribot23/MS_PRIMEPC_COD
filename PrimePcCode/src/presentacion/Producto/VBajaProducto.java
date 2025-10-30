@@ -52,7 +52,7 @@ public class VBajaProducto extends JPanel implements IGUI {
 		btnBaja.addActionListener(e -> {
 			try {
 				int id = Integer.parseInt(txtBajaId.getText());
-				ctrl.accion(new Context(Evento.BAJA_PRODUCTO, id));
+				Controlador.getInstancia().accion(new Context(Evento.BAJA_PRODUCTO, id));
 			} catch (NumberFormatException ex) {
 				JOptionPane.showMessageDialog(this, "ID erroneo.");
 			}

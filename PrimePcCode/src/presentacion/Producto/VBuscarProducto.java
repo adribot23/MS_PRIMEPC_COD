@@ -52,7 +52,7 @@ public class VBuscarProducto extends JPanel implements IGUI {
 		btnBuscar.addActionListener(e -> {
 			try {
 				int id = Integer.parseInt(txtBuscarId.getText());
-				ctrl.accion(new Context(Evento.BUSCAR_PRODUCTO, id));
+				Controlador.getInstancia().accion(new Context(Evento.BUSCAR_PRODUCTO, id));
 			} catch (NumberFormatException ex) {
 				JOptionPane.showMessageDialog(this, "ID erroneo.");
 			}

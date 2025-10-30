@@ -46,7 +46,7 @@ public class VBajaProveedor extends JPanel {
 		btnBaja.addActionListener(e -> {
 			try {
 				int id = Integer.parseInt(bajaId.getText());
-				ctrl.accion(new Context(Evento.BAJA_PROVEEDOR, id));
+				Controlador.getInstancia().accion(new Context(Evento.BAJA_PROVEEDOR, id));
 			} catch (NumberFormatException ex) {
 				JOptionPane.showMessageDialog(this, "ID invalido.");
 			}

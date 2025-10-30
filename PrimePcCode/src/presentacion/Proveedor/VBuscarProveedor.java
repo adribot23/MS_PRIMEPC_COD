@@ -47,7 +47,7 @@ public class VBuscarProveedor extends JPanel {
 		btnBuscar.addActionListener(e -> {
 			try {
 				int id = Integer.parseInt(buscarId.getText());
-				ctrl.accion(new Context(Evento.BUSCAR_PROVEEDOR, id));
+				Controlador.getInstancia().accion(new Context(Evento.BUSCAR_PROVEEDOR, id));
 			} catch (NumberFormatException ex) {
 				JOptionPane.showMessageDialog(this, "ID invalido.");
 			}

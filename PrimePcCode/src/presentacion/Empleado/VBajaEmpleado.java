@@ -51,7 +51,7 @@ public class VBajaEmpleado extends JPanel {
 		btnBaja.addActionListener(e -> {
 			try {
 				int id = Integer.parseInt(bajaID.getText());
-				actrl.accion(new Context(Evento.BAJA_EMPLEADO, id));
+				Controlador.getInstancia().accion(new Context(Evento.BAJA_EMPLEADO, id));
 			} catch (NumberFormatException ex) {
 				JOptionPane.showMessageDialog(this, "ID debe ser un numero.");
 			}

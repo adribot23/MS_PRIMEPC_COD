@@ -51,7 +51,7 @@ public class VModificarProveedor extends JPanel {
 				int id = Integer.parseInt(modId.getText());
 				String nombre = modNombre.getText();
 				TProveedor p = new TProveedor(id, nombre);
-				ctrl.accion(new Context(Evento.MODIFICAR_PROVEEDOR, p));
+				Controlador.getInstancia().accion(new Context(Evento.MODIFICAR_PROVEEDOR, p));
 			} catch (NumberFormatException ex) {
 				JOptionPane.showMessageDialog(this, "ID invalido.");
 			}

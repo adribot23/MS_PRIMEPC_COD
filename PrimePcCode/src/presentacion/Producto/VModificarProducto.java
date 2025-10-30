@@ -71,7 +71,7 @@ public class VModificarProducto extends JPanel implements IGUI {
 				String marca = txtModMarca.getText();
 
 				TProducto modificado = new TProducto(id, precio, modelo, unidades, marca);
-				ctrl.accion(new Context(Evento.MODIFICAR_PRODUCTO, modificado));
+				Controlador.getInstancia().accion(new Context(Evento.MODIFICAR_PRODUCTO, modificado));
 			} catch (NumberFormatException ex) {
 				JOptionPane.showMessageDialog(this, "Datos erroneos.");
 			}

@@ -83,7 +83,7 @@ public class VAltaEmpleado extends JPanel implements IGUI {
 					empleado = new TEmpleadoParcial(-1, nombre, dni, tlf, horas);
 				}
 
-				ctrl.accion(new Context(Evento.ALTA_EMPLEADO, empleado));
+				Controlador.getInstancia().accion(new Context(Evento.ALTA_EMPLEADO, empleado));
 			} catch (NumberFormatException ex) {
 				JOptionPane.showMessageDialog(this, "Telefono y horas deben ser numeros.");
 			}

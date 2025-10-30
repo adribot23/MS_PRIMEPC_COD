@@ -67,7 +67,7 @@ public class VAltaProducto extends JPanel implements IGUI {
 				String marca = txtAltaMarca.getText();
 
 				TProducto nuevo = new TProducto(precio, modelo, unidades, marca);
-				ctrl.accion(new Context(Evento.ALTA_PRODUCTO, nuevo));
+				Controlador.getInstancia().accion(new Context(Evento.ALTA_PRODUCTO, nuevo));
 			} catch (NumberFormatException ex) {
 				JOptionPane.showMessageDialog(this, "Datos erroneos.");
 			}

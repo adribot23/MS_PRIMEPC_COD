@@ -40,7 +40,7 @@ public class VMostrarEmpelado extends JPanel {
 		JButton btnMostrarTodos = new JButton("Mostrar todos los empleados");
 		btnMostrarTodos.setBackground(new Color(200, 255, 200));
 		btnMostrarTodos.addActionListener(e -> {
-			ctrl.accion(new Context(Evento.MOSTRAR_TODOS_EMPLEADOS, null));
+			Controlador.getInstancia().accion(new Context(Evento.MOSTRAR_TODOS_EMPLEADOS, null));
 		});
 
 		add(btnMostrarTodos);
