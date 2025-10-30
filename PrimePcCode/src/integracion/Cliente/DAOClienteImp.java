@@ -11,8 +11,6 @@ import java.sql.Statement;
 import java.util.HashSet;
 import java.util.Set;
 
-import java.util.Set;
-
 import negocio.Cliente.TCliente;
 import negocio.Cliente.TClienteNoSocio;
 import negocio.Cliente.TClienteSocio;
@@ -31,7 +29,7 @@ public class DAOClienteImp implements DAOCliente {
 		return DriverManager.getConnection("jdbc:sqlite:bd/MSPrimePC.db", "root", "root"); //TODO Poner el nombre de la bd 
 	}
 	
-	public Integer create(TCliente cliente) {
+	public int create(TCliente cliente) {
 		 int id = cliente.getId();
 		    Connection conexion = null;
 
@@ -90,7 +88,7 @@ public class DAOClienteImp implements DAOCliente {
 		    return id;
 	}
 
-	public TCliente read(Integer id) {
+	public TCliente read(int id) {
 		TCliente cliente = null;
 
 		try {
@@ -148,7 +146,7 @@ public class DAOClienteImp implements DAOCliente {
 		return cliente;
 	}
 
-	public Integer update(TCliente cliente) {
+	public int update(TCliente cliente) {
 		int filasAfectadas = 0;
 
 		try {
@@ -195,7 +193,7 @@ public class DAOClienteImp implements DAOCliente {
 		return filasAfectadas;
 	}
 
-	public Integer delete(Integer id) {
+	public int delete(int id) {
 		int filasAfectadas = 0;
 		try {
 			conexion = conectar();
@@ -276,34 +274,61 @@ public class DAOClienteImp implements DAOCliente {
 	    return cliente;
 	}
 	public Set<TCliente> read_all() {
-	    Set<TCliente> clientes = new HashSet<>();
-		String sql = "SELECT ID, DNI, NOMBRE, ACTIVO FROM CLIENTE";
-	    try (Connection conexion = conectar();
-	         PreparedStatement ps = conexion.prepareStatement(sql);
-	         ResultSet rs = ps.executeQuery()) {
+		Set<TCliente> clientes = new HashSet<TCliente>();
 
-	        while (rs.next()) {
-	            int id = rs.getInt("ID");
-	            String dni = rs.getString("DNI");
-	            String nombre = rs.getString("NOMBRE");
-	            int activo = rs.getInt("ACTIVO");
+		try {
+			conexion = conectar();
+			String sql = "SELECT ID, DNI, NOMBRE, ACTIVO FROM CLIENTE";
+			PreparedStatement psCliente = conexion.prepareStatement(sql);
+			ResultSet rsCliente = psCliente.executeQuery();
 
-	            Integer numSocio = rs.getObject("NUM_SOCIO", Integer.class);
-	            Integer puntos = rs.getObject("PUNTOS", Integer.class);
-	            Integer numVisitas = rs.getObject("NUM_VISITAS", Integer.class);
+			while (rsCliente.next()) {
+				int id = rsCliente.getInt("ID");
+				String dni = rsCliente.getString("DNI");
+				String nombre = rsCliente.getString("NOMBRE");
+				int activo = rsCliente.getInt("ACTIVO");
 
-	            if (numSocio != null && puntos != null) {
-	                clientes.add(new TClienteSocio(id, nombre, dni, activo, numSocio, puntos));
-	            } else if (numVisitas != null) {
-	                clientes.add(new TClienteNoSocio(id, nombre, dni, activo, numVisitas));
-	            }
-	        }
+				String sqlSocio = "SELECT PUNTOS, NUM_SOCIO FROM SOCIO WHERE ID = ?";
+				PreparedStatement psSocio = conexion.prepareStatement(sqlSocio);
+				psSocio.setInt(1, id);
+				ResultSet rsSocio = psSocio.executeQuery();
 
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	    }
+				if (rsSocio.next()) {
+					int puntos = rsSocio.getInt("PUNTOS");
+					int numSocio = rsSocio.getInt("NUM_SOCIO");
 
-	    return clientes;
+					TClienteSocio socio = new TClienteSocio(id, nombre, dni, activo, numSocio, puntos);
+					clientes.add(socio);
+				} else {
+					String sqlNoSocio = "SELECT NUM_VISITAS FROM NOSOCIO WHERE ID = ?";
+					PreparedStatement psNoSocio = conexion.prepareStatement(sqlNoSocio);
+					psNoSocio.setInt(1, id);
+					ResultSet rsNoSocio = psNoSocio.executeQuery();
+
+					if (rsNoSocio.next()) {
+						int numVisitas = rsNoSocio.getInt("NUM_VISITAS");
+
+						TClienteNoSocio noSocio = new TClienteNoSocio(id, nombre, dni, activo, numVisitas);
+						clientes.add(noSocio);
+					}
+
+					rsNoSocio.close();
+					psNoSocio.close();
+				}
+
+				rsSocio.close();
+				psSocio.close();
+			}
+
+			rsCliente.close();
+			psCliente.close();
+			conexion.close();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return clientes;
 	}
 
 
