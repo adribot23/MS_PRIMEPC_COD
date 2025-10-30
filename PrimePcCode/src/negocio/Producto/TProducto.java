@@ -1,21 +1,15 @@
-/**
- * 
- */
 package negocio.Producto;
 
-/** 
- * <!-- begin-UML-doc -->
- * <!-- end-UML-doc -->
- * @author adria
- * @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
- */
 public class TProducto {
 	protected int id;
-	protected String marca;
-	protected String modelo;
 	protected double precio;
+	protected String modelo;
 	protected int unidades;
+	protected String marca;
 	protected int activo;
+	protected int id_proveedor;
+	protected int id_almacen;
+	
 
 	public TProducto() {
 	};
@@ -42,7 +36,7 @@ public class TProducto {
 	public void setId(int id) {
 		this.id = id;
 	}
-
+	
 	public double getPrecio() {
 		return this.precio;
 	}
@@ -50,7 +44,7 @@ public class TProducto {
 	public void setPrecio(double precio) {
 		this.precio = precio;
 	}
-
+	
 	public String getModelo() {
 		return this.modelo;
 	}
@@ -58,7 +52,7 @@ public class TProducto {
 	public void setModelo(String modelo) {
 		this.modelo = modelo;
 	}
-
+	
 	public int getUnidades() {
 		return this.unidades;
 	}
@@ -66,7 +60,7 @@ public class TProducto {
 	public void setUnidades(int unidades) {
 		this.unidades = unidades;
 	}
-
+	
 	public String getMarca() {
 		return this.marca;
 	}
@@ -74,7 +68,7 @@ public class TProducto {
 	public void setMarca(String marca) {
 		this.marca = marca;
 	}
-
+	
 	public int getActivo() {
 		return this.activo;
 	}
@@ -82,6 +76,28 @@ public class TProducto {
 	public void setActivo(int activo) {
 		this.activo = activo;
 	}
+	
+	public int getIdProveedor() {
+		return this.id_proveedor;
+	}
+
+	public void setIdProveedor(int id_proveedor) {
+		this.id_proveedor = id_proveedor;
+	}
+	
+	public int getIdAlmacen() {
+		return this.id_almacen;
+	}
+
+	public void setIdAlmacen(int id_almacen) {
+		this.id_almacen = id_almacen;
+	}
+
+	
+
+	
+
+	
 
 	@Override
 	public String toString() {
