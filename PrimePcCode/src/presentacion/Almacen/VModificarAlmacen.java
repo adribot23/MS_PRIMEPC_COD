@@ -1,45 +1,66 @@
 /**
  * 
  */
-package Presentacion.Almacen;
+package presentacion.Almacen;
 
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JFrame;
-import Presentacion.GUI.IGUI;
-import static java.desktop.java.awt.Color.*;
-import Presentacion.Controller.Controlador;
-import Presentacion.Controller.Command.Context;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
-/** 
-* <!-- begin-UML-doc -->
-* <!-- end-UML-doc -->
-* @author adria
-* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-*/
-public class VModificarAlmacen extends JFrame implements IGUI, IGUI {
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	*/
+import presentacion.GUI.IGUI;
+import presentacion.factoria.Evento;
+import negocio.Almacen.TAlmacen;
+
+import java.awt.Color;
+import java.awt.GridLayout;
+
+import presentacion.Controller.Controlador;
+import presentacion.Controller.Command.Context;
+
+public class VModificarAlmacen extends JPanel {
+
+	private static final long serialVersionUID = 1L;
 	private Controlador ctrl;
 
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @return
-	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	*/
-	public Void initGUI() {
-		// begin-user-code
-		// TODO ApÈndice de mÈtodo generado autom·ticamente
-		return null;
-		// end-user-code
+	public VModificarAlmacen() {
+		ctrl = Controlador.getInstancia();
+		initGUI();
 	}
 
-	public void actualizar(Context context) {
-		// begin-user-code
-		// TODO ApÈndice de mÈtodo generado autom·ticamente
+	private void initGUI() {
+		setBorder(BorderFactory.createTitledBorder("Modificar Almacen"));
+		setLayout(new GridLayout(7, 1, 5, 5));
 
-		// end-user-code
+		JTextField idField = new JTextField();
+		JTextField nombreField = new JTextField();
+		JTextField capacidadField = new JTextField();
+		JButton modificarButton = new JButton("Modificar");
+
+		modificarButton.setBackground(new Color(200, 255, 200));
+
+		add(new JLabel("ID:"));
+		add(idField);
+		add(new JLabel("Nombre:"));
+		add(nombreField);
+		add(new JLabel("Capacidad m√°xima:"));
+		add(capacidadField);
+		add(modificarButton);
+
+		modificarButton.addActionListener(e -> {
+			try {
+				int id = Integer.parseInt(idField.getText());
+				String nombre = nombreField.getText();
+				int capacidad = Integer.parseInt(capacidadField.getText());
+				TAlmacen almacen = new TAlmacen(id, nombre, capacidad, -1);
+				ctrl.accion(new Context(Evento.MODIFICAR_ALMACEN, almacen));
+			} catch (NumberFormatException ex) {
+				JOptionPane.showMessageDialog(this, "Campos numericos inv√°lidos.");
+			}
+		});
 	}
+
 }

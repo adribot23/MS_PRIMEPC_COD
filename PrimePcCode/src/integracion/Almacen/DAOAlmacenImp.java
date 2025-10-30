@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -144,7 +145,7 @@ public class DAOAlmacenImp implements DAOAlmacen{
 	}
 
 	public Set<TAlmacen> read_all() {
-		List<TAlmacen> almacenes = new ArrayList<>();
+		Set<TAlmacen> almacenes = new HashSet<>();
 		try {
 			conexion = conectar();
 			String sql = "SELECT * FROM almacen";

@@ -1,46 +1,63 @@
 /**
  * 
  */
-package Presentacion.Almacen;
+package presentacion.Almacen;
 
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import Presentacion.GUI.IGUI;
-import static Presentacion.GUI.Evento.*;
-import Presentacion.Controller.Controlador;
-import Presentacion.Controller.Command.Context;
+import javax.swing.JTextField;
 
-/** 
-* <!-- begin-UML-doc -->
-* <!-- end-UML-doc -->
-* @author adria
-* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-*/
-public class VAltaAlmacen extends JPanel implements IGUI {
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	*/
+import presentacion.GUI.IGUI;
+import presentacion.factoria.Evento;
+import negocio.Almacen.TAlmacen;
+
+import static presentacion.GUI.Evento.*;
+
+import java.awt.Color;
+import java.awt.GridLayout;
+
+import presentacion.Controller.Controlador;
+import presentacion.Controller.Command.Context;
+
+
+public class VAltaAlmacen extends JPanel {
+
+	private static final long serialVersionUID = 1L;
 	private Controlador ctrl;
 
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @return
-	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	*/
-	public Void iniGUI() {
-		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
-		return null;
-		// end-user-code
+	public VAltaAlmacen() {
+		ctrl = Controlador.getInstancia();
+		initGUI();
 	}
 
-	public void actualizar(Context context) {
-		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+	private void initGUI() {
+		setBorder(BorderFactory.createTitledBorder("Alta Almacen"));
+		setLayout(new GridLayout(5, 1, 5, 5));
 
-		// end-user-code
+		JTextField nombreField = new JTextField();
+		JTextField capacidadField = new JTextField();
+		JButton altaButton = new JButton("Dar de alta");
+		altaButton.setBackground(new Color(200, 255, 200));
+		add(new JLabel("Nombre:"));
+		add(nombreField);
+		add(new JLabel("Capacidad mÃ¡xima:"));
+		add(capacidadField);
+		add(altaButton);
+
+		altaButton.addActionListener(e -> {
+			try {
+				String nombre = nombreField.getText().trim();
+				int capacidad = Integer.parseInt(capacidadField.getText().trim());
+				TAlmacen almacen = new TAlmacen(nombre, capacidad, 0);
+				ctrl.accion(new Context(Evento.ALTA_ALMACEN, almacen));
+			} catch (NumberFormatException ex) {
+				JOptionPane.showMessageDialog(this, "Capacidad y ocupacion deben ser numeros.");
+			}
+		});
 	}
+
 }

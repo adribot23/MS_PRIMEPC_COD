@@ -1,45 +1,53 @@
 /**
  * 
  */
-package Presentacion.Almacen;
+package presentacion.Almacen;
 
+import java.awt.Color;
+import java.awt.GridLayout;
+
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import Presentacion.GUI.IGUI;
-import Presentacion.Controller.Controlador;
-import Presentacion.Controller.Command.Context;
+import javax.swing.JTextField;
 
-/** 
-* <!-- begin-UML-doc -->
-* <!-- end-UML-doc -->
-* @author adria
-* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-*/
-public class VBajaAlmacen extends JPanel implements IGUI, IGUI {
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	*/
+import presentacion.GUI.IGUI;
+import presentacion.factoria.Evento;
+import presentacion.Controller.Controlador;
+import presentacion.Controller.Command.Context;
+
+public class VBajaAlmacen extends JPanel {
+
+	private static final long serialVersionUID = 1L;
 	private Controlador ctrl;
 
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @return
-	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	*/
-	public Void initGUI() {
-		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
-		return null;
-		// end-user-code
+	public VBajaAlmacen() {
+		ctrl = Controlador.obtenerInstancia();
+		initGUI();
 	}
 
-	public void actualizar(Context context) {
-		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+	private void initGUI() {
+		setBorder(BorderFactory.createTitledBorder("Baja Almacen"));
+		setLayout(new GridLayout(3, 1, 5, 5));
 
-		// end-user-code
+		JTextField idField = new JTextField();
+		JButton bajaButton = new JButton("Dar de baja");
+		bajaButton.setBackground(new Color(200, 255, 200));
+		add(new JLabel("ID almacen:"));
+		add(idField);
+		add(bajaButton);
+
+		bajaButton.addActionListener(e -> {
+			try {
+				int id = Integer.parseInt(idField.getText().trim());
+				ctrl.accion(new Context(Evento.BAJA_ALMACEN, id));
+			} catch (NumberFormatException ex) {
+				JOptionPane.showMessageDialog(this, "ID invalido.");
+			}
+		});
 	}
+
 }

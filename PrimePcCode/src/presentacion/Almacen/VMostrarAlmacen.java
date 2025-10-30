@@ -1,53 +1,42 @@
 /**
  * 
  */
-package Presentacion.Almacen;
+package presentacion.Almacen;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import Presentacion.GUI.IGUI;
-import Presentacion.Controller.Controlador;
+import presentacion.GUI.IGUI;
+import presentacion.factoria.Evento;
+import presentacion.Controller.Controlador;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.GridLayout;
 import java.util.Set;
 import javax.swing.BorderFactory;
-import Presentacion.Controller.Command.Context;
+import javax.swing.JButton;
 
-/** 
-* <!-- begin-UML-doc -->
-* <!-- end-UML-doc -->
-* @author adria
-* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-*/
-public class VMostrarAlmacen extends JPanel implements IGUI, IGUI {
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	*/
+import presentacion.Controller.Command.Context;
+
+public class VMostrarAlmacen extends JPanel {
+
+	private static final long serialVersionUID = 1L;
 	private Controlador ctrl;
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	*/
-	private Set<BorderFactory> borderFactory;
 
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @return
-	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	*/
-	public Void initGUI() {
-		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
-		return null;
-		// end-user-code
+	public VMostrarAlmacen() {
+		ctrl = Controlador.getInstancia();
+		initGUI();
 	}
 
-	public void actualizar(Context context) {
-		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+	private void initGUI() {
+		setBorder(BorderFactory.createTitledBorder("Mostrar almacenes"));
+		setLayout(new GridLayout(1, 1));
 
-		// end-user-code
+		JButton btnMostrarTodos = new JButton("Mostrar todos");
+		btnMostrarTodos.setBackground(new Color(200, 255, 200)); // Verde
+		btnMostrarTodos.addActionListener(e -> ctrl.accion(new Context(Evento.MOSTRAR_TODOS_ALMACENES, null)));
+
+		add(btnMostrarTodos, BorderLayout.CENTER);
 	}
+
 }
