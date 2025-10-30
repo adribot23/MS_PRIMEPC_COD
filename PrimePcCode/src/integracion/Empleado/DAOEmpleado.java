@@ -66,7 +66,7 @@ public interface DAOEmpleado {
 	* @return
 	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	*/
-	public TEmpleado read_by_DNI(String nombre);
+	public TEmpleado read_by_DNI(String DNI);
 
 	/** 
 	* <!-- begin-UML-doc -->
