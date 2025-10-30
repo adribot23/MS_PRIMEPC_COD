@@ -3,7 +3,11 @@
  */
 package presentacion.Controller.Command.CommandVenta;
 
+import negocio.FactoriaSA.SAAbstractFactory;
+import negocio.Venta.TVenta;
 import presentacion.Controller.Command.Command;
+import presentacion.Controller.Command.Context;
+import presentacion.GUI.Evento;
 
 /** 
 * <!-- begin-UML-doc -->
@@ -13,9 +17,10 @@ import presentacion.Controller.Command.Command;
 */
 public class ModificarVentaCommand implements Command {
 	public Context execute(Object data) {
-		// begin-user-code
-		// TODO Ap�ndice de m�todo generado autom�ticamente
-		return null;
-		// end-user-code
+		int res =  SAAbstractFactory.getInstancia().generarSAVenta().modificarVenta((TVenta) data);
+		if (res > 0)
+			return new Context(Evento.RES_MODIFICAR_VENTA_OK, data);
+		else
+			return new Context(Evento.RES_MODIFICAR_VENTA_KO, null);
 	}
 }

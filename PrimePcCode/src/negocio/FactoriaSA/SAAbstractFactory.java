@@ -13,7 +13,7 @@ public abstract class SAAbstractFactory {
 
 	private static SAAbstractFactory instancia;
 
-	public static SAAbstractFactory getInstancia() {
+	public static synchronized SAAbstractFactory getInstancia() {
 		if (instancia == null) {
 			instancia = new SAAbstractFactoryImp();
 		}

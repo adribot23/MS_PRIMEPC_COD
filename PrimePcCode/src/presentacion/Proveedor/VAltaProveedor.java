@@ -14,7 +14,7 @@ import presentacion.GUI.IGUI;
 * @author adria
 * @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 */
-public class VAltaProveedor extends JPanel implements IGUI {
+public class VAltaProveedor extends JPanel  {
 	/** 
 	* <!-- begin-UML-doc -->
 	* <!-- end-UML-doc -->
@@ -35,10 +35,5 @@ public class VAltaProveedor extends JPanel implements IGUI {
 		// end-user-code
 	}
 
-	public void actualizar(Context context) {
-		// begin-user-code
-		// TODO Ap�ndice de m�todo generado autom�ticamente
-
-		// end-user-code
-	}
+	
 }

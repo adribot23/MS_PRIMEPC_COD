@@ -3,7 +3,11 @@
  */
 package presentacion.Controller.Command.CommandProveedor;
 
+import negocio.FactoriaSA.SAAbstractFactory;
+import negocio.Proveedor.TProveedorProducto;
 import presentacion.Controller.Command.Command;
+import presentacion.Controller.Command.Context;
+import presentacion.GUI.Evento;
 
 /** 
 * <!-- begin-UML-doc -->
@@ -13,9 +17,10 @@ import presentacion.Controller.Command.Command;
 */
 public class VincularProveedorProductoCommand implements Command {
 	public Context execute(Object data) {
-		// begin-user-code
-		// TODO Ap�ndice de m�todo generado autom�ticamente
-		return null;
-		// end-user-code
+		int res =  SAAbstractFactory.getInstancia().generarSAProveedor().vincularProductoProveedor((TProveedorProducto) data);
+		if (res > 0)
+			return new Context(Evento.RES_VINCULAR_PRODUCTO_PROVEEDOR_OK, res);
+		else
+			return new Context(Evento.RES_VINCULAR_PRODUCTO_PROVEEDOR_KO, null);
 	}
 }

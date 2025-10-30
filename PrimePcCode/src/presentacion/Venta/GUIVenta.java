@@ -10,6 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
+import presentacion.Controller.Command.Context;
 import presentacion.GUI.IGUI;
 
 /** 
