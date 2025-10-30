@@ -11,7 +11,7 @@ public class TCarrito {
 
 	private int id_cliente;
 
-	private Integer estado;
+	private int estado;
 
 	private Double total;
 
@@ -23,7 +23,7 @@ public class TCarrito {
 	}
 
 
-	public void setId(Integer id) {
+	public void setId(int id) {
 		
 		this.id_carrito = id;
 	}
@@ -35,7 +35,7 @@ public class TCarrito {
 	}
 
 
-	public void setIdEmpleado(Integer id) {
+	public void setIdEmpleado(int id) {
 		
 		this.id_empleado = id;
 	}
@@ -47,7 +47,7 @@ public class TCarrito {
 	}
 
 
-	public void setIdCliente(Integer id) {
+	public void setIdCliente(int id) {
 		
 		this.id_cliente = id;
 	}
@@ -71,7 +71,7 @@ public class TCarrito {
 	}
 
 
-	public void setEstado(Integer estado) {
+	public void setEstado(int estado) {
 		
 		this.estado = estado;
 	}

@@ -3,7 +3,7 @@ package negocio.Venta;
 
 public class TVenta {
 
-	private Integer id_venta;
+	private int id_venta;
 
 	private String metodoPago;
 
@@ -11,19 +11,19 @@ public class TVenta {
 
 	private Double descuento;
 
-	private Integer id_empleado;
+	private int id_empleado;
 
-	private Integer id_cliente;
+	private int id_cliente;
 
 	private int activo;
 
-	public Integer getId() {
+	public int getId() {
 		
 		return this.id_venta;
 	}
 
 
-	public void setId(Integer id) {
+	public void setId(int id) {
 		this.id_venta = id;
 		
 	}
@@ -80,19 +80,19 @@ public class TVenta {
 	}
 
 
-	public void setIdCliente(Integer idCliente) {
+	public void setIdCliente(int idCliente) {
 		
 		this.id_cliente = idCliente;
 	}
 
 
-	public Integer getIdEmpleado() {
+	public int getIdEmpleado() {
 		
 		return this.id_empleado;
 	}
 
 
-	public void setIdEmpleado(Integer idEmpleado) {
+	public void setIdEmpleado(int idEmpleado) {
 		
 		this.id_empleado = idEmpleado;
 	}
