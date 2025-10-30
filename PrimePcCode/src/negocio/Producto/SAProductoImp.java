@@ -127,7 +127,6 @@ public class SAProductoImp implements SAProducto {
 	@Override
 	public int modificarProducto(TProducto producto) {
 		int exito = -1;
-
 		TManager tManager = TManager.getInstance();
 		tManager.createTransaction();
 		Transaction transaction = tManager.getTransaction();
