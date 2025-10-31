@@ -273,8 +273,25 @@ public class SAVentaImp implements SAVenta {
 
 	@Override
 	public Set<TVenta> leerVentasPorEmpleado(Integer idEmpleado) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		TManager tm = TManager.getInstance();
+		Transaction tr = tm.createTransaction();
+		Set<TVenta> ventas = null;
+		
+		if (tr != null) {
+			tr.start();
+			
+			DAOVenta daoVenta = DAOAbstractFactory.getInstancia().generaDAOVenta();
+			ventas = daoVenta.read_by_empleado(idEmpleado);
+			
+			if (ventas != null) {
+				tr.commit();
+			} else {
+				tr.rollback();
+			}
+		}
+		
+		return ventas;
 	}
 
 	@Override
@@ -409,8 +426,26 @@ public class SAVentaImp implements SAVenta {
 
 	@Override
 	public Set<TVenta> leerVentasPorCliente(Integer idCliente) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		
+		TManager tm = TManager.getInstance();
+		Transaction tr = tm.createTransaction();
+		Set<TVenta> ventas = null;
+		
+		if (tr != null) {
+			tr.start();
+			
+			DAOVenta daoVenta = DAOAbstractFactory.getInstancia().generaDAOVenta();
+			ventas = daoVenta.read_by_cliente(idCliente);
+			
+			if (ventas != null) {
+				tr.commit();
+			} else {
+				tr.rollback();
+			}
+		}
+		
+		return ventas;
 	}
 
 	
