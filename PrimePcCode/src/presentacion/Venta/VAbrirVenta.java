@@ -14,8 +14,9 @@ import negocio.Venta.TVenta;
 import presentacion.Controller.Command.Context;
 import presentacion.Controller.Controlador;
 import presentacion.GUI.Evento;
+import presentacion.GUI.IGUI;
 
-public class VAbrirVenta extends JFrame {
+public class VAbrirVenta extends JFrame implements IGUI {
 
 	private static final long serialVersionUID = 1L;
 
@@ -100,6 +101,14 @@ public class VAbrirVenta extends JFrame {
 		}
 	}
 
+	private void limpiarCampos() {
+		empleadoField.setText("");
+		clienteField.setText("");
+		metodoPagoField.setText("");
+		precioField.setText("");
+		descuentoField.setText("");
+	}
+
 	private int parseEnteroPositivo(String text, String campo) {
 		try {
 			int valor = Integer.parseInt(text.trim());
@@ -124,6 +133,42 @@ public class VAbrirVenta extends JFrame {
 			return valor;
 		} catch (NumberFormatException ex) {
 			throw new IllegalArgumentException(campo + " debe ser un número válido mayor o igual que cero.");
+		}
+	}
+
+	@Override
+	public void actualizar(Context context) {
+		if (context == null) {
+			return;
+		}
+
+		Evento evento = context.getEvento();
+		Object datos = context.getDatos();
+
+		if (evento == null) {
+			return;
+		}
+
+		switch (evento) {
+		case ABRIR_VENTA:
+			limpiarCampos();
+			setVisible(true);
+			break;
+
+		case RES_ABRIR_VENTA_OK:
+			String mensajeOk = datos instanceof Number ? "Venta creada con id " + datos : "Venta creada correctamente.";
+			JOptionPane.showMessageDialog(this, mensajeOk, "Venta abierta", JOptionPane.INFORMATION_MESSAGE);
+			dispose();
+			break;
+
+		case RES_ABRIR_VENTA_KO:
+			String mensajeError = datos instanceof String ? (String) datos : "No se pudo abrir la venta.";
+			JOptionPane.showMessageDialog(this, mensajeError, "Error al abrir venta", JOptionPane.ERROR_MESSAGE);
+			setVisible(true);
+			break;
+
+		default:
+			break;
 		}
 	}
 }
