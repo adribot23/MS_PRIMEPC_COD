@@ -336,8 +336,46 @@ public class SAVentaImp implements SAVenta {
 
 	@Override
 	public int modificarVenta(TVenta venta) {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		TManager tm = TManager.getInstance();
+		Transaction tr = tm.createTransaction();
+		int res = -1;
+		
+		if (tr != null) {
+			
+			tr.start();
+			
+			DAOVenta daoVenta = DAOAbstractFactory.getInstancia().generaDAOVenta();
+			TVenta ventaExistente = daoVenta.read(venta.getId());
+			
+			if (ventaExistente != null && ventaExistente.getActivo() == 1) {
+				
+				
+				TEmpleado empleado = DAOAbstractFactory.getInstancia().generaDAOEmpleado().read(venta.getIdEmpleado());
+				
+				if (empleado != null || empleado.getActivo() == 1) {
+					
+					ventaExistente.setIdEmpleado(venta.getIdEmpleado());
+					res = daoVenta.update(ventaExistente);
+					
+					if (res == -1) {
+						tr.commit();
+					}
+					
+					else {
+						tr.rollback();
+					}
+				}
+				else {
+					tr.rollback();
+				}
+			} else {
+				tr.rollback();
+			}
+		}
+			
+			return res;
+						
 	}
 
 	@Override
