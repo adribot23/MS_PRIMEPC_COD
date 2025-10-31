@@ -3,6 +3,7 @@ package integracion.FactoriaDAO;
 
 import integracion.Almacen.DAOAlmacen;
 import integracion.Cliente.DAOCliente;
+import integracion.Empleado.DAOEmpleado;
 import integracion.Producto.DAOProducto;
 import integracion.Proveedor.DAOProveedor;
 import integracion.Proveedor.DaoProveedorProducto;

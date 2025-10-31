@@ -1,6 +1,9 @@
 
 package negocio.Venta;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 public class TCarrito {
@@ -121,6 +124,40 @@ public class TCarrito {
 	
 	public void setcantidadProducto(int cantidadProducto) {
 		this.cantidadProducto = cantidadProducto;
+	}
+
+
+	public Iterator<TLineaVenta> recorrerLineasVenta() {
+		
+		return new Iterator<TLineaVenta>() {
+
+			List<TLineaVenta> listalineasVenta = new ArrayList<>(lineasVenta);
+			int i = 0;
+			
+			@Override
+			public boolean hasNext() {
+				return i < listalineasVenta.size();
+			}
+
+			@Override
+			public TLineaVenta next() {
+				return listalineasVenta.get(i++);
+			}
+			
+			@Override
+			public void remove() {
+				
+				listalineasVenta.remove(i);
+				
+				if (hasNext()) {
+					i++;
+				}
+			}
+			
+		};
+		
+		
+		
 	}
 	
 	
