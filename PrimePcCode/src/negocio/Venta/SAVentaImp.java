@@ -386,8 +386,25 @@ public class SAVentaImp implements SAVenta {
 
 	@Override
 	public Set<TVenta> leerTodasVentas() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		TManager tm = TManager.getInstance();
+		Transaction tr = tm.createTransaction();
+		Set<TVenta> ventas = null;
+		
+		if (tr != null) {
+			tr.start();
+			
+			DAOVenta daoVenta = DAOAbstractFactory.getInstancia().generaDAOVenta();
+			ventas = daoVenta.read_all();
+			
+			if (ventas != null) {
+				tr.commit();
+			} else {
+				tr.rollback();
+			}
+		}
+		
+		return ventas;
 	}
 
 	@Override
