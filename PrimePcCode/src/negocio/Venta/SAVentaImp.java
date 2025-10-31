@@ -279,8 +279,59 @@ public class SAVentaImp implements SAVenta {
 
 	@Override
 	public Integer bajaVenta(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		TManager tm = TManager.getInstance();
+		Transaction tr = tm.createTransaction();
+		int res = -1;
+		boolean exito = false;
+		
+		if (tr != null) {
+			
+			tr.start();
+			
+			DAOVenta daoVenta = DAOAbstractFactory.getInstancia().generaDAOVenta();
+			TVenta venta = daoVenta.read(id);
+			
+			if (venta != null && venta.getActivo() == 1) {
+				
+				DAOLineaVenta daoLineaVenta = DAOAbstractFactory.getInstancia().generaDAOLineaVenta();
+				Set<TLineaVenta> lineasVenta = daoLineaVenta.read_all(venta.getId());
+				
+				
+				for (TLineaVenta lineaVenta : lineasVenta) {
+					
+				
+					if (daoLineaVenta.delete(lineaVenta) == -1) {
+						exito = true;
+						break;
+					}
+				}
+				
+				if (!exito) {
+					
+					res = daoVenta.delete(id);
+					
+					if (res == -1) {
+						exito = true;
+					}
+					
+					else {
+						tr.rollback();
+					}
+				}
+					
+					
+				else {
+						tr.rollback();
+					}
+					
+			}else {
+						tr.rollback();
+					}
+				}
+			
+			return res;
+	
 	}
 
 	@Override
