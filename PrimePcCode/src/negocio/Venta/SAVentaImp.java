@@ -1,61 +1,141 @@
-/**
- * 
- */
+
 package negocio.Venta;
 
-/** 
- * <!-- begin-UML-doc -->
- * <!-- end-UML-doc -->
- * @author adria
- * @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
- */
+import java.util.HashSet;
+import java.util.Set;
+
 public class SAVentaImp implements SAVenta {
-	public Integer altaVenta(TVenta venta) {
-		// begin-user-code
-		// TODO Ap�ndice de m�todo generado autom�ticamente
-		return null;
-		// end-user-code
+
+	@Override
+	public TCarrito abrirVenta(int idEmpleado) {
+		
+		TCarrito carrito = new TCarrito();
+		
+		carrito.setLineasVenta(new HashSet<TLineaVenta>());
+		
+		TVenta venta = new TVenta();
+		
+		venta.setIdEmpleado(idEmpleado);
+		
+		carrito.setVenta(venta);
+		
+		return carrito;
+		
 	}
 
-	public CollectionTVenta leerVentasPorEmpleado(Integer idEmpleado) {
-		// begin-user-code
-		// TODO Ap�ndice de m�todo generado autom�ticamente
-		return null;
-		// end-user-code
+	@Override
+	public int procesarCarrito(TCarrito carrito) {
+		
+		if (carrito == null || carrito.getLineasVenta().isEmpty()) {
+			return -1;
+		}
+		
+		else {
+			return 1;
+		}
+
+		
+		
 	}
 
+	@Override
+	public int insertarProductoCarrito(TCarrito carrito) {
+		
+		
+		int idProducto = carrito.getidProducto();
+		
+		int cantidad = carrito.getcantidadProducto();
+		
+		Set<TLineaVenta> lineasVenta = carrito.getLineasVenta();
+		
+		TLineaVenta lineaVenta = new TLineaVenta();
+		
+		lineaVenta = buscarLineaVentaPorIdProducto(lineasVenta, idProducto);
+		
+		if (lineaVenta != null) {
+			
+			lineaVenta.set_num_unidades(lineaVenta.get_num_unidades() + cantidad);
+			
+		} else {
+			
+			lineaVenta = new TLineaVenta();
+			
+			lineaVenta.set_producto(idProducto);
+			
+			lineaVenta.set_num_unidades(cantidad);
+			
+			lineasVenta.add(lineaVenta);
+			
+		}
+		
+		return 1;
+		
+	}
+
+	private TLineaVenta buscarLineaVentaPorIdProducto(Set<TLineaVenta> lineasVenta, int idProducto) {
+		
+		
+		for (TLineaVenta lineaVenta : lineasVenta) {
+			if (lineaVenta.get_producto() == idProducto) {
+				return lineaVenta;
+			}
+		}
+		return null;
+	}
+
+	@Override
+	public int eliminarProductoCarrito(TCarrito carrito) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int cerrarVenta(TCarrito carrito) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int devolverVenta(TLineaVenta lineaVenta) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public Set<TVenta> leerVentasPorEmpleado(Integer idEmpleado) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
 	public Integer bajaVenta(Integer id) {
-		// begin-user-code
-		// TODO Ap�ndice de m�todo generado autom�ticamente
+		// TODO Auto-generated method stub
 		return null;
-		// end-user-code
 	}
 
-	public Integer modificarVenta(TVenta venta) {
-		// begin-user-code
-		// TODO Ap�ndice de m�todo generado autom�ticamente
-		return null;
-		// end-user-code
+	@Override
+	public int modificarVenta(TVenta venta) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
-	public TVenta leerVenta(Integer id) {
-		// begin-user-code
-		// TODO Ap�ndice de m�todo generado autom�ticamente
+	@Override
+	public TVentaTOA leerVenta(Integer id) {
+		// TODO Auto-generated method stub
 		return null;
-		// end-user-code
 	}
 
-	public CollectionTVenta leerTodasVentas() {
-		// begin-user-code
-		// TODO Ap�ndice de m�todo generado autom�ticamente
+	@Override
+	public Set<TVenta> leerTodasVentas() {
+		// TODO Auto-generated method stub
 		return null;
-		// end-user-code
 	}
 
-	public CollectionTVenta leerVentasPorCliente(Integer idCliente) {
-		// begin-user-code
-		// TODO Ap�ndice de m�todo generado autom�ticamente
+	@Override
+	public Set<TVenta> leerVentasPorCliente(Integer idCliente) {
+		// TODO Auto-generated method stub
 		return null;
-		// end-user-code
 	}
+
+	
 }

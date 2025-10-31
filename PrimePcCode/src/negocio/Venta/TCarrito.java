@@ -16,6 +16,12 @@ public class TCarrito {
 	private Double total;
 
 	private Set<TLineaVenta> lineasVenta;
+	
+	private TVenta venta;
+	
+	private int idProducto;
+	
+	private int cantidadProducto;
 
 	public int getId() {
 		
@@ -83,11 +89,41 @@ public class TCarrito {
 	}
 
 
-	public void setLineasVenta(TLineaVenta... lineasVenta) {
+	public void setLineasVenta(Set<TLineaVenta> lineasVenta) {
 		
 		for (TLineaVenta lineaVenta : lineasVenta) {
 			this.lineasVenta.add(lineaVenta);
 		}
 		
 	}
+	
+	public TVenta getVenta() {
+		
+		return this.venta;
+	}
+	
+	public void setVenta(TVenta venta) {
+		
+		this.venta = venta;
+	}
+	
+	public int getidProducto() {
+		return idProducto;
+	}
+	
+	public void setidProducto(int idProducto) {
+		this.idProducto = idProducto;
+	}
+	
+	public int getcantidadProducto() {
+		return cantidadProducto;
+	}
+	
+	public void setcantidadProducto(int cantidadProducto) {
+		this.cantidadProducto = cantidadProducto;
+	}
+	
+	
+	
+	
 }

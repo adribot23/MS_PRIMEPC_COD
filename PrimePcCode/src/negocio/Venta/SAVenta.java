@@ -7,7 +7,7 @@ public interface SAVenta {
 
 	public TCarrito abrirVenta (int idEmpleado);
 	
-	public int pasarCarritoAVenta (TCarrito carrito);
+	public int procesarCarrito (TCarrito carrito);
 	
 	public int insertarProductoCarrito (TCarrito carrito);
 	
