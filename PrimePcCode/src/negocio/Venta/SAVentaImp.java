@@ -11,6 +11,8 @@ import integracion.FactoriaDAO.DAOAbstractFactory;
 import integracion.Producto.DAOProducto;
 import integracion.Transaction.TManager;
 import integracion.Transaction.Transaction;
+import integracion.Venta.DAOLineaVenta;
+import integracion.Venta.DAOVenta;
 import negocio.Empleado.TEmpleado;
 import negocio.Producto.TProducto;
 
@@ -165,7 +167,7 @@ public class SAVentaImp implements SAVenta {
 						TLineaVenta tLineaf = new TLineaVenta();
 						
 						if (lineaVenta.get_num_unidades() > producto.getUnidades()) {
-							totalproducto = actualizarLineaVenta(lineaVenta, producto);
+							totalproducto = actualizardatosLineaVenta(tLineaf,lineaVenta, producto,lineasVenta,totalproducto);
 						
 						if (daoProd.update(producto) == -1) {
 							
@@ -180,44 +182,87 @@ public class SAVentaImp implements SAVenta {
 							exito = true;
 							break;
 						}
+						}
+					}
+				}
+				
+				if (lineasVenta.size() > 0 && !exito)  {
+					
+					DAOVenta daoVenta = DAOAbstractFactory.getInstancia().generaDAOVenta();
+					
+					venta.setPrecio(totalproducto);
+					
+					idVenta = daoVenta.create(venta);
+					
+					if (idVenta != -1) {
 						
-						} else {
-							totalproducto = daoProd.read(lineaVenta.get_producto()).getPrecio() * lineaVenta.get_num_unidades();
+						carrito.setVenta(venta);
+						venta.setId(idVenta);
+						venta.setActivo(1);
+						
+						DAOLineaVenta daoLineaVenta = DAOAbstractFactory.getInstancia().generaDAOLineaVenta();
+						
+						for (TLineaVenta lineaVenta : lineasVenta) {
 							
-							producto.setUnidades(producto.getUnidades() - lineaVenta.get_num_unidades());
+							lineaVenta.set_venta(idVenta);
+							lineaVenta.set_activo(1);
 							
-							if (daoProd.update(producto) == -1) {
-								
-								exito = true;
-								break;
-							}
+							int idLinea = daoLineaVenta.create(lineaVenta);
 							
-							TProducto producto2 = daoProd.read(producto.getId());
-							
-							if (producto2.getUnidades() == 0 && daoProd.delete(producto2.getId()) == -1) {
-								
+							if (idLinea == -1) {
 								exito = true;
 								break;
 							}
 						}
-							
-							
-						totalproducto = daoProd.read(lineaVenta.get_producto()).getPrecio() * lineaVenta.get_num_unidades();
 						
-						lineaVenta.set_precio_unidades(totalproducto);
+						carrito.setLineasVenta(lineasVenta);
 						
-						lineasVenta.add(lineaVenta);
+						if (exito) {
+							tr.rollback();
+						}
 						
-					} else {
-						tr.rollback();
-						return -1;
-					}
+						else {
+							tr.commit();
+						}
+						
+					}else {
+							tr.rollback();
+						}
+						
+				}else {
+							tr.rollback();
+						}
 					
-				}
+			}else {
+						tr.rollback();
+						
+					}
+		}
+					
+					return idVenta;
+					
 				
 				
-				
-			}
+	}
+
+	private double actualizardatosLineaVenta(TLineaVenta lineaVenta, TLineaVenta lineaVenta2, TProducto producto, Set<TLineaVenta> lineasVenta, double totalproducto2) {
+		
+		lineaVenta.set_precio_unidades(lineaVenta2.get_num_unidades());
+		lineaVenta.set_producto(lineaVenta2.get_producto());
+		
+		double precioTotalLinea = producto.getPrecio() * lineaVenta.get_num_unidades();
+		
+		lineaVenta.set_precio_unidades(precioTotalLinea);
+		lineasVenta.add(lineaVenta);
+		
+		int unidadesTotales = producto.getUnidades() - lineaVenta2.get_num_unidades();
+		
+		totalproducto2 += producto.getPrecio() * lineaVenta2.get_num_unidades();
+		
+		producto.setUnidades(unidadesTotales);
+		
+		return totalproducto2;
+		
 	}
 
 	@Override
