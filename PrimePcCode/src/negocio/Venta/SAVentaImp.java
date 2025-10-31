@@ -85,8 +85,33 @@ public class SAVentaImp implements SAVenta {
 
 	@Override
 	public int eliminarProductoCarrito(TCarrito carrito) {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		int idProducto = carrito.getidProducto();
+		
+		int cantidad = carrito.getcantidadProducto();
+		
+		Set<TLineaVenta> lineasVenta = carrito.getLineasVenta();
+		
+		TLineaVenta lineaVenta = new TLineaVenta();
+		
+		lineaVenta = buscarLineaVentaPorIdProducto(lineasVenta, idProducto);
+		
+		if (lineaVenta != null) {
+			
+			int nuevaCantidad = lineaVenta.get_num_unidades() - cantidad;
+			
+			if (nuevaCantidad > 0) {
+				lineaVenta.set_num_unidades(nuevaCantidad);
+			} else {
+				lineasVenta.remove(lineaVenta);
+			}
+			
+			
+		} else {
+			return -1;
+		}
+		
+		return 1;
 	}
 
 	@Override
