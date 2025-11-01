@@ -18,13 +18,14 @@ public class TVentaTOA {
 	private Set<TProducto> lista_producto;
 
 
-	public void colocar_datos(TVenta venta, Object empleado, Set<TProducto> lista_producto) {
+	public TVentaTOA(TVenta venta2, TEmpleado empleado2, Set<TLineaVenta> lineasVenta, Set<TProducto> listaProductos) {
 		
-		this.venta = venta;
-		this.empleado = (TEmpleado) empleado;
-		this.lista_producto = lista_producto;
-		
+		this.venta = venta2;
+		this.empleado = empleado2;
+		this.lista_lineasVenta = lineasVenta;
+		this.lista_producto = listaProductos;
 	}
+
 
 
 	public Set<TLineaVenta> get_lista_lineasVenta() {

@@ -396,10 +396,68 @@ public class SAVentaImp implements SAVenta {
 	}
 
 	@Override
-	public TVentaTOA leerVenta(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public TVentaTOA leerVenta(int id) {
+		
+		TManager tm = TManager.getInstance();
+		Transaction tr = tm.createTransaction();
+		TVentaTOA ventaTOA = null;
+		
+		if (tr != null) {
+			tr.start();
+			
+			DAOVenta daoVenta = DAOAbstractFactory.getInstancia().generaDAOVenta();
+			TVenta venta = daoVenta.read(id);
+			
+			if (venta != null) {
+				DAOEmpleado daoEmpleado = DAOAbstractFactory.getInstancia().generaDAOEmpleado();
+				TEmpleado empleado = daoEmpleado.read(venta.getIdEmpleado());
+				
+				if (empleado != null) {
+					
+					DAOLineaVenta daoLineaVenta = DAOAbstractFactory.getInstancia().generaDAOLineaVenta();
+					Set<TLineaVenta> lineasVenta = daoLineaVenta.read_all(id);
+					
+					if (lineasVenta != null) {
+						Iterator<TLineaVenta> it = lineasVenta.iterator();
+						Set<TProducto> listaProductos = new LinkedHashSet<>();
+						
+						DAOProducto daoProducto = DAOAbstractFactory.getInstancia().generaDAOProducto();
+						
+						boolean fallo = false;
+						
+						while (it.hasNext()) {
+							TLineaVenta lineaVenta = it.next();
+							TProducto producto = daoProducto.read(lineaVenta.get_producto());
+							
+							if (producto != null) {
+								listaProductos.add(producto);
+							} else {
+								fallo = true;
+								break;
+							}
+						}
+						
+						if (!listaProductos.isEmpty() && !fallo) {
+							ventaTOA = new TVentaTOA(venta, empleado, lineasVenta, listaProductos);
+							tr.commit();
+						} else {
+							tr.rollback();
+						}
+						
+						} else {
+							tr.rollback();
+						}
+					} else {
+						tr.rollback();
+						
+					}
+				
+				} else {
+					tr.rollback();
+				}
+			}
+		return ventaTOA;
+		}
 
 	@Override
 	public Set<TVenta> leerTodasVentas() {

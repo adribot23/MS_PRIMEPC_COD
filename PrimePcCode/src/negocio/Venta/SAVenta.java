@@ -23,7 +23,7 @@ public interface SAVenta {
 
 	public int modificarVenta(TVenta venta);
 
-	public TVentaTOA leerVenta(Integer id);
+	public TVentaTOA leerVenta(int id);
 
 	public Set<TVenta> leerTodasVentas();
 
