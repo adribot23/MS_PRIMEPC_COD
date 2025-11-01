@@ -13,6 +13,11 @@ public class TProducto {
 
 	public TProducto() {
 	};
+	
+	public TProducto(int id, int id_almacen) {
+		this.id = id;
+		this.id_almacen = id_almacen;
+	}
 
 	public TProducto(double precio, String modelo, int unidades, String marca) {
 		this.precio = precio;
