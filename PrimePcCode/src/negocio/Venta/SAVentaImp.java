@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import integracion.Cliente.DAOCliente;
 import integracion.Empleado.DAOEmpleado;
 import integracion.FactoriaDAO.DAOAbstractFactory;
 import integracion.Producto.DAOProducto;
@@ -13,6 +14,7 @@ import integracion.Transaction.TManager;
 import integracion.Transaction.Transaction;
 import integracion.Venta.DAOLineaVenta;
 import integracion.Venta.DAOVenta;
+import negocio.Cliente.TCliente;
 import negocio.Empleado.TEmpleado;
 import negocio.Producto.TProducto;
 
@@ -142,9 +144,11 @@ public class SAVentaImp implements SAVenta {
 			
 			DAOEmpleado daoEmp = DAOAbstractFactory.getInstancia().generaDAOEmpleado();
 			TEmpleado empleado = daoEmp.read(venta.getIdEmpleado());
+			DAOCliente daoCli = DAOAbstractFactory.getInstancia().generaDAOCliente();
+			TCliente cliente = daoCli.read(venta.getIdCliente());
 			
 			
-			if (empleado != null && empleado.getActivo() == 1) {
+			if (empleado != null && empleado.getActivo() == 1 && cliente != null && cliente.getActivo() == 1) {
 			
 				
 				Iterator<TLineaVenta> it = carrito.recorrerLineasVenta();

@@ -16,7 +16,7 @@ import presentacion.Controller.Controlador;
 import presentacion.GUI.Evento;
 import presentacion.GUI.IGUI;
 
-public class VAnadirProducto extends JFrame implements IGUI {
+public class VAñadirProducto extends JFrame implements IGUI {
 
 	private static final long serialVersionUID = 1L;
 
@@ -25,7 +25,7 @@ public class VAnadirProducto extends JFrame implements IGUI {
 	private final JTextField unidadesField = new JTextField();
 	private final JTextField precioUnidadField = new JTextField();
 
-	public VAnadirProducto() {
+	public VAñadirProducto() {
 		super("Añadir producto a venta");
 		initGUI();
 	}
