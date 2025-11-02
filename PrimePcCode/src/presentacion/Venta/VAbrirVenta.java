@@ -94,7 +94,6 @@ public class VAbrirVenta extends JFrame implements IGUI {
 			venta.setActivo(1);
 
 			Controlador.getInstancia().accion(new Context(Evento.ABRIR_VENTA, venta));
-			dispose();
 
 		} catch (IllegalArgumentException ex) {
 			JOptionPane.showMessageDialog(this, ex.getMessage(), "Datos incorrectos", JOptionPane.ERROR_MESSAGE);

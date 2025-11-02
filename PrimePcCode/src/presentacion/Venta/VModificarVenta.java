@@ -104,7 +104,6 @@ public class VModificarVenta extends JFrame implements IGUI {
 			venta.setActivo(activoCheck.isSelected() ? 1 : 0);
 
 			Controlador.getInstancia().accion(new Context(Evento.MODIFICAR_VENTA, venta));
-			dispose();
 		} catch (IllegalArgumentException ex) {
 			JOptionPane.showMessageDialog(this, ex.getMessage(), "Datos incorrectos", JOptionPane.ERROR_MESSAGE);
 		}
@@ -164,6 +163,7 @@ public class VModificarVenta extends JFrame implements IGUI {
 		case RES_MODIFICAR_VENTA_OK:
 			JOptionPane.showMessageDialog(this, "Venta modificada correctamente.", "Modificar venta",
 					JOptionPane.INFORMATION_MESSAGE);
+			dispose();
 			break;
 		case RES_MODIFICAR_VENTA_KO:
 			String mensaje = datos instanceof String ? (String) datos : "No se pudo modificar la venta indicada.";
