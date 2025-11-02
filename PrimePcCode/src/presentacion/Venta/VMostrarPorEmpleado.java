@@ -115,7 +115,7 @@ public class VMostrarPorEmpleado extends JFrame implements IGUI {
 		}
 
 		if (datos instanceof TVenta) {
-			return java.util.List.of((TVenta) datos);
+			return Collections.singletonList((TVenta) datos);
 		}
 
 		return Collections.emptyList();

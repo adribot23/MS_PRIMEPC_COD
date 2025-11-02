@@ -143,12 +143,12 @@ public class VBuscarVenta extends JFrame implements IGUI {
 			return builder.toString();
 		}
 
-		if (datos instanceof TVentaTOA toa) {
-			return formatearVentaTOA(toa);
+		if (datos instanceof TVentaTOA) {
+			return formatearVentaTOA((TVentaTOA) datos);
 		}
 
-		if (datos instanceof TVenta venta) {
-			return formatearVentaSimple(venta);
+		if (datos instanceof TVenta) {
+			return formatearVentaSimple((TVenta) datos);
 		}
 
 		return String.valueOf(datos);

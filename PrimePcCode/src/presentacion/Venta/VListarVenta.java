@@ -78,7 +78,7 @@ public class VListarVenta extends JFrame implements IGUI {
 		}
 
 		if (datos instanceof TVenta) {
-			return List.of((TVenta) datos);
+			return Collections.singletonList((TVenta) datos);
 		}
 
 		return Collections.emptyList();
