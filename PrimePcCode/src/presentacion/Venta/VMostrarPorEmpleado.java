@@ -21,6 +21,7 @@ import presentacion.Controller.Controlador;
 import presentacion.GUI.Evento;
 import presentacion.GUI.IGUI;
 
+
 public class VMostrarPorEmpleado extends JFrame implements IGUI {
 
 	private static final long serialVersionUID = 1L;

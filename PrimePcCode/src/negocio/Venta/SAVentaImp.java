@@ -48,8 +48,6 @@ public class SAVentaImp implements SAVenta {
 			return 1;
 		}
 
-		
-		
 	}
 
 	@Override
@@ -85,7 +83,7 @@ public class SAVentaImp implements SAVenta {
 		return 1;
 		
 	}
-
+	
 	private TLineaVenta buscarLineaVentaPorIdProducto(Set<TLineaVenta> lineasVenta, int idProducto) {
 		
 		
@@ -245,8 +243,6 @@ public class SAVentaImp implements SAVenta {
 					
 					return idVenta;
 					
-				
-				
 	}
 
 	private double actualizardatosLineaVenta(TLineaVenta lineaVenta, TLineaVenta lineaVenta2, TProducto producto, Set<TLineaVenta> lineasVenta, double totalproducto2) {
@@ -605,6 +601,5 @@ public class SAVentaImp implements SAVenta {
 		
 		return ventas;
 	}
-
 	
 }

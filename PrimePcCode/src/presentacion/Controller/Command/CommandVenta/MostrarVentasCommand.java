@@ -13,6 +13,7 @@ public class MostrarVentasCommand implements Command {
 
 	@Override
 	public Context execute(Object data) {
+
 		try {
 			SAVenta saVenta = SAAbstractFactory.getInstancia().generarSAVenta();
 			Set<TVenta> listado = saVenta.leerTodasVentas();

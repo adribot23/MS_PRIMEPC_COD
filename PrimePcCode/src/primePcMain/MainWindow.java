@@ -1,33 +1,30 @@
 package primePcMain;
 
 import java.awt.BorderLayout;
-import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-import presentacion.Almacen.GUIAlmacen;
-import presentacion.Cliente.GUICliente;
-import presentacion.Empleado.GUIEmpleado;
-import presentacion.Producto.GUIProducto;
-import presentacion.Proveedor.GUIProveedor;
-import presentacion.Venta.GUIVenta;
+import presentacion.Controller.Controlador;
+import presentacion.Controller.Command.Context;
+import presentacion.GUI.Evento;
+import presentacion.GUI.IGUI;
 
-public class MainWindow extends JFrame {
+public class MainWindow extends JFrame implements IGUI {
 
 	private static final long serialVersionUID = 1L;
-
-	private JPanel cardsPanel;
 
 	public MainWindow() {
 		super("PRIME PC");
@@ -38,64 +35,87 @@ public class MainWindow extends JFrame {
 		JPanel mainPanel = new JPanel(new BorderLayout());
 		this.setContentPane(mainPanel);
 
-		JPanel messagePanel = new JPanel(new BorderLayout());
-		messagePanel.setBackground(new Color(200, 255, 200));
-		messagePanel.setBorder(BorderFactory.createMatteBorder(0, 0, 3, 0, Color.LIGHT_GRAY));
+		// === CABECERA ===
+		JPanel header = new JPanel(new BorderLayout());
+		header.setBackground(new Color(200, 255, 200));
+		header.setBorder(BorderFactory.createMatteBorder(0, 0, 3, 0, Color.LIGHT_GRAY));
 
-		JLabel logo = new JLabel(new ImageIcon(
+		JLabel logoIzq = new JLabel(new ImageIcon(
 				new ImageIcon("resources/logo.png").getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH)));
-		logo.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-		messagePanel.add(logo, BorderLayout.WEST);
+		logoIzq.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+		header.add(logoIzq, BorderLayout.WEST);
 
-		JLabel logo1 = new JLabel(new ImageIcon(
+		JLabel logoDer = new JLabel(new ImageIcon(
 				new ImageIcon("resources/logo.png").getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH)));
-		logo1.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-		messagePanel.add(logo1, BorderLayout.EAST);
+		logoDer.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+		header.add(logoDer, BorderLayout.EAST);
 
 		JLabel titulo = new JLabel("PRIME PC", SwingConstants.CENTER);
 		titulo.setFont(new Font("Cambria", Font.BOLD, 40));
+		header.add(titulo, BorderLayout.CENTER);
 
-		messagePanel.add(titulo, BorderLayout.CENTER);
+		mainPanel.add(header, BorderLayout.PAGE_START);
 
-		this.add(messagePanel, BorderLayout.PAGE_START);
-
-		cardsPanel = new JPanel(new CardLayout());
-		cardsPanel.setBackground(Color.WHITE);
-		mainPanel.add(cardsPanel, BorderLayout.CENTER);
-
+		// === BOTONES ===
 		JPanel menuPanel = new JPanel(new GridLayout(2, 3, 30, 30));
 		menuPanel.setBorder(BorderFactory.createEmptyBorder(30, 60, 60, 60));
 		menuPanel.setBackground(Color.WHITE);
 
-		menuPanel.add(createStyledButton("Cliente", "resources/clientes.png", "Clientes View"));
-		menuPanel.add(createStyledButton("Venta", "resources/ventas.png", "Ventas View"));
-		menuPanel.add(createStyledButton("Empleado", "resources/empleados.png", "Empleados View"));
-		menuPanel.add(createStyledButton("Proveedor", "resources/proveedores.png", "Proveedores View"));
-		menuPanel.add(createStyledButton("Producto", "resources/productos.png", "Productos View"));
-		menuPanel.add(createStyledButton("Almacen", "resources/almacenes.png", "Almacenes View"));
+		menuPanel.add(createStyledButton("Cliente", "resources/clientes.png", e -> {
+			Controlador.getInstancia().accion(new Context(Evento.CLIENTE, null));
+			this.dispose();
+		}));
 
-		cardsPanel.add(menuPanel, "Menu");
+		menuPanel.add(createStyledButton("Venta", "resources/ventas.png", e -> {
+			Controlador.getInstancia().accion(new Context(Evento.VENTA, null));
+			this.dispose();
+		}));
 
-		cardsPanel.add(new GUICliente(), "Clientes View");
-		cardsPanel.add(new GUIVenta(), "Ventas View");
-		cardsPanel.add(new GUIEmpleado(), "Empleados View");
-		cardsPanel.add(new GUIAlmacen(), "Almacenes View");
-		cardsPanel.add(new GUIProveedor(), "Proveedores View");
-		cardsPanel.add(new GUIProducto(), "Productos View");
-		cardsPanel.add(new GUIAlmacen(), "Almacenes View");
+		menuPanel.add(createStyledButton("Empleado", "resources/empleados.png", e -> {
+			Controlador.getInstancia().accion(new Context(Evento.EMPLEADO, null));
+			this.dispose();
+		}));
 
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		// this.pack();
+		menuPanel.add(createStyledButton("Proveedor", "resources/proveedores.png", e -> {
+			Controlador.getInstancia().accion(new Context(Evento.PROVEEDOR, null));
+			this.dispose();
+		}));
+
+		menuPanel.add(createStyledButton("Producto", "resources/productos.png", e -> {
+			Controlador.getInstancia().accion(new Context(Evento.PRODUCTO, null));
+			this.dispose();
+		}));
+
+		menuPanel.add(createStyledButton("Almacén", "resources/almacenes.png", e -> {
+			Controlador.getInstancia().accion(new Context(Evento.ALMACEN, null));
+			this.dispose();
+		}));
+
+		mainPanel.add(menuPanel, BorderLayout.CENTER);
+
+		// === CIERRE ===
+		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		this.setMinimumSize(new Dimension(800, 700));
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
+
+		// Confirmación al cerrar
+		this.addWindowListener(new java.awt.event.WindowAdapter() {
+			@Override
+			public void windowClosing(java.awt.event.WindowEvent e) {
+				int n = JOptionPane.showOptionDialog(MainWindow.this, "¿Seguro que quieres salir?", "Salir",
+						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+
+				if (n == JOptionPane.YES_OPTION)
+					System.exit(0);
+			}
+		});
 	}
 
-	private JButton createStyledButton(String text, String iconPath, String viewName) {
+	private JButton createStyledButton(String text, String iconPath, ActionListener listener) {
 		JButton button = new JButton(text);
 		button.setFocusPainted(false);
-		button.setBorder(BorderFactory.createLineBorder(new Color(0, 128, 0), 2)); // Borde
-																					// verde
+		button.setBorder(BorderFactory.createLineBorder(new Color(0, 128, 0), 2));
 		button.setBackground(Color.WHITE);
 		button.setFont(new Font("Segoe UI", Font.BOLD, 18));
 
@@ -105,10 +125,10 @@ public class MainWindow extends JFrame {
 		button.setHorizontalTextPosition(SwingConstants.CENTER);
 		button.setVerticalTextPosition(SwingConstants.BOTTOM);
 
-		// Hover effect
+		// Efecto hover
 		button.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseEntered(java.awt.event.MouseEvent evt) {
-				button.setBackground(new Color(200, 255, 200)); // Fondo verde
+				button.setBackground(new Color(200, 255, 200));
 			}
 
 			public void mouseExited(java.awt.event.MouseEvent evt) {
@@ -116,12 +136,12 @@ public class MainWindow extends JFrame {
 			}
 		});
 
-		button.addActionListener(e -> {
-			CardLayout cl = (CardLayout) (cardsPanel.getLayout());
-			cl.show(cardsPanel, viewName);
-		});
-
+		button.addActionListener(listener);
 		return button;
 	}
 
+	@Override
+	public void actualizar(Context context) {
+		setVisible(true);
+	}
 }

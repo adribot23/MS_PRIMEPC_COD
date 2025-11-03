@@ -124,6 +124,7 @@ public class DAOVentaImp implements DAOVenta {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+
 		return null;
 	}
 
@@ -223,6 +224,7 @@ public class DAOVentaImp implements DAOVenta {
 		return -1;
 		}
 
+	@Override
 	public Set<TVenta> read_all() {
 		
 		Set<TVenta> ventas = new LinkedHashSet<>();
@@ -258,4 +260,5 @@ public class DAOVentaImp implements DAOVenta {
 		}
 		return null;
 	}
+	
 }

@@ -1,6 +1,3 @@
-/**
- * 
- */
 package integracion.Almacen;
 
 import java.util.Set;

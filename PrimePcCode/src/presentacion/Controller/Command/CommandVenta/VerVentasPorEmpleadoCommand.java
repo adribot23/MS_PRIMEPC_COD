@@ -2,6 +2,7 @@ package presentacion.Controller.Command.CommandVenta;
 
 import java.util.Set;
 
+
 import negocio.FactoriaSA.SAAbstractFactory;
 import negocio.Venta.SAVenta;
 import negocio.Venta.TVenta;
@@ -13,6 +14,7 @@ public class VerVentasPorEmpleadoCommand implements Command {
 
 	@Override
 	public Context execute(Object data) {
+
 		if (data == null) {
 			return new Context(Evento.MOSTRAR_VENTAS_POR_EMPLEADO, null);
 		}

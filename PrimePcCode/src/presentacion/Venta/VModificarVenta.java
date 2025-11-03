@@ -10,7 +10,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-
 import negocio.Venta.TVenta;
 import presentacion.Controller.Command.Context;
 import presentacion.Controller.Controlador;

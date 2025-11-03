@@ -2,6 +2,7 @@ package presentacion.Controller.Command.CommandVenta;
 
 import negocio.FactoriaSA.SAAbstractFactory;
 import negocio.Venta.SAVenta;
+
 import negocio.Venta.TLineaVenta;
 import presentacion.Controller.Command.Command;
 import presentacion.Controller.Command.Context;
@@ -11,6 +12,7 @@ public class DevolverVentaCommand implements Command {
 
 	@Override
 	public Context execute(Object data) {
+
 		if (data == null) {
 			return new Context(Evento.DEVOLVER_VENTA, null);
 		}

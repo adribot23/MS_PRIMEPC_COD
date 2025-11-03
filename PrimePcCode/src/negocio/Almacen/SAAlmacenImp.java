@@ -12,24 +12,24 @@ import java.util.Set;
 * @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 */
 public class SAAlmacenImp implements SAAlmacen {
-	public Integer altaAlmacen(TAlmacen almacen) {
+	public int altaAlmacen(TAlmacen almacen) {
 		// begin-user-code
 		// TODO Ap�ndice de m�todo generado autom�ticamente
-		return null;
+		return 0;
 		// end-user-code
 	}
 
-	public Integer bajaAlmacen(Integer id) {
+	public int bajaAlmacen(Integer id) {
 		// begin-user-code
 		// TODO Ap�ndice de m�todo generado autom�ticamente
-		return null;
+		return 0;
 		// end-user-code
 	}
 
-	public Integer modificarAlmacen(TAlmacen almacen) {
+	public int modificarAlmacen(TAlmacen almacen) {
 		// begin-user-code
 		// TODO Ap�ndice de m�todo generado autom�ticamente
-		return null;
+		return 0;
 		// end-user-code
 	}
 
@@ -47,17 +47,17 @@ public class SAAlmacenImp implements SAAlmacen {
 		// end-user-code
 	}
 
-	public Integer vincularProductoAlmacen(Integer idProducto, Integer idAlmacen) {
+	public int vincularProductoAlmacen(Integer idProducto, Integer idAlmacen) {
 		// begin-user-code
 		// TODO Ap�ndice de m�todo generado autom�ticamente
-		return null;
+		return 0;
 		// end-user-code
 	}
 
-	public Integer desvincularProductoAlmacen(Integer idProducto, Integer idAlmacen) {
+	public int desvincularProductoAlmacen(Integer idProducto, Integer idAlmacen) {
 		// begin-user-code
 		// TODO Ap�ndice de m�todo generado autom�ticamente
-		return null;
+		return 0;
 		// end-user-code
 	}
 }

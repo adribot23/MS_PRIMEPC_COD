@@ -1,5 +1,5 @@
-package negocio.Proveedor;
-public class TProveedorProducto {
+package negocio.Producto;
+public class TVinculacionProdProv {
 	private int idProducto;
 	private int idProveedor;
 	

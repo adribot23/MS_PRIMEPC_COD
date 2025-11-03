@@ -1,7 +1,9 @@
 package presentacion.Controller.Command.CommandVenta;
 
 import negocio.FactoriaSA.SAAbstractFactory;
+
 import negocio.Venta.SAVenta;
+
 import negocio.Venta.TVenta;
 import presentacion.Controller.Command.Command;
 import presentacion.Controller.Command.Context;
@@ -11,6 +13,7 @@ public class ModificarVentaCommand implements Command {
 
 	@Override
 	public Context execute(Object data) {
+
 
 		if (data == null) {
 			return new Context(Evento.MODIFICAR_VENTA, null);
@@ -32,5 +35,6 @@ public class ModificarVentaCommand implements Command {
 		} catch (Exception ex) {
 			return new Context(Evento.RES_MODIFICAR_VENTA_KO, ex.getMessage());
 		}
+
 	}
 }

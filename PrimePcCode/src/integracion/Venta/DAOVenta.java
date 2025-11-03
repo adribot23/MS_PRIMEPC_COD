@@ -7,6 +7,7 @@ import negocio.Venta.TVenta;
 
 public interface DAOVenta {
 
+
 	public int create(TVenta venta);
 
 	public Set<TVenta> read_by_cliente(int idCliente);
