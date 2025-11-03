@@ -22,5 +22,5 @@ public interface DAOProducto {
 
 	public Set<TProducto> read_by_almacen(int idAlmacen);
 
-	public Set<TProducto> read_by_proveedor(int idProveedor);
+
 }

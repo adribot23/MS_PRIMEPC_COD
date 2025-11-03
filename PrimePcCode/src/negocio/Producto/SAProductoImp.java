@@ -1,9 +1,14 @@
 package negocio.Producto;
+import java.util.HashSet;
 import java.util.Set;
 import integracion.FactoriaDAO.DAOAbstractFactory;
 import integracion.Producto.DAOProducto;
+import integracion.Proveedor.DAOProveedor;
+import integracion.Proveedor.DAOProveedorProducto;
 import integracion.Transaction.TManager;
 import integracion.Transaction.Transaction;
+import negocio.Proveedor.TProveedor;
+import negocio.Proveedor.TProveedorProducto;
 
 public class SAProductoImp implements SAProducto {
 
@@ -72,25 +77,33 @@ public class SAProductoImp implements SAProducto {
 	@Override
 	public Set<TProducto> leerProductosPorProveedor(int idProveedor) {
 
-		Set<TProducto> tprT = null;
-
+		DAOProveedorProducto daoProveedorProducto = DAOAbstractFactory.getInstancia().generaDAOProveedorProducto();
+		DAOProducto daoProducto = DAOAbstractFactory.getInstancia().generaDAOProducto();
+		
+		Set<TProveedorProducto> vinculaciones;
+		Set<TProducto> productos  = new HashSet<>();
+		
 		TManager tManager = TManager.getInstance();
 		tManager.createTransaction();
 		Transaction transaction = tManager.getTransaction();
 
 		if (transaction != null) {
 			transaction.start();
+			
+			vinculaciones = daoProveedorProducto.read_all_by_proveedor(idProveedor);
 
-			DAOProducto daoProducto = DAOAbstractFactory.getInstancia().generaDAOProducto();
-			tprT = daoProducto.read_by_proveedor(idProveedor);
-
-			if (tprT == null)
-				transaction.rollback();
-			else
+			if(vinculaciones != null) {
+				for(TProveedorProducto v : vinculaciones) {
+					productos.add(daoProducto.read(v.getIdProducto()));
+				}
 				transaction.commit();
-
+			} else {
+				transaction.rollback();
+			}
+			
 		}
-		return tprT;
+		
+		return productos;
 
 
 	}
@@ -210,7 +223,7 @@ public class SAProductoImp implements SAProducto {
 		}
 		return tpr;
 
-		/
+		
 
 	}
 
