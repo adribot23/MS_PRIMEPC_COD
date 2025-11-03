@@ -8,6 +8,7 @@ import java.awt.GridLayout;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -24,7 +25,7 @@ import presentacion.GUI.IGUI;
 * @author adria
 * @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 */
-public class VBajaEmpleado extends JPanel implements IGUI {
+public class VBajaEmpleado extends JFrame implements IGUI {
 	/** 
 	* <!-- begin-UML-doc -->
 	* <!-- end-UML-doc -->
@@ -40,7 +41,7 @@ public class VBajaEmpleado extends JPanel implements IGUI {
 	*/
 	public void initGUI() {
 		setLayout(new GridLayout(3, 1));
-		setBorder(BorderFactory.createTitledBorder("Baja Empleado"));
+		//setBorder(BorderFactory.createTitledBorder("Baja Empleado"));
 
 		JTextField bajaID = new JTextField();
 		JButton btnBaja = new JButton("Dar de baja");
@@ -61,7 +62,23 @@ public class VBajaEmpleado extends JPanel implements IGUI {
 
 	@Override
 	public void actualizar(Context context) {
-		// TODO Auto-generated method stub
+		Evento evento = context.getEvento();
+		Object datos = context.getDatos();
+		switch (evento) {
+
+		case VBAJA_EMPLEADO:
+			this.setVisible(true);
+			break;
+		case RES_BAJA_EMPLEADO_OK:
+			JOptionPane.showMessageDialog(null, "Empleado dado de baja con ID: " + datos);
+			break;
+		case RES_ALTA_EMPLEADO_KO:
+			JOptionPane.showMessageDialog(null, "Error al dar de baja el empleado.");
+			break;
+		default:
+			JOptionPane.showMessageDialog(null, "Evento no reconocido: " + evento);
+			
+		}
 		
 	}
 }
