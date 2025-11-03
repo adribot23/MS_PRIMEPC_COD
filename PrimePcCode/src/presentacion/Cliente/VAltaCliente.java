@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -34,33 +35,27 @@ import presentacion.GUI.IGUI;
 * @author adria
 * @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 */
-public class VAltaCliente extends JPanel implements IGUI {
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	*/
-	private Controlador ctrl;
+public class VAltaCliente extends JFrame implements IGUI {
 
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @return
-	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	*/
+	public VAltaCliente() {
+		super("Alta de Cliente");
+		initGUI();
+		setSize(400, 400);
+	    setLocationRelativeTo(null);
+	    setVisible(true);
+	}
+	
 	public void initGUI() {
-		setLayout(new GridLayout(10, 1));
-		setBorder(BorderFactory.createTitledBorder("Alta Cliente"));
+		setLayout(new GridLayout(10, 1, 10, 10));
+		getRootPane().setBorder(BorderFactory.createTitledBorder("Alta Cliente"));
+
+		//setBorder(BorderFactory.createTitledBorder("Alta Cliente"));
 
 		JTextField altaNombre = new JTextField();
 		JTextField altaDNI = new JTextField();
-		JTextField altaNumSocio = new JTextField();
-		JTextField altaPuntos = new JTextField();
 		JTextField altaVisitas = new JTextField();
 
-		JLabel lblNumSocio = new JLabel("Número de Socio:");
-		JLabel lblPuntos = new JLabel("Puntos:");
-		JLabel lblVisitas = new JLabel("Número de Visitas:");
+		JLabel lblVisitas = new JLabel("Puntos:");
 
 		JRadioButton rdbSocio = new JRadioButton("Socio");
 		JRadioButton rdbNoSocio = new JRadioButton("No Socio");
@@ -69,34 +64,8 @@ public class VAltaCliente extends JPanel implements IGUI {
 		grupoTipo.add(rdbNoSocio);
 		rdbSocio.setSelected(true);
 		
-		JPanel panelCamposTipo = new JPanel(new GridLayout(3, 2));
-		panelCamposTipo.add(lblNumSocio);
-		panelCamposTipo.add(altaNumSocio);
-		panelCamposTipo.add(lblPuntos);
-		panelCamposTipo.add(altaPuntos);
-		panelCamposTipo.add(lblVisitas);
-		panelCamposTipo.add(altaVisitas);
-		
-		lblVisitas.setVisible(false);
-		altaVisitas.setVisible(false);
-
-		rdbSocio.addActionListener(e -> {
-			lblNumSocio.setVisible(true);
-			altaNumSocio.setVisible(true);
-			lblPuntos.setVisible(true);
-			altaPuntos.setVisible(true);
-			lblVisitas.setVisible(false);
-			altaVisitas.setVisible(false);
-		});
-
-		rdbNoSocio.addActionListener(e -> {
-			lblNumSocio.setVisible(false);
-			altaNumSocio.setVisible(false);
-			lblPuntos.setVisible(false);
-			altaPuntos.setVisible(false);
-			lblVisitas.setVisible(true);
-			altaVisitas.setVisible(true);
-		});
+		rdbSocio.addActionListener(e -> lblVisitas.setText("Puntos:"));
+		rdbNoSocio.addActionListener(e -> lblVisitas.setText("Numero de visitas:"));
 
 		JPanel altaTipoPanel = new JPanel(new GridLayout(1, 2));
 		altaTipoPanel.add(rdbSocio);
@@ -111,7 +80,7 @@ public class VAltaCliente extends JPanel implements IGUI {
 				TCliente cliente;
 
 				if (rdbSocio.isSelected()) {
-					int puntos = Integer.parseInt(altaPuntos.getText());
+					int puntos = Integer.parseInt(altaVisitas.getText());
 					cliente = new TClienteSocio(-1, nombre, dni, puntos);
 				} else {
 					int numVisitas = Integer.parseInt(altaVisitas.getText());
@@ -124,20 +93,40 @@ public class VAltaCliente extends JPanel implements IGUI {
 				JOptionPane.showMessageDialog(this, "Los campos numéricos deben ser válidos.");
 			}
 		});
+		
+		JButton btnVolver = new JButton("Volver");
+		btnVolver.setBackground(new Color(255, 220, 220));
+		btnVolver.addActionListener(e -> {
+			Controlador.getInstancia().accion(new Context(Evento.CLIENTE, null));
+			dispose();
+		});
 
 		add(new JLabel("Nombre:"));
 		add(altaNombre);
 		add(new JLabel("DNI:"));
 		add(altaDNI);
 		add(altaTipoPanel);
-		add(panelCamposTipo);
+		add(lblVisitas);
+		add(altaVisitas);
 		add(btnAlta);
+		add(btnVolver);
 	}
 
 	public void actualizar(Context context) {
-		// begin-user-code
-		// TODO Ap�ndice de m�todo generado autom�ticamente
-
-		// end-user-code
+		Evento evento = context.getEvento();
+		Object datos = context.getDatos();
+		switch (evento) {
+		case VALTA_CLIENTE:
+			this.setVisible(true);
+			break;
+		case RES_ALTA_CLIENTE_OK:
+			JOptionPane.showMessageDialog(null, "Cliente dado de alta con ID: " + datos);
+			break;
+		case RES_ALTA_CLIENTE_KO:
+			JOptionPane.showMessageDialog(null, "Error al dar de alta el cliente.");
+			break;
+		default:
+			JOptionPane.showMessageDialog(null, "Evento no reconocido: " + evento);
+		}
 	}
 }
