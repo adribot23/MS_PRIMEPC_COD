@@ -131,7 +131,7 @@ public class VMostrarPorCliente extends JFrame implements IGUI {
 		Object datos = context.getDatos();
 
 		switch (evento) {
-		case MOSTRAR_VENTAS_POR_CLIENTE:
+		case VMOSTRAR_VENTAS_POR_CLIENTE:
 			limpiarTabla();
 			setVisible(true);
 			break;

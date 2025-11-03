@@ -149,7 +149,7 @@ public class VAbrirVenta extends JFrame implements IGUI {
 		}
 
 		switch (evento) {
-		case ABRIR_VENTA:
+		case VABRIR_VENTA:
 			limpiarCampos();
 			setVisible(true);
 			break;

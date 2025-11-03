@@ -89,7 +89,7 @@ public class VCerrarVenta extends JFrame implements IGUI {
 		Object datos = context.getDatos();
 
 		switch (evento) {
-		case CERRAR_VENTA:
+		case VCERRAR_VENTA:
 			limpiar();
 			setVisible(true);
 			break;
