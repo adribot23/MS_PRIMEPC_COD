@@ -34,8 +34,7 @@ public class DevolverVentaCommand implements Command {
 			if (resultado > 0) {
 				return new Context(Evento.RES_DEVOLVER_VENTA_OK, linea);
 			} else {
-				return new Context(Evento.RES_DEVOLVER_VENTA_KO,
-						"No se pudo realizar la devolucion solicitada.");
+				return new Context(Evento.RES_DEVOLVER_VENTA_KO, "No se pudo realizar la devolucion solicitada.");
 			}
 		} catch (Exception ex) {
 			return new Context(Evento.RES_DEVOLVER_VENTA_KO, ex.getMessage());

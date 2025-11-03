@@ -20,12 +20,13 @@ import presentacion.GUI.IGUI;
 import presentacion.Controller.Command.Context;
 import presentacion.GUI.Evento;
 
-/** 
-* <!-- begin-UML-doc -->
-* <!-- end-UML-doc -->
-* @author adria
-* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-*/
+/**
+ * <!-- begin-UML-doc --> <!-- end-UML-doc -->
+ * 
+ * @author adria
+ * @generated "UML a Java
+ *            (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+ */
 public class VProveedorConMasUnidadesDeProductoVendidas extends JFrame implements IGUI {
 
 	private static final long serialVersionUID = 1L;
@@ -38,7 +39,7 @@ public class VProveedorConMasUnidadesDeProductoVendidas extends JFrame implement
 
 	private void initGUI() {
 		// Configuración de la ventana
-		setLayout(new GridLayout(4, 1, 100, 10));
+		setLayout(new GridLayout(2, 2, 10, 10));
 		getRootPane().setBorder(BorderFactory.createTitledBorder("Proveedor con más unidades vendidas de un producto"));
 
 		// Componentes
@@ -74,9 +75,9 @@ public class VProveedorConMasUnidadesDeProductoVendidas extends JFrame implement
 
 		// Configuración final de la ventana
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setSize(350, 200);
+		setSize(350, 150);
 		setLocationRelativeTo(null);
-		setVisible(true);
+
 	}
 
 	@Override

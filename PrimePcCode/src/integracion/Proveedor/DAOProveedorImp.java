@@ -15,12 +15,13 @@ import integracion.Transaction.TManager;
 import integracion.Transaction.Transaction;
 import negocio.Proveedor.TProveedor;
 
-/** 
-* <!-- begin-UML-doc -->
-* <!-- end-UML-doc -->
-* @author adria
-* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-*/
+/**
+ * <!-- begin-UML-doc --> <!-- end-UML-doc -->
+ * 
+ * @author adria
+ * @generated "UML a Java
+ *            (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+ */
 public class DAOProveedorImp implements DAOProveedor {
 
 	@Override

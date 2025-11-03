@@ -18,8 +18,7 @@ public class InsertarProductoVentaCommand implements Command {
 		}
 
 		if (!(data instanceof TLineaVenta)) {
-			return new Context(Evento.RES_INSERTAR_PRODUCTO_VENTA_KO,
-					"Los datos de la linea de venta no son validos.");
+			return new Context(Evento.RES_INSERTAR_PRODUCTO_VENTA_KO, "Los datos de la linea de venta no son validos.");
 		}
 
 		TLineaVenta linea = (TLineaVenta) data;
@@ -36,8 +35,7 @@ public class InsertarProductoVentaCommand implements Command {
 			if (resultado > 0) {
 				return new Context(Evento.RES_INSERTAR_PRODUCTO_VENTA_OK, linea);
 			} else {
-				return new Context(Evento.RES_INSERTAR_PRODUCTO_VENTA_KO,
-						"No se pudo añadir el producto a la venta.");
+				return new Context(Evento.RES_INSERTAR_PRODUCTO_VENTA_KO, "No se pudo añadir el producto a la venta.");
 			}
 		} catch (Exception ex) {
 			return new Context(Evento.RES_INSERTAR_PRODUCTO_VENTA_KO, ex.getMessage());

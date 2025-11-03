@@ -7,7 +7,6 @@ public abstract class Controlador {
 
 	private static Controlador instancia;
 
-
 	public static synchronized Controlador getInstancia() {
 		if (instancia == null) {
 			instancia = new ControladorImp();
@@ -15,6 +14,5 @@ public abstract class Controlador {
 		return instancia;
 	}
 
-	
 	public abstract void accion(Context context);
 }

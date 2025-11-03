@@ -20,12 +20,13 @@ import presentacion.Controller.Command.Context;
 import presentacion.GUI.Evento;
 import presentacion.GUI.IGUI;
 
-/** 
-* <!-- begin-UML-doc -->
-* <!-- end-UML-doc -->
-* @author adria
-* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-*/
+/**
+ * <!-- begin-UML-doc --> <!-- end-UML-doc -->
+ * 
+ * @author adria
+ * @generated "UML a Java
+ *            (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+ */
 public class VBuscarProveedor extends JFrame implements IGUI {
 
 	private static final long serialVersionUID = 1L;
@@ -38,7 +39,7 @@ public class VBuscarProveedor extends JFrame implements IGUI {
 
 	private void initGUI() {
 		// Configuración general
-		setLayout(new GridLayout(4, 1, 10, 10));
+		setLayout(new GridLayout(2, 2, 10, 10));
 		getRootPane().setBorder(BorderFactory.createTitledBorder("Buscar Proveedor"));
 
 		JLabel lblId = new JLabel("ID del proveedor:");
@@ -49,7 +50,7 @@ public class VBuscarProveedor extends JFrame implements IGUI {
 		btnBuscar.addActionListener(e -> {
 			try {
 				int id = Integer.parseInt(buscarId.getText().trim());
-				Controlador.getInstancia().accion(new Context(Evento.VBUSCAR_PROVEEDOR, id));
+				Controlador.getInstancia().accion(new Context(Evento.BUSCAR_PROVEEDOR, id));
 			} catch (NumberFormatException ex) {
 				JOptionPane.showMessageDialog(this, "ID inválido.");
 			}
@@ -68,9 +69,9 @@ public class VBuscarProveedor extends JFrame implements IGUI {
 		add(btnVolver);
 
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setSize(350, 200);
+		setSize(350, 150);
 		setLocationRelativeTo(null);
-		setVisible(true);
+
 	}
 
 	@Override

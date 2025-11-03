@@ -5,18 +5,18 @@ import java.util.Set;
 
 public interface SAVenta {
 
-	public TCarrito abrirVenta (int idEmpleado);
-	
-	public int procesarCarrito (TCarrito carrito);
-	
-	public int insertarProductoCarrito (TCarrito carrito);
-	
-	public int eliminarProductoCarrito (TCarrito carrito);
-	
-	public int cerrarVenta (TCarrito carrito);
-	
-	public int devolverVenta (TLineaVenta lineaVenta);
-	
+	public TCarrito abrirVenta(int idEmpleado);
+
+	public int procesarCarrito(TCarrito carrito);
+
+	public int insertarProductoCarrito(TCarrito carrito);
+
+	public int eliminarProductoCarrito(TCarrito carrito);
+
+	public int cerrarVenta(TCarrito carrito);
+
+	public int devolverVenta(TLineaVenta lineaVenta);
+
 	public Set<TVenta> leerVentasPorEmpleado(int idEmpleado);
 
 	public int bajaVenta(int id);
