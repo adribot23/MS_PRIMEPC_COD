@@ -8,6 +8,7 @@ import java.awt.GridLayout;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -24,13 +25,19 @@ import presentacion.GUI.IGUI;
 * @author adria
 * @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 */
-public class VBajaCliente extends JPanel implements  IGUI {
+public class VBajaCliente extends JFrame implements  IGUI {
 	
-	
+	public VBajaCliente() {
+		super("Baja de Cliente");
+		initGUI();
+		setSize(400, 200);
+	    setLocationRelativeTo(null);
+	    setVisible(true);
+	}
 	
 	public void initGUI() {
 		setLayout(new GridLayout(3, 1));
-		setBorder(BorderFactory.createTitledBorder("Baja Cliente"));
+		//setBorder(BorderFactory.createTitledBorder("Baja Cliente"));
 
 		JTextField bajaID = new JTextField();
 		JButton btnBaja = new JButton("Dar de baja");
