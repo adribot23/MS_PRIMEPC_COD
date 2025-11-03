@@ -133,7 +133,7 @@ public class SAAlmacenImp implements SAAlmacen {
 		return lista;
 	}
 
-	public Integer vincularProductoAlmacen(Integer idProducto, Integer idAlmacen) {
+	/*public Integer vincularProductoAlmacen(Integer idProducto, Integer idAlmacen) {
 		TManager tm = TManager.getInstance();
 		Transaction tr = tm.createTransaction();
 		int res = -1;
@@ -167,9 +167,9 @@ public class SAAlmacenImp implements SAAlmacen {
 		}
 
 		return res;
-	}
+	}*/
 
-	public Integer desvincularProductoAlmacen(Integer idProducto, Integer idAlmacen) {
+	/*public Integer desvincularProductoAlmacen(Integer idProducto, Integer idAlmacen) {
 		TManager tm = TManager.getInstance();
 		Transaction tr = tm.createTransaction();
 		int res = -1;
@@ -204,5 +204,5 @@ public class SAAlmacenImp implements SAAlmacen {
 		}
 
 		return res;
-	}
+	}*/
 }

@@ -37,7 +37,7 @@ public class DAOProductoImp implements DAOProducto {
 			s.close();
 			r.close();
 			return id;
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return -1;
 		}

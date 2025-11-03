@@ -17,7 +17,7 @@ public interface SAAlmacen {
 
 	public Set<TAlmacen> leerTodosAlmacenes();
 
-	public Integer vincularProductoAlmacen(Integer idProducto, Integer idAlmacen);
+	//public Integer vincularProductoAlmacen(Integer idProducto, Integer idAlmacen);
 
-	public Integer desvincularProductoAlmacen(Integer idProducto, Integer idAlmacen);
+	//public Integer desvincularProductoAlmacen(Integer idProducto, Integer idAlmacen);
 }

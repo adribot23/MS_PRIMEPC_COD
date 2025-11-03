@@ -12,7 +12,7 @@ public class TransactionMySQL implements Transaction {
 	public void start() {
 		try {
 			
-			this.connection = DriverManager.getConnection("jdbc:sqlite:bd/IS2PrimePC.db", "root", "root");
+			this.connection = DriverManager.getConnection("jdbc:h2:./bd/IS2PrimePC", "sa", "");
 			this.connection.setAutoCommit(false);
 		} catch (SQLException e) {
 			e.printStackTrace();

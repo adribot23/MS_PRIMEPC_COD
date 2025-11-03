@@ -20,32 +20,22 @@ import presentacion.Controller.Command.Context;
 import presentacion.GUI.IGUI;
 import presentacion.GUI.Evento;
 
-/**
- * <!-- begin-UML-doc --> <!-- end-UML-doc -->
- * 
- * @author adria
- * @generated "UML a Java
- *            (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
- */
-public class VModificarAlmacen extends JPanel implements IGUI {
-	/**
-	 * <!-- begin-UML-doc --> <!-- end-UML-doc -->
-	 * 
-	 * @generated "UML a Java
-	 *            (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	 */
-	private Controlador ctrl;
-
-	/**
-	 * <!-- begin-UML-doc --> <!-- end-UML-doc -->
-	 * 
-	 * @return
-	 * @generated "UML a Java
-	 *            (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	 */
+/** 
+* <!-- begin-UML-doc -->
+* <!-- end-UML-doc -->
+* @author adria
+* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+*/
+public class VModificarAlmacen extends JFrame implements IGUI {
+	
+	public VModificarAlmacen() {
+		super("Modificar Almacén");
+		initGUI();
+	}
+	
 	public void initGUI() {
-		setBorder(BorderFactory.createTitledBorder("Modificar Almacen"));
-		setLayout(new GridLayout(7, 1, 5, 5));
+		setLayout(new GridLayout(4, 1, 10, 10));
+		getRootPane().setBorder(BorderFactory.createTitledBorder("Modificar Almacen"));
 
 		JTextField idField = new JTextField();
 		JTextField nombreField = new JTextField();
@@ -73,12 +63,38 @@ public class VModificarAlmacen extends JPanel implements IGUI {
 				JOptionPane.showMessageDialog(this, "Campos numericos inválidos.");
 			}
 		});
+		
+		JButton btnVolver = new JButton("Volver");
+		btnVolver.setBackground(new Color(255, 220, 220));
+		btnVolver.addActionListener(e -> {
+			Controlador.getInstancia().accion(new Context(Evento.ALMACEN, null));
+			this.dispose();
+		});
+		add(btnVolver);
+		
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setSize(350, 200);
+		setLocationRelativeTo(null);
+		setVisible(true);
 	}
 
 	public void actualizar(Context context) {
-		// begin-user-code
-		// TODO Ap�ndice de m�todo generado autom�ticamente
+		switch (context.getEvento()) {
+		case VMODIFICAR_ALMACEN:
+			this.setVisible(true);
+			break;
 
-		// end-user-code
+		case RES_MODIFICAR_ALMACEN_OK:
+			JOptionPane.showMessageDialog(this, 
+					"Proveedor modificado correctamente:\n" + context.toString());
+			break;
+
+		case RES_MODIFICAR_ALMACEN_KO:
+			JOptionPane.showMessageDialog(this, "Error al modificar el proveedor.");
+			break;
+
+		default:
+			break;
+		}
 	}
 }
