@@ -4,15 +4,16 @@
 package presentacion.Almacen;
 
 import java.awt.BorderLayout;
-import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.util.Collection;
 
-import javax.swing.Box;
-import javax.swing.BoxLayout;
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -21,14 +22,10 @@ import javax.swing.JTable;
 import javax.swing.SwingConstants;
 
 import negocio.Almacen.TAlmacen;
+import presentacion.Controller.Controlador;
 import presentacion.Controller.Command.Context;
-import presentacion.GUI.IGUI;
 import presentacion.GUI.Evento;
-import presentacion.Almacen.VAltaAlmacen;
-import presentacion.Almacen.VBajaAlmacen;
-import presentacion.Almacen.VBuscarAlmacen;
-import presentacion.Almacen.VModificarAlmacen;
-import presentacion.Almacen.VMostrarAlmacen;
+import presentacion.GUI.IGUI;
 
 /** 
 * <!-- begin-UML-doc -->
@@ -36,61 +33,107 @@ import presentacion.Almacen.VMostrarAlmacen;
 * @author adria
 * @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 */
-public class GUIAlmacen extends JPanel implements IGUI {
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @return
-	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	*/
-	private void initGui() {
-		setLayout(new BorderLayout());
+public class GUIAlmacen extends JFrame implements IGUI {
 
-		JLabel titulo = new JLabel("MODULO ALMACEN", SwingConstants.CENTER);
-		titulo.setFont(new Font("Cambria", Font.BOLD, 24));
-		add(titulo, BorderLayout.NORTH);
-		JPanel panelCentral = new JPanel(new GridLayout(1, 2, 10, 10));
+    private static final long serialVersionUID = 1L;
 
-		// Panel_Izquierda
-		JPanel panelIzquierda = new JPanel();
-		panelIzquierda.setLayout(new BoxLayout(panelIzquierda, BoxLayout.Y_AXIS));
+    public GUIAlmacen() {
+        super("[ALMACÉN]");
+        initGUI();
+    }
 
-		panelIzquierda.add(Box.createVerticalStrut(10));
-		panelIzquierda.add(new VBuscarAlmacen());
-		panelIzquierda.add(Box.createVerticalStrut(10));
-		panelIzquierda.add(new VMostrarAlmacen());
-		panelIzquierda.add(Box.createVerticalStrut(10));
-		panelIzquierda.add(new VModificarAlmacen());
-		panelIzquierda.add(Box.createVerticalStrut(10));
+    private void initGUI() {
+        // === PANEL PRINCIPAL ===
+        JPanel mainPanel = new JPanel(new BorderLayout(20, 20));
+        mainPanel.setBorder(BorderFactory.createEmptyBorder(20, 40, 20, 40));
+        mainPanel.setBackground(Color.WHITE);
+        this.setContentPane(mainPanel);
 
-		// Panel_Derecha
-		JPanel panelDerecha = new JPanel();
-		panelDerecha.setLayout(new BoxLayout(panelDerecha, BoxLayout.Y_AXIS));
+        // === CABECERA ===
+        JLabel titulo = new JLabel("GESTIÓN DE ALMACENES", SwingConstants.CENTER);
+        titulo.setFont(new Font("Cambria", Font.BOLD, 28));
+        titulo.setForeground(new Color(0, 100, 0));
+        titulo.setBorder(BorderFactory.createEmptyBorder(10, 0, 20, 0));
+        mainPanel.add(titulo, BorderLayout.NORTH);
 
-		panelDerecha.add(Box.createVerticalStrut(10));
-		panelDerecha.add(new VBajaAlmacen());
-		panelDerecha.add(Box.createVerticalStrut(10));
-		panelDerecha.add(Box.createVerticalStrut(10));
-		panelDerecha.add(new VAltaAlmacen());
-		panelDerecha.add(Box.createVerticalStrut(10));
+        // === PANEL DE BOTONES ===
+        JPanel botonesPanel = new JPanel(new GridLayout(2, 3, 20, 20));
+        botonesPanel.setBackground(Color.WHITE);
 
-		panelCentral.add(panelIzquierda);
-		panelCentral.add(panelDerecha);
+        // Fila 1
+        botonesPanel.add(crearBotonVerde("ALTA ALMACÉN", Evento.VALTA_ALMACEN));
+        botonesPanel.add(crearBotonVerde("BAJA ALMACÉN", Evento.VBAJA_ALMACEN));
+        botonesPanel.add(crearBotonVerde("MODIFICAR ALMACÉN", Evento.VMODIFICAR_ALMACEN));
 
-		add(panelCentral, BorderLayout.CENTER);
+        // Fila 2
+        botonesPanel.add(crearBotonVerde("BUSCAR ALMACÉN", Evento.VBUSCAR_ALMACEN));
+        botonesPanel.add(crearBotonVerde("LISTAR TODOS LOS ALMACENES", Evento.VMOSTRAR_TODOS_ALMACENES));
+        botonesPanel.add(new JLabel()); // espacio vacío para estética
 
-		// Boton_Volver
+        mainPanel.add(botonesPanel, BorderLayout.CENTER);
 
-		JButton btnVolver = new JButton("Volver");
-		btnVolver.setBackground(new Color(30, 200, 100));
-		btnVolver.addActionListener(e -> {
-			CardLayout cl = (CardLayout) this.getParent().getLayout();
-			cl.show(this.getParent(), "Menu");
-		});
+        // === PANEL INFERIOR (VOLVER) ===
+        JButton volver = new JButton("VOLVER A VISTA PRINCIPAL");
+        volver.setFont(new Font("Segoe UI", Font.BOLD, 16));
+        volver.setBackground(Color.WHITE);
+        volver.setBorder(BorderFactory.createLineBorder(new Color(0, 100, 0), 2));
+        volver.setFocusPainted(false);
+        volver.setPreferredSize(new Dimension(300, 40));
 
-		add(btnVolver, BorderLayout.SOUTH);
-	}
+        volver.addActionListener((e) -> {
+            Controlador.getInstancia().accion(new Context(Evento.VISTA_PRINCIPAL, null));
+            this.dispose();
+        });
 
+        JPanel volverPanel = new JPanel();
+        volverPanel.setBackground(Color.WHITE);
+        volverPanel.add(volver);
+        mainPanel.add(volverPanel, BorderLayout.SOUTH);
+
+        // === CONFIGURACIÓN FRAME ===
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setMinimumSize(new Dimension(900, 600));
+        setLocationRelativeTo(null);
+        setVisible(true);
+    }
+
+    private JButton crearBotonVerde(String texto, Evento evento) {
+        JButton boton = new JButton("<html><center>" + texto + "</center></html>");
+        boton.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        boton.setFocusPainted(false);
+        boton.setBackground(Color.WHITE);
+        boton.setBorder(BorderFactory.createLineBorder(new Color(0, 128, 0), 2));
+        boton.setOpaque(true);
+        boton.setPreferredSize(new Dimension(250, 100));
+        boton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+        // Efecto hover
+        boton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                boton.setBackground(new Color(220, 255, 220));
+            }
+
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                boton.setBackground(Color.WHITE);
+            }
+        });
+
+        // Acción del botón
+        boton.addActionListener(e -> {
+            Controlador.getInstancia().accion(new Context(evento, null));
+            this.dispose();
+        });
+
+        return boton;
+    }
+
+    @Override
+    public void actualizar(Context context) {
+        setVisible(true);
+    }
+    
+}
+/*
 	@SuppressWarnings("unchecked")
 	@Override
 	public void actualizar(Context context) {
@@ -151,4 +194,6 @@ public class GUIAlmacen extends JPanel implements IGUI {
 		JScrollPane scrollPane = new JScrollPane(table);
 		JOptionPane.showMessageDialog(null, scrollPane, "Almacenes", JOptionPane.PLAIN_MESSAGE);
 	}
-}
+	*/
+
+    

@@ -155,7 +155,7 @@ public class VModificarVenta extends JFrame implements IGUI {
 		Object datos = context.getDatos();
 
 		switch (evento) {
-		case MODIFICAR_VENTA:
+		case VMODIFICAR_VENTA:
 			limpiarCampos();
 			setVisible(true);
 			break;

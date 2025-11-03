@@ -108,7 +108,7 @@ public class VDevolverVenta extends JFrame implements IGUI {
 		Object datos = context.getDatos();
 
 		switch (evento) {
-		case DEVOLVER_VENTA:
+		case VDEVOLVER_VENTA:
 			limpiarCampos();
 			setVisible(true);
 			break;

@@ -132,7 +132,7 @@ public class VMostrarPorEmpleado extends JFrame implements IGUI {
 		Object datos = context.getDatos();
 
 		switch (evento) {
-		case MOSTRAR_VENTAS_POR_EMPLEADO:
+		case VMOSTRAR_VENTAS_POR_EMPLEADO:
 			limpiarTabla();
 			setVisible(true);
 			break;

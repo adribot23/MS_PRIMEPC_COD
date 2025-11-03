@@ -2,68 +2,130 @@ package presentacion.Venta;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JComponent;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-import presentacion.Controller.Command.Context;
 import presentacion.Controller.Controlador;
+import presentacion.Controller.Command.Context;
 import presentacion.GUI.Evento;
 import presentacion.GUI.IGUI;
 
-public class GUIVenta extends JPanel implements IGUI {
+public class GUIVenta extends JFrame implements IGUI {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	private final JLabel statusLabel;
+    public GUIVenta() {
+        super("[VENTA]");
+        initGUI();
+    }
 
-	public GUIVenta() {
-		setLayout(new BorderLayout(20, 20));
-		setBorder(BorderFactory.createEmptyBorder(30, 40, 30, 40));
+    private void initGUI() {
+        // === PANEL PRINCIPAL ===
+        JPanel mainPanel = new JPanel(new BorderLayout(20, 20));
+        mainPanel.setBorder(BorderFactory.createEmptyBorder(20, 40, 20, 40));
+        mainPanel.setBackground(Color.WHITE);
+        this.setContentPane(mainPanel);
 
-		JLabel header = new JLabel("Gestión de ventas", SwingConstants.CENTER);
-		header.setFont(header.getFont().deriveFont(Font.BOLD, 28f));
-		add(header, BorderLayout.PAGE_START);
+        // === CABECERA ===
+        JLabel titulo = new JLabel("GESTIÓN DE VENTAS", SwingConstants.CENTER);
+        titulo.setFont(new Font("Cambria", Font.BOLD, 28));
+        titulo.setForeground(new Color(0, 100, 0));
+        titulo.setBorder(BorderFactory.createEmptyBorder(10, 0, 20, 0));
+        mainPanel.add(titulo, BorderLayout.NORTH);
 
-		JPanel actionsPanel = new JPanel(new GridLayout(5, 2, 16, 16));
-		actionsPanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
+        // === PANEL DE BOTONES ===
+        JPanel botonesPanel = new JPanel(new GridLayout(5, 2, 20, 20));
+        botonesPanel.setBackground(Color.WHITE);
 
-		actionsPanel.add(createActionButton("Abrir venta", Evento.ABRIR_VENTA));
-		actionsPanel.add(createActionButton("Cerrar venta", Evento.CERRAR_VENTA));
-		actionsPanel.add(createActionButton("Añadir producto", Evento.INSERTAR_PRODUCTO_VENTA));
-		actionsPanel.add(createActionButton("Eliminar producto", Evento.QUITAR_PRODUCTO_VENTA));
-		actionsPanel.add(createActionButton("Devolver venta", Evento.DEVOLVER_VENTA));
-		actionsPanel.add(createActionButton("Modificar venta", Evento.MODIFICAR_VENTA));
-		actionsPanel.add(createActionButton("Buscar venta", Evento.BUSCAR_VENTA));
-		actionsPanel.add(createActionButton("Listar todas las ventas", Evento.MOSTRAR_TODAS_VENTAS));
-		actionsPanel.add(createActionButton("Ventas por empleado", Evento.MOSTRAR_VENTAS_POR_EMPLEADO));
-		actionsPanel.add(createActionButton("Ventas por cliente", Evento.MOSTRAR_VENTAS_POR_CLIENTE));
+        // Fila 1
+        botonesPanel.add(crearBotonVerde("ABRIR VENTA", Evento.VABRIR_VENTA));
+        botonesPanel.add(crearBotonVerde("CERRAR VENTA", Evento.VCERRAR_VENTA));
 
-		add(actionsPanel, BorderLayout.CENTER);
+        // Fila 2
+        botonesPanel.add(crearBotonVerde("AÑADIR PRODUCTO A VENTA", Evento.VINSERTAR_PRODUCTO_VENTA));
+        botonesPanel.add(crearBotonVerde("ELIMINAR PRODUCTO DE VENTA", Evento.VQUITAR_PRODUCTO_VENTA));
 
-		statusLabel = new JLabel("Selecciona una acción para comenzar.", SwingConstants.CENTER);
-		statusLabel.setForeground(new Color(70, 70, 70));
-		statusLabel.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
-		add(statusLabel, BorderLayout.PAGE_END);
-	}
+        // Fila 3
+        botonesPanel.add(crearBotonVerde("MODIFICAR VENTA", Evento.VMODIFICAR_VENTA));
+        botonesPanel.add(crearBotonVerde("DEVOLVER VENTA", Evento.VDEVOLVER_VENTA));
 
-	private JButton createActionButton(String text, Evento evento) {
-		JButton button = new JButton(text);
-		button.addActionListener(e -> Controlador.getInstancia().accion(new Context(evento, null)));
-		return button;
-	}
+        // Fila 4
+        botonesPanel.add(crearBotonVerde("BUSCAR VENTA", Evento.VBUSCAR_VENTA));
+        botonesPanel.add(crearBotonVerde("MOSTRAR TODAS LAS VENTAS", Evento.VMOSTRAR_TODAS_VENTAS));
 
-	@Override
-	public void actualizar(Context context) {
-		if (context == null || context.getEvento() == null) {
-			return;
-		}
+        // Fila 5
+        botonesPanel.add(crearBotonVerde("VENTAS POR EMPLEADO", Evento.VMOSTRAR_VENTAS_POR_EMPLEADO));
+        botonesPanel.add(crearBotonVerde("VENTAS POR CLIENTE", Evento.VMOSTRAR_VENTAS_POR_CLIENTE));
 
-		statusLabel.setText("Acción enviada: " + context.getEvento().name());
-	}
+        mainPanel.add(botonesPanel, BorderLayout.CENTER);
+
+        // === PANEL INFERIOR (VOLVER) ===
+        JButton volver = new JButton("VOLVER A VISTA PRINCIPAL");
+        volver.setFont(new Font("Segoe UI", Font.BOLD, 16));
+        volver.setBackground(Color.WHITE);
+        volver.setBorder(BorderFactory.createLineBorder(new Color(0, 100, 0), 2));
+        volver.setFocusPainted(false);
+        volver.setPreferredSize(new Dimension(300, 40));
+
+        volver.addActionListener(e -> {
+            Controlador.getInstancia().accion(new Context(Evento.VISTA_PRINCIPAL, null));
+            this.dispose();
+        });
+
+        JPanel volverPanel = new JPanel();
+        volverPanel.setBackground(Color.WHITE);
+        volverPanel.add(volver);
+        mainPanel.add(volverPanel, BorderLayout.SOUTH);
+
+        // === CONFIGURACIÓN FRAME ===
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setMinimumSize(new Dimension(900, 600));
+        setLocationRelativeTo(null);
+        setVisible(true);
+    }
+
+    private JButton crearBotonVerde(String texto, Evento evento) {
+        JButton boton = new JButton("<html><center>" + texto + "</center></html>");
+        boton.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        boton.setFocusPainted(false);
+        boton.setBackground(Color.WHITE);
+        boton.setBorder(BorderFactory.createLineBorder(new Color(0, 128, 0), 2));
+        boton.setOpaque(true);
+        boton.setPreferredSize(new Dimension(250, 100));
+        boton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+        // Efecto hover
+        boton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                boton.setBackground(new Color(220, 255, 220));
+            }
+
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                boton.setBackground(Color.WHITE);
+            }
+        });
+
+        // Acción del botón
+        boton.addActionListener(e -> {
+            Controlador.getInstancia().accion(new Context(evento, null));
+            this.dispose();
+        });
+
+        return boton;
+    }
+
+    @Override
+    public void actualizar(Context context) {
+        setVisible(true);
+    }
 }

@@ -131,7 +131,7 @@ public class VAñadirProducto extends JFrame implements IGUI {
 		Object datos = context.getDatos();
 
 		switch (evento) {
-		case INSERTAR_PRODUCTO_VENTA:
+		case VINSERTAR_PRODUCTO_VENTA:
 			limpiarCampos();
 			setVisible(true);
 			break;

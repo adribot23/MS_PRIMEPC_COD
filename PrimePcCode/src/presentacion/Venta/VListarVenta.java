@@ -94,7 +94,7 @@ public class VListarVenta extends JFrame implements IGUI {
 		Object datos = context.getDatos();
 
 		switch (evento) {
-		case MOSTRAR_TODAS_VENTAS:
+		case VMOSTRAR_TODAS_VENTAS:
 			tableModel.setRowCount(0);
 			setVisible(true);
 			break;
