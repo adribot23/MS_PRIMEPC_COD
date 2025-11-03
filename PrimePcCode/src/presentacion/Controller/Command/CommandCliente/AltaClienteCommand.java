@@ -1,10 +1,13 @@
 /**
  * 
  */
-package Presentacion.Controller.Command.CommandCliente;
+package presentacion.Controller.Command.CommandCliente;
 
-import Presentacion.Controller.Command.Command;
-import Presentacion.Controller.Command.Context;
+import negocio.Cliente.TCliente;
+import negocio.FactoriaSA.SAAbstractFactory;
+import presentacion.Controller.Command.Command;
+import presentacion.Controller.Command.Context;
+import presentacion.GUI.Evento;
 
 /** 
 * <!-- begin-UML-doc -->
@@ -14,9 +17,10 @@ import Presentacion.Controller.Command.Context;
 */
 public class AltaClienteCommand implements Command {
 	public Context execute(Object data) {
-		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
-		return null;
-		// end-user-code
+		int res = SAAbstractFactory.getInstancia().generarSACliente().altaCliente((TCliente) data);
+		if (res > 0)
+			return new Context(Evento.RES_ALTA_CLIENTE_OK, res);
+		else
+			return new Context(Evento.RES_ALTA_CLIENTE_KO, null);
 	}
 }

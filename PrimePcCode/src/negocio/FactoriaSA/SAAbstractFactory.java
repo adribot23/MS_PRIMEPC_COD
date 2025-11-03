@@ -1,5 +1,4 @@
 
-
 package negocio.FactoriaSA;
 
 import negocio.Almacen.SAAlmacen;

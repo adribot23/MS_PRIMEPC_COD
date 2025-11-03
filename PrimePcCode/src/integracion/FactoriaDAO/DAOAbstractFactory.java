@@ -3,12 +3,12 @@ package integracion.FactoriaDAO;
 
 import integracion.Almacen.DAOAlmacen;
 import integracion.Cliente.DAOCliente;
+import integracion.Empleado.DAOEmpleado;
+import integracion.Producto.DAOProducto;
+import integracion.Proveedor.DAOProveedor;
+import integracion.Proveedor.DAOProveedorProducto;
 import integracion.Venta.DAOLineaVenta;
 import integracion.Venta.DAOVenta;
-import integracion.Empleado.DAOEmpleado;
-import integracion.Proveedor.DAOProveedor;
-import integracion.Proveedor.DaoProveedorProducto;
-import integracion.Producto.DAOProducto;
 
 public abstract class DAOAbstractFactory {
 
@@ -37,5 +37,5 @@ public abstract class DAOAbstractFactory {
 	public abstract DAOProveedor generaDAOProveedor(); 
 
 	
-	public abstract DaoProveedorProducto generaDAOProveedorProducto(); 
+	public abstract DAOProveedorProducto generaDAOProveedorProducto(); 
 }

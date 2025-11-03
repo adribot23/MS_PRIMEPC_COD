@@ -16,8 +16,7 @@ import presentacion.Controller.Controlador;
 import presentacion.GUI.Evento;
 import presentacion.GUI.IGUI;
 
-
-public class VEliminarProducto extends JFrame implements IGUI {
+public class VDevolverVenta extends JFrame implements IGUI {
 
 	private static final long serialVersionUID = 1L;
 
@@ -25,8 +24,8 @@ public class VEliminarProducto extends JFrame implements IGUI {
 	private final JTextField idProductoField = new JTextField();
 	private final JTextField unidadesField = new JTextField();
 
-	public VEliminarProducto() {
-		super("Eliminar producto de venta");
+	public VDevolverVenta() {
+		super("Devolver producto");
 		initGUI();
 	}
 
@@ -43,12 +42,12 @@ public class VEliminarProducto extends JFrame implements IGUI {
 		datos.add(new JLabel("Id producto:"));
 		datos.add(idProductoField);
 
-		datos.add(new JLabel("Unidades a quitar:"));
+		datos.add(new JLabel("Unidades a devolver:"));
 		datos.add(unidadesField);
 
 		add(datos, BorderLayout.CENTER);
 
-		JButton aceptar = new JButton("Eliminar");
+		JButton aceptar = new JButton("Devolver");
 		aceptar.addActionListener(e -> onAceptar());
 
 		JButton cancelar = new JButton("Cancelar");
@@ -68,14 +67,14 @@ public class VEliminarProducto extends JFrame implements IGUI {
 		try {
 			int idVenta = parseEnteroPositivo(idVentaField.getText(), "Id venta");
 			int idProducto = parseEnteroPositivo(idProductoField.getText(), "Id producto");
-			int unidades = parseEnteroPositivo(unidadesField.getText(), "Unidades a quitar");
+			int unidades = parseEnteroPositivo(unidadesField.getText(), "Unidades a devolver");
 
 			TLineaVenta lineaVenta = new TLineaVenta();
 			lineaVenta.set_venta(idVenta);
 			lineaVenta.set_producto(idProducto);
 			lineaVenta.set_num_unidades(unidades);
 
-			Controlador.getInstancia().accion(new Context(Evento.QUITAR_PRODUCTO_VENTA, lineaVenta));
+			Controlador.getInstancia().accion(new Context(Evento.DEVOLVER_VENTA, lineaVenta));
 		} catch (IllegalArgumentException ex) {
 			JOptionPane.showMessageDialog(this, ex.getMessage(), "Datos incorrectos", JOptionPane.ERROR_MESSAGE);
 		}
@@ -109,19 +108,19 @@ public class VEliminarProducto extends JFrame implements IGUI {
 		Object datos = context.getDatos();
 
 		switch (evento) {
-		case VQUITAR_PRODUCTO_VENTA:
+		case VDEVOLVER_VENTA:
 			limpiarCampos();
 			setVisible(true);
 			break;
-		case RES_QUITAR_PRODUCTO_VENTA_OK:
-			JOptionPane.showMessageDialog(this, "Producto eliminado de la venta.", "Línea actualizada",
+		case RES_DEVOLVER_VENTA_OK:
+			JOptionPane.showMessageDialog(this, "Devolución registrada correctamente.", "Devolver producto",
 					JOptionPane.INFORMATION_MESSAGE);
 			dispose();
 			break;
-		case RES_QUITAR_PRODUCTO_VENTA_KO:
+		case RES_DEVOLVER_VENTA_KO:
 			String mensaje = datos instanceof String ? (String) datos
-					: "No se pudo eliminar el producto indicado.";
-			JOptionPane.showMessageDialog(this, mensaje, "Error al eliminar producto", JOptionPane.ERROR_MESSAGE);
+					: "No se pudo realizar la devolución indicada.";
+			JOptionPane.showMessageDialog(this, mensaje, "Error al devolver producto", JOptionPane.ERROR_MESSAGE);
 			setVisible(true);
 			break;
 		default:

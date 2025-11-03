@@ -1,63 +1,232 @@
-/**
- * 
- */
-package Negocio.Producto;
-
+package negocio.Producto;
+import java.util.HashSet;
 import java.util.Set;
+import integracion.FactoriaDAO.DAOAbstractFactory;
+import integracion.Producto.DAOProducto;
+import integracion.Proveedor.DAOProveedor;
+import integracion.Proveedor.DAOProveedorProducto;
+import integracion.Transaction.TManager;
+import integracion.Transaction.Transaction;
+import negocio.Proveedor.TProveedor;
+import negocio.Proveedor.TProveedorProducto;
 
-/** 
-* <!-- begin-UML-doc -->
-* <!-- end-UML-doc -->
-* @author adria
-* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-*/
 public class SAProductoImp implements SAProducto {
-	public Integer altaProducto(TProducto producto) {
-		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
-		return null;
-		// end-user-code
+
+	@Override
+	public int altaProducto(TProducto producto) {
+		int exito = -1;
+
+		TManager tManager = TManager.getInstance();
+		tManager.createTransaction();
+		Transaction transaction = tManager.getTransaction();
+
+		if (transaction != null) {
+			transaction.start();
+
+			DAOProducto daoProducto = DAOAbstractFactory.getInstancia().generaDAOProducto();
+			TProducto pr = daoProducto.read_by_modelo(producto.getModelo());
+
+			if (pr == null) {
+				exito = daoProducto.create(producto);
+				if (exito != -1) {
+					transaction.commit();
+				} else
+					transaction.rollback();
+
+			} else if (pr.getActivo() == 0) {
+				producto.setId(pr.getId());
+				producto.setActivo(1);
+				exito = daoProducto.update(producto);
+				if (exito != -1) {
+					exito = pr.getId();
+					transaction.commit();
+				} else
+					transaction.rollback();
+			} else
+				transaction.rollback();
+
+		}
+		return exito;
 	}
 
-	public Set<TProducto> leerProductosPorAlmacen(Integer idAlmacen) {
-		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
-		return null;
-		// end-user-code
+	@Override
+	public Set<TProducto> leerProductosPorAlmacen(int idAlmacen) {
+
+		Set<TProducto> tprT = null;
+
+		TManager tManager = TManager.getInstance();
+		tManager.createTransaction();
+		Transaction transaction = tManager.getTransaction();
+
+		if (transaction != null) {
+			transaction.start();
+
+			DAOProducto daoProducto = DAOAbstractFactory.getInstancia().generaDAOProducto();
+			tprT = daoProducto.read_by_almacen(idAlmacen);
+
+			if (tprT == null)
+				transaction.rollback();
+			else
+				transaction.commit();
+
+		}
+		return tprT;
+
 	}
 
-	public Set<TProducto> leerProductosPorProveedor(Integer idProveedor) {
-		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
-		return null;
-		// end-user-code
+	@Override
+	public Set<TProducto> leerProductosPorProveedor(int idProveedor) {
+
+		DAOProveedorProducto daoProveedorProducto = DAOAbstractFactory.getInstancia().generaDAOProveedorProducto();
+		DAOProducto daoProducto = DAOAbstractFactory.getInstancia().generaDAOProducto();
+		
+		Set<TProveedorProducto> vinculaciones;
+		Set<TProducto> productos  = new HashSet<>();
+		
+		TManager tManager = TManager.getInstance();
+		tManager.createTransaction();
+		Transaction transaction = tManager.getTransaction();
+
+		if (transaction != null) {
+			transaction.start();
+			
+			vinculaciones = daoProveedorProducto.read_all_by_proveedor(idProveedor);
+
+			if(vinculaciones != null) {
+				for(TProveedorProducto v : vinculaciones) {
+					productos.add(daoProducto.read(v.getIdProducto()));
+				}
+				transaction.commit();
+			} else {
+				transaction.rollback();
+			}
+			
+		}
+		
+		return productos;
+
+
 	}
 
-	public Integer bajaProducto(Integer id) {
-		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
-		return null;
-		// end-user-code
+	@Override
+	public int bajaProducto(int id) {
+		int exito = -1;
+
+	    TManager tManager = TManager.getInstance();
+	    tManager.createTransaction();
+	    Transaction transaction = tManager.getTransaction();
+
+	    if (transaction != null) {
+	        transaction.start();
+
+	        DAOProducto daoProducto = DAOAbstractFactory.getInstancia().generaDAOProducto();
+	        TProducto tpr = daoProducto.read(id);
+
+	        if (tpr == null) {
+	            transaction.rollback();
+	        } else {
+	            if (tpr.getActivo() == 1) {
+	                tpr.setActivo(0);
+	                exito = daoProducto.update(tpr);
+	                if (exito > 0)
+	                    transaction.commit();
+	                else {
+	                    transaction.rollback();
+	                }
+	            } else {
+	                transaction.rollback();
+	            }
+	        }
+	    }
+
+	    return exito;
 	}
 
-	public Integer modificarProducto(TProducto producto) {
-		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
-		return null;
-		// end-user-code
+	@Override
+	public int modificarProducto(TProducto producto) {
+
+		int exito = -1;
+		TManager tManager = TManager.getInstance();
+		tManager.createTransaction();
+		Transaction transaction = tManager.getTransaction();
+
+		if (transaction != null) {
+			transaction.start();
+
+			DAOProducto daoProducto = DAOAbstractFactory.getInstancia().generaDAOProducto();
+			TProducto tpByModelo = daoProducto.read_by_modelo(producto.getModelo());
+			TProducto tpById = daoProducto.read(producto.getId());
+
+			if (tpByModelo == null
+					|| (tpByModelo.getId() == tpById.getId() && tpByModelo.getModelo().equals(tpById.getModelo()))) {
+				exito = daoProducto.update(producto);
+				if (exito != -1)
+					transaction.commit();
+				else
+					transaction.rollback();
+			} else
+				transaction.rollback();
+		}
+		return exito;
+
+		// TODO ApÃ©ndice de mÃ©todo generado automÃ¡ticamente
+
+
 	}
 
-	public TProducto leerProducto(Integer id) {
-		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
-		return null;
-		// end-user-code
+	@Override
+	public TProducto leerProducto(int id) {
+
+		TProducto tpr = null;
+
+		TManager tManager = TManager.getInstance();
+		tManager.createTransaction();
+		Transaction transaction = tManager.getTransaction();
+
+		if (transaction != null) {
+			transaction.start();
+
+			DAOProducto daoProducto = DAOAbstractFactory.getInstancia().generaDAOProducto();
+			tpr = daoProducto.read(id);
+
+			if (tpr == null)
+				transaction.rollback();
+			else
+				transaction.commit();
+		}
+		return tpr;
+
+		// TODO ApÃ©ndice de mÃ©todo generado automÃ¡ticamente
+
+
 	}
 
+	@Override
 	public Set<TProducto> leerTodosProductos() {
-		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
-		return null;
-		// end-user-code
+
+		Set<TProducto> tpr = null;
+
+		TManager tManager = TManager.getInstance();
+		tManager.createTransaction();
+		Transaction transaction = tManager.getTransaction();
+
+		if (transaction != null) {
+			transaction.start();
+
+			DAOProducto daoProducto = DAOAbstractFactory.getInstancia().generaDAOProducto();
+			tpr = daoProducto.read_all();
+
+			if (tpr == null)
+				transaction.rollback();
+			else
+				transaction.commit();
+		}
+		return tpr;
+
+		
+
 	}
+
+	
+	
 }

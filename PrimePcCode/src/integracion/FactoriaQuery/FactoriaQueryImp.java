@@ -1,5 +1,5 @@
 
-package Integracion.FactoriaQuery;
+package integracion.FactoriaQuery;
 
 public class FactoriaQueryImp extends FactoriaQuery {
 	

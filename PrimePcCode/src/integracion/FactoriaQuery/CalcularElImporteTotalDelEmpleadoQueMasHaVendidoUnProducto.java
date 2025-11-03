@@ -1,7 +1,7 @@
 /**
  * 
  */
-package Integracion.FactoriaQuery;
+package integracion.FactoriaQuery;
 
 /** 
  * <!-- begin-UML-doc -->
@@ -10,10 +10,7 @@ package Integracion.FactoriaQuery;
  * @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
  */
 public class CalcularElImporteTotalDelEmpleadoQueMasHaVendidoUnProducto implements Query {
-	public void execute(Class param) {
-		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
-
-		// end-user-code
+	public Object execute(Object param) {
+		return param;
 	}
 }

@@ -1,74 +1,32 @@
 /**
  * 
  */
-package Presentacion.Controller.Command.CommandProducto;
+package presentacion.Controller.Command.CommandProducto;
 
-import Negocio.Producto.SAProducto;
-import Presentacion.Controller.Command.Command;
-import Negocio.Producto.TProducto;
 import java.util.Set;
-import Presentacion.Controller.Command.Context;
 
-/** 
-* <!-- begin-UML-doc -->
-* <!-- end-UML-doc -->
-* @author adria
-* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-*/
-public class VerProdPorProveedorCommand implements SAProducto, Command {
-	public Integer altaProducto(TProducto producto) {
-		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
-		return null;
-		// end-user-code
-	}
+import negocio.FactoriaSA.SAAbstractFactory;
+import negocio.Producto.SAProducto;
+import negocio.Producto.TProducto;
+import presentacion.Controller.Command.Command;
+import presentacion.Controller.Command.Context;
+import presentacion.GUI.Evento;
 
-	public Set<TProducto> leerProductosPorAlmacen(Integer idAlmacen) {
-		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
-		return null;
-		// end-user-code
-	}
-
-	public Set<TProducto> leerProductosPorProveedor(Integer idProveedor) {
-		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
-		return null;
-		// end-user-code
-	}
-
-	public Integer bajaProducto(Integer id) {
-		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
-		return null;
-		// end-user-code
-	}
-
-	public Integer modificarProducto(TProducto producto) {
-		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
-		return null;
-		// end-user-code
-	}
-
-	public TProducto leerProducto(Integer id) {
-		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
-		return null;
-		// end-user-code
-	}
-
-	public Set<TProducto> leerTodosProductos() {
-		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
-		return null;
-		// end-user-code
-	}
+/**
+ * <!-- begin-UML-doc --> <!-- end-UML-doc -->
+ * 
+ * @author adria
+ * @generated "UML a Java
+ *            (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+ */
+public class VerProdPorProveedorCommand implements Command {
 
 	public Context execute(Object data) {
-		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
-		return null;
-		// end-user-code
+		Set<TProducto> productos = SAAbstractFactory.getInstancia().generarSAProducto()
+				.leerProductosPorAlmacen((int) data);
+		if (productos != null && !productos.isEmpty())
+			return new Context(Evento.RES_MOSTRAR_PRODUCTOS_POR_ALMACEN_OK, productos);
+		else
+			return new Context(Evento.RES_MOSTRAR_PRODUCTOS_POR_ALMACEN_KO, null);
 	}
 }

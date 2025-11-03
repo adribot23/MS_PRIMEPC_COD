@@ -1,7 +1,7 @@
 /**
  * 
  */
-package Negocio.Cliente;
+package negocio.Cliente;
 
 /** 
  * <!-- begin-UML-doc -->
@@ -10,49 +10,37 @@ package Negocio.Cliente;
  * @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
  */
 public class TClienteNoSocio extends TCliente {
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	*/
-	private Integer numVisitas;
+	private int numVisitas;
 
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @param numVisitas
-	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	*/
-	public TClienteNoSocio(Integer numVisitas) {
-		// begin-user-code
-		// TODO Apéndice de constructor generado automáticamente
-		// end-user-code
+	public TClienteNoSocio() {
 	}
 
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @return
-	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	*/
-	public Integer getNumVisitas() {
-		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
-		return null;
-		// end-user-code
+	public TClienteNoSocio(String nombre, String dni, int numVisitas) {
+		super(nombre, dni);
+		this.numVisitas = numVisitas;
 	}
 
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @param numVisitas
-	* @return
-	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	*/
-	public Void setNumVisitas(Integer numVisitas) {
-		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
-		return null;
-		// end-user-code
+	public TClienteNoSocio(int id, String nombre, String dni, int numVisitas) {
+		super(id, nombre, dni);
+		this.numVisitas = numVisitas;
 	}
+
+	public TClienteNoSocio(int id, String nombre, String dni, int activo, int numVisitas) {
+		super(id, nombre, dni, activo);
+		this.numVisitas = numVisitas;
+	}
+
+	public int getNumVisitas() {
+		return this.numVisitas;
+	}
+
+	public void setNumVisitas(int numVisitas) {
+		this.numVisitas = numVisitas;
+	}
+
+	@Override
+	public String toString() {
+		return super.toString() + ", No socio Numero de visitas: " + numVisitas + "]";
+	}
+
 }

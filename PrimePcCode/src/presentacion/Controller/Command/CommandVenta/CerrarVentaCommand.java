@@ -1,22 +1,36 @@
-/**
- * 
- */
-package Presentacion.Controller.Command.CommandVenta;
+package presentacion.Controller.Command.CommandVenta;
 
-import Presentacion.Controller.Command.Command;
-import Presentacion.Controller.Command.Context;
+import negocio.FactoriaSA.SAAbstractFactory;
+import negocio.Venta.SAVenta;
+import presentacion.Controller.Command.Command;
+import presentacion.Controller.Command.Context;
+import presentacion.GUI.Evento;
 
-/** 
-* <!-- begin-UML-doc -->
-* <!-- end-UML-doc -->
-* @author adria
-* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-*/
 public class CerrarVentaCommand implements Command {
+
+	@Override
 	public Context execute(Object data) {
-		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
-		return null;
-		// end-user-code
+		
+		if (data == null) {
+			return new Context(Evento.CERRAR_VENTA, null);
+		}
+
+		if (!(data instanceof Integer)) {
+			return new Context(Evento.RES_CERRAR_VENTA_KO, "Identificador de venta no vÃ¡lido.");
+		}
+
+		try {
+			SAVenta saVenta = SAAbstractFactory.getInstancia().generarSAVenta();
+			Integer resultado = saVenta.bajaVenta((Integer) data);
+
+			if (resultado != null && resultado > 0) {
+				return new Context(Evento.RES_CERRAR_VENTA_OK, data);
+			} else {
+				return new Context(Evento.RES_CERRAR_VENTA_KO,
+						"No se pudo cerrar la venta " + String.valueOf(data) + ".");
+			}
+		} catch (Exception ex) {
+			return new Context(Evento.RES_CERRAR_VENTA_KO, ex.getMessage());
+		}
 	}
 }

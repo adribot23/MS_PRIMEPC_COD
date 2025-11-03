@@ -1,22 +1,40 @@
-/**
- * 
- */
-package Presentacion.Controller.Command.CommandVenta;
+package presentacion.Controller.Command.CommandVenta;
 
-import Presentacion.Controller.Command.Command;
-import Presentacion.Controller.Command.Context;
+import negocio.FactoriaSA.SAAbstractFactory;
 
-/** 
-* <!-- begin-UML-doc -->
-* <!-- end-UML-doc -->
-* @author adria
-* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-*/
+import negocio.Venta.SAVenta;
+
+import negocio.Venta.TVenta;
+import presentacion.Controller.Command.Command;
+import presentacion.Controller.Command.Context;
+import presentacion.GUI.Evento;
+
 public class ModificarVentaCommand implements Command {
+
+	@Override
 	public Context execute(Object data) {
-		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
-		return null;
-		// end-user-code
+
+
+		if (data == null) {
+			return new Context(Evento.MODIFICAR_VENTA, null);
+		}
+
+		if (!(data instanceof TVenta)) {
+			return new Context(Evento.RES_MODIFICAR_VENTA_KO, "Datos de venta incorrectos.");
+		}
+
+		try {
+			SAVenta saVenta = SAAbstractFactory.getInstancia().generarSAVenta();
+			Integer resultado = saVenta.modificarVenta((TVenta) data);
+
+			if (resultado != null && resultado > 0) {
+				return new Context(Evento.RES_MODIFICAR_VENTA_OK, data);
+			} else {
+				return new Context(Evento.RES_MODIFICAR_VENTA_KO, resultado);
+			}
+		} catch (Exception ex) {
+			return new Context(Evento.RES_MODIFICAR_VENTA_KO, ex.getMessage());
+		}
+
 	}
 }

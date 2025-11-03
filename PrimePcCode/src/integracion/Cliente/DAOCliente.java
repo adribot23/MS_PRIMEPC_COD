@@ -1,9 +1,11 @@
 /**
  * 
  */
-package Integracion.Cliente;
+package integracion.Cliente;
 
-import Negocio.Cliente.TCliente;
+import java.util.Set;
+
+import negocio.Cliente.TCliente;
 
 /** 
 * <!-- begin-UML-doc -->
@@ -19,7 +21,7 @@ public interface DAOCliente {
 	* @return
 	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	*/
-	public Integer create(TCliente cliente);
+	public int create(TCliente cliente);
 
 	/** 
 	* <!-- begin-UML-doc -->
@@ -28,7 +30,7 @@ public interface DAOCliente {
 	* @return
 	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	*/
-	public TCliente read(Integer id);
+	public TCliente read(int id);
 
 	/** 
 	* <!-- begin-UML-doc -->
@@ -37,7 +39,7 @@ public interface DAOCliente {
 	* @return
 	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	*/
-	public Integer update(TCliente empleado);
+	public int update(TCliente cliente);
 
 	/** 
 	* <!-- begin-UML-doc -->
@@ -46,7 +48,7 @@ public interface DAOCliente {
 	* @return
 	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	*/
-	public Integer delete(Integer id);
+	public int delete(int id);
 
 	/** 
 	* <!-- begin-UML-doc -->
@@ -55,7 +57,7 @@ public interface DAOCliente {
 	* @return
 	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	*/
-	public TCliente read_by_DNI(String nombre);
+	public TCliente read_by_DNI(String dni);
 
 	/** 
 	* <!-- begin-UML-doc -->
@@ -63,5 +65,5 @@ public interface DAOCliente {
 	* @return
 	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	*/
-	public CollectionTCliente read_all();
+	public Set<TCliente> read_all();
 }

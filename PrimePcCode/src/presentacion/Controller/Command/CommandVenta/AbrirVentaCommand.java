@@ -1,22 +1,36 @@
-/**
- * 
- */
-package Presentacion.Controller.Command.CommandVenta;
+package presentacion.Controller.Command.CommandVenta;
 
-import Presentacion.Controller.Command.Command;
-import Presentacion.Controller.Command.Context;
+import negocio.FactoriaSA.SAAbstractFactory;
+import negocio.Venta.SAVenta;
+import negocio.Venta.TVenta;
+import presentacion.Controller.Command.Command;
+import presentacion.Controller.Command.Context;
+import presentacion.GUI.Evento;
 
-/** 
-* <!-- begin-UML-doc -->
-* <!-- end-UML-doc -->
-* @author adria
-* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-*/
 public class AbrirVentaCommand implements Command {
+
+	@Override
 	public Context execute(Object data) {
-		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
-		return null;
-		// end-user-code
+
+		if (data == null) {
+			return new Context(Evento.ABRIR_VENTA, null);
+		}
+
+		if (!(data instanceof TVenta)) {
+			return new Context(Evento.RES_ABRIR_VENTA_KO, "Los datos de la venta no son vÃ¡lidos.");
+		}
+
+		try {
+			SAVenta saVenta = SAAbstractFactory.getInstancia().generarSAVenta();
+			Integer idGenerado = saVenta.abrirVenta((TVenta) data);
+
+			if (idGenerado != null && idGenerado > 0) {
+				return new Context(Evento.RES_ABRIR_VENTA_OK, idGenerado);
+			} else {
+				return new Context(Evento.RES_ABRIR_VENTA_KO, idGenerado);
+			}
+		} catch (Exception ex) {
+			return new Context(Evento.RES_ABRIR_VENTA_KO, ex.getMessage());
+		}
 	}
 }

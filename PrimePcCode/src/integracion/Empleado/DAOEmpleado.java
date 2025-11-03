@@ -1,11 +1,12 @@
 /**
  * 
  */
-package Integracion.Empleado;
+package integracion.Empleado;
 
-import Negocio.Empleado.TEmpleado;
-import Negocio.Producto.TProducto;
 import java.util.Set;
+
+import negocio.Empleado.TEmpleado;
+import negocio.Producto.TProducto;
 
 /** 
 * <!-- begin-UML-doc -->
@@ -21,7 +22,7 @@ public interface DAOEmpleado {
 	* @return
 	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	*/
-	public Integer create(TEmpleado empleado);
+	public int create(TEmpleado empleado);
 
 	/** 
 	* <!-- begin-UML-doc -->
@@ -47,7 +48,7 @@ public interface DAOEmpleado {
 	* @return
 	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	*/
-	public Integer update(TEmpleado empleado);
+	public int update(TEmpleado empleado);
 
 	/** 
 	* <!-- begin-UML-doc -->
@@ -56,7 +57,7 @@ public interface DAOEmpleado {
 	* @return
 	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	*/
-	public Integer delete(Integer id);
+	public int delete(Integer id);
 
 	/** 
 	* <!-- begin-UML-doc -->
@@ -65,7 +66,7 @@ public interface DAOEmpleado {
 	* @return
 	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	*/
-	public TEmpleado read_by_DNI(String nombre);
+	public TEmpleado read_by_DNI(String DNI);
 
 	/** 
 	* <!-- begin-UML-doc -->

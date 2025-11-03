@@ -1,5 +1,5 @@
 
-package Integracion.Transaction;
+package integracion.Transaction;
 
 
 public interface Transaction {

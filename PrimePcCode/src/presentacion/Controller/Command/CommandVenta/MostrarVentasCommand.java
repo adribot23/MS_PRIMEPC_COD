@@ -1,22 +1,27 @@
-/**
- * 
- */
-package Presentacion.Controller.Command.CommandVenta;
+package presentacion.Controller.Command.CommandVenta;
 
-import Presentacion.Controller.Command.Command;
-import Presentacion.Controller.Command.Context;
+import negocio.FactoriaSA.SAAbstractFactory;
+import negocio.Venta.SAVenta;
+import presentacion.Controller.Command.Command;
+import presentacion.Controller.Command.Context;
+import presentacion.GUI.Evento;
 
-/** 
-* <!-- begin-UML-doc -->
-* <!-- end-UML-doc -->
-* @author adria
-* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-*/
 public class MostrarVentasCommand implements Command {
+
+	@Override
 	public Context execute(Object data) {
-		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
-		return null;
-		// end-user-code
+
+		try {
+			SAVenta saVenta = SAAbstractFactory.getInstancia().generarSAVenta();
+			Object listado = saVenta.leerTodasVentas();
+
+			if (listado != null) {
+				return new Context(Evento.RES_MOSTRAR_TODAS_VENTAS_OK, listado);
+			} else {
+				return new Context(Evento.RES_MOSTRAR_TODAS_VENTAS_KO, "No hay ventas registradas.");
+			}
+		} catch (Exception ex) {
+			return new Context(Evento.RES_MOSTRAR_TODAS_VENTAS_KO, ex.getMessage());
+		}
 	}
 }

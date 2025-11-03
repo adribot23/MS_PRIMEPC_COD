@@ -1,23 +1,206 @@
 /**
  * 
  */
-package Presentacion.Cliente;
+package presentacion.Cliente;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridLayout;
+
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
-import Presentacion.GUI.IGUI;
-import Presentacion.Controller.Command.Context;
+import javax.swing.SwingConstants;
 
-/** 
-* <!-- begin-UML-doc -->
-* <!-- end-UML-doc -->
-* @author adria
-* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-*/
-public class GUICliente extends JPanel implements IGUI {
+import presentacion.Controller.Controlador;
+import presentacion.Controller.Command.Context;
+import presentacion.GUI.Evento;
+import presentacion.GUI.IGUI;
+
+/**
+ * <!-- begin-UML-doc --> <!-- end-UML-doc -->
+ * 
+ * @author adria
+ * @generated "UML a Java
+ *            (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+ */
+public class GUICliente extends JFrame implements IGUI {
+
+	private static final long serialVersionUID = 1L;
+
+	public GUICliente() {
+		super("[CLIENTE]");
+		initGUI();
+	}
+
+	private void initGUI() {
+		// === PANEL PRINCIPAL ===
+		JPanel mainPanel = new JPanel(new BorderLayout(20, 20));
+		mainPanel.setBorder(BorderFactory.createEmptyBorder(20, 40, 20, 40));
+		mainPanel.setBackground(Color.WHITE);
+		this.setContentPane(mainPanel);
+
+		// === CABECERA ===
+		JLabel titulo = new JLabel("GESTIÃ“N DE CLIENTES", SwingConstants.CENTER);
+		titulo.setFont(new Font("Cambria", Font.BOLD, 28));
+		titulo.setForeground(new Color(0, 100, 0));
+		titulo.setBorder(BorderFactory.createEmptyBorder(10, 0, 20, 0));
+		mainPanel.add(titulo, BorderLayout.NORTH);
+
+		// === PANEL DE BOTONES ===
+		JPanel botonesPanel = new JPanel(new GridLayout(2, 3, 20, 20));
+		botonesPanel.setBackground(Color.WHITE);
+
+		// Fila 1
+		botonesPanel.add(crearBotonVerde("ALTA CLIENTE", Evento.VALTA_CLIENTE));
+		botonesPanel.add(crearBotonVerde("BAJA CLIENTE", Evento.VBAJA_CLIENTE));
+		botonesPanel.add(crearBotonVerde("MODIFICAR CLIENTE", Evento.VMODIFICAR_CLIENTE));
+
+		// Fila 2
+		botonesPanel.add(crearBotonVerde("BUSCAR CLIENTE", Evento.VBUSCAR_CLIENTE));
+		botonesPanel.add(crearBotonVerde("LISTAR TODOS LOS CLIENTES", Evento.VMOSTRAR_TODOS_CLIENTES));
+		
+
+
+		mainPanel.add(botonesPanel, BorderLayout.CENTER);
+
+		// === PANEL INFERIOR (VOLVER) ===
+		JButton volver = new JButton("VOLVER A VISTA PRINCIPAL");
+		volver.setFont(new Font("Segoe UI", Font.BOLD, 16));
+		volver.setBackground(Color.WHITE);
+		volver.setBorder(BorderFactory.createLineBorder(new Color(0, 100, 0), 2));
+		volver.setFocusPainted(false);
+		volver.setPreferredSize(new Dimension(300, 40));
+
+		volver.addActionListener((e) -> {
+			Controlador.getInstancia().accion(new Context(Evento.VISTA_PRINCIPAL, null));
+			this.dispose();
+		});
+
+		JPanel volverPanel = new JPanel();
+		volverPanel.setBackground(Color.WHITE);
+		volverPanel.add(volver);
+		mainPanel.add(volverPanel, BorderLayout.SOUTH);
+
+		// === CONFIGURACIÃ“N FRAME ===
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		setMinimumSize(new Dimension(900, 600));
+		setLocationRelativeTo(null);
+		setVisible(true);
+	}
+
+	private JButton crearBotonVerde(String texto, Evento evento) {
+		JButton boton = new JButton("<html><center>" + texto + "</center></html>");
+		boton.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		boton.setFocusPainted(false);
+		boton.setBackground(Color.WHITE);
+		boton.setBorder(BorderFactory.createLineBorder(new Color(0, 128, 0), 2));
+		boton.setOpaque(true);
+		boton.setPreferredSize(new Dimension(250, 100));
+		boton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+		// Efecto hover
+		boton.addMouseListener(new java.awt.event.MouseAdapter() {
+			public void mouseEntered(java.awt.event.MouseEvent evt) {
+				boton.setBackground(new Color(220, 255, 220));
+			}
+
+			public void mouseExited(java.awt.event.MouseEvent evt) {
+				boton.setBackground(Color.WHITE);
+			}
+		});
+
+		// AcciÃ³n del botÃ³n
+		boton.addActionListener(e -> {
+			Controlador.getInstancia().accion(new Context(evento, null));
+			this.dispose();
+		});
+
+		return boton;
+	}
+
+	@Override
 	public void actualizar(Context context) {
-		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		setVisible(true);
+	}
 
-		// end-user-code
+}
+/*
+	@SuppressWarnings("unchecked")
+	@Override
+	public void actualizar(Context context) {
+		Evento evento = context.getEvento();
+		Object datos = context.getDatos();
+		switch (evento) {
+		case RES_ALTA_CLIENTE_OK:
+			JOptionPane.showMessageDialog(null, "Cliente dado de alta con ID: " + datos);
+			break;
+		case RES_ALTA_CLIENTE_KO:
+			JOptionPane.showMessageDialog(null, "Error al dar de alta el cliente.");
+			break;
+		case RES_BAJA_CLIENTE_OK:
+			JOptionPane.showMessageDialog(null, "Cliente dado de baja correctamente.");
+			break;
+		case RES_BAJA_CLIENTE_KO:
+			JOptionPane.showMessageDialog(null, "Error al dar de baja el cliente.");
+			break;
+		case RES_MODIFICAR_CLIENTE_OK:
+			JOptionPane.showMessageDialog(null, "Cliente modificado correctamente.");
+			break;
+		case RES_MODIFICAR_CLIENTE_KO:
+			JOptionPane.showMessageDialog(null, "Error al modificar el cliente. Verifica los datos.");
+			break;
+		case RES_BUSCAR_CLIENTE_OK:
+			JOptionPane.showMessageDialog(null, (TCliente) datos);
+			break;
+		case RES_BUSCAR_CLIENTE_KO:
+			JOptionPane.showMessageDialog(null, "Cliente no encontrado.");
+			break;
+		case RES_MOSTRAR_TODOS_CLIENTES_OK:
+			mostrarTabla((Collection<TCliente>) datos);
+			break;
+		case RES_MOSTRAR_TODOS_CLIENTES_KO:
+			JOptionPane.showMessageDialog(null, "No hay clientes para mostrar.");
+			break;
+		default:
+			JOptionPane.showMessageDialog(null, "Evento no reconocido: " + evento);
+		}
+	}
+
+	private void mostrarTabla(Collection<TCliente> clientes) {
+		String[] columnNames = { "ID", "Nombre", "DNI", "Tipo", "Numero Socio", "Puntos de Socio", "Numero Visitas",
+				"Activo" };
+		Object[][] data = new Object[clientes.size()][columnNames.length];
+		int i = 0;
+		for (TCliente cli : clientes) {
+			data[i][0] = cli.getId();
+			data[i][1] = cli.getNombre();
+			data[i][2] = cli.getDni();
+			data[i][7] = cli.getActivo();
+			if (cli instanceof TClienteSocio) {
+				data[i][4] = "Socio";
+				data[i][5] = ((TClienteSocio) cli).getNumeroDeSocio();
+				data[i][6] = ((TClienteSocio) cli).getPuntos();
+				data[i][7] = "---";
+			} else {
+				data[i][4] = "No Socio";
+				data[i][5] = "---";
+				data[i][6] = "---";
+				data[i][7] = ((TClienteNoSocio) cli).getNumVisitas();
+			}
+			i++;
+		}
+		JTable table = new JTable(data, columnNames);
+		table.setFillsViewportHeight(true);
+		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		table.setEnabled(false);
+		JScrollPane scrollPane = new JScrollPane(table);
+		JOptionPane.showMessageDialog(null, scrollPane, "Clientes", JOptionPane.PLAIN_MESSAGE);
 	}
 }
+*/

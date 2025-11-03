@@ -1,7 +1,7 @@
 
-package Integracion.FactoriaQuery;
+package integracion.FactoriaQuery;
 
 public interface Query {
 
-	public void execute(Class param);
+	public Object execute(Object param);
 }

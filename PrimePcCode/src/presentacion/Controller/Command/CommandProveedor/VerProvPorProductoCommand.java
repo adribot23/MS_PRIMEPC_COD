@@ -1,10 +1,17 @@
 /**
  * 
  */
-package Presentacion.Controller.Command.CommandProveedor;
+package presentacion.Controller.Command.CommandProveedor;
 
-import Presentacion.Controller.Command.Command;
-import Presentacion.Controller.Command.Context;
+
+
+import java.util.Set;
+
+import negocio.FactoriaSA.SAAbstractFactory;
+import negocio.Proveedor.TProveedor;
+import presentacion.Controller.Command.Command;
+import presentacion.Controller.Command.Context;
+import presentacion.GUI.Evento;
 
 /** 
 * <!-- begin-UML-doc -->
@@ -14,9 +21,10 @@ import Presentacion.Controller.Command.Context;
 */
 public class VerProvPorProductoCommand implements Command {
 	public Context execute(Object data) {
-		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
-		return null;
-		// end-user-code
+		Set<TProveedor> proveedores = SAAbstractFactory.getInstancia().generarSAProveedor().leerProveedorPorProducto((int)data );
+		if (proveedores != null && !proveedores.isEmpty())
+			return new Context(Evento.RES_MOSTRAR_PROVEEDORES_POR_PRODUCTO_OK, proveedores);
+		else
+			return new Context(Evento.RES_MOSTRAR_PROVEEDORES_POR_PRODUCTO_KO, null);
 	}
 }
