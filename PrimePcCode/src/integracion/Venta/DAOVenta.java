@@ -7,17 +7,17 @@ import negocio.Venta.TVenta;
 
 public interface DAOVenta {
 
-	public Integer create(TVenta venta);
+	public int create(TVenta venta);
 
-	public Set<TVenta> read_by_cliente(Integer idCliente);
+	public Set<TVenta> read_by_cliente(int idCliente);
 
-	public Set<TVenta> read_by_empleado(Integer idEmpleado);
+	public Set<TVenta> read_by_empleado(int idEmpleado);
 
-	public TVenta read(Integer id_venta);
+	public TVenta read(int id_venta);
 
-	public Integer update(TVenta venta);
+	public int update(TVenta venta);
 
-	public Integer delete(Integer id_venta);
+	public int delete(int id_venta);
 
 	public Set<TVenta> read_all();
 }

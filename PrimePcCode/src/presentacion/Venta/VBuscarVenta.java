@@ -218,6 +218,6 @@ public class VBuscarVenta extends JFrame implements IGUI {
 	}
 
 	private String textoSeguro(String value) {
-		return value == null || value.isBlank() ? "-" : value;
+		return value == null || value.isEmpty() ? "-" : value;
 	}
 }

@@ -17,9 +17,9 @@ public interface SAVenta {
 	
 	public int devolverVenta (TLineaVenta lineaVenta);
 	
-	public Set<TVenta> leerVentasPorEmpleado(Integer idEmpleado);
+	public Set<TVenta> leerVentasPorEmpleado(int idEmpleado);
 
-	public Integer bajaVenta(Integer id);
+	public int bajaVenta(int id);
 
 	public int modificarVenta(TVenta venta);
 
@@ -27,5 +27,5 @@ public interface SAVenta {
 
 	public Set<TVenta> leerTodasVentas();
 
-	public Set<TVenta> leerVentasPorCliente(Integer idCliente);
+	public Set<TVenta> leerVentasPorCliente(int idCliente);
 }

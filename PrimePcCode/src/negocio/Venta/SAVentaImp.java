@@ -271,12 +271,108 @@ public class SAVentaImp implements SAVenta {
 
 	@Override
 	public int devolverVenta(TLineaVenta lineaVenta) {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		TManager tm = TManager.getInstance();
+		Transaction tr = tm.createTransaction();
+		int res = -1;
+		
+		if (tr != null) {
+			tr.start();
+
+			DAOVenta daoVenta = DAOAbstractFactory.getInstancia().generaDAOVenta();
+			TVenta tVenta = daoVenta.read(lineaVenta.get_venta());
+
+			if (tVenta != null) {
+
+				DAOLineaVenta daoLineaVenta = DAOAbstractFactory.getInstancia().generaDAOLineaVenta();
+				TLineaVenta tLineaVenta2 = daoLineaVenta.read(lineaVenta);
+
+				if (tLineaVenta2 != null) {
+
+					DAOProducto daoProd = DAOAbstractFactory.getInstancia()
+							.generaDAOProducto();
+					TProducto tProd = daoProd.read(lineaVenta.get_producto());
+
+					if (tProd != null && tLineaVenta2.get_num_unidades() >= lineaVenta.get_num_unidades()) {
+
+						int unidades = tLineaVenta2.get_num_unidades() - lineaVenta.get_num_unidades();
+						
+						double preciototal = tLineaVenta2.get_precio_unidades() / tLineaVenta2.get_num_unidades();
+						double totalVenta = tVenta.getPrecio() - lineaVenta.get_num_unidades() * preciototal;
+						double precioUnidades = unidades * preciototal;
+
+						tLineaVenta2.set_precio_unidades(precioUnidades);
+						tLineaVenta2.set_num_unidades(unidades);
+
+						tVenta.setPrecio(totalVenta);
+
+						if (daoLineaVenta.update(tLineaVenta2) == 1) {
+
+							if (tProd.getActivo() == 0 && tProd.getUnidades() == 0) {
+								tProd.setActivo(1);
+							}
+
+							tProd.setUnidades(tProd.getUnidades() + lineaVenta.get_num_unidades());
+
+		
+							if (daoProd.update(tProd) != -1) {
+
+								TLineaVenta tLineaVenta_aux = daoLineaVenta.read(lineaVenta);
+
+								// Linea de venta no válida
+								if (tLineaVenta_aux != null) {
+
+									// Error al actualizar la venta
+									if (daoVenta.update(tVenta) != -1) {
+
+										if (tLineaVenta_aux.get_num_unidades() != 0 || daoLineaVenta.delete(lineaVenta) != -1) {
+
+											Set<TLineaVenta> setLineaVenta = daoLineaVenta.read_all(lineaVenta.get_venta());
+
+											if (setLineaVenta != null) {
+
+												if (setLineaVenta.stream().filter(venta -> venta.get_activo() == 1)
+														.count() != 0
+														|| daoVenta.delete(lineaVenta.get_venta()) != -1) {
+													tr.commit();
+													res = 1;
+												} else {
+													tr.rollback();
+												}
+											} else {
+												tr.rollback();
+											}
+										} else {
+											tr.rollback();
+										}
+									} else {
+										tr.rollback();
+									}
+								} else {
+									tr.rollback();
+								}
+							} else {
+								tr.rollback();
+							}
+						} else {
+							tr.rollback();
+						}
+					} else {
+						tr.rollback();
+					}
+				} else {
+					tr.rollback();
+				}
+			} else {
+				tr.rollback();
+			}
+		}
+
+		return res;
 	}
 
 	@Override
-	public Set<TVenta> leerVentasPorEmpleado(Integer idEmpleado) {
+	public Set<TVenta> leerVentasPorEmpleado(int idEmpleado) {
 		
 		TManager tm = TManager.getInstance();
 		Transaction tr = tm.createTransaction();
@@ -299,7 +395,7 @@ public class SAVentaImp implements SAVenta {
 	}
 
 	@Override
-	public Integer bajaVenta(Integer id) {
+	public int bajaVenta(int id) {
 		
 		TManager tm = TManager.getInstance();
 		Transaction tr = tm.createTransaction();
@@ -487,7 +583,7 @@ public class SAVentaImp implements SAVenta {
 	}
 
 	@Override
-	public Set<TVenta> leerVentasPorCliente(Integer idCliente) {
+	public Set<TVenta> leerVentasPorCliente(int idCliente) {
 		
 		
 		TManager tm = TManager.getInstance();

@@ -15,7 +15,7 @@ import negocio.Venta.TVenta;
 
 public class DAOVentaImp implements DAOVenta {
 	
-	public Integer create(TVenta venta) {
+	public int create(TVenta venta) {
 		
 		try {
 			TManager tm = TManager.getInstance();
@@ -54,7 +54,7 @@ public class DAOVentaImp implements DAOVenta {
 		return -1;
 	}
 
-	public Set<TVenta> read_by_cliente(Integer idCliente) {
+	public Set<TVenta> read_by_cliente(int idCliente) {
 		
 		Set<TVenta> ventas = new LinkedHashSet<>();
 		
@@ -91,7 +91,7 @@ public class DAOVentaImp implements DAOVenta {
 		return null;
 	}
 
-	public Set<TVenta> read_by_empleado(Integer idEmpleado) {
+	public Set<TVenta> read_by_empleado(int idEmpleado) {
 		Set<TVenta> ventas = new LinkedHashSet<>();
 		
 		try {
@@ -127,7 +127,7 @@ public class DAOVentaImp implements DAOVenta {
 		return null;
 	}
 
-	public TVenta read(Integer id_venta) {
+	public TVenta read(int id_venta) {
 		
 		try {
 			
@@ -168,7 +168,7 @@ public class DAOVentaImp implements DAOVenta {
 		return null;
 	}
 
-	public Integer update(TVenta venta) {
+	public int update(TVenta venta) {
 		
 		try {
 			TManager tm = TManager.getInstance();
@@ -198,7 +198,7 @@ public class DAOVentaImp implements DAOVenta {
 		return -1;
 		}
 
-	public Integer delete(Integer id_venta) {
+	public int delete(int id_venta) {
 		
 		try {
 			TManager tm = TManager.getInstance();
