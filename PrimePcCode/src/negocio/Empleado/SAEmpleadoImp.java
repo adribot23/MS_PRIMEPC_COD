@@ -1,58 +1,148 @@
-/**
- * 
- */
 package negocio.Empleado;
 
 import java.util.Set;
 
+import integracion.Empleado.DAOEmpleado;
+import integracion.FactoriaDAO.DAOAbstractFactory;
+import integracion.Transaction.TManager;
+import integracion.Transaction.Transaction;
 import negocio.Producto.TProducto;
 
-/** 
-* <!-- begin-UML-doc -->
-* <!-- end-UML-doc -->
-* @author adria
-* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-*/
 public class SAEmpleadoImp implements SAEmpleado {
-	public Integer altaEmpleado(TEmpleado tEmpleado) {
-		// begin-user-code
-		// TODO Ap�ndice de m�todo generado autom�ticamente
-		return null;
-		// end-user-code
+
+	@Override
+	public int altaEmpleado(TEmpleado tEmpleado) {
+		int exito = -1;
+
+		TManager tManager = TManager.getInstance();
+		tManager.createTransaction();
+		Transaction transaction = tManager.getTransaction();
+
+		if (transaction != null) {
+			transaction.start();
+
+			DAOEmpleado daoEmpleado = DAOAbstractFactory.getInstancia().generaDAOEmpleado();
+			TEmpleado em = daoEmpleado.read_by_DNI(tEmpleado.getDni());
+
+			if (em == null) {
+				exito = daoEmpleado.create(tEmpleado);
+				if (exito != -1)
+					transaction.commit();
+				else
+					transaction.rollback();
+			} else if (em.getActivo() == 0) {
+				tEmpleado.setId(em.getId());
+				tEmpleado.setActivo(1);
+				exito = daoEmpleado.update(tEmpleado);
+				if (exito != -1) {
+					exito = em.getId();
+					transaction.commit();
+				} else
+					transaction.rollback();
+			} else
+				transaction.rollback();
+		}
+		return exito;
 	}
 
+	@Override
 	public void calcularImporteMasVendido(TProducto tProducto) {
-		// begin-user-code
-		// TODO Ap�ndice de m�todo generado autom�ticamente
-
-		// end-user-code
+		
 	}
 
-	public Integer bajaEmpleado(Integer id) {
-		// begin-user-code
-		// TODO Ap�ndice de m�todo generado autom�ticamente
-		return null;
-		// end-user-code
+	@Override
+	public int bajaEmpleado(int id) {
+		int exito = -1;
+
+		TManager tManager = TManager.getInstance();
+		tManager.createTransaction();
+		Transaction transaction = tManager.getTransaction();
+
+		if (transaction != null) {
+			transaction.start();
+
+			DAOEmpleado daoEmpleado = DAOAbstractFactory.getInstancia().generaDAOEmpleado();
+			TEmpleado empleado = daoEmpleado.read(id);
+
+			if (empleado == null || empleado.getActivo() == 0) {
+				transaction.rollback();
+			} else {
+				exito = daoEmpleado.delete(id);
+				if (exito != -1)
+					transaction.commit();
+				else
+					transaction.rollback();
+			}
+		}
+
+		return exito;
 	}
 
-	public Integer modificarEmpleado(TEmpleado tEmpleado) {
-		// begin-user-code
-		// TODO Ap�ndice de m�todo generado autom�ticamente
-		return null;
-		// end-user-code
+	@Override
+	public int modificarEmpleado(TEmpleado tEmpleado) {
+		int exito = -1;
+
+		TManager tManager = TManager.getInstance();
+		tManager.createTransaction();
+		Transaction transaction = tManager.getTransaction();
+
+		if (transaction != null) {
+			transaction.start();
+
+			DAOEmpleado daoEmpleado = DAOAbstractFactory.getInstancia().generaDAOEmpleado();
+			TEmpleado existente = daoEmpleado.read(tEmpleado.getId());
+
+			if (existente == null || existente.getActivo() == 0) {
+				transaction.rollback();
+			} else {
+				exito = daoEmpleado.update(tEmpleado);
+				if (exito != -1)
+					transaction.commit();
+				else
+					transaction.rollback();
+			}
+		}
+
+		return exito;
 	}
 
-	public TEmpleado leerEmpleado(Integer id) {
-		// begin-user-code
-		// TODO Ap�ndice de m�todo generado autom�ticamente
-		return null;
-		// end-user-code
+	@Override
+	public TEmpleado leerEmpleado(int id) {
+		TEmpleado empleado = null;
+
+		TManager tManager = TManager.getInstance();
+		tManager.createTransaction();
+		Transaction transaction = tManager.getTransaction();
+
+		if (transaction != null) {
+			transaction.start();
+
+			DAOEmpleado daoEmpleado = DAOAbstractFactory.getInstancia().generaDAOEmpleado();
+			empleado = daoEmpleado.read(id);
+
+			transaction.commit();
+		}
+
+		return empleado;
 	}
 
+	@Override
 	public Set<TEmpleado> leerTodosEmpleados() {
-		// begin-user-code
-		// TODO Ap�ndice de m�todo generado autom�ticamente
-		return null;
-		// end-user-code
+		Set<TEmpleado> empleados = null;
+
+		TManager tManager = TManager.getInstance();
+		tManager.createTransaction();
+		Transaction transaction = tManager.getTransaction();
+
+		if (transaction != null) {
+			transaction.start();
+
+			DAOEmpleado daoEmpleado = DAOAbstractFactory.getInstancia().generaDAOEmpleado();
+			empleados = daoEmpleado.read_all();
+
+			transaction.commit();
+		}
+
+		return empleados;
 	}
 }
