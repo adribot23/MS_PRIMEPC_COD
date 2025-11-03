@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 import presentacion.Controller.Controlador;
 import presentacion.Controller.Command.Context;
 import presentacion.GUI.Evento;
+import presentacion.GUI.IGUI;
 
 /** 
 * <!-- begin-UML-doc -->
@@ -20,7 +21,7 @@ import presentacion.GUI.Evento;
 * @author adria
 * @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 */
-public class VMostrarProveedor extends JPanel {
+public class VMostrarProveedor extends JPanel implements IGUI {
 	/** 
 	* <!-- begin-UML-doc -->
 	* <!-- end-UML-doc -->
@@ -42,5 +43,11 @@ public class VMostrarProveedor extends JPanel {
 		btnMostrar.addActionListener(e -> Controlador.getInstancia().accion(new Context(Evento.MOSTRAR_TODOS_PROVEEDORES, null)));
 
 		add(btnMostrar);
+	}
+
+	@Override
+	public void actualizar(Context context) {
+		// TODO Auto-generated method stub
+		
 	}
 }

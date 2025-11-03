@@ -30,7 +30,7 @@ import presentacion.Empleado.VAltaEmpleado;
 import presentacion.Empleado.VBajaEmpleado;
 import presentacion.Empleado.VBuscarEmpleado;
 import presentacion.Empleado.VModificarEmpleado;
-import presentacion.Empleado.VMostrarEmpelado;
+import presentacion.Empleado.VMostrarEmpleado;
 
 /** 
 * <!-- begin-UML-doc -->
@@ -72,7 +72,7 @@ public class GUIEmpleado extends JPanel implements IGUI {
 		panelDerecha.add(Box.createVerticalStrut(10));
 		panelDerecha.add(new VBajaEmpleado());
 		panelDerecha.add(Box.createVerticalStrut(10));
-		panelDerecha.add(new VMostrarEmpelado());
+		panelDerecha.add(new VMostrarEmpleado());
 		panelDerecha.add(Box.createVerticalStrut(10));
 		panelDerecha.add(new VAltaEmpleado());
 		panelDerecha.add(Box.createVerticalStrut(10));

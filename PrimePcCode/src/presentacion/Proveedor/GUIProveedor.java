@@ -6,13 +6,16 @@ package presentacion.Proveedor;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.util.Collection;
 
+import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -21,6 +24,7 @@ import javax.swing.JTable;
 import javax.swing.SwingConstants;
 
 import negocio.Proveedor.TProveedor;
+import presentacion.Controller.Controlador;
 import presentacion.Controller.Command.Context;
 import presentacion.GUI.IGUI;
 import presentacion.Proveedor.VAltaProveedor;
@@ -38,58 +42,118 @@ import presentacion.GUI.Evento;
 * @author adria
 * @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 */
-public class GUIProveedor extends JPanel implements IGUI {
-	public void initGUI(Context context) {
-		setLayout(new BorderLayout());
+public class GUIProveedor extends JFrame implements IGUI {
 
-		JLabel titulo = new JLabel("MODULO PROVEEDOR", SwingConstants.CENTER);
-		titulo.setFont(new Font("Cambria", Font.BOLD, 24));
-		add(titulo, BorderLayout.NORTH);
+	private static final long serialVersionUID = 1L;
 
-		JPanel panelCentral = new JPanel(new GridLayout(1, 2, 10, 10));
-
-		// Panel_Izquierda
-		JPanel panelIzquierda = new JPanel();
-		panelIzquierda.setLayout(new BoxLayout(panelIzquierda, BoxLayout.Y_AXIS));
-
-		panelIzquierda.add(Box.createVerticalStrut(10));
-		panelIzquierda.add(new VBuscarProveedor());
-		panelIzquierda.add(Box.createVerticalStrut(10));
-		panelIzquierda.add(new VVerPorProducto());
-		panelIzquierda.add(Box.createVerticalStrut(10));
-		panelIzquierda.add(new VMostrarProveedor());
-		panelIzquierda.add(Box.createVerticalStrut(10));
-		panelIzquierda.add(new VModificarProveedor());
-		panelIzquierda.add(Box.createVerticalStrut(10));
-
-		// Panel_Derecha
-		JPanel panelDerecha = new JPanel();
-		panelDerecha.setLayout(new BoxLayout(panelDerecha, BoxLayout.Y_AXIS));
-
-		panelDerecha.add(Box.createVerticalStrut(10));
-		panelDerecha.add(new VBajaProveedor());
-		panelDerecha.add(Box.createVerticalStrut(10));
-		panelDerecha.add(new VVincularProveedor());
-		panelDerecha.add(Box.createVerticalStrut(10));
-		panelDerecha.add(new VAltaProveedor());
-		panelDerecha.add(Box.createVerticalStrut(10));
-
-		panelCentral.add(panelIzquierda);
-		panelCentral.add(panelDerecha);
-		add(panelCentral, BorderLayout.CENTER);
-
-		// Boton_Volver
-
-		JButton btnVolver = new JButton("Volver");
-		btnVolver.setBackground(new Color(30, 200, 100));
-		btnVolver.addActionListener(e -> {
-			CardLayout cl = (CardLayout) this.getParent().getLayout();
-			cl.show(this.getParent(), "Menu");
-		});
-
-		add(btnVolver, BorderLayout.SOUTH);
+	public GUIProveedor() {
+		super("[PROVEEDOR]");
+		initGUI();
 	}
-	
+
+	private void initGUI() {
+		JPanel mainPanel = new JPanel();
+		this.setContentPane(mainPanel);
+		this.setPreferredSize(new Dimension(800, 300));
+
+		JPanel controlPanel = new JPanel();
+		mainPanel.add(controlPanel);
+		rellenaControlPanel(controlPanel);
+
+		JPanel volverPanel = new JPanel();
+		mainPanel.add(volverPanel, BorderLayout.PAGE_END);
+		rellenarVolverPanel(volverPanel);
+
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		pack();
+		setLocationRelativeTo(null);
+	}
+
+	private void rellenarVolverPanel(JPanel volverPanel) {
+		JButton volver = new JButton("VOLVER A VISTA PRINCIPAL");
+		volver.addActionListener((e) -> {
+			Controlador.getInstancia().accion(new Context(Evento.VISTA_PRINCIPAL, null));
+			this.dispose();
+		});
+		volverPanel.add(volver, BorderLayout.SOUTH);
+	}
+
+	private void rellenaControlPanel(JPanel controlPanel) {
+		controlPanel.setLayout(new BorderLayout());
+
+		JPanel panelNorte = new JPanel();
+		JPanel panelSur = new JPanel();
+
+		// ----- Botones principales -----
+
+		JButton alta = new JButton("ALTA PROVEEDOR");
+		alta.addActionListener((e) -> {
+			Controlador.getInstancia().accion(new Context(Evento.VALTA_PROVEEDOR, null));
+			this.dispose();
+		});
+		panelNorte.add(alta);
+
+		JButton baja = new JButton("BAJA PROVEEDOR");
+		baja.addActionListener((e) -> {
+			Controlador.getInstancia().accion(new Context(Evento.VBAJA_PROVEEDOR, null));
+			this.dispose();
+		});
+		panelNorte.add(baja);
+
+		JButton modificar = new JButton("MODIFICAR PROVEEDOR");
+		modificar.addActionListener((e) -> {
+			Controlador.getInstancia().accion(new Context(Evento.VMODIFICAR_PROVEEDOR, null));
+			this.dispose();
+		});
+		panelNorte.add(modificar);
+
+		JButton buscar = new JButton("BUSCAR PROVEEDOR");
+		buscar.addActionListener((e) -> {
+			Controlador.getInstancia().accion(new Context(Evento.VBUSCAR_PROVEEDOR, null));
+			this.dispose();
+		});
+		panelNorte.add(buscar);
+
+		JButton listarTodos = new JButton("LISTAR TODOS LOS PROVEEDORES");
+		listarTodos.addActionListener((e) -> {
+			Controlador.getInstancia().accion(new Context(Evento.VMOSTRAR_TODOS_PROVEEDORES, null));
+			this.dispose();
+		});
+		panelNorte.add(listarTodos);
+
+		JButton listarPorProducto = new JButton("LISTAR PROVEEDORES POR PRODUCTO");
+		listarPorProducto.addActionListener((e) -> {
+			Controlador.getInstancia().accion(new Context(Evento.VMOSTRAR_PROVEEDORES_POR_PRODUCTO, null));
+			this.dispose();
+		});
+		panelNorte.add(listarPorProducto);
+
+		// ----- Vincular / Desvincular -----
+
+		JButton vincular = new JButton("VINCULAR PRODUCTO A PROVEEDOR");
+		vincular.addActionListener((e) -> {
+			Controlador.getInstancia().accion(new Context(Evento.VVINCULAR_PRODUCTO_PROVEEDOR, null));
+			this.dispose();
+		});
+		panelSur.add(vincular);
+
+		JButton desvincular = new JButton("DESVINCULAR PRODUCTO DE PROVEEDOR");
+		desvincular.addActionListener((e) -> {
+			Controlador.getInstancia().accion(new Context(Evento.VDESVINCULAR_PRODUCTO_PROVEEDOR, null));
+			this.dispose();
+		});
+		panelSur.add(desvincular);
+
+		controlPanel.add(panelNorte, BorderLayout.NORTH);
+		controlPanel.add(panelSur, BorderLayout.CENTER);
+	}
+
+	@Override
+	public void actualizar(Context context) {
+		setVisible(true);
+	}
+}
+	/*
 	@SuppressWarnings("unchecked")
 	@Override
 	public void actualizar(Context context) {
@@ -170,4 +234,4 @@ public class GUIProveedor extends JPanel implements IGUI {
 		JOptionPane.showMessageDialog(null, scrollPane, "Proveedores", JOptionPane.PLAIN_MESSAGE);
 
 	}
-}
+	*/

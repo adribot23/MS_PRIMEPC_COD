@@ -21,6 +21,7 @@ import negocio.Empleado.TEmpleadoParcial;
 import presentacion.Controller.Controlador;
 import presentacion.Controller.Command.Context;
 import presentacion.GUI.Evento;
+import presentacion.GUI.IGUI;
 
 /** 
 * <!-- begin-UML-doc -->
@@ -28,7 +29,7 @@ import presentacion.GUI.Evento;
 * @author adria
 * @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 */
-public class VModificarEmpleado extends JPanel {
+public class VModificarEmpleado extends JPanel implements IGUI {
 	/** 
 	* <!-- begin-UML-doc -->
 	* <!-- end-UML-doc -->
@@ -102,5 +103,11 @@ public class VModificarEmpleado extends JPanel {
 		add(lblHoras);
 		add(modificarHoras);
 		add(btnModificar);
+	}
+
+	@Override
+	public void actualizar(Context context) {
+		// TODO Auto-generated method stub
+		
 	}
 }

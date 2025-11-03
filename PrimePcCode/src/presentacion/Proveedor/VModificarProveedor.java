@@ -17,6 +17,7 @@ import negocio.Proveedor.TProveedor;
 import presentacion.Controller.Controlador;
 import presentacion.Controller.Command.Context;
 import presentacion.GUI.Evento;
+import presentacion.GUI.IGUI;
 
 /** 
 * <!-- begin-UML-doc -->
@@ -24,7 +25,7 @@ import presentacion.GUI.Evento;
 * @author adria
 * @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 */
-public class VModificarProveedor extends JPanel {
+public class VModificarProveedor extends JPanel implements IGUI {
 	/** 
 	* <!-- begin-UML-doc -->
 	* <!-- end-UML-doc -->
@@ -61,5 +62,11 @@ public class VModificarProveedor extends JPanel {
 		add(new JLabel("Nombre:"));
 		add(modNombre);
 		add(btnModificar);
+	}
+
+	@Override
+	public void actualizar(Context context) {
+		// TODO Auto-generated method stub
+		
 	}
 }

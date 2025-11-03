@@ -16,6 +16,7 @@ import javax.swing.JTextField;
 import presentacion.Controller.Controlador;
 import presentacion.Controller.Command.Context;
 import presentacion.GUI.Evento;
+import presentacion.GUI.IGUI;
 
 /** 
 * <!-- begin-UML-doc -->
@@ -23,7 +24,7 @@ import presentacion.GUI.Evento;
 * @author adria
 * @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 */
-public class VBuscarEmpleado extends JPanel {
+public class VBuscarEmpleado extends JPanel implements IGUI {
 	/** 
 	* <!-- begin-UML-doc -->
 	* <!-- end-UML-doc -->
@@ -56,6 +57,12 @@ public class VBuscarEmpleado extends JPanel {
 				JOptionPane.showMessageDialog(this, "ID debe ser un numero.");
 			}
 		});
+	}
+
+	@Override
+	public void actualizar(Context context) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

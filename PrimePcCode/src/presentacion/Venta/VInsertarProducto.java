@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 
 import presentacion.Controller.Controlador;
 import presentacion.Controller.Command.Context;
+import presentacion.GUI.IGUI;
 
 /** 
  * <!-- begin-UML-doc -->
@@ -14,7 +15,7 @@ import presentacion.Controller.Command.Context;
  * @author adria
  * @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
  */
-public class VInsertarProducto extends JPanel {
+public class VInsertarProducto extends JPanel implements IGUI{
 	/** 
 	* <!-- begin-UML-doc -->
 	* <!-- end-UML-doc -->
