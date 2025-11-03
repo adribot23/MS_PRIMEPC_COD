@@ -11,7 +11,7 @@ import integracion.Transaction.TManager;
 import integracion.Transaction.Transaction;
 import negocio.Proveedor.TProveedorProducto;
 
-public class DaoProveedorProductoImp implements DAOProveedorProducto {
+public class DAOProveedorProductoImp implements DAOProveedorProducto {
 	public int create(TProveedorProducto tProveedorProducto) {
 		int id = -1;
 		try {
