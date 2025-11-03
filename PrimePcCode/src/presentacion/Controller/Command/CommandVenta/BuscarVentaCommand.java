@@ -2,6 +2,7 @@ package presentacion.Controller.Command.CommandVenta;
 
 import negocio.FactoriaSA.SAAbstractFactory;
 import negocio.Venta.SAVenta;
+import negocio.Venta.TVentaTOA;
 import presentacion.Controller.Command.Command;
 import presentacion.Controller.Command.Context;
 import presentacion.GUI.Evento;
@@ -21,7 +22,8 @@ public class BuscarVentaCommand implements Command {
 
 		try {
 			SAVenta saVenta = SAAbstractFactory.getInstancia().generarSAVenta();
-			Object venta = saVenta.leerVenta((Integer) data);
+			int idVenta = (Integer) data;
+			TVentaTOA venta = saVenta.leerVenta(idVenta);
 
 			if (venta != null) {
 				return new Context(Evento.RES_BUSCAR_VENTA_OK, venta);

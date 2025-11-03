@@ -1,7 +1,10 @@
 package presentacion.Controller.Command.CommandVenta;
 
+import java.util.Set;
+
 import negocio.FactoriaSA.SAAbstractFactory;
 import negocio.Venta.SAVenta;
+import negocio.Venta.TVenta;
 import presentacion.Controller.Command.Command;
 import presentacion.Controller.Command.Context;
 import presentacion.GUI.Evento;
@@ -12,7 +15,7 @@ public class MostrarVentasCommand implements Command {
 	public Context execute(Object data) {
 		try {
 			SAVenta saVenta = SAAbstractFactory.getInstancia().generarSAVenta();
-			Object listado = saVenta.leerTodasVentas();
+			Set<TVenta> listado = saVenta.leerTodasVentas();
 
 			if (listado != null) {
 				return new Context(Evento.RES_MOSTRAR_TODAS_VENTAS_OK, listado);
