@@ -31,7 +31,10 @@ public class VBajaEmpleado extends JFrame implements IGUI {
 	* <!-- end-UML-doc -->
 	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	*/
-	private Controlador actrl;
+	public VBajaEmpleado() {
+		super("Baja Empleado");
+		initGUI();
+	}
 
 	/** 
 	* <!-- begin-UML-doc -->
