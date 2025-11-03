@@ -2,6 +2,7 @@
 package integracion.Transaction;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class TransactionMySQL implements Transaction {
@@ -11,8 +12,7 @@ public class TransactionMySQL implements Transaction {
 	public void start() {
 		try {
 			
-			//CUANDO TENGAMOS LA CONFIGURACION DE LA BD DESCOMENTAR
-			//this.connection = DriverManager.getConnection(ConfgBD.URL, ConfgBD.USER, ConfgBD.PASSWORD);
+			this.connection = DriverManager.getConnection("jdbc:h2:./bd/IS2PrimePC", "sa", "");
 			this.connection.setAutoCommit(false);
 		} catch (SQLException e) {
 			e.printStackTrace();

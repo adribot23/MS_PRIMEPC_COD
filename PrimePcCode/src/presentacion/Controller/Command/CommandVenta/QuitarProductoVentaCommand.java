@@ -34,8 +34,7 @@ public class QuitarProductoVentaCommand implements Command {
 			if (resultado > 0) {
 				return new Context(Evento.RES_QUITAR_PRODUCTO_VENTA_OK, carrito);
 			} else {
-				return new Context(Evento.RES_QUITAR_PRODUCTO_VENTA_KO,
-						"No se pudo eliminar el producto de la venta.");
+				return new Context(Evento.RES_QUITAR_PRODUCTO_VENTA_KO, "No se pudo eliminar el producto de la venta.");
 			}
 		} catch (Exception ex) {
 			return new Context(Evento.RES_QUITAR_PRODUCTO_VENTA_KO, ex.getMessage());

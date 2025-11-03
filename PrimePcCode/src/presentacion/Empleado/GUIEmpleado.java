@@ -64,7 +64,8 @@ public class GUIEmpleado extends JFrame implements IGUI {
 		// Fila 2
 		botonesPanel.add(crearBotonVerde("BUSCAR EMPLEADO", Evento.VBUSCAR_EMPLEADO));
 		botonesPanel.add(crearBotonVerde("LISTAR TODOS LOS EMPLEADOS", Evento.VMOSTRAR_TODOS_EMPLEADOS));
-		
+		botonesPanel
+				.add(crearBotonVerde("IMPORTE TOTAL DEL EMPLEADO QUE MAS HA VENDIDO", Evento.VCALCULAR_MAS_VENDIDO));
 
 		mainPanel.add(botonesPanel, BorderLayout.CENTER);
 
@@ -130,72 +131,42 @@ public class GUIEmpleado extends JFrame implements IGUI {
 
 }
 /*
-	@SuppressWarnings("unchecked")
-	@Override
-	public void actualizar(Context context) {
-		Evento evento = context.getEvento();
-		Object datos = context.getDatos();
-		switch (evento) {
-		case RES_ALTA_EMPLEADO_OK:
-			JOptionPane.showMessageDialog(null, "Empleado dado de alta con ID: " + datos);
-			break;
-		case RES_ALTA_EMPLEADO_KO:
-			JOptionPane.showMessageDialog(null, "Error al dar de alta el empleado.");
-			break;
-		case RES_BAJA_EMPLEADO_OK:
-			JOptionPane.showMessageDialog(null, "Empleado dado de baja correctamente.");
-			break;
-		case RES_BAJA_EMPLEADO_KO:
-			JOptionPane.showMessageDialog(null, "Error al dar de baja el empleado.");
-			break;
-		case RES_MODIFICAR_EMPLEADO_OK:
-			JOptionPane.showMessageDialog(null, "Empleado modificado correctamente.");
-			break;
-		case RES_MODIFICAR_EMPLEADO_KO:
-			JOptionPane.showMessageDialog(null, "Error al modificar el empleado. Verifica los datos.");
-			break;
-		case RES_BUSCAR_EMPLEADO_OK:
-			JOptionPane.showMessageDialog(null, (TEmpleado) datos);
-			break;
-		case RES_BUSCAR_EMPLEADO_KO:
-			JOptionPane.showMessageDialog(null, "Empleado no encontrado.");
-			break;
-		case RES_MOSTRAR_TODOS_EMPLEADOS_OK:
-			mostrarTabla((Collection<TEmpleado>) datos);
-			break;
-		case RES_MOSTRAR_TODOS_EMPLEADOS_KO:
-			JOptionPane.showMessageDialog(null, "No hay empleados para mostrar.");
-			break;
-		default:
-			JOptionPane.showMessageDialog(null, "Evento no reconocido: " + evento);
-		}
-	}
-
-	private void mostrarTabla(Collection<TEmpleado> empleados) {
-		String[] columnNames = { "ID", "Nombre", "DNI", "Telefono", "Tipo", "Horas", "Activo" };
-		Object[][] data = new Object[empleados.size()][columnNames.length];
-		int i = 0;
-		for (TEmpleado emp : empleados) {
-			data[i][0] = emp.getId();
-			data[i][1] = emp.getNombre();
-			data[i][2] = emp.getDni();
-			data[i][3] = emp.getTelefono();
-			data[i][6] = emp.getActivo();
-			if (emp instanceof TEmpleadoCompleto) {
-				data[i][4] = "Completo";
-				data[i][5] = ((TEmpleadoCompleto) emp).getHorasExtra() + " extra";
-			} else {
-				data[i][4] = "Parcial";
-				data[i][5] = ((TEmpleadoParcial) emp).getHorasSemanales() + " semanales";
-			}
-			i++;
-		}
-		JTable table = new JTable(data, columnNames);
-		table.setFillsViewportHeight(true);
-		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-		table.setEnabled(false);
-		JScrollPane scrollPane = new JScrollPane(table);
-		JOptionPane.showMessageDialog(null, scrollPane, "Empleados", JOptionPane.PLAIN_MESSAGE);
-	}
-}
-*/
+ * @SuppressWarnings("unchecked")
+ * 
+ * @Override public void actualizar(Context context) { Evento evento =
+ * context.getEvento(); Object datos = context.getDatos(); switch (evento) {
+ * case RES_ALTA_EMPLEADO_OK: JOptionPane.showMessageDialog(null,
+ * "Empleado dado de alta con ID: " + datos); break; case RES_ALTA_EMPLEADO_KO:
+ * JOptionPane.showMessageDialog(null, "Error al dar de alta el empleado.");
+ * break; case RES_BAJA_EMPLEADO_OK: JOptionPane.showMessageDialog(null,
+ * "Empleado dado de baja correctamente."); break; case RES_BAJA_EMPLEADO_KO:
+ * JOptionPane.showMessageDialog(null, "Error al dar de baja el empleado.");
+ * break; case RES_MODIFICAR_EMPLEADO_OK: JOptionPane.showMessageDialog(null,
+ * "Empleado modificado correctamente."); break; case RES_MODIFICAR_EMPLEADO_KO:
+ * JOptionPane.showMessageDialog(null,
+ * "Error al modificar el empleado. Verifica los datos."); break; case
+ * RES_BUSCAR_EMPLEADO_OK: JOptionPane.showMessageDialog(null, (TEmpleado)
+ * datos); break; case RES_BUSCAR_EMPLEADO_KO:
+ * JOptionPane.showMessageDialog(null, "Empleado no encontrado."); break; case
+ * RES_MOSTRAR_TODOS_EMPLEADOS_OK: mostrarTabla((Collection<TEmpleado>) datos);
+ * break; case RES_MOSTRAR_TODOS_EMPLEADOS_KO:
+ * JOptionPane.showMessageDialog(null, "No hay empleados para mostrar."); break;
+ * default: JOptionPane.showMessageDialog(null, "Evento no reconocido: " +
+ * evento); } }
+ * 
+ * private void mostrarTabla(Collection<TEmpleado> empleados) { String[]
+ * columnNames = { "ID", "Nombre", "DNI", "Telefono", "Tipo", "Horas", "Activo"
+ * }; Object[][] data = new Object[empleados.size()][columnNames.length]; int i
+ * = 0; for (TEmpleado emp : empleados) { data[i][0] = emp.getId(); data[i][1] =
+ * emp.getNombre(); data[i][2] = emp.getDni(); data[i][3] = emp.getTelefono();
+ * data[i][6] = emp.getActivo(); if (emp instanceof TEmpleadoCompleto) {
+ * data[i][4] = "Completo"; data[i][5] = ((TEmpleadoCompleto)
+ * emp).getHorasExtra() + " extra"; } else { data[i][4] = "Parcial"; data[i][5]
+ * = ((TEmpleadoParcial) emp).getHorasSemanales() + " semanales"; } i++; }
+ * JTable table = new JTable(data, columnNames);
+ * table.setFillsViewportHeight(true);
+ * table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF); table.setEnabled(false);
+ * JScrollPane scrollPane = new JScrollPane(table);
+ * JOptionPane.showMessageDialog(null, scrollPane, "Empleados",
+ * JOptionPane.PLAIN_MESSAGE); } }
+ */

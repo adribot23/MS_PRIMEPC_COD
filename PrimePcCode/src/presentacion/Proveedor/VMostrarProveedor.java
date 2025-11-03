@@ -21,12 +21,13 @@ import presentacion.Controller.Command.Context;
 import presentacion.GUI.Evento;
 import presentacion.GUI.IGUI;
 
-/** 
-* <!-- begin-UML-doc -->
-* <!-- end-UML-doc -->
-* @author adria
-* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-*/
+/**
+ * <!-- begin-UML-doc --> <!-- end-UML-doc -->
+ * 
+ * @author adria
+ * @generated "UML a Java
+ *            (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+ */
 public class VMostrarProveedor extends JFrame implements IGUI {
 
 	private static final long serialVersionUID = 1L;
@@ -34,11 +35,12 @@ public class VMostrarProveedor extends JFrame implements IGUI {
 	private JButton btnMostrar, btnVolver;
 
 	public VMostrarProveedor() {
+		super("Mostrar Proveedores");
 		initGUI();
 	}
 
 	private void initGUI() {
-		setTitle("Mostrar Proveedores");
+
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(400, 200);
 		setLocationRelativeTo(null);
@@ -48,9 +50,8 @@ public class VMostrarProveedor extends JFrame implements IGUI {
 
 		btnMostrar = new JButton("Mostrar todos los proveedores");
 		btnMostrar.setBackground(new Color(200, 255, 200));
-		btnMostrar.addActionListener(e ->
-			Controlador.getInstancia().accion(new Context(Evento.MOSTRAR_TODOS_PROVEEDORES, null))
-		);
+		btnMostrar.addActionListener(
+				e -> Controlador.getInstancia().accion(new Context(Evento.MOSTRAR_TODOS_PROVEEDORES, null)));
 
 		btnVolver = new JButton("Volver");
 		btnVolver.setBackground(new Color(255, 220, 220));
@@ -64,8 +65,10 @@ public class VMostrarProveedor extends JFrame implements IGUI {
 
 		add(panel);
 
-		pack();
-		setVisible(true);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setSize(300, 150);
+		setLocationRelativeTo(null);
+
 	}
 
 	@Override
@@ -73,23 +76,23 @@ public class VMostrarProveedor extends JFrame implements IGUI {
 		Evento evento = context.getEvento();
 		Object datos = context.getDatos();
 		switch (evento) {
-			case VMOSTRAR_TODOS_PROVEEDORES:
-				setVisible(true);
-				break;
+		case VMOSTRAR_TODOS_PROVEEDORES:
+			setVisible(true);
+			break;
 
-			case RES_MOSTRAR_TODOS_PROVEEDORES_OK:
-				mostrarTabla((Set<TProveedor> )datos);
-				break;
+		case RES_MOSTRAR_TODOS_PROVEEDORES_OK:
+			mostrarTabla((Set<TProveedor>) datos);
+			break;
 
-			case RES_MOSTRAR_TODOS_PROVEEDORES_KO:
-				JOptionPane.showMessageDialog(this, "No se pudieron mostrar los proveedores.");
-				break;
+		case RES_MOSTRAR_TODOS_PROVEEDORES_KO:
+			JOptionPane.showMessageDialog(this, "No se pudieron mostrar los proveedores.");
+			break;
 
-			default:
-				break;
+		default:
+			break;
 		}
 	}
-	
+
 	private void mostrarTabla(Set<TProveedor> proveedores) {
 
 		String[] columnNames = { "ID", "Nombre", "Activo" };

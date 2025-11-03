@@ -1,4 +1,5 @@
 package negocio.Producto;
+
 import java.util.HashSet;
 import java.util.Set;
 import integracion.FactoriaDAO.DAOAbstractFactory;
@@ -79,32 +80,31 @@ public class SAProductoImp implements SAProducto {
 
 		DAOProveedorProducto daoProveedorProducto = DAOAbstractFactory.getInstancia().generaDAOProveedorProducto();
 		DAOProducto daoProducto = DAOAbstractFactory.getInstancia().generaDAOProducto();
-		
+
 		Set<TProveedorProducto> vinculaciones;
-		Set<TProducto> productos  = new HashSet<>();
-		
+		Set<TProducto> productos = new HashSet<>();
+
 		TManager tManager = TManager.getInstance();
 		tManager.createTransaction();
 		Transaction transaction = tManager.getTransaction();
 
 		if (transaction != null) {
 			transaction.start();
-			
+
 			vinculaciones = daoProveedorProducto.read_all_by_proveedor(idProveedor);
 
-			if(vinculaciones != null) {
-				for(TProveedorProducto v : vinculaciones) {
+			if (vinculaciones != null) {
+				for (TProveedorProducto v : vinculaciones) {
 					productos.add(daoProducto.read(v.getIdProducto()));
 				}
 				transaction.commit();
 			} else {
 				transaction.rollback();
 			}
-			
-		}
-		
-		return productos;
 
+		}
+
+		return productos;
 
 	}
 
@@ -112,34 +112,34 @@ public class SAProductoImp implements SAProducto {
 	public int bajaProducto(int id) {
 		int exito = -1;
 
-	    TManager tManager = TManager.getInstance();
-	    tManager.createTransaction();
-	    Transaction transaction = tManager.getTransaction();
+		TManager tManager = TManager.getInstance();
+		tManager.createTransaction();
+		Transaction transaction = tManager.getTransaction();
 
-	    if (transaction != null) {
-	        transaction.start();
+		if (transaction != null) {
+			transaction.start();
 
-	        DAOProducto daoProducto = DAOAbstractFactory.getInstancia().generaDAOProducto();
-	        TProducto tpr = daoProducto.read(id);
+			DAOProducto daoProducto = DAOAbstractFactory.getInstancia().generaDAOProducto();
+			TProducto tpr = daoProducto.read(id);
 
-	        if (tpr == null) {
-	            transaction.rollback();
-	        } else {
-	            if (tpr.getActivo() == 1) {
-	                tpr.setActivo(0);
-	                exito = daoProducto.update(tpr);
-	                if (exito > 0)
-	                    transaction.commit();
-	                else {
-	                    transaction.rollback();
-	                }
-	            } else {
-	                transaction.rollback();
-	            }
-	        }
-	    }
+			if (tpr == null) {
+				transaction.rollback();
+			} else {
+				if (tpr.getActivo() == 1) {
+					tpr.setActivo(0);
+					exito = daoProducto.update(tpr);
+					if (exito > 0)
+						transaction.commit();
+					else {
+						transaction.rollback();
+					}
+				} else {
+					transaction.rollback();
+				}
+			}
+		}
 
-	    return exito;
+		return exito;
 	}
 
 	@Override
@@ -171,7 +171,6 @@ public class SAProductoImp implements SAProducto {
 
 		// TODO Apéndice de método generado automáticamente
 
-
 	}
 
 	@Override
@@ -198,7 +197,6 @@ public class SAProductoImp implements SAProducto {
 
 		// TODO Apéndice de método generado automáticamente
 
-
 	}
 
 	@Override
@@ -223,10 +221,6 @@ public class SAProductoImp implements SAProducto {
 		}
 		return tpr;
 
-		
-
 	}
 
-	
-	
 }

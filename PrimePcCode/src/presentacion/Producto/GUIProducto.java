@@ -22,12 +22,13 @@ import presentacion.Controller.Command.Context;
 import presentacion.GUI.Evento;
 import presentacion.GUI.IGUI;
 
-/** 
-* <!-- begin-UML-doc -->
-* <!-- end-UML-doc -->
-* @author adria
-* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-*/
+/**
+ * <!-- begin-UML-doc --> <!-- end-UML-doc -->
+ * 
+ * @author adria
+ * @generated "UML a Java
+ *            (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+ */
 public class GUIProducto extends JFrame implements IGUI {
 
 	private static final long serialVersionUID = 1L;
@@ -67,7 +68,6 @@ public class GUIProducto extends JFrame implements IGUI {
 
 		// Fila 3
 		botonesPanel.add(crearBotonVerde("LISTAR PRODUCTOS POR ALMACÉN", Evento.VMOSTRAR_PRODUCTOS_POR_ALMACEN));
-	
 
 		mainPanel.add(botonesPanel, BorderLayout.CENTER);
 
@@ -132,86 +132,54 @@ public class GUIProducto extends JFrame implements IGUI {
 	}
 }
 /*
-	@SuppressWarnings("unchecked")
-	@Override
-	public void actualizar(Context context) {
-		Evento evento = context.getEvento();
-		Object datos = context.getDatos();
-		switch (evento) {
-		case RES_ALTA_PRODUCTO_OK:
-			JOptionPane.showMessageDialog(null, "Producto dado de alta con ID: " + datos);
-			break;
-		case RES_ALTA_PRODUCTO_KO:
-			JOptionPane.showMessageDialog(null, "Error al dar de alta el producto.");
-			break;
-		case RES_BAJA_PRODUCTO_OK:
-			JOptionPane.showMessageDialog(null, "Producto dado de baja correctamente.");
-			break;
-		case RES_BAJA_PRODUCTO_KO:
-			JOptionPane.showMessageDialog(null, "Error al dar de baja el producto.");
-			break;
-		case RES_MODIFICAR_PRODUCTO_OK:
-			JOptionPane.showMessageDialog(null, "Producto modificado correctamente.");
-			break;
-		case RES_MODIFICAR_PRODUCTO_KO:
-			JOptionPane.showMessageDialog(null, "Error al modificar producto.");
-			break;
-		case RES_BUSCAR_PRODUCTO_OK:
-			JOptionPane.showMessageDialog(null, datos.toString());
-			break;
-		case RES_BUSCAR_PRODUCTO_KO:
-			JOptionPane.showMessageDialog(null, "Producto no encontrado.");
-			break;
-		case RES_MOSTRAR_TODOS_PRODUCTOS_OK:
-			mostrarTabla((Collection<TProducto>) datos);
-			break;
-		case RES_MOSTRAR_TODOS_PRODUCTOS_KO:
-			JOptionPane.showMessageDialog(null, "No hay productos para mostrar.");
-			break;
-		case RES_MOSTRAR_PRODUCTOS_POR_PROVEEDOR_OK:
-			mostrarTabla((Collection<TProducto>) datos);
-			break;
-		case RES_MOSTRAR_PRODUCTOS_POR_PROVEEDOR_KO:
-			JOptionPane.showMessageDialog(null, "No se encontraron productos para ese proveedor.");
-			break;
-		case RES_MOSTRAR_PRODUCTOS_POR_ALMACEN_OK:
-			mostrarTabla((Collection<TProducto>) datos);
-			break;
-		case RES_MOSTRAR_PRODUCTOS_POR_ALMACEN_KO:
-			JOptionPane.showMessageDialog(null, "No se encontraron productos para ese almacen.");
-			break;
-		default:
-			JOptionPane.showMessageDialog(null, "Evento no reconocido: " + evento);
-		}
-	}
-
-	private void mostrarTabla(Collection<TProducto> productos) {
-
-		String[] columnNames = { "ID", "Marca", "Modelo", "Precio", "Unidades", "ID Proveedor", "ID Almacen",
-				"Activo" };
-		Object[][] tableData = new Object[productos.size()][columnNames.length];
-
-		int i = 0;
-		for (TProducto p : productos) {
-			tableData[i][0] = p.getId();
-			tableData[i][1] = p.getMarca();
-			tableData[i][2] = p.getModelo();
-			tableData[i][3] = p.getPrecio();
-			tableData[i][4] = p.getUnidades();
-			tableData[i][5] = (p.getIdProveedor() == -1) ? "NINGUNO" : p.getIdProveedor();
-			tableData[i][6] = (p.getIdAlmacen() == -1) ? "NINGUNO" : p.getIdAlmacen();
-			tableData[i][7] = p.getActivo();
-			i++;
-		}
-
-		JTable table = new JTable(tableData, columnNames);
-		table.setFillsViewportHeight(true);
-		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-		table.setEnabled(false);
-
-		JScrollPane scrollPane = new JScrollPane(table);
-
-		JOptionPane.showMessageDialog(null, scrollPane, "Productos", JOptionPane.PLAIN_MESSAGE);
-	}
-}
-*/
+ * @SuppressWarnings("unchecked")
+ * 
+ * @Override public void actualizar(Context context) { Evento evento =
+ * context.getEvento(); Object datos = context.getDatos(); switch (evento) {
+ * case RES_ALTA_PRODUCTO_OK: JOptionPane.showMessageDialog(null,
+ * "Producto dado de alta con ID: " + datos); break; case RES_ALTA_PRODUCTO_KO:
+ * JOptionPane.showMessageDialog(null, "Error al dar de alta el producto.");
+ * break; case RES_BAJA_PRODUCTO_OK: JOptionPane.showMessageDialog(null,
+ * "Producto dado de baja correctamente."); break; case RES_BAJA_PRODUCTO_KO:
+ * JOptionPane.showMessageDialog(null, "Error al dar de baja el producto.");
+ * break; case RES_MODIFICAR_PRODUCTO_OK: JOptionPane.showMessageDialog(null,
+ * "Producto modificado correctamente."); break; case RES_MODIFICAR_PRODUCTO_KO:
+ * JOptionPane.showMessageDialog(null, "Error al modificar producto."); break;
+ * case RES_BUSCAR_PRODUCTO_OK: JOptionPane.showMessageDialog(null,
+ * datos.toString()); break; case RES_BUSCAR_PRODUCTO_KO:
+ * JOptionPane.showMessageDialog(null, "Producto no encontrado."); break; case
+ * RES_MOSTRAR_TODOS_PRODUCTOS_OK: mostrarTabla((Collection<TProducto>) datos);
+ * break; case RES_MOSTRAR_TODOS_PRODUCTOS_KO:
+ * JOptionPane.showMessageDialog(null, "No hay productos para mostrar."); break;
+ * case RES_MOSTRAR_PRODUCTOS_POR_PROVEEDOR_OK:
+ * mostrarTabla((Collection<TProducto>) datos); break; case
+ * RES_MOSTRAR_PRODUCTOS_POR_PROVEEDOR_KO: JOptionPane.showMessageDialog(null,
+ * "No se encontraron productos para ese proveedor."); break; case
+ * RES_MOSTRAR_PRODUCTOS_POR_ALMACEN_OK: mostrarTabla((Collection<TProducto>)
+ * datos); break; case RES_MOSTRAR_PRODUCTOS_POR_ALMACEN_KO:
+ * JOptionPane.showMessageDialog(null,
+ * "No se encontraron productos para ese almacen."); break; default:
+ * JOptionPane.showMessageDialog(null, "Evento no reconocido: " + evento); } }
+ * 
+ * private void mostrarTabla(Collection<TProducto> productos) {
+ * 
+ * String[] columnNames = { "ID", "Marca", "Modelo", "Precio", "Unidades",
+ * "ID Proveedor", "ID Almacen", "Activo" }; Object[][] tableData = new
+ * Object[productos.size()][columnNames.length];
+ * 
+ * int i = 0; for (TProducto p : productos) { tableData[i][0] = p.getId();
+ * tableData[i][1] = p.getMarca(); tableData[i][2] = p.getModelo();
+ * tableData[i][3] = p.getPrecio(); tableData[i][4] = p.getUnidades();
+ * tableData[i][5] = (p.getIdProveedor() == -1) ? "NINGUNO" :
+ * p.getIdProveedor(); tableData[i][6] = (p.getIdAlmacen() == -1) ? "NINGUNO" :
+ * p.getIdAlmacen(); tableData[i][7] = p.getActivo(); i++; }
+ * 
+ * JTable table = new JTable(tableData, columnNames);
+ * table.setFillsViewportHeight(true);
+ * table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF); table.setEnabled(false);
+ * 
+ * JScrollPane scrollPane = new JScrollPane(table);
+ * 
+ * JOptionPane.showMessageDialog(null, scrollPane, "Productos",
+ * JOptionPane.PLAIN_MESSAGE); } }
+ */

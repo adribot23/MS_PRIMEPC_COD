@@ -26,8 +26,8 @@ public class VListarVenta extends JFrame implements IGUI {
 	public VListarVenta() {
 		super("Listado de ventas");
 
-		tableModel = new DefaultTableModel(new Object[] { "Id", "Empleado", "Cliente", "Método de pago", "Precio",
-				"Descuento", "Activo" }, 0) {
+		tableModel = new DefaultTableModel(
+				new Object[] { "Id", "Empleado", "Cliente", "Método de pago", "Precio", "Descuento", "Activo" }, 0) {
 			private static final long serialVersionUID = 1L;
 
 			@Override

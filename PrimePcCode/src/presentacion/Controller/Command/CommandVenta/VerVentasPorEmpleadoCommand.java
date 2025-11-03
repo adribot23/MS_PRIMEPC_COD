@@ -2,7 +2,6 @@ package presentacion.Controller.Command.CommandVenta;
 
 import java.util.Set;
 
-
 import negocio.FactoriaSA.SAAbstractFactory;
 import negocio.Venta.SAVenta;
 import negocio.Venta.TVenta;

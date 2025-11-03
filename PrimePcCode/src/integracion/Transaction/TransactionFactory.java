@@ -1,7 +1,6 @@
 
 package integracion.Transaction;
 
-
 public abstract class TransactionFactory {
 
 	private static TransactionFactory instance;

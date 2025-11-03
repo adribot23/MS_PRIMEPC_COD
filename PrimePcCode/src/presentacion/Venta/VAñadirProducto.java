@@ -141,8 +141,7 @@ public class VAñadirProducto extends JFrame implements IGUI {
 			dispose();
 			break;
 		case RES_INSERTAR_PRODUCTO_VENTA_KO:
-			String mensaje = datos instanceof String ? (String) datos
-					: "No se pudo añadir el producto indicado.";
+			String mensaje = datos instanceof String ? (String) datos : "No se pudo añadir el producto indicado.";
 			JOptionPane.showMessageDialog(this, mensaje, "Error al añadir producto", JOptionPane.ERROR_MESSAGE);
 			setVisible(true);
 			break;

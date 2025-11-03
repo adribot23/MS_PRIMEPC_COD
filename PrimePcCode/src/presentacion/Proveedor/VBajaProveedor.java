@@ -19,12 +19,13 @@ import presentacion.Controller.Command.Context;
 import presentacion.GUI.Evento;
 import presentacion.GUI.IGUI;
 
-/** 
-* <!-- begin-UML-doc -->
-* <!-- end-UML-doc -->
-* @author adria
-* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-*/
+/**
+ * <!-- begin-UML-doc --> <!-- end-UML-doc -->
+ * 
+ * @author adria
+ * @generated "UML a Java
+ *            (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+ */
 public class VBajaProveedor extends JFrame implements IGUI {
 
 	private static final long serialVersionUID = 1L;
@@ -37,7 +38,7 @@ public class VBajaProveedor extends JFrame implements IGUI {
 
 	private void initGUI() {
 		// Configuración de la ventana
-		setLayout(new GridLayout(4, 1, 100, 10));
+		setLayout(new GridLayout(2, 2, 10, 10));
 		getRootPane().setBorder(BorderFactory.createTitledBorder("Baja Proveedor"));
 
 		// Componentes
@@ -52,19 +53,19 @@ public class VBajaProveedor extends JFrame implements IGUI {
 				int id = Integer.parseInt(bajaId.getText().trim());
 				Controlador.getInstancia().accion(new Context(Evento.BAJA_PROVEEDOR, id));
 				bajaId.setText("");
+
 			} catch (NumberFormatException ex) {
 				JOptionPane.showMessageDialog(this, "ID inválido. Introduce un número entero.");
 			}
 		});
 
-		
 		JButton btnVolver = new JButton("Volver");
 		btnVolver.setBackground(new Color(255, 220, 220));
 		btnVolver.addActionListener(e -> {
 			Controlador.getInstancia().accion(new Context(Evento.PROVEEDOR, null));
 			this.dispose();
 		});
-		
+
 		// Añadir componentes
 		add(lblId);
 		add(bajaId);
@@ -72,9 +73,9 @@ public class VBajaProveedor extends JFrame implements IGUI {
 		add(btnVolver);
 		// Configuración final de la ventana
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setSize(350, 200);
+		setSize(350, 150);
 		setLocationRelativeTo(null);
-		setVisible(true);
+
 	}
 
 	@Override

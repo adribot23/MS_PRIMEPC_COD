@@ -12,7 +12,7 @@ import integracion.Producto.DAOProductoImp;
 import integracion.Proveedor.DAOProveedor;
 import integracion.Proveedor.DAOProveedorImp;
 import integracion.Proveedor.DAOProveedorProducto;
-import integracion.Proveedor.DaoProveedorProductoImp;
+import integracion.Proveedor.DAOProveedorProductoImp;
 import integracion.Venta.DAOLineaVenta;
 import integracion.Venta.DAOLineaVentaImp;
 import integracion.Venta.DAOVenta;
@@ -57,6 +57,6 @@ public class DAOAbstractFactoryImp extends DAOAbstractFactory {
 
 	@Override
 	public DAOProveedorProducto generaDAOProveedorProducto() {
-		return new DaoProveedorProductoImp();
+		return new DAOProveedorProductoImp();
 	}
 }

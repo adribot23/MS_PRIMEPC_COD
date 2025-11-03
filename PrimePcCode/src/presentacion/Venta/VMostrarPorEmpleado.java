@@ -21,7 +21,6 @@ import presentacion.Controller.Controlador;
 import presentacion.GUI.Evento;
 import presentacion.GUI.IGUI;
 
-
 public class VMostrarPorEmpleado extends JFrame implements IGUI {
 
 	private static final long serialVersionUID = 1L;
@@ -33,8 +32,7 @@ public class VMostrarPorEmpleado extends JFrame implements IGUI {
 		super("Ventas por empleado");
 
 		tableModel = new DefaultTableModel(
-				new Object[] { "Id venta", "Empleado", "Cliente", "Método pago", "Precio", "Descuento", "Activa" },
-				0) {
+				new Object[] { "Id venta", "Empleado", "Cliente", "Método pago", "Precio", "Descuento", "Activa" }, 0) {
 			private static final long serialVersionUID = 1L;
 
 			@Override

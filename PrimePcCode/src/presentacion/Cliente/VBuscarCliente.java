@@ -8,6 +8,7 @@ import java.awt.GridLayout;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -24,23 +25,21 @@ import presentacion.GUI.IGUI;
 * @author adria
 * @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 */
-public class VBuscarCliente extends JPanel implements IGUI {
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	*/
-	private Controlador ctrl;
-
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @return
-	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	*/
+public class VBuscarCliente extends JFrame implements IGUI {
+	
+	public VBuscarCliente() {
+		super("Buscar Cliente");
+		initGUI();
+		setSize(400, 200);
+	    setLocationRelativeTo(null);
+	    setVisible(true);
+	}
+	
 	public void initGUI() {
-		setLayout(new GridLayout(3, 1));
-		setBorder(BorderFactory.createTitledBorder("Buscar cliente"));
+		setLayout(new GridLayout(4, 1, 10, 10));
+		getRootPane().setBorder(BorderFactory.createTitledBorder("Buscar Cliente"));
+
+		//setBorder(BorderFactory.createTitledBorder("Buscar cliente"));
 
 		JTextField txtBuscarID = new JTextField();
 		JButton btnBuscar = new JButton("Buscar");
@@ -48,6 +47,15 @@ public class VBuscarCliente extends JPanel implements IGUI {
 		add(new JLabel("ID cliente:"));
 		add(txtBuscarID);
 		add(btnBuscar);
+		
+		JButton btnVolver = new JButton("Volver");
+		btnVolver.setBackground(new Color(255, 220, 220));
+		btnVolver.addActionListener(e -> {
+			Controlador.getInstancia().accion(new Context(Evento.CLIENTE, null));
+			dispose();
+		});
+		
+		add(btnVolver);
 
 		btnBuscar.addActionListener(e -> {
 			try {
@@ -61,7 +69,22 @@ public class VBuscarCliente extends JPanel implements IGUI {
 
 	@Override
 	public void actualizar(Context context) {
-		// TODO Auto-generated method stub
-		
+		Evento evento = context.getEvento();
+		Object datos = context.getDatos();
+		switch (evento) {
+
+		case VBUSCAR_CLIENTE:
+			this.setVisible(true);
+			break;
+		case RES_BUSCAR_CLIENTE_OK:
+			JOptionPane.showMessageDialog(null, "Cliente encontrado con ID: " + datos);
+			break;
+		case RES_BUSCAR_CLIENTE_KO:
+			JOptionPane.showMessageDialog(null, "Error al buscar el cliente.");
+			break;
+		default:
+			JOptionPane.showMessageDialog(null, "Evento no reconocido: " + evento);
+			
+		}
 	}
 }
