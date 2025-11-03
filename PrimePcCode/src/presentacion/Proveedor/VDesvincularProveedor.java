@@ -1,6 +1,3 @@
-/**
- * 
- */
 package presentacion.Proveedor;
 
 import java.awt.Color;
@@ -19,26 +16,20 @@ import presentacion.Controller.Command.Context;
 import presentacion.GUI.Evento;
 import presentacion.GUI.IGUI;
 
-/** 
-* <!-- begin-UML-doc -->
-* <!-- end-UML-doc -->
-* @author adria
-* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-*/
-public class VVincularProveedor extends JFrame implements IGUI {
+public class VDesvincularProveedor extends JFrame implements IGUI {
 
 	private static final long serialVersionUID = 1L;
 	private JTextField txtProducto;
 	private JTextField txtProveedor;
 
-	public VVincularProveedor() {
-		super("Vincular Producto con Proveedor");
+	public VDesvincularProveedor() {
+		super("Desvincular Producto de Proveedor");
 		initGUI();
 	}
 
 	private void initGUI() {
 		setLayout(new GridLayout(3, 1, 10, 10));
-		getRootPane().setBorder(BorderFactory.createTitledBorder("Vincular Producto"));
+		getRootPane().setBorder(BorderFactory.createTitledBorder("Desvincular Producto"));
 
 		JLabel lblProducto = new JLabel("ID Producto:");
 		txtProducto = new JTextField();
@@ -46,9 +37,9 @@ public class VVincularProveedor extends JFrame implements IGUI {
 		JLabel lblProveedor = new JLabel("ID Proveedor:");
 		txtProveedor = new JTextField();
 
-		JButton btnVincular = new JButton("Vincular");
-		btnVincular.setBackground(new Color(200, 255, 200));
-		btnVincular.addActionListener(e -> {
+		JButton btnDesvincular = new JButton("Desvincular");
+		btnDesvincular.setBackground(new Color(255, 255, 200));
+		btnDesvincular.addActionListener(e -> {
 			try {
 				int idProducto = Integer.parseInt(txtProducto.getText().trim());
 				int idProveedor = Integer.parseInt(txtProveedor.getText().trim());
@@ -56,7 +47,7 @@ public class VVincularProveedor extends JFrame implements IGUI {
 				tp.setIdProducto(idProducto);
 				tp.setIdProveedor(idProveedor);
 
-				Controlador.getInstancia().accion(new Context(Evento.VINCULAR_PRODUCTO_PROVEEDOR, tp));
+				Controlador.getInstancia().accion(new Context(Evento.DESVINCULAR_PRODUCTO_PROVEEDOR, tp));
 				txtProducto.setText("");
 				txtProveedor.setText("");
 			} catch (NumberFormatException ex) {
@@ -75,7 +66,7 @@ public class VVincularProveedor extends JFrame implements IGUI {
 		add(txtProducto);
 		add(lblProveedor);
 		add(txtProveedor);
-		add(btnVincular);
+		add(btnDesvincular);
 		add(btnVolver);
 
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -87,18 +78,17 @@ public class VVincularProveedor extends JFrame implements IGUI {
 	@Override
 	public void actualizar(Context context) {
 		switch (context.getEvento()) {
-		case VVINCULAR_PRODUCTO_PROVEEDOR:
+		case VDESVINCULAR_PRODUCTO_PROVEEDOR:
 			this.setVisible(true);
 			break;
-		case RES_VINCULAR_PRODUCTO_PROVEEDOR_OK:
-			JOptionPane.showMessageDialog(this, "Producto vinculado correctamente al proveedor.");
+		case RES_DESVINCULAR_PRODUCTO_PROVEEDOR_OK:
+			JOptionPane.showMessageDialog(this, "Producto desvinculado correctamente del proveedor.");
 			break;
-		case RES_VINCULAR_PRODUCTO_PROVEEDOR_KO:
-			JOptionPane.showMessageDialog(this, "Error al vincular el producto con el proveedor.");
+		case RES_DESVINCULAR_PRODUCTO_PROVEEDOR_KO:
+			JOptionPane.showMessageDialog(this, "Error al desvincular el producto del proveedor.");
 			break;
 		default:
 			break;
 		}
 	}
-
 }

@@ -32,6 +32,7 @@ import presentacion.Proveedor.GUIProveedor;
 import presentacion.Proveedor.VAltaProveedor;
 import presentacion.Proveedor.VBajaProveedor;
 import presentacion.Proveedor.VBuscarProveedor;
+import presentacion.Proveedor.VDesvincularProveedor;
 import presentacion.Proveedor.VModificarProveedor;
 import presentacion.Proveedor.VMostrarProveedor;
 import presentacion.Proveedor.VProveedorConMasUnidadesDeProductoVendidas;
@@ -49,6 +50,7 @@ import presentacion.Venta.VListarVenta;
 import presentacion.Venta.VModificarVenta;
 import presentacion.Venta.VMostrarPorCliente;
 import presentacion.Venta.VMostrarPorEmpleado;
+import primePcMain.MainWindow;
 
 
 public class GUIAbstractFactoryImp extends GUIAbstractFactory{
@@ -59,7 +61,11 @@ public class GUIAbstractFactoryImp extends GUIAbstractFactory{
 		
 	        switch (evento) {
 
-	            /* ==============================
+	        case VISTA_PRINCIPAL:
+	        	return new MainWindow();
+	        	
+	            /* ======================
+	             * ========
 	             * ======== CLIENTE ============
 	             * ============================== */
 	            case CLIENTE:
@@ -165,16 +171,22 @@ public class GUIAbstractFactoryImp extends GUIAbstractFactory{
 	            case VVINCULAR_PRODUCTO_PROVEEDOR:
 	            case RES_VINCULAR_PRODUCTO_PROVEEDOR_OK:
 	            case RES_VINCULAR_PRODUCTO_PROVEEDOR_KO:
+	           
+	                return new VVincularProveedor();
+
 	            case VDESVINCULAR_PRODUCTO_PROVEEDOR:
 	            case RES_DESVINCULAR_PRODUCTO_PROVEEDOR_OK:
 	            case RES_DESVINCULAR_PRODUCTO_PROVEEDOR_KO:
-	                return new VVincularProveedor();
-
+	                return new VDesvincularProveedor()  ; 
+	                
 	            case VPROVEEDOR_CON_MAS_UDS:
 	            case PROVEEDOR_CON_MAS_UDS:
 	            case RES_PROVEEDOR_CON_MAS_UDS_OK:
 	            case RES_PROVEEDOR_CON_MAS_UDS_KO:
 	                return new VProveedorConMasUnidadesDeProductoVendidas();
+	                
+	                
+	           
 	            
 	            /* ==============================
 	             * ======== PRODUCTO ============

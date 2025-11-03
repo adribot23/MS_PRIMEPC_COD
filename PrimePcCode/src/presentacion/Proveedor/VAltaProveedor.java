@@ -38,7 +38,7 @@ public class VAltaProveedor extends JFrame implements IGUI {
 
 	public void initGUI() {
 		// Configuración de la ventana
-		setLayout(new GridLayout(3, 1, 10, 10));
+		setLayout(new GridLayout(4, 1, 10, 10));
 		getRootPane().setBorder(BorderFactory.createTitledBorder("Alta Proveedor"));
 
 		// Componentes
@@ -57,14 +57,20 @@ public class VAltaProveedor extends JFrame implements IGUI {
 			}
 		});
 
+		JButton btnVolver = new JButton("Volver");
+		btnVolver.setBackground(new Color(255, 220, 220));
+		btnVolver.addActionListener(e -> {
+			Controlador.getInstancia().accion(new Context(Evento.PROVEEDOR, null));
+			this.dispose();
+		});
 		// Añadir componentes
 		add(lblNombre);
 		add(altaNombre);
 		add(btnAlta);
-
+		add(btnVolver);
 		// Configuración final de la ventana
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setSize(300, 150);
+		setSize(350, 200);
 		setLocationRelativeTo(null);
 		setVisible(true);
 	}
