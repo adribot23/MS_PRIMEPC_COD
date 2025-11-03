@@ -1,19 +1,20 @@
 
-package Negocio.FactoriaSA;
 
-import Negocio.Almacen.SAAlmacen;
-import Negocio.Cliente.SACliente;
-import Negocio.Empleado.SAEmpleado;
-import Negocio.Venta.SAVenta;
-import Negocio.Producto.SAProducto;
-import Negocio.Proveedor.SAProveedor;
+package negocio.FactoriaSA;
+
+import negocio.Almacen.SAAlmacen;
+import negocio.Cliente.SACliente;
+import negocio.Empleado.SAEmpleado;
+import negocio.Producto.SAProducto;
+import negocio.Proveedor.SAProveedor;
+import negocio.Venta.SAVenta;
 
 
 public abstract class SAAbstractFactory {
 
 	private static SAAbstractFactory instancia;
 
-	public static SAAbstractFactory getInstancia() {
+	public static synchronized SAAbstractFactory getInstancia() {
 		if (instancia == null) {
 			instancia = new SAAbstractFactoryImp();
 		}

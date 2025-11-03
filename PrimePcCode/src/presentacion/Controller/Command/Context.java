@@ -1,14 +1,13 @@
 
-package Presentacion.Controller.Command;
+package presentacion.Controller.Command;
 
-import Presentacion.GUI.Evento;
+import presentacion.GUI.Evento;
 
 public class Context {
 
 	private Object datos;
 
 	private Evento evento;
-
 
 	public Context(Evento e, Object d) {
 		evento = e;

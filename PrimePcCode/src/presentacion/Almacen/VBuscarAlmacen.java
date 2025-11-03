@@ -8,28 +8,37 @@ import java.awt.GridLayout;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import presentacion.GUI.IGUI;
-import presentacion.factoria.Evento;
 import presentacion.Controller.Controlador;
 import presentacion.Controller.Command.Context;
+import presentacion.GUI.IGUI;
+import presentacion.GUI.Evento;
 
-public class VBuscarAlmacen extends JPanel {
-
-	private static final long serialVersionUID = 1L;
+/** 
+* <!-- begin-UML-doc -->
+* <!-- end-UML-doc -->
+* @author adria
+* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+*/
+public class VBuscarAlmacen extends JPanel implements IGUI {
+	/** 
+	* <!-- begin-UML-doc -->
+	* <!-- end-UML-doc -->
+	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	*/
 	private Controlador ctrl;
 
-	public VBuscarAlmacen() {
-		ctrl = Controlador.getInstancia();
-		initGUI();
-	}
-
-	private void initGUI() {
+	/** 
+	* <!-- begin-UML-doc -->
+	* <!-- end-UML-doc -->
+	* @return
+	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	*/
+	public void initGUI() {
 		setBorder(BorderFactory.createTitledBorder("Buscar Almacen"));
 		setLayout(new GridLayout(3, 1, 5, 5));
 
@@ -43,11 +52,17 @@ public class VBuscarAlmacen extends JPanel {
 		buscarButton.addActionListener(e -> {
 			try {
 				int id = Integer.parseInt(idField.getText().trim());
-				ctrl.accion(new Context(Evento.BUSCAR_ALMACEN, id));
+				Controlador.getInstancia().accion(new Context(Evento.BUSCAR_ALMACEN, id));
 			} catch (NumberFormatException ex) {
 				JOptionPane.showMessageDialog(this, "El ID debe ser un numero.");
 			}
 		});
 	}
 
+	public void actualizar(Context context) {
+		// begin-user-code
+		// TODO Ap�ndice de m�todo generado autom�ticamente
+
+		// end-user-code
+	}
 }

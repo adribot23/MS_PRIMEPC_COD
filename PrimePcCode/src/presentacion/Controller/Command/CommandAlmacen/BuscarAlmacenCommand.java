@@ -1,10 +1,13 @@
 /**
  * 
  */
-package Presentacion.Controller.Command.CommandAlmacen;
+package presentacion.Controller.Command.CommandAlmacen;
 
-import Presentacion.Controller.Command.Command;
-import Presentacion.Controller.Command.Context;
+import negocio.Almacen.TAlmacen;
+import negocio.FactoriaSA.SAAbstractFactory;
+import presentacion.Controller.Command.Command;
+import presentacion.Controller.Command.Context;
+import presentacion.GUI.Evento;
 
 /** 
 * <!-- begin-UML-doc -->
@@ -14,9 +17,12 @@ import Presentacion.Controller.Command.Context;
 */
 public class BuscarAlmacenCommand implements Command {
 	public Context execute(Object data) {
-		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
-		return null;
-		// end-user-code
+		int idAlmacen = (int) data;
+		TAlmacen almacen = SAAbstractFactory.getInstancia().generarSAAlmacen().leerAlmacen(idAlmacen);
+
+		if (almacen != null)
+			return new Context(Evento.RES_BUSCAR_ALMACEN_OK, almacen);
+		else
+			return new Context(Evento.RES_BUSCAR_ALMACEN_KO, null);
 	}
 }

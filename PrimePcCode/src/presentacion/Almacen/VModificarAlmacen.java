@@ -3,6 +3,9 @@
  */
 package presentacion.Almacen;
 
+import java.awt.Color;
+import java.awt.GridLayout;
+
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -11,27 +14,33 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import presentacion.GUI.IGUI;
-import presentacion.factoria.Evento;
 import negocio.Almacen.TAlmacen;
-
-import java.awt.Color;
-import java.awt.GridLayout;
-
 import presentacion.Controller.Controlador;
 import presentacion.Controller.Command.Context;
+import presentacion.GUI.IGUI;
+import presentacion.GUI.Evento;
 
-public class VModificarAlmacen extends JPanel {
-
-	private static final long serialVersionUID = 1L;
+/** 
+* <!-- begin-UML-doc -->
+* <!-- end-UML-doc -->
+* @author adria
+* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+*/
+public class VModificarAlmacen extends JPanel implements IGUI {
+	/** 
+	* <!-- begin-UML-doc -->
+	* <!-- end-UML-doc -->
+	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	*/
 	private Controlador ctrl;
 
-	public VModificarAlmacen() {
-		ctrl = Controlador.getInstancia();
-		initGUI();
-	}
-
-	private void initGUI() {
+	/** 
+	* <!-- begin-UML-doc -->
+	* <!-- end-UML-doc -->
+	* @return
+	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	*/
+	public void initGUI() {
 		setBorder(BorderFactory.createTitledBorder("Modificar Almacen"));
 		setLayout(new GridLayout(7, 1, 5, 5));
 
@@ -56,11 +65,17 @@ public class VModificarAlmacen extends JPanel {
 				String nombre = nombreField.getText();
 				int capacidad = Integer.parseInt(capacidadField.getText());
 				TAlmacen almacen = new TAlmacen(id, nombre, capacidad, -1);
-				ctrl.accion(new Context(Evento.MODIFICAR_ALMACEN, almacen));
+				Controlador.getInstancia().accion(new Context(Evento.MODIFICAR_ALMACEN, almacen));
 			} catch (NumberFormatException ex) {
 				JOptionPane.showMessageDialog(this, "Campos numericos inválidos.");
 			}
 		});
 	}
 
+	public void actualizar(Context context) {
+		// begin-user-code
+		// TODO Ap�ndice de m�todo generado autom�ticamente
+
+		// end-user-code
+	}
 }

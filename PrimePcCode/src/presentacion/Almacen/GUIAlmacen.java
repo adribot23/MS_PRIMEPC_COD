@@ -20,21 +20,29 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
 
+import negocio.Almacen.TAlmacen;
 import presentacion.Controller.Command.Context;
 import presentacion.GUI.IGUI;
 import presentacion.GUI.Evento;
-import negocio.Almacen.TAlmacen;
+import presentacion.Almacen.VAltaAlmacen;
+import presentacion.Almacen.VBajaAlmacen;
+import presentacion.Almacen.VBuscarAlmacen;
+import presentacion.Almacen.VModificarAlmacen;
+import presentacion.Almacen.VMostrarAlmacen;
 
-
-
+/** 
+* <!-- begin-UML-doc -->
+* <!-- end-UML-doc -->
+* @author adria
+* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+*/
 public class GUIAlmacen extends JPanel implements IGUI {
-
-	private static final long serialVersionUID = 1L;
-
-	public GUIAlmacen() {
-		initGui();
-	}
-
+	/** 
+	* <!-- begin-UML-doc -->
+	* <!-- end-UML-doc -->
+	* @return
+	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	*/
 	private void initGui() {
 		setLayout(new BorderLayout());
 
@@ -89,34 +97,34 @@ public class GUIAlmacen extends JPanel implements IGUI {
 		Evento evento = context.getEvento();
 		Object datos = context.getDatos();
 		switch (evento) {
-		case ALTA_ALMACEN_OK:
+		case RES_ALTA_ALMACEN_OK:
 			JOptionPane.showMessageDialog(null, "Almacen dado de alta con ID: " + (int) datos);
 			break;
-		case ALTA_ALMACEN_KO:
+		case RES_ALTA_ALMACEN_KO:
 			JOptionPane.showMessageDialog(null, "Error al dar de alta el almacen.");
 			break;
-		case BAJA_ALMACEN_OK:
+		case RES_BAJA_ALMACEN_OK:
 			JOptionPane.showMessageDialog(null, "Almacen dado de baja correctamente.");
 			break;
-		case BAJA_ALMACEN_KO:
+		case RES_BAJA_ALMACEN_KO:
 			JOptionPane.showMessageDialog(null, "Error al dar de baja el almacen.");
 			break;
-		case MODIFICAR_ALMACEN_OK:
+		case RES_MODIFICAR_ALMACEN_OK:
 			JOptionPane.showMessageDialog(null, "Almacen modificado correctamente.");
 			break;
-		case MODIFICAR_ALMACEN_KO:
+		case RES_MODIFICAR_ALMACEN_KO:
 			JOptionPane.showMessageDialog(null, "Error al modificar el almacen. Verifica los datos.");
 			break;
-		case BUSCAR_ALMACEN_OK:
+		case RES_BUSCAR_ALMACEN_OK:
 			JOptionPane.showMessageDialog(null, (TAlmacen) datos);
 			break;
-		case BUSCAR_ALMACEN_KO:
+		case RES_BUSCAR_ALMACEN_KO:
 			JOptionPane.showMessageDialog(null, "Almacen no encontrado.");
 			break;
-		case MOSTRAR_TODOS_ALMACENES_OK:
+		case RES_MOSTRAR_TODOS_ALMACENES_OK:
 			mostrarTablaAlmacenes((Collection<TAlmacen>) datos);
 			break;
-		case MOSTRAR_TODOS_ALMACENES_KO:
+		case RES_MOSTRAR_TODOS_ALMACENES_KO:
 			JOptionPane.showMessageDialog(null, "No hay almacenes para mostrar.");
 			break;
 		default:
@@ -143,7 +151,4 @@ public class GUIAlmacen extends JPanel implements IGUI {
 		JScrollPane scrollPane = new JScrollPane(table);
 		JOptionPane.showMessageDialog(null, scrollPane, "Almacenes", JOptionPane.PLAIN_MESSAGE);
 	}
-
-
-
 }
