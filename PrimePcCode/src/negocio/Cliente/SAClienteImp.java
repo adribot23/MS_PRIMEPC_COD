@@ -21,23 +21,20 @@ import integracion.Transaction.Transaction;
 */
 public class SAClienteImp implements SACliente {
 	
-	private DAOCliente daoCliente;
-	
 	public SAClienteImp() {
 
-		this.daoCliente = DAOAbstractFactory.getInstancia().generaDAOCliente();
 	}
 	
 	@Override
 	public int altaCliente(TCliente tCliente) {
 		int id = -1;
-
+	
 		TManager m = TManager.getInstance();
 		Transaction tr = m.createTransaction();
 
 		if (tr != null) {
 			tr.start();
-			daoCliente = DAOAbstractFactory.getInstancia().generaDAOCliente();
+			DAOCliente daoCliente = DAOAbstractFactory.getInstancia().generaDAOCliente();
 
 			if (tCliente != null) {
 				TCliente leido = daoCliente.read_by_DNI(tCliente.getDni());
@@ -78,7 +75,7 @@ public class SAClienteImp implements SACliente {
 
 		if (tr != null) {
 			tr.start();
-			daoCliente = DAOAbstractFactory.getInstancia().generaDAOCliente();
+			DAOCliente daoCliente = DAOAbstractFactory.getInstancia().generaDAOCliente();
 
 			if (id >= 0) {
 				TCliente existente = daoCliente.read(id);
@@ -109,7 +106,7 @@ public class SAClienteImp implements SACliente {
 
 		if (tr != null) {
 			tr.start();
-			daoCliente = DAOAbstractFactory.getInstancia().generaDAOCliente();
+			DAOCliente daoCliente = DAOAbstractFactory.getInstancia().generaDAOCliente();
 
 			if (cliente != null) {
 				TCliente existente = daoCliente.read(cliente.getId());
@@ -143,7 +140,7 @@ public class SAClienteImp implements SACliente {
 
 		if (tr != null) {
 			tr.start();
-			daoCliente = DAOAbstractFactory.getInstancia().generaDAOCliente();
+			DAOCliente daoCliente = DAOAbstractFactory.getInstancia().generaDAOCliente();
 
 			if (id >= 0) {
 				TCliente t = daoCliente.read(id);
@@ -170,7 +167,7 @@ public class SAClienteImp implements SACliente {
 
 		if (tr != null) {
 			tr.start();
-			daoCliente = DAOAbstractFactory.getInstancia().generaDAOCliente();
+			DAOCliente daoCliente = DAOAbstractFactory.getInstancia().generaDAOCliente();
 
 			clientes = new HashSet<>(daoCliente.read_all());
 			if (clientes != null) {

@@ -207,30 +207,6 @@ public class DAOProductoImp implements DAOProducto {
 		return tpr;
 	}
 
-	@Override
-	public Set<TProducto> read_by_proveedor(int idProveedor) {
-		Set<TProducto> tpr = new LinkedHashSet<>();
-		try {
-			TManager tManager = TManager.getInstance();
-			Transaction t = tManager.getTransaction();
-			Connection c = (Connection) t.getResource();
-			PreparedStatement s = c.prepareStatement("SELECT * FROM PRODUCTO WHERE ID_PROVEEDOR = ? FOR UPDATE");
-			s.setInt(1,idProveedor);
-			ResultSet r = s.executeQuery();
-			while (r.next()) {
-				TProducto tp = null;
-				tp = cargarProducto(r);
-				if (tp != null)
-					tpr.add(tp);
-			}
-			s.close();
-			r.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-		return tpr;
-	}
 	
 	private TProducto cargarProducto(ResultSet rs) throws SQLException {
 		TProducto producto = new TProducto();

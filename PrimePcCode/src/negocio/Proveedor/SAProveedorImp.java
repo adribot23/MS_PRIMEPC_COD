@@ -3,6 +3,7 @@
  */
 package negocio.Proveedor;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import integracion.FactoriaDAO.DAOAbstractFactory;
@@ -53,17 +54,24 @@ public class SAProveedorImp implements SAProveedor {
 	@Override
 	public Set<TProveedor> leerProveedorPorProducto(int idProducto) {
 		DAOProveedorProducto daoProveedorProducto = DAOAbstractFactory.getInstancia().generaDAOProveedorProducto();
-		Set<TProveedor> proveedores = null;
+		DAOProveedor daoProveedor = DAOAbstractFactory.getInstancia().generaDAOProveedor();
+		Set<TProveedorProducto> vinculaciones;
+		Set<TProveedor> proveedores = new HashSet<>();
 
 		TManager m = TManager.getInstance();
 		Transaction tr = m.createTransaction();
 
 		if (tr != null) {
 			tr.start();
-			proveedores = daoProveedorProducto.read_all_by_proveedor(idProducto);
-			if (proveedores != null)
+			vinculaciones = daoProveedorProducto.read_all_by_proveedor(idProducto);
+			
+			if (vinculaciones != null) {
+				for (TProveedorProducto v : vinculaciones) {
+					proveedores.add(daoProveedor.read(v.getIdProveedor()));
+				}
+
 				tr.commit();
-			else
+			} else
 				tr.rollback();
 		}
 
@@ -81,8 +89,8 @@ public class SAProveedorImp implements SAProveedor {
 			DAOProveedor daoProveedor = DAOAbstractFactory.getInstancia().generaDAOProveedor();
 			DAOProducto daoProducto = DAOAbstractFactory.getInstancia().generaDAOProducto();
 
-			TProveedor proveedor = daoProveedor.read(vinculacion.get_id_proveedor());
-			TProducto producto = daoProducto.read(vinculacion.get_id_producto());
+			TProveedor proveedor = daoProveedor.read(vinculacion.getIdProveedor());
+			TProducto producto = daoProducto.read(vinculacion.getIdProducto());
 
 			if (proveedor != null && producto != null && proveedor.getActivo() == 1 && producto.getActivo() == 1) {
 
@@ -91,10 +99,10 @@ public class SAProveedorImp implements SAProveedor {
 
 				TProveedorProducto vinculacion2 = new TProveedorProducto();
 
-				vinculacion2 = daoProveedorProducto.read(vinculacion.get_id_proveedor(), vinculacion.get_id_producto());
+				vinculacion2 = daoProveedorProducto.read(vinculacion.getIdProveedor(), vinculacion.getIdProducto());
 				if (vinculacion2 == null) {
-					vinculacion2 = daoProveedorProducto.create(vinculacion);
-					if (vinculacion2 != null) {
+					int res = daoProveedorProducto.create(vinculacion);
+					if (res != -1) {
 						tr.commit();
 						exito = 1;
 					} else
@@ -118,11 +126,11 @@ public class SAProveedorImp implements SAProveedor {
 			tr.start();
 
 			DAOProveedorProducto daoProveedorProducto = DAOAbstractFactory.getInstancia().generaDAOProveedorProducto();
-			TProveedorProducto vinculacion2 = daoProveedorProducto.read(vinculacion.get_id_proveedor(),
-					vinculacion.get_id_producto());
+			TProveedorProducto vinculacion2 = daoProveedorProducto.read(vinculacion.getIdProveedor(),
+					vinculacion.getIdProducto());
 
 			if (vinculacion2 != null) {
-				exito = daoProveedorProducto.delete(vinculacion.get_id_proveedor(), vinculacion.get_id_producto());
+				exito = daoProveedorProducto.delete(vinculacion.getIdProveedor(), vinculacion.getIdProducto());
 				if (exito != -1)
 					tr.commit();
 				else
