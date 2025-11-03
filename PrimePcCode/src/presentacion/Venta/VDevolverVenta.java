@@ -118,8 +118,7 @@ public class VDevolverVenta extends JFrame implements IGUI {
 			dispose();
 			break;
 		case RES_DEVOLVER_VENTA_KO:
-			String mensaje = datos instanceof String ? (String) datos
-					: "No se pudo realizar la devolución indicada.";
+			String mensaje = datos instanceof String ? (String) datos : "No se pudo realizar la devolución indicada.";
 			JOptionPane.showMessageDialog(this, mensaje, "Error al devolver producto", JOptionPane.ERROR_MESSAGE);
 			setVisible(true);
 			break;

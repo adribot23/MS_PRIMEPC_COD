@@ -18,25 +18,23 @@ import negocio.Empleado.TEmpleadoCompleto;
 import negocio.Empleado.TEmpleadoParcial;
 import negocio.Producto.TProducto;
 
-/** 
-* <!-- begin-UML-doc -->
-* <!-- end-UML-doc -->
-* @author adria
-* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-*/
-public class DAOEmpleadoImp implements  DAOEmpleado {
+/**
+ * <!-- begin-UML-doc --> <!-- end-UML-doc -->
+ * 
+ * @author adria
+ * @generated "UML a Java
+ *            (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+ */
+public class DAOEmpleadoImp implements DAOEmpleado {
 
 	@Override
 	public int create(TEmpleado empleado) {
 		int id = empleado.getId();
-		
-		
+
 		TManager tManager = TManager.getInstance();
 		Transaction t = tManager.getTransaction();
 		Connection c = (Connection) t.getResource();
 		try {
-		
-			
 
 			String insertSql = "INSERT INTO EMPLEADO (DNI, NOMBRE, TELEFONO, ACTIVO) VALUES (?, ?, ?, 1)";
 			PreparedStatement insertPs = c.prepareStatement(insertSql, Statement.RETURN_GENERATED_KEYS);
@@ -94,7 +92,7 @@ public class DAOEmpleadoImp implements  DAOEmpleado {
 	@Override
 	public void calculateMostSold(TProducto tProducto) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -105,7 +103,6 @@ public class DAOEmpleadoImp implements  DAOEmpleado {
 		Connection c = (Connection) t.getResource();
 
 		try {
-			
 
 			String sqlEmpleado = "SELECT ID, DNI, NOMBRE, TELEFONO, ACTIVO FROM EMPLEADO WHERE ID = ? FOR UPDATE";
 			PreparedStatement psEmpleado = c.prepareStatement(sqlEmpleado);
@@ -167,7 +164,6 @@ public class DAOEmpleadoImp implements  DAOEmpleado {
 		Transaction t = tManager.getTransaction();
 		Connection c = (Connection) t.getResource();
 
-
 		try {
 
 			String updateSql = "UPDATE EMPLEADO SET DNI = ?, NOMBRE = ?, TELEFONO = ?, ACTIVO = 1 WHERE ID = ?";
@@ -176,7 +172,7 @@ public class DAOEmpleadoImp implements  DAOEmpleado {
 			updatePs.setString(2, empleado.getNombre());
 			updatePs.setString(3, empleado.getTelefono());
 			updatePs.setInt(4, empleado.getId());
-			filasAfectadas  += updatePs.executeUpdate();
+			filasAfectadas += updatePs.executeUpdate();
 			updatePs.close();
 
 			if (empleado instanceof TEmpleadoCompleto) {
@@ -370,5 +366,5 @@ public class DAOEmpleadoImp implements  DAOEmpleado {
 		return empleados;
 
 	}
-	
+
 }

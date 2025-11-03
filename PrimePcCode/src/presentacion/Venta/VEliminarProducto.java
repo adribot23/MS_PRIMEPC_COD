@@ -16,7 +16,6 @@ import presentacion.Controller.Controlador;
 import presentacion.GUI.Evento;
 import presentacion.GUI.IGUI;
 
-
 public class VEliminarProducto extends JFrame implements IGUI {
 
 	private static final long serialVersionUID = 1L;
@@ -119,8 +118,7 @@ public class VEliminarProducto extends JFrame implements IGUI {
 			dispose();
 			break;
 		case RES_QUITAR_PRODUCTO_VENTA_KO:
-			String mensaje = datos instanceof String ? (String) datos
-					: "No se pudo eliminar el producto indicado.";
+			String mensaje = datos instanceof String ? (String) datos : "No se pudo eliminar el producto indicado.";
 			JOptionPane.showMessageDialog(this, mensaje, "Error al eliminar producto", JOptionPane.ERROR_MESSAGE);
 			setVisible(true);
 			break;

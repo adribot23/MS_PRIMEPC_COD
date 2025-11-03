@@ -19,33 +19,36 @@ import presentacion.Controller.Command.Context;
 import presentacion.GUI.Evento;
 import presentacion.GUI.IGUI;
 
-/** 
-* <!-- begin-UML-doc -->
-* <!-- end-UML-doc -->
-* @author adria
-* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-*/
+/**
+ * <!-- begin-UML-doc --> <!-- end-UML-doc -->
+ * 
+ * @author adria
+ * @generated "UML a Java
+ *            (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+ */
 public class VBuscarEmpleado extends JFrame implements IGUI {
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	*/
-
+	/**
+	 * <!-- begin-UML-doc --> <!-- end-UML-doc -->
+	 * 
+	 * @generated "UML a Java
+	 *            (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	 */
 
 	public VBuscarEmpleado() {
 		super("Buscar Empleado");
 		initGUI();
 	}
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @return
-	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	*/
+
+	/**
+	 * <!-- begin-UML-doc --> <!-- end-UML-doc -->
+	 * 
+	 * @return
+	 * @generated "UML a Java
+	 *            (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	 */
 	public void initGUI() {
 		setLayout(new GridLayout(3, 1));
-		//setBorder(BorderFactory.createTitledBorder("Buscar empleado"));
+		// setBorder(BorderFactory.createTitledBorder("Buscar empleado"));
 
 		JTextField txtBuscarID = new JTextField();
 		JButton btnBuscar = new JButton("Buscar");
@@ -74,15 +77,15 @@ public class VBuscarEmpleado extends JFrame implements IGUI {
 			this.setVisible(true);
 			break;
 		case RES_BUSCAR_EMPLEADO_OK:
-			JOptionPane.showMessageDialog(null, "Empleado buscado con ID: " + datos);	//Esto tiene que eseñar esto?
+			JOptionPane.showMessageDialog(null, "Empleado buscado con ID: " + datos); // Esto tiene que eseñar esto?
 			break;
 		case RES_BUSCAR_EMPLEADO_KO:
 			JOptionPane.showMessageDialog(null, "Error al buscar el empleado.");
 			break;
 		default:
 			JOptionPane.showMessageDialog(null, "Evento no reconocido: " + evento);
-		
-	}
+
+		}
 	}
 
 }

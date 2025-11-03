@@ -12,23 +12,23 @@ import negocio.Cliente.TCliente;
 import integracion.Transaction.TManager;
 import integracion.Transaction.Transaction;
 
-
-/** 
-* <!-- begin-UML-doc -->
-* <!-- end-UML-doc -->
-* @author adria
-* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-*/
+/**
+ * <!-- begin-UML-doc --> <!-- end-UML-doc -->
+ * 
+ * @author adria
+ * @generated "UML a Java
+ *            (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+ */
 public class SAClienteImp implements SACliente {
-	
+
 	public SAClienteImp() {
 
 	}
-	
+
 	@Override
 	public int altaCliente(TCliente tCliente) {
 		int id = -1;
-	
+
 		TManager m = TManager.getInstance();
 		Transaction tr = m.createTransaction();
 
@@ -112,8 +112,8 @@ public class SAClienteImp implements SACliente {
 				TCliente existente = daoCliente.read(cliente.getId());
 
 				if (existente != null && existente.getActivo() == 1 && existente.getClass().equals(cliente.getClass())
-						&& (cliente.getDni().equals(existente.getDni()) 
-							|| daoCliente.read_by_DNI(cliente.getDni()) == null)) {
+						&& (cliente.getDni().equals(existente.getDni())
+								|| daoCliente.read_by_DNI(cliente.getDni()) == null)) {
 
 					res = daoCliente.update(cliente);
 					if (res != -1)

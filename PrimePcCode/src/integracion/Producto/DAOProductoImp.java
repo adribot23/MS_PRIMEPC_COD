@@ -20,7 +20,9 @@ public class DAOProductoImp implements DAOProducto {
 			TManager tManager = TManager.getInstance();
 			Transaction t = tManager.getTransaction();
 			Connection c = (Connection) t.getResource();
-			PreparedStatement s = c.prepareStatement("INSERT INTO PRODUCTO (PRECIO, MODELO, NUM_UNIDADES, MARCA, ID_ALMACEN, ID_PROVEEDOR, ACTIVO) VALUES (?, ?, ?, ?, -1, -1, 1)",Statement.RETURN_GENERATED_KEYS);
+			PreparedStatement s = c.prepareStatement(
+					"INSERT INTO PRODUCTO (PRECIO, MODELO, NUM_UNIDADES, MARCA, ID_ALMACEN, ID_PROVEEDOR, ACTIVO) VALUES (?, ?, ?, ?, -1, -1, 1)",
+					Statement.RETURN_GENERATED_KEYS);
 			s.setDouble(1, producto.getPrecio());
 			s.setString(2, producto.getModelo());
 			s.setInt(3, producto.getUnidades());
@@ -28,7 +30,7 @@ public class DAOProductoImp implements DAOProducto {
 			s.executeUpdate();
 
 			ResultSet r = s.getGeneratedKeys();
-			
+
 			if (r.next()) {
 				id = r.getInt(1);
 			}
@@ -70,8 +72,8 @@ public class DAOProductoImp implements DAOProducto {
 			TManager tManager = TManager.getInstance();
 			Transaction t = tManager.getTransaction();
 			Connection c = (Connection) t.getResource();
-			PreparedStatement s = c
-					.prepareStatement("UPDATE PRODUCTO SET PRECIO = ?, MODELO = ?, NUM_UNIDADES = ?, MARCA = ?,ID_ALMACEN=?, ID_PROVEEDOR=?, ACTIVO = 1 WHERE ID = ?");
+			PreparedStatement s = c.prepareStatement(
+					"UPDATE PRODUCTO SET PRECIO = ?, MODELO = ?, NUM_UNIDADES = ?, MARCA = ?,ID_ALMACEN=?, ID_PROVEEDOR=?, ACTIVO = 1 WHERE ID = ?");
 			s.setDouble(1, producto.getPrecio());
 			s.setString(2, producto.getModelo());
 			s.setInt(3, producto.getUnidades());
@@ -141,7 +143,8 @@ public class DAOProductoImp implements DAOProducto {
 			TManager tManager = TManager.getInstance();
 			Transaction t = tManager.getTransaction();
 			Connection c = (Connection) t.getResource();
-			PreparedStatement s = c.prepareStatement("SELECT * FROM PRODUCTO WHERE MODELO = ? AND MARCA = ? FOR UPDATE");
+			PreparedStatement s = c
+					.prepareStatement("SELECT * FROM PRODUCTO WHERE MODELO = ? AND MARCA = ? FOR UPDATE");
 			ResultSet r = s.executeQuery();
 			while (r.next()) {
 				TProducto tp = null;
@@ -190,7 +193,7 @@ public class DAOProductoImp implements DAOProducto {
 			Transaction t = tManager.getTransaction();
 			Connection c = (Connection) t.getResource();
 			PreparedStatement s = c.prepareStatement("SELECT * FROM PRODUCTO WHERE ID_ALMACEN = ? FOR UPDATE");
-			s.setInt(1,idAlmacen);
+			s.setInt(1, idAlmacen);
 			ResultSet r = s.executeQuery();
 			while (r.next()) {
 				TProducto tp = null;
@@ -207,7 +210,6 @@ public class DAOProductoImp implements DAOProducto {
 		return tpr;
 	}
 
-	
 	private TProducto cargarProducto(ResultSet rs) throws SQLException {
 		TProducto producto = new TProducto();
 		producto.setId(rs.getInt("ID"));
@@ -220,5 +222,5 @@ public class DAOProductoImp implements DAOProducto {
 		producto.setActivo(rs.getInt("ACTIVO"));
 		return producto;
 	}
-	
+
 }

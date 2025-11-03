@@ -8,7 +8,6 @@ import negocio.Producto.SAProducto;
 import negocio.Proveedor.SAProveedor;
 import negocio.Venta.SAVenta;
 
-
 public abstract class SAAbstractFactory {
 
 	private static SAAbstractFactory instancia;
@@ -20,12 +19,9 @@ public abstract class SAAbstractFactory {
 		return instancia;
 	}
 
-	
 	public abstract SAAlmacen generarSAAlmacen();
 
-	
 	public abstract SACliente generarSACliente();
-
 
 	public abstract SAEmpleado generarSAEmpleado();
 

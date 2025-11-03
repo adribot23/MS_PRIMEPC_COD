@@ -41,7 +41,7 @@ public class VVerPorProducto extends JFrame implements IGUI {
 
 	private void initGUI() {
 		// Configuración general
-		setLayout(new GridLayout(4, 1, 100, 10));
+		setLayout(new GridLayout(2, 2, 10, 10));
 		getRootPane().setBorder(BorderFactory.createTitledBorder("Mostrar proveedores que venden un producto"));
 
 		// Componentes
@@ -75,9 +75,9 @@ public class VVerPorProducto extends JFrame implements IGUI {
 
 		// Configuración final
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setSize(350, 200);
+		setSize(350, 150);
 		setLocationRelativeTo(null);
-		setVisible(true);
+
 	}
 
 	@Override
@@ -91,7 +91,7 @@ public class VVerPorProducto extends JFrame implements IGUI {
 			break;
 
 		case RES_MOSTRAR_PROVEEDORES_POR_PRODUCTO_OK:
-			mostrarTabla((Set<TProveedor>) datos) ;
+			mostrarTabla((Set<TProveedor>) datos);
 			break;
 
 		case RES_MOSTRAR_PROVEEDORES_POR_PRODUCTO_KO:
@@ -102,6 +102,7 @@ public class VVerPorProducto extends JFrame implements IGUI {
 			JOptionPane.showMessageDialog(null, "Evento no reconocido: " + evento);
 		}
 	}
+
 	private void mostrarTabla(Set<TProveedor> proveedores) {
 
 		String[] columnNames = { "ID", "Nombre", "Activo" };

@@ -9,12 +9,13 @@ import presentacion.Controller.Command.Command;
 import presentacion.Controller.Command.Context;
 import presentacion.GUI.Evento;
 
-/** 
-* <!-- begin-UML-doc -->
-* <!-- end-UML-doc -->
-* @author adria
-* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-*/
+/**
+ * <!-- begin-UML-doc --> <!-- end-UML-doc -->
+ * 
+ * @author adria
+ * @generated "UML a Java
+ *            (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+ */
 public class ModificarEmpleadoCommand implements Command {
 	public Context execute(Object data) {
 		int res = SAAbstractFactory.getInstancia().generarSAEmpleado().modificarEmpleado((TEmpleado) data);
@@ -24,5 +25,4 @@ public class ModificarEmpleadoCommand implements Command {
 			return new Context(Evento.RES_MODIFICAR_EMPLEADO_KO, null);
 	}
 
-	
 }

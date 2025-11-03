@@ -19,30 +19,34 @@ import presentacion.Controller.Command.Context;
 import presentacion.GUI.Evento;
 import presentacion.GUI.IGUI;
 
-/** 
-* <!-- begin-UML-doc -->
-* <!-- end-UML-doc -->
-* @author adria
-* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-*/
-public class VCalcularImporteMasVendido extends JFrame implements IGUI{
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	*/
+/**
+ * <!-- begin-UML-doc --> <!-- end-UML-doc -->
+ * 
+ * @author adria
+ * @generated "UML a Java
+ *            (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+ */
+public class VCalcularImporteMasVendido extends JFrame implements IGUI {
+	/**
+	 * <!-- begin-UML-doc --> <!-- end-UML-doc -->
+	 * 
+	 * @generated "UML a Java
+	 *            (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	 */
 	public VCalcularImporteMasVendido() {
 		super("Calcular Importe Total Del Empleado Que Mas Productos Ha Vendido");
 		initGUI();
 	}
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	*/
+
+	/**
+	 * <!-- begin-UML-doc --> <!-- end-UML-doc -->
+	 * 
+	 * @generated "UML a Java
+	 *            (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	 */
 	public void initGUI() {
 		setLayout(new GridLayout(3, 1));
-		//setBorder(BorderFactory.createTitledBorder("Calcular Importe Más Vendido"));
+		// setBorder(BorderFactory.createTitledBorder("Calcular Importe Más Vendido"));
 
 		JTextField txtBuscarID = new JTextField();
 		JButton btnBuscar = new JButton("Calcular");
@@ -78,7 +82,7 @@ public class VCalcularImporteMasVendido extends JFrame implements IGUI{
 			break;
 		default:
 			JOptionPane.showMessageDialog(null, "Evento no reconocido: " + evento);
-		
-	}
+
+		}
 	}
 }

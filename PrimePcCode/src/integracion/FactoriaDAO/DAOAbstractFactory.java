@@ -21,21 +21,19 @@ public abstract class DAOAbstractFactory {
 		return instancia;
 	}
 
-
-	public abstract DAOAlmacen generaDAOAlmacen(); 
-
+	public abstract DAOAlmacen generaDAOAlmacen();
 
 	public abstract DAOCliente generaDAOCliente();
-	public abstract DAOVenta generaDAOVenta(); 
+
+	public abstract DAOVenta generaDAOVenta();
+
 	public abstract DAOLineaVenta generaDAOLineaVenta();
-	
-	public abstract DAOEmpleado generaDAOEmpleado(); 
 
-	public abstract DAOProducto generaDAOProducto(); 
+	public abstract DAOEmpleado generaDAOEmpleado();
 
-	
-	public abstract DAOProveedor generaDAOProveedor(); 
+	public abstract DAOProducto generaDAOProducto();
 
-	
-	public abstract DAOProveedorProducto generaDAOProveedorProducto(); 
+	public abstract DAOProveedor generaDAOProveedor();
+
+	public abstract DAOProveedorProducto generaDAOProveedorProducto();
 }

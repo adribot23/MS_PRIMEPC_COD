@@ -6,9 +6,8 @@ import presentacion.Controller.Command.CommandFactory;
 import presentacion.Controller.Command.Context;
 import presentacion.GUI.GUIAbstractFactory;
 
-
 public class ControladorImp extends Controlador {
-	
+
 	@Override
 	public void accion(Context context) {
 

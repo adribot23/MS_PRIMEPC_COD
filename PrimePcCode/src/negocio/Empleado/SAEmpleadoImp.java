@@ -46,11 +46,6 @@ public class SAEmpleadoImp implements SAEmpleado {
 	}
 
 	@Override
-	public void calcularImporteMasVendido(TProducto tProducto) {
-		
-	}
-
-	@Override
 	public int bajaEmpleado(int id) {
 		int exito = -1;
 
@@ -144,5 +139,10 @@ public class SAEmpleadoImp implements SAEmpleado {
 		}
 
 		return empleados;
+	}
+
+	@Override
+	public int calcularImporteMasVendido(int idProducto) {
+		return idProducto;
 	}
 }

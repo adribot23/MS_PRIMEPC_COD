@@ -36,19 +36,14 @@ public class VModificarProveedor extends JFrame implements IGUI {
 	private JButton btnModificar, btnVolver;
 
 	public VModificarProveedor() {
+		super("Modificar Proveedor");
 		initGUI();
 	}
 
 	private void initGUI() {
-		setTitle("Modificar Proveedor");
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setSize(400, 250);
-		setLocationRelativeTo(null);
 
-		// Panel principal
-		JPanel panel = new JPanel();
-		panel.setLayout(new GridLayout(6, 1, 5, 5));
-		panel.setBorder(BorderFactory.createTitledBorder("Modificar Proveedor"));
+		setLayout(new GridLayout(3, 2, 10, 10));
+		getRootPane().setBorder(BorderFactory.createTitledBorder("Modificar Proveedor"));
 
 		modId = new JTextField();
 		modNombre = new JTextField();
@@ -80,39 +75,35 @@ public class VModificarProveedor extends JFrame implements IGUI {
 			dispose();
 		});
 
-		panel.add(new JLabel("ID:"));
-		panel.add(modId);
-		panel.add(new JLabel("Nuevo nombre:"));
-		panel.add(modNombre);
-		panel.add(btnModificar);
-		panel.add(btnVolver);
+		add(new JLabel("ID:"));
+		add(modId);
+		add(new JLabel("Nuevo nombre:"));
+		add(modNombre);
+		add(btnModificar);
+		add(btnVolver);
 
-		add(panel);
-
-	
-		setSize(350, 250);
-		setVisible(true);    
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setSize(350, 200);
+		setLocationRelativeTo(null);
 	}
 
 	@Override
 	public void actualizar(Context context) {
 		switch (context.getEvento()) {
-			case VMODIFICAR_PROVEEDOR:
-				this.setVisible(true);
-				break;
+		case VMODIFICAR_PROVEEDOR:
+			this.setVisible(true);
+			break;
 
-			case RES_MODIFICAR_PROVEEDOR_OK:
-				JOptionPane.showMessageDialog(this, 
-						"Proveedor modificado correctamente:\n" + context.toString());
-				break;
+		case RES_MODIFICAR_PROVEEDOR_OK:
+			JOptionPane.showMessageDialog(this, "Proveedor modificado correctamente:\n" + context.toString());
+			break;
 
-			case RES_MODIFICAR_PROVEEDOR_KO:
-				JOptionPane.showMessageDialog(this, "Error al modificar el proveedor.");
-				break;
+		case RES_MODIFICAR_PROVEEDOR_KO:
+			JOptionPane.showMessageDialog(this, "Error al modificar el proveedor.");
+			break;
 
-			default:
-				break;
+		default:
+			break;
 		}
 	}
 }
-
