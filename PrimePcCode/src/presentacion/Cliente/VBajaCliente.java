@@ -25,19 +25,9 @@ import presentacion.GUI.IGUI;
 * @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 */
 public class VBajaCliente extends JPanel implements  IGUI {
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	*/
-	private Controlador ctrl;
-
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @return
-	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	*/
+	
+	
+	
 	public void initGUI() {
 		setLayout(new GridLayout(3, 1));
 		setBorder(BorderFactory.createTitledBorder("Baja Cliente"));
@@ -61,7 +51,22 @@ public class VBajaCliente extends JPanel implements  IGUI {
 
 	@Override
 	public void actualizar(Context context) {
-		// TODO Auto-generated method stub
-		
+		Evento evento = context.getEvento();
+		Object datos = context.getDatos();
+		switch (evento) {
+
+		case VBAJA_CLIENTE:
+			this.setVisible(true);
+			break;
+		case RES_BAJA_CLIENTE_OK:
+			JOptionPane.showMessageDialog(null, "Cliente dado de baja con ID: " + datos);
+			break;
+		case RES_BAJA_CLIENTE_KO:
+			JOptionPane.showMessageDialog(null, "Error al dar de baja el cliente.");
+			break;
+		default:
+			JOptionPane.showMessageDialog(null, "Evento no reconocido: " + evento);
+			
+		}
 	}
 }
