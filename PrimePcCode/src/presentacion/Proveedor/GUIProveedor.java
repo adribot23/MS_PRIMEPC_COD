@@ -6,6 +6,7 @@ package presentacion.Proveedor;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -44,114 +45,108 @@ import presentacion.GUI.Evento;
 */
 public class GUIProveedor extends JFrame implements IGUI {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	public GUIProveedor() {
-		super("[PROVEEDOR]");
-		initGUI();
-	}
+    public GUIProveedor() {
+        super("[PROVEEDOR]");
+        initGUI();
+    }
 
-	private void initGUI() {
-		JPanel mainPanel = new JPanel();
-		this.setContentPane(mainPanel);
-		this.setPreferredSize(new Dimension(800, 300));
+    private void initGUI() {
+        // === PANEL PRINCIPAL ===
+        JPanel mainPanel = new JPanel(new BorderLayout(20, 20));
+        mainPanel.setBorder(BorderFactory.createEmptyBorder(20, 40, 20, 40));
+        mainPanel.setBackground(Color.WHITE);
+        this.setContentPane(mainPanel);
 
-		JPanel controlPanel = new JPanel();
-		mainPanel.add(controlPanel);
-		rellenaControlPanel(controlPanel);
+        // === CABECERA ===
+        JLabel titulo = new JLabel("GESTIÓN DE PROVEEDORES", SwingConstants.CENTER);
+        titulo.setFont(new Font("Cambria", Font.BOLD, 28));
+        titulo.setForeground(new Color(0, 100, 0));
+        titulo.setBorder(BorderFactory.createEmptyBorder(10, 0, 20, 0));
+        mainPanel.add(titulo, BorderLayout.NORTH);
 
-		JPanel volverPanel = new JPanel();
-		mainPanel.add(volverPanel, BorderLayout.PAGE_END);
-		rellenarVolverPanel(volverPanel);
+        // === PANEL DE BOTONES ===
+        JPanel botonesPanel = new JPanel(new GridLayout(3, 3, 20, 20));
+        botonesPanel.setBackground(Color.WHITE);
 
-		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		pack();
-		setLocationRelativeTo(null);
-	}
+        // Fila 1
+        botonesPanel.add(crearBotonVerde("ALTA PROVEEDOR", Evento.VALTA_PROVEEDOR));
+        botonesPanel.add(crearBotonVerde("BAJA PROVEEDOR", Evento.VBAJA_PROVEEDOR));
+        botonesPanel.add(crearBotonVerde("MODIFICAR PROVEEDOR", Evento.VMODIFICAR_PROVEEDOR));
 
-	private void rellenarVolverPanel(JPanel volverPanel) {
-		JButton volver = new JButton("VOLVER A VISTA PRINCIPAL");
-		volver.addActionListener((e) -> {
-			Controlador.getInstancia().accion(new Context(Evento.VISTA_PRINCIPAL, null));
-			this.dispose();
-		});
-		volverPanel.add(volver, BorderLayout.SOUTH);
-	}
+        // Fila 2
+        botonesPanel.add(crearBotonVerde("BUSCAR PROVEEDOR", Evento.VBUSCAR_PROVEEDOR));
+        botonesPanel.add(crearBotonVerde("LISTAR TODOS LOS PROVEEDORES", Evento.VMOSTRAR_TODOS_PROVEEDORES));
+        botonesPanel.add(crearBotonVerde("LISTAR PROVEEDORES POR PRODUCTO", Evento.VMOSTRAR_PROVEEDORES_POR_PRODUCTO));
 
-	private void rellenaControlPanel(JPanel controlPanel) {
-		controlPanel.setLayout(new BorderLayout());
+        // Fila 3
+        botonesPanel.add(crearBotonVerde("VINCULAR PRODUCTO A PROVEEDOR", Evento.VVINCULAR_PRODUCTO_PROVEEDOR));
+        botonesPanel.add(crearBotonVerde("DESVINCULAR PRODUCTO DE PROVEEDOR", Evento.VDESVINCULAR_PRODUCTO_PROVEEDOR));
+        botonesPanel.add(crearBotonVerde("PROVEEDOR CON MÁS UNIDADES VENDIDAS", Evento.VPROVEEDOR_CON_MAS_UDS));
+       
 
-		JPanel panelNorte = new JPanel();
-		JPanel panelSur = new JPanel();
+        mainPanel.add(botonesPanel, BorderLayout.CENTER);
 
-		// ----- Botones principales -----
+        // === PANEL INFERIOR (VOLVER) ===
+        JButton volver = new JButton("VOLVER A VISTA PRINCIPAL");
+        volver.setFont(new Font("Segoe UI", Font.BOLD, 16));
+        volver.setBackground(new Color(255, 255, 255));
+        volver.setBorder(BorderFactory.createLineBorder(new Color(0, 100, 0), 2));
+        volver.setFocusPainted(false);
+        volver.setPreferredSize(new Dimension(300, 40));
 
-		JButton alta = new JButton("ALTA PROVEEDOR");
-		alta.addActionListener((e) -> {
-			Controlador.getInstancia().accion(new Context(Evento.VALTA_PROVEEDOR, null));
-			this.dispose();
-		});
-		panelNorte.add(alta);
+        volver.addActionListener((e) -> {
+            Controlador.getInstancia().accion(new Context(Evento.VISTA_PRINCIPAL, null));
+            this.dispose();
+        });
 
-		JButton baja = new JButton("BAJA PROVEEDOR");
-		baja.addActionListener((e) -> {
-			Controlador.getInstancia().accion(new Context(Evento.VBAJA_PROVEEDOR, null));
-			this.dispose();
-		});
-		panelNorte.add(baja);
+        JPanel volverPanel = new JPanel();
+        volverPanel.setBackground(Color.WHITE);
+        volverPanel.add(volver);
+        mainPanel.add(volverPanel, BorderLayout.SOUTH);
 
-		JButton modificar = new JButton("MODIFICAR PROVEEDOR");
-		modificar.addActionListener((e) -> {
-			Controlador.getInstancia().accion(new Context(Evento.VMODIFICAR_PROVEEDOR, null));
-			this.dispose();
-		});
-		panelNorte.add(modificar);
+        // === CONFIGURACIÓN FRAME ===
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setMinimumSize(new Dimension(900, 600));
+        setLocationRelativeTo(null);
+        setVisible(true);
+    }
 
-		JButton buscar = new JButton("BUSCAR PROVEEDOR");
-		buscar.addActionListener((e) -> {
-			Controlador.getInstancia().accion(new Context(Evento.VBUSCAR_PROVEEDOR, null));
-			this.dispose();
-		});
-		panelNorte.add(buscar);
+    private JButton crearBotonVerde(String texto, Evento evento) {
+        JButton boton = new JButton("<html><center>" + texto + "</center></html>");
+        boton.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        boton.setFocusPainted(false);
+        boton.setBackground(Color.WHITE);
+        boton.setBorder(BorderFactory.createLineBorder(new Color(0, 128, 0), 2));
+        boton.setOpaque(true);
+        boton.setPreferredSize(new Dimension(250, 100));
+        boton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
-		JButton listarTodos = new JButton("LISTAR TODOS LOS PROVEEDORES");
-		listarTodos.addActionListener((e) -> {
-			Controlador.getInstancia().accion(new Context(Evento.VMOSTRAR_TODOS_PROVEEDORES, null));
-			this.dispose();
-		});
-		panelNorte.add(listarTodos);
+        // Efecto hover
+        boton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                boton.setBackground(new Color(220, 255, 220));
+            }
 
-		JButton listarPorProducto = new JButton("LISTAR PROVEEDORES POR PRODUCTO");
-		listarPorProducto.addActionListener((e) -> {
-			Controlador.getInstancia().accion(new Context(Evento.VMOSTRAR_PROVEEDORES_POR_PRODUCTO, null));
-			this.dispose();
-		});
-		panelNorte.add(listarPorProducto);
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                boton.setBackground(Color.WHITE);
+            }
+        });
 
-		// ----- Vincular / Desvincular -----
+        // Acción del botón
+        boton.addActionListener(e -> {
+            Controlador.getInstancia().accion(new Context(evento, null));
+            this.dispose();
+        });
 
-		JButton vincular = new JButton("VINCULAR PRODUCTO A PROVEEDOR");
-		vincular.addActionListener((e) -> {
-			Controlador.getInstancia().accion(new Context(Evento.VVINCULAR_PRODUCTO_PROVEEDOR, null));
-			this.dispose();
-		});
-		panelSur.add(vincular);
+        return boton;
+    }
 
-		JButton desvincular = new JButton("DESVINCULAR PRODUCTO DE PROVEEDOR");
-		desvincular.addActionListener((e) -> {
-			Controlador.getInstancia().accion(new Context(Evento.VDESVINCULAR_PRODUCTO_PROVEEDOR, null));
-			this.dispose();
-		});
-		panelSur.add(desvincular);
-
-		controlPanel.add(panelNorte, BorderLayout.NORTH);
-		controlPanel.add(panelSur, BorderLayout.CENTER);
-	}
-
-	@Override
-	public void actualizar(Context context) {
-		setVisible(true);
-	}
+    @Override
+    public void actualizar(Context context) {
+        setVisible(true);
+    }
 }
 	/*
 	@SuppressWarnings("unchecked")

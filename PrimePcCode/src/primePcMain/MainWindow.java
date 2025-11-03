@@ -20,8 +20,9 @@ import javax.swing.SwingConstants;
 import presentacion.Controller.Controlador;
 import presentacion.Controller.Command.Context;
 import presentacion.GUI.Evento;
+import presentacion.GUI.IGUI;
 
-public class MainWindow extends JFrame {
+public class MainWindow extends JFrame implements IGUI {
 
 	private static final long serialVersionUID = 1L;
 
@@ -139,4 +140,8 @@ public class MainWindow extends JFrame {
 		return button;
 	}
 
+	@Override
+	public void actualizar(Context context) {
+		setVisible(true);
+	}
 }
