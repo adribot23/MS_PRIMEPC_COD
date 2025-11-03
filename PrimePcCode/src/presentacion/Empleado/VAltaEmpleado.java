@@ -9,6 +9,7 @@ import java.awt.GridLayout;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -29,7 +30,7 @@ import presentacion.GUI.Evento;
 * @author adria
 * @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 */
-public class VAltaEmpleado extends JPanel implements IGUI {
+public class VAltaEmpleado extends JFrame implements IGUI {
 	/** 
 	* <!-- begin-UML-doc -->
 	* <!-- end-UML-doc -->
@@ -45,7 +46,7 @@ public class VAltaEmpleado extends JPanel implements IGUI {
 	*/
 	public void initGUI() {
 		setLayout(new GridLayout(10, 1));
-		setBorder(BorderFactory.createTitledBorder("Alta Empleado"));
+		//setBorder(BorderFactory.createTitledBorder("Alta Empleado"));
 
 		JTextField altaNombre = new JTextField();
 		JTextField altaDNI = new JTextField();
@@ -102,9 +103,22 @@ public class VAltaEmpleado extends JPanel implements IGUI {
 	}
 
 	public void actualizar(Context context) {
-		// begin-user-code
-		// TODO Ap�ndice de m�todo generado autom�ticamente
+		Evento evento = context.getEvento();
+		Object datos = context.getDatos();
+		switch (evento) {
 
-		// end-user-code
+		case VALTA_EMPLEADO:
+			this.setVisible(true);
+			break;
+		case RES_ALTA_EMPLEADO_OK:
+			JOptionPane.showMessageDialog(null, "Empleado dado de alta con ID: " + datos);
+			break;
+		case RES_ALTA_EMPLEADO_KO:
+			JOptionPane.showMessageDialog(null, "Error al dar de alta el empleado.");
+			break;
+		default:
+			JOptionPane.showMessageDialog(null, "Evento no reconocido: " + evento);
+			
+		}
 	}
 }

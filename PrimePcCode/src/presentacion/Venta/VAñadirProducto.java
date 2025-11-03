@@ -16,16 +16,17 @@ import presentacion.Controller.Controlador;
 import presentacion.GUI.Evento;
 import presentacion.GUI.IGUI;
 
-public class VDevolverVenta extends JFrame implements IGUI {
+public class VAñadirProducto extends JFrame implements IGUI {
 
 	private static final long serialVersionUID = 1L;
 
 	private final JTextField idVentaField = new JTextField();
 	private final JTextField idProductoField = new JTextField();
 	private final JTextField unidadesField = new JTextField();
+	private final JTextField precioUnidadField = new JTextField();
 
-	public VDevolverVenta() {
-		super("Devolver producto");
+	public VAñadirProducto() {
+		super("Añadir producto a venta");
 		initGUI();
 	}
 
@@ -42,23 +43,26 @@ public class VDevolverVenta extends JFrame implements IGUI {
 		datos.add(new JLabel("Id producto:"));
 		datos.add(idProductoField);
 
-		datos.add(new JLabel("Unidades a devolver:"));
+		datos.add(new JLabel("Unidades:"));
 		datos.add(unidadesField);
+
+		datos.add(new JLabel("Precio por unidad (€):"));
+		datos.add(precioUnidadField);
 
 		add(datos, BorderLayout.CENTER);
 
-		JButton aceptar = new JButton("Devolver");
+		JButton aceptar = new JButton("Añadir");
 		aceptar.addActionListener(e -> onAceptar());
 
 		JButton cancelar = new JButton("Cancelar");
 		cancelar.addActionListener(e -> dispose());
 
-		JPanel acciones = new JPanel();
-		acciones.add(aceptar);
-		acciones.add(cancelar);
-		add(acciones, BorderLayout.PAGE_END);
+		JPanel botones = new JPanel();
+		botones.add(aceptar);
+		botones.add(cancelar);
+		add(botones, BorderLayout.PAGE_END);
 
-		setPreferredSize(new Dimension(340, 200));
+		setPreferredSize(new Dimension(360, 220));
 		pack();
 		setLocationRelativeTo(null);
 	}
@@ -67,14 +71,16 @@ public class VDevolverVenta extends JFrame implements IGUI {
 		try {
 			int idVenta = parseEnteroPositivo(idVentaField.getText(), "Id venta");
 			int idProducto = parseEnteroPositivo(idProductoField.getText(), "Id producto");
-			int unidades = parseEnteroPositivo(unidadesField.getText(), "Unidades a devolver");
+			int unidades = parseEnteroPositivo(unidadesField.getText(), "Unidades");
+			double precioUnidad = parseDoubleNoNegativo(precioUnidadField.getText(), "Precio por unidad");
 
 			TLineaVenta lineaVenta = new TLineaVenta();
 			lineaVenta.set_venta(idVenta);
 			lineaVenta.set_producto(idProducto);
 			lineaVenta.set_num_unidades(unidades);
+			lineaVenta.set_precio_unidades(precioUnidad);
 
-			Controlador.getInstancia().accion(new Context(Evento.DEVOLVER_VENTA, lineaVenta));
+			Controlador.getInstancia().accion(new Context(Evento.INSERTAR_PRODUCTO_VENTA, lineaVenta));
 		} catch (IllegalArgumentException ex) {
 			JOptionPane.showMessageDialog(this, ex.getMessage(), "Datos incorrectos", JOptionPane.ERROR_MESSAGE);
 		}
@@ -92,10 +98,27 @@ public class VDevolverVenta extends JFrame implements IGUI {
 		}
 	}
 
+	private double parseDoubleNoNegativo(String valor, String campo) {
+		if (valor == null || valor.trim().isEmpty()) {
+			return 0.0;
+		}
+
+		try {
+			double numero = Double.parseDouble(valor.trim());
+			if (numero < 0) {
+				throw new NumberFormatException();
+			}
+			return numero;
+		} catch (NumberFormatException ex) {
+			throw new IllegalArgumentException(campo + " debe ser un número válido mayor o igual que cero.");
+		}
+	}
+
 	private void limpiarCampos() {
 		idVentaField.setText("");
 		idProductoField.setText("");
 		unidadesField.setText("");
+		precioUnidadField.setText("");
 	}
 
 	@Override
@@ -108,19 +131,19 @@ public class VDevolverVenta extends JFrame implements IGUI {
 		Object datos = context.getDatos();
 
 		switch (evento) {
-		case DEVOLVER_VENTA:
+		case INSERTAR_PRODUCTO_VENTA:
 			limpiarCampos();
 			setVisible(true);
 			break;
-		case RES_DEVOLVER_VENTA_OK:
-			JOptionPane.showMessageDialog(this, "Devolución registrada correctamente.", "Devolver producto",
+		case RES_INSERTAR_PRODUCTO_VENTA_OK:
+			JOptionPane.showMessageDialog(this, "Producto añadido correctamente a la venta.", "Línea agregada",
 					JOptionPane.INFORMATION_MESSAGE);
 			dispose();
 			break;
-		case RES_DEVOLVER_VENTA_KO:
+		case RES_INSERTAR_PRODUCTO_VENTA_KO:
 			String mensaje = datos instanceof String ? (String) datos
-					: "No se pudo realizar la devolución indicada.";
-			JOptionPane.showMessageDialog(this, mensaje, "Error al devolver producto", JOptionPane.ERROR_MESSAGE);
+					: "No se pudo añadir el producto indicado.";
+			JOptionPane.showMessageDialog(this, mensaje, "Error al añadir producto", JOptionPane.ERROR_MESSAGE);
 			setVisible(true);
 			break;
 		default:

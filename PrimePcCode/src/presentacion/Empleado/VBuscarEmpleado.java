@@ -8,6 +8,7 @@ import java.awt.GridLayout;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -24,7 +25,7 @@ import presentacion.GUI.IGUI;
 * @author adria
 * @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 */
-public class VBuscarEmpleado extends JPanel implements IGUI {
+public class VBuscarEmpleado extends JFrame implements IGUI {
 	/** 
 	* <!-- begin-UML-doc -->
 	* <!-- end-UML-doc -->
@@ -40,7 +41,7 @@ public class VBuscarEmpleado extends JPanel implements IGUI {
 	*/
 	public void initGUI() {
 		setLayout(new GridLayout(3, 1));
-		setBorder(BorderFactory.createTitledBorder("Buscar empleado"));
+		//setBorder(BorderFactory.createTitledBorder("Buscar empleado"));
 
 		JTextField txtBuscarID = new JTextField();
 		JButton btnBuscar = new JButton("Buscar");
@@ -61,8 +62,23 @@ public class VBuscarEmpleado extends JPanel implements IGUI {
 
 	@Override
 	public void actualizar(Context context) {
-		// TODO Auto-generated method stub
+		Evento evento = context.getEvento();
+		Object datos = context.getDatos();
+		switch (evento) {
+
+		case VBUSCAR_EMPLEADO:
+			this.setVisible(true);
+			break;
+		case RES_BUSCAR_EMPLEADO_OK:
+			JOptionPane.showMessageDialog(null, "Empleado buscado con ID: " + datos);	//Esto tiene que eseñar esto?
+			break;
+		case RES_BUSCAR_EMPLEADO_KO:
+			JOptionPane.showMessageDialog(null, "Error al buscar el empleado.");
+			break;
+		default:
+			JOptionPane.showMessageDialog(null, "Evento no reconocido: " + evento);
 		
+	}
 	}
 
 }
