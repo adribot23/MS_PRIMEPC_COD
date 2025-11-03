@@ -36,7 +36,9 @@ public class VBuscarCliente extends JFrame implements IGUI {
 	}
 	
 	public void initGUI() {
-		setLayout(new GridLayout(3, 1));
+		setLayout(new GridLayout(4, 1, 10, 10));
+		getRootPane().setBorder(BorderFactory.createTitledBorder("Buscar Cliente"));
+
 		//setBorder(BorderFactory.createTitledBorder("Buscar cliente"));
 
 		JTextField txtBuscarID = new JTextField();
@@ -45,6 +47,15 @@ public class VBuscarCliente extends JFrame implements IGUI {
 		add(new JLabel("ID cliente:"));
 		add(txtBuscarID);
 		add(btnBuscar);
+		
+		JButton btnVolver = new JButton("Volver");
+		btnVolver.setBackground(new Color(255, 220, 220));
+		btnVolver.addActionListener(e -> {
+			Controlador.getInstancia().accion(new Context(Evento.CLIENTE, null));
+			dispose();
+		});
+		
+		add(btnVolver);
 
 		btnBuscar.addActionListener(e -> {
 			try {

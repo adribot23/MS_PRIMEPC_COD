@@ -36,15 +36,25 @@ public class VBajaCliente extends JFrame implements  IGUI {
 	}
 	
 	public void initGUI() {
-		setLayout(new GridLayout(3, 1));
+		setLayout(new GridLayout(4, 1, 100, 10));
+		getRootPane().setBorder(BorderFactory.createTitledBorder("Baja Cliente"));
+
 		//setBorder(BorderFactory.createTitledBorder("Baja Cliente"));
 
 		JTextField bajaID = new JTextField();
 		JButton btnBaja = new JButton("Dar de baja");
 		btnBaja.setBackground(new Color(200, 255, 200));
 		add(new JLabel("ID cliente:"));
+		
+		JButton btnVolver = new JButton("Volver");
+		btnVolver.setBackground(new Color(255, 220, 220));
+		btnVolver.addActionListener(e -> {
+			Controlador.getInstancia().accion(new Context(Evento.CLIENTE, null));
+			dispose();
+		});
 		add(bajaID);
 		add(btnBaja);
+		add(btnVolver);
 
 		btnBaja.addActionListener(e -> {
 			try {

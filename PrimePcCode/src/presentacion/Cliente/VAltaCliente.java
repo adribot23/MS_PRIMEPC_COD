@@ -46,7 +46,9 @@ public class VAltaCliente extends JFrame implements IGUI {
 	}
 	
 	public void initGUI() {
-		setLayout(new GridLayout(10, 1));
+		setLayout(new GridLayout(10, 1, 10, 10));
+		getRootPane().setBorder(BorderFactory.createTitledBorder("Alta Cliente"));
+
 		//setBorder(BorderFactory.createTitledBorder("Alta Cliente"));
 
 		JTextField altaNombre = new JTextField();
@@ -91,6 +93,13 @@ public class VAltaCliente extends JFrame implements IGUI {
 				JOptionPane.showMessageDialog(this, "Los campos numéricos deben ser válidos.");
 			}
 		});
+		
+		JButton btnVolver = new JButton("Volver");
+		btnVolver.setBackground(new Color(255, 220, 220));
+		btnVolver.addActionListener(e -> {
+			Controlador.getInstancia().accion(new Context(Evento.CLIENTE, null));
+			dispose();
+		});
 
 		add(new JLabel("Nombre:"));
 		add(altaNombre);
@@ -100,6 +109,7 @@ public class VAltaCliente extends JFrame implements IGUI {
 		add(lblVisitas);
 		add(altaVisitas);
 		add(btnAlta);
+		add(btnVolver);
 	}
 
 	public void actualizar(Context context) {

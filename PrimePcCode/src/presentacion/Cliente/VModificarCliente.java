@@ -9,6 +9,7 @@ import java.awt.GridLayout;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -29,34 +30,27 @@ import presentacion.GUI.IGUI;
 * @author adria
 * @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 */
-public class VModificarCliente extends JPanel implements IGUI {
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	*/
-	private Controlador ctrl;
-
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @return
-	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	*/
+public class VModificarCliente extends JFrame implements IGUI {
+	
+	public VModificarCliente() {
+		super("Modificar Cliente");
+		initGUI();
+		setSize(400, 400);
+	    setLocationRelativeTo(null);
+	    setVisible(true);
+	}
+	
 	public void initGUI() {
-		setLayout(new GridLayout(12, 1));
-		setBorder(BorderFactory.createTitledBorder("Modificar información"));
+		setLayout(new GridLayout(12, 1, 5, 5));
+		getRootPane().setBorder(BorderFactory.createTitledBorder("Modificar Cliente"));
+		//setBorder(BorderFactory.createTitledBorder("Modificar información"));
 
 		JTextField modificarID = new JTextField();
 		JTextField modificarNombre = new JTextField();
 		JTextField modificarDNI = new JTextField();
-		JTextField modificarNumSocio = new JTextField();
 		JTextField modificarPuntos = new JTextField();
-		JTextField modificarVisitas = new JTextField();
 
-		JLabel lblNumSocio = new JLabel("Número de Socio:");
 		JLabel lblPuntos = new JLabel("Puntos:");
-		JLabel lblVisitas = new JLabel("Número de Visitas:");
 
 		JRadioButton rdbSocio = new JRadioButton("Socio");
 		JRadioButton rdbNoSocio = new JRadioButton("No Socio");
@@ -69,26 +63,9 @@ public class VModificarCliente extends JPanel implements IGUI {
 		tipoPanel.add(rdbSocio);
 		tipoPanel.add(rdbNoSocio);
 
-		lblVisitas.setVisible(false);
-		modificarVisitas.setVisible(false);
 
-		rdbSocio.addActionListener(e -> {
-			lblNumSocio.setVisible(true);
-			modificarNumSocio.setVisible(true);
-			lblPuntos.setVisible(true);
-			modificarPuntos.setVisible(true);
-			lblVisitas.setVisible(false);
-			modificarVisitas.setVisible(false);
-		});
-
-		rdbNoSocio.addActionListener(e -> {
-			lblNumSocio.setVisible(false);
-			modificarNumSocio.setVisible(false);
-			lblPuntos.setVisible(false);
-			modificarPuntos.setVisible(false);
-			lblVisitas.setVisible(true);
-			modificarVisitas.setVisible(true);
-		});
+		rdbSocio.addActionListener(e -> lblPuntos.setText("Puntos:"));
+		rdbNoSocio.addActionListener(e -> lblPuntos.setText("Numero de Visitas:"));
 
 		JButton btnModificar = new JButton("Modificar");
 		btnModificar.setBackground(new Color(200, 255, 200));
@@ -103,7 +80,7 @@ public class VModificarCliente extends JPanel implements IGUI {
 					int puntos = Integer.parseInt(modificarPuntos.getText());
 					cliente = new TClienteSocio(id, nombre, dni, puntos);
 				} else {
-					int visitas = Integer.parseInt(modificarVisitas.getText());
+					int visitas = Integer.parseInt(modificarPuntos.getText());
 					cliente = new TClienteNoSocio(nombre, dni, visitas);
 				}
 
@@ -111,6 +88,13 @@ public class VModificarCliente extends JPanel implements IGUI {
 			} catch (NumberFormatException ex) {
 				JOptionPane.showMessageDialog(this, "ID y los campos numéricos deben ser números.");
 			}
+		});
+		
+		JButton btnVolver = new JButton("Volver");
+		btnVolver.setBackground(new Color(255, 220, 220));
+		btnVolver.addActionListener(e -> {
+			Controlador.getInstancia().accion(new Context(Evento.CLIENTE, null));
+			dispose();
 		});
 
 		add(new JLabel("ID cliente:"));
@@ -120,18 +104,30 @@ public class VModificarCliente extends JPanel implements IGUI {
 		add(new JLabel("DNI:"));
 		add(modificarDNI);
 		add(tipoPanel);
-		add(lblNumSocio);
-		add(modificarNumSocio);
 		add(lblPuntos);
 		add(modificarPuntos);
-		add(lblVisitas);
-		add(modificarVisitas);
 		add(btnModificar);
+		add(btnVolver);
 	}
 
 	@Override
 	public void actualizar(Context context) {
-		// TODO Auto-generated method stub
-		
+		Evento evento = context.getEvento();
+		Object datos = context.getDatos();
+		switch (evento) {
+
+		case VMODIFICAR_CLIENTE:
+			this.setVisible(true);
+			break;
+		case RES_MODIFICAR_CLIENTE_OK:
+			JOptionPane.showMessageDialog(null, "Cliente modificado con ID: " + datos);
+			break;
+		case RES_MODIFICAR_CLIENTE_KO:
+			JOptionPane.showMessageDialog(null, "Error al modificar el cliente.");
+			break;
+		default:
+			JOptionPane.showMessageDialog(null, "Evento no reconocido: " + evento);
+			
+		}
 	}
 }
