@@ -4,95 +4,132 @@
 package presentacion.Empleado;
 
 import java.awt.BorderLayout;
-import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.util.Collection;
 
-import javax.swing.Box;
-import javax.swing.BoxLayout;
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.SwingConstants;
 
-import negocio.Empleado.TEmpleado;
-import negocio.Empleado.TEmpleadoCompleto;
-import negocio.Empleado.TEmpleadoParcial;
+import presentacion.Controller.Controlador;
 import presentacion.Controller.Command.Context;
-import presentacion.GUI.IGUI;
 import presentacion.GUI.Evento;
-import presentacion.Empleado.VAltaEmpleado;
-import presentacion.Empleado.VBajaEmpleado;
-import presentacion.Empleado.VBuscarEmpleado;
-import presentacion.Empleado.VModificarEmpleado;
-import presentacion.Empleado.VMostrarEmpleado;
+import presentacion.GUI.IGUI;
 
-/** 
-* <!-- begin-UML-doc -->
-* <!-- end-UML-doc -->
-* @author adria
-* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-*/
-public class GUIEmpleado extends JPanel implements IGUI {
+/**
+ * <!-- begin-UML-doc --> <!-- end-UML-doc -->
+ * 
+ * @author adria
+ * @generated "UML a Java
+ *            (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+ */
+public class GUIEmpleado extends JFrame implements IGUI {
+
 	private static final long serialVersionUID = 1L;
 
 	public GUIEmpleado() {
-		initGui();
+		super("[EMPLEADO]");
+		initGUI();
 	}
 
-	private void initGui() {
-		setLayout(new BorderLayout());
+	private void initGUI() {
+		// === PANEL PRINCIPAL ===
+		JPanel mainPanel = new JPanel(new BorderLayout(20, 20));
+		mainPanel.setBorder(BorderFactory.createEmptyBorder(20, 40, 20, 40));
+		mainPanel.setBackground(Color.WHITE);
+		this.setContentPane(mainPanel);
 
-		JLabel titulo = new JLabel("MODULO EMPLEADO", SwingConstants.CENTER);
-		titulo.setFont(new Font("Cambria", Font.BOLD, 24));
-		add(titulo, BorderLayout.NORTH);
+		// === CABECERA ===
+		JLabel titulo = new JLabel("GESTIÓN DE EMPLEADOS", SwingConstants.CENTER);
+		titulo.setFont(new Font("Cambria", Font.BOLD, 28));
+		titulo.setForeground(new Color(0, 100, 0));
+		titulo.setBorder(BorderFactory.createEmptyBorder(10, 0, 20, 0));
+		mainPanel.add(titulo, BorderLayout.NORTH);
 
-		JPanel panelCentral = new JPanel(new GridLayout(1, 2, 10, 10));
+		// === PANEL DE BOTONES ===
+		JPanel botonesPanel = new JPanel(new GridLayout(2, 3, 20, 20));
+		botonesPanel.setBackground(Color.WHITE);
 
-		// Panel izquierdo con buscar y modificar
+		// Fila 1
+		botonesPanel.add(crearBotonVerde("ALTA EMPLEADO", Evento.VALTA_EMPLEADO));
+		botonesPanel.add(crearBotonVerde("BAJA EMPLEADO", Evento.VBAJA_EMPLEADO));
+		botonesPanel.add(crearBotonVerde("MODIFICAR EMPLEADO", Evento.VMODIFICAR_EMPLEADO));
 
-		JPanel panelIzquierda = new JPanel();
-		panelIzquierda.setLayout(new BoxLayout(panelIzquierda, BoxLayout.Y_AXIS));
+		// Fila 2
+		botonesPanel.add(crearBotonVerde("BUSCAR EMPLEADO", Evento.VBUSCAR_EMPLEADO));
+		botonesPanel.add(crearBotonVerde("LISTAR TODOS LOS EMPLEADOS", Evento.VMOSTRAR_TODOS_EMPLEADOS));
+		
 
-		panelIzquierda.add(Box.createVerticalStrut(10));
-		panelIzquierda.add(new VBuscarEmpleado());
-		panelIzquierda.add(Box.createVerticalStrut(10));
-		panelIzquierda.add(new VModificarEmpleado());
-		panelIzquierda.add(Box.createVerticalStrut(10));
-		// Panel derecho con baja, mostrar y alta
+		mainPanel.add(botonesPanel, BorderLayout.CENTER);
 
-		JPanel panelDerecha = new JPanel();
-		panelDerecha.setLayout(new BoxLayout(panelDerecha, BoxLayout.Y_AXIS));
+		// === PANEL INFERIOR (VOLVER) ===
+		JButton volver = new JButton("VOLVER A VISTA PRINCIPAL");
+		volver.setFont(new Font("Segoe UI", Font.BOLD, 16));
+		volver.setBackground(Color.WHITE);
+		volver.setBorder(BorderFactory.createLineBorder(new Color(0, 100, 0), 2));
+		volver.setFocusPainted(false);
+		volver.setPreferredSize(new Dimension(300, 40));
 
-		panelDerecha.add(Box.createVerticalStrut(10));
-		panelDerecha.add(new VBajaEmpleado());
-		panelDerecha.add(Box.createVerticalStrut(10));
-		panelDerecha.add(new VMostrarEmpleado());
-		panelDerecha.add(Box.createVerticalStrut(10));
-		panelDerecha.add(new VAltaEmpleado());
-		panelDerecha.add(Box.createVerticalStrut(10));
-
-		panelCentral.add(panelIzquierda);
-		panelCentral.add(panelDerecha);
-		add(panelCentral, BorderLayout.CENTER);
-
-		// Boton_Volver
-
-		JButton btnVolver = new JButton("Volver");
-		btnVolver.setBackground(new Color(30, 200, 100));
-		btnVolver.addActionListener(e -> {
-			CardLayout cl = (CardLayout) this.getParent().getLayout();
-			cl.show(this.getParent(), "Menu");
+		volver.addActionListener((e) -> {
+			Controlador.getInstancia().accion(new Context(Evento.VISTA_PRINCIPAL, null));
+			this.dispose();
 		});
 
-		add(btnVolver, BorderLayout.SOUTH);
+		JPanel volverPanel = new JPanel();
+		volverPanel.setBackground(Color.WHITE);
+		volverPanel.add(volver);
+		mainPanel.add(volverPanel, BorderLayout.SOUTH);
+
+		// === CONFIGURACIÓN FRAME ===
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		setMinimumSize(new Dimension(900, 600));
+		setLocationRelativeTo(null);
+		setVisible(true);
 	}
 
+	private JButton crearBotonVerde(String texto, Evento evento) {
+		JButton boton = new JButton("<html><center>" + texto + "</center></html>");
+		boton.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		boton.setFocusPainted(false);
+		boton.setBackground(Color.WHITE);
+		boton.setBorder(BorderFactory.createLineBorder(new Color(0, 128, 0), 2));
+		boton.setOpaque(true);
+		boton.setPreferredSize(new Dimension(250, 100));
+		boton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+		// Efecto hover
+		boton.addMouseListener(new java.awt.event.MouseAdapter() {
+			public void mouseEntered(java.awt.event.MouseEvent evt) {
+				boton.setBackground(new Color(220, 255, 220));
+			}
+
+			public void mouseExited(java.awt.event.MouseEvent evt) {
+				boton.setBackground(Color.WHITE);
+			}
+		});
+
+		// Acción del botón
+		boton.addActionListener(e -> {
+			Controlador.getInstancia().accion(new Context(evento, null));
+			this.dispose();
+		});
+
+		return boton;
+	}
+
+	@Override
+	public void actualizar(Context context) {
+		setVisible(true);
+	}
+
+}
+/*
 	@SuppressWarnings("unchecked")
 	@Override
 	public void actualizar(Context context) {
@@ -136,7 +173,6 @@ public class GUIEmpleado extends JPanel implements IGUI {
 
 	private void mostrarTabla(Collection<TEmpleado> empleados) {
 		String[] columnNames = { "ID", "Nombre", "DNI", "Telefono", "Tipo", "Horas", "Activo" };
-
 		Object[][] data = new Object[empleados.size()][columnNames.length];
 		int i = 0;
 		for (TEmpleado emp : empleados) {
@@ -154,13 +190,12 @@ public class GUIEmpleado extends JPanel implements IGUI {
 			}
 			i++;
 		}
-
 		JTable table = new JTable(data, columnNames);
 		table.setFillsViewportHeight(true);
 		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		table.setEnabled(false);
 		JScrollPane scrollPane = new JScrollPane(table);
-
 		JOptionPane.showMessageDialog(null, scrollPane, "Empleados", JOptionPane.PLAIN_MESSAGE);
 	}
 }
+*/

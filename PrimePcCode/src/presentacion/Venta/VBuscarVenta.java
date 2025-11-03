@@ -107,7 +107,7 @@ public class VBuscarVenta extends JFrame implements IGUI {
 		Object datos = context.getDatos();
 
 		switch (evento) {
-		case BUSCAR_VENTA:
+		case VBUSCAR_VENTA:
 			limpiar();
 			setVisible(true);
 			break;

@@ -109,7 +109,7 @@ public class VEliminarProducto extends JFrame implements IGUI {
 		Object datos = context.getDatos();
 
 		switch (evento) {
-		case QUITAR_PRODUCTO_VENTA:
+		case VQUITAR_PRODUCTO_VENTA:
 			limpiarCampos();
 			setVisible(true);
 			break;

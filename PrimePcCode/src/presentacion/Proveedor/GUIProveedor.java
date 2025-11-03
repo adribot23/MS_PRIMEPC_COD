@@ -81,7 +81,7 @@ public class GUIProveedor extends JFrame implements IGUI {
         botonesPanel.add(crearBotonVerde("LISTAR PROVEEDORES POR PRODUCTO", Evento.VMOSTRAR_PROVEEDORES_POR_PRODUCTO));
 
         // Fila 3
-        botonesPanel.add(crearBotonVerde("VINCULAR PRODUCTO A PROVEEDOR", Evento.VVINCULAR_PRODUCTO_PROVEEDOR));
+        botonesPanel.add(crearBotonVerde("VINCULAR PRODUCTO A          PROVEEDOR", Evento.VVINCULAR_PRODUCTO_PROVEEDOR));
         botonesPanel.add(crearBotonVerde("DESVINCULAR PRODUCTO DE PROVEEDOR", Evento.VDESVINCULAR_PRODUCTO_PROVEEDOR));
         botonesPanel.add(crearBotonVerde("PROVEEDOR CON MÁS UNIDADES VENDIDAS", Evento.VPROVEEDOR_CON_MAS_UDS));
        
@@ -148,85 +148,4 @@ public class GUIProveedor extends JFrame implements IGUI {
         setVisible(true);
     }
 }
-	/*
-	@SuppressWarnings("unchecked")
-	@Override
-	public void actualizar(Context context) {
-		Evento evento = context.getEvento();
-		Object datos = context.getDatos();
-		switch (evento) {
-		case RES_ALTA_PROVEEDOR_OK:
-			JOptionPane.showMessageDialog(null, "Proveedor dado de alta con ID: " + datos);
-			break;
-		case RES_ALTA_PROVEEDOR_KO:
-			JOptionPane.showMessageDialog(null, "Error al dar de alta el proveedor.");
-			break;
-		case RES_BAJA_PROVEEDOR_OK:
-			JOptionPane.showMessageDialog(null, "Proveedor dado de baja correctamente.");
-			break;
-		case RES_BAJA_PROVEEDOR_KO:
-			JOptionPane.showMessageDialog(null, "Error al dar de baja el proveedor.");
-			break;
-		case RES_MODIFICAR_PROVEEDOR_OK:
-			JOptionPane.showMessageDialog(null, "Proveedor modificado correctamente.");
-			break;
-		case RES_MODIFICAR_PROVEEDOR_KO:
-			JOptionPane.showMessageDialog(null, "Error al modificar proveedor.");
-			break;
-		case RES_BUSCAR_PROVEEDOR_OK:
-			JOptionPane.showMessageDialog(null, datos.toString());
-			break;
-		case RES_BUSCAR_PROVEEDOR_KO:
-			JOptionPane.showMessageDialog(null, "Proveedor no encontrado.");
-			break;
-		case RES_MOSTRAR_TODOS_PROVEEDORES_OK:
-			mostrarTabla((Collection<TProveedor>) datos);
-			break;
-		case RES_MOSTRAR_TODOS_PROVEEDORES_KO:
-			JOptionPane.showMessageDialog(null, "No hay proveedores para mostrar.");
-			break;
-		case RES_MOSTRAR_PROVEEDORES_POR_PRODUCTO_OK:
-			JOptionPane.showMessageDialog(null, "Producto suministrado por " + (TProveedor) datos);
-			break;
-		case RES_MOSTRAR_PROVEEDORES_POR_PRODUCTO_KO:
-			JOptionPane.showMessageDialog(null, "No se encontro proveedor para ese producto.");
-			break;
-		case RES_VINCULAR_PRODUCTO_PROVEEDOR_OK:
-			JOptionPane.showMessageDialog(null, "Producto vinculado al proveedor correctamente.");
-			break;
-		case RES_VINCULAR_PRODUCTO_PROVEEDOR_KO:
-			JOptionPane.showMessageDialog(null, "No se pudo vincular el producto al proveedor.");
-			break;
-		case RES_DESVINCULAR_PRODUCTO_PROVEEDOR_OK:
-			JOptionPane.showMessageDialog(null, "Producto desvinculado al proveedor correctamente.");
-			break;
-		case RES_DESVINCULAR_PRODUCTO_PROVEEDOR_KO:
-			JOptionPane.showMessageDialog(null, "No se pudo desvincular el producto del proveedor.");
-			break;
-		default:
-			JOptionPane.showMessageDialog(null, "Evento no reconocido: " + evento);
-		}
-	}
-
-	private void mostrarTabla(Collection<TProveedor> proveedores) {
-
-		String[] columnNames = { "ID", "Nombre", "Activo" };
-		Object[][] tableData = new Object[proveedores.size()][columnNames.length];
-
-		int i = 0;
-		for (TProveedor p : proveedores) {
-			tableData[i][0] = p.getId();
-			tableData[i][1] = p.getNombre();
-			tableData[i][2] = p.getActivo();
-			i++;
-		}
-
-		JTable table = new JTable(tableData, columnNames);
-		table.setFillsViewportHeight(true);
-		table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
-		table.setEnabled(false);
-		JScrollPane scrollPane = new JScrollPane(table);
-		JOptionPane.showMessageDialog(null, scrollPane, "Proveedores", JOptionPane.PLAIN_MESSAGE);
-
-	}
-	*/
+	
