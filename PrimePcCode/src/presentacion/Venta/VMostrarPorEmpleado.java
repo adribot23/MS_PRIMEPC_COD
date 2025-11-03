@@ -6,6 +6,8 @@ package presentacion.Venta;
 import javax.swing.JFrame;
 
 import presentacion.Controller.Controlador;
+import presentacion.Controller.Command.Context;
+import presentacion.GUI.IGUI;
 
 /** 
 * <!-- begin-UML-doc -->
@@ -13,7 +15,7 @@ import presentacion.Controller.Controlador;
 * @author adria
 * @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 */
-public class VMostrarPorEmpleado extends JFrame {
+public class VMostrarPorEmpleado extends JFrame  implements IGUI{
 	/** 
 	* <!-- begin-UML-doc -->
 	* <!-- end-UML-doc -->
@@ -32,5 +34,11 @@ public class VMostrarPorEmpleado extends JFrame {
 		// TODO Ap�ndice de m�todo generado autom�ticamente
 		return null;
 		// end-user-code
+	}
+
+	@Override
+	public void actualizar(Context context) {
+		// TODO Auto-generated method stub
+		
 	}
 }

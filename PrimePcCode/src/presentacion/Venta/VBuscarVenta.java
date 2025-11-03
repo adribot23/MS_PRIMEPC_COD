@@ -12,13 +12,16 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import presentacion.Controller.Command.Context;
+import presentacion.GUI.IGUI;
+
 /** 
 * <!-- begin-UML-doc -->
 * <!-- end-UML-doc -->
 * @author adria
 * @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 */
-public class VBuscarVenta extends JFrame {
+public class VBuscarVenta extends JFrame implements IGUI {
 	/** 
 	* <!-- begin-UML-doc -->
 	* <!-- end-UML-doc -->
@@ -49,4 +52,9 @@ public class VBuscarVenta extends JFrame {
 	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	*/
 	private Set<ActionListener> actionListener;
+	@Override
+	public void actualizar(Context context) {
+		// TODO Auto-generated method stub
+		
+	}
 }
