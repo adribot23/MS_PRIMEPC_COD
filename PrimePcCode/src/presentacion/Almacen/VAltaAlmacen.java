@@ -8,16 +8,16 @@ import java.awt.GridLayout;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import negocio.Almacen.TAlmacen;
 import presentacion.Controller.Controlador;
 import presentacion.Controller.Command.Context;
-import presentacion.GUI.IGUI;
 import presentacion.GUI.Evento;
+import presentacion.GUI.IGUI;
 
 /** 
 * <!-- begin-UML-doc -->
@@ -25,23 +25,20 @@ import presentacion.GUI.Evento;
 * @author adria
 * @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 */
-public class VAltaAlmacen extends JPanel implements IGUI {
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	*/
-	private Controlador ctrl;
+public class VAltaAlmacen extends JFrame implements IGUI {
 
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @return
-	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	*/
-	public void iniGUI() {
-		setBorder(BorderFactory.createTitledBorder("Alta Almacen"));
-		setLayout(new GridLayout(5, 1, 5, 5));
+	private static final long serialVersionUID = 1L;
+
+
+	public VAltaAlmacen() {
+		super("Alta de Almacen");
+		initGUI();
+	}
+	
+	public void initGUI() {
+		
+		setLayout(new GridLayout(4, 1, 10, 10));
+		getRootPane().setBorder(BorderFactory.createTitledBorder("Alta Almacen"));
 
 		JTextField nombreField = new JTextField();
 		JTextField capacidadField = new JTextField();
@@ -52,6 +49,13 @@ public class VAltaAlmacen extends JPanel implements IGUI {
 		add(new JLabel("Capacidad máxima:"));
 		add(capacidadField);
 		add(altaButton);
+		JButton btnVolver = new JButton("Volver");
+		btnVolver.setBackground(new Color(255, 220, 220));
+		btnVolver.addActionListener(e -> {
+			Controlador.getInstancia().accion(new Context(Evento.ALMACEN, null));
+			this.dispose();
+		});
+		add(btnVolver);
 
 		altaButton.addActionListener(e -> {
 			try {
@@ -63,12 +67,31 @@ public class VAltaAlmacen extends JPanel implements IGUI {
 				JOptionPane.showMessageDialog(this, "Capacidad y ocupacion deben ser numeros.");
 			}
 		});
+		
+		// Configuración final de la ventana
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setSize(350, 200);
+		setLocationRelativeTo(null);
+		setVisible(true);
 	}
 
 	public void actualizar(Context context) {
-		// begin-user-code
-		// TODO Ap�ndice de m�todo generado autom�ticamente
+		Evento evento = context.getEvento();
+		Object datos = context.getDatos();
+		switch (evento) {
 
-		// end-user-code
+		case VALTA_ALMACEN:
+			this.setVisible(true);
+			break;
+		case RES_ALTA_ALMACEN_OK:
+			JOptionPane.showMessageDialog(null, "Almacén dado de alta con ID: " + datos);
+			break;
+		case RES_ALTA_ALMACEN_KO:
+			JOptionPane.showMessageDialog(null, "Error al dar de alta el almacén.");
+			break;
+		default:
+			JOptionPane.showMessageDialog(null, "Evento no reconocido: " + evento);
+			
+		}
 	}
 }
