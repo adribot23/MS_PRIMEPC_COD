@@ -31,8 +31,10 @@ public class VCalcularImporteMasVendido extends JFrame implements IGUI{
 	* <!-- end-UML-doc -->
 	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	*/
-	private Controlador ctrl;
-
+	public VCalcularImporteMasVendido() {
+		super("Calcular Importe Total Del Empleado Que Mas Productos Ha Vendido");
+		initGUI();
+	}
 	/** 
 	* <!-- begin-UML-doc -->
 	* <!-- end-UML-doc -->

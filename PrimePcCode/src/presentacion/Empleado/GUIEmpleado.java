@@ -64,7 +64,7 @@ public class GUIEmpleado extends JFrame implements IGUI {
 		// Fila 2
 		botonesPanel.add(crearBotonVerde("BUSCAR EMPLEADO", Evento.VBUSCAR_EMPLEADO));
 		botonesPanel.add(crearBotonVerde("LISTAR TODOS LOS EMPLEADOS", Evento.VMOSTRAR_TODOS_EMPLEADOS));
-		
+		botonesPanel.add(crearBotonVerde("IMPORTE TOTAL DEL EMPLEADO QUE MAS HA VENDIDO", Evento.VCALCULAR_MAS_VENDIDO));
 
 		mainPanel.add(botonesPanel, BorderLayout.CENTER);
 

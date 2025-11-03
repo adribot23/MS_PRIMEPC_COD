@@ -36,8 +36,10 @@ public class VModificarEmpleado extends JFrame implements IGUI {
 	* <!-- end-UML-doc -->
 	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	*/
-	private Controlador ctrl;
-
+	public VModificarEmpleado() {
+		super("Modificar Empleado");
+		initGUI();
+	}
 	/** 
 	* <!-- begin-UML-doc -->
 	* <!-- end-UML-doc -->
