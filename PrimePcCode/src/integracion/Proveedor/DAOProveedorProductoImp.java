@@ -20,7 +20,7 @@ public class DAOProveedorProductoImp implements DAOProveedorProducto {
 
 			Connection c = (Connection) tr.getResource();
 			PreparedStatement s = c.prepareStatement(
-					"INSERT INTO PRODUCTO_PROVEEDOR(ID_PRODUCTO,ID_PROVEEDOR) VALUES (?,?,?)",
+					"INSERT INTO PRODUCTO_PROVEEDOR(ID_PRODUCTO,ID_PROVEEDOR) VALUES (?,?)",
 					Statement.RETURN_GENERATED_KEYS);
 			s.setInt(1, tProveedorProducto.getIdProducto());
 			s.setInt(2, tProveedorProducto.getIdProveedor());

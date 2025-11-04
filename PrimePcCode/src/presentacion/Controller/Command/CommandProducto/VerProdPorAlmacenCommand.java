@@ -21,11 +21,11 @@ import presentacion.GUI.Evento;
 public class VerProdPorAlmacenCommand implements Command {
 	public Context execute(Object data) {
 		Set<TProducto> productos = SAAbstractFactory.getInstancia().generarSAProducto()
-				.leerProductosPorProveedor((int) data);
+				.leerProductosPorAlmacen((int) data);
 		if (productos != null && !productos.isEmpty())
-			return new Context(Evento.RES_MOSTRAR_PRODUCTOS_POR_PROVEEDOR_OK, productos);
+			return new Context(Evento.RES_MOSTRAR_PRODUCTOS_POR_ALMACEN_OK, productos);
 		else
-			return new Context(Evento.RES_MOSTRAR_PRODUCTOS_POR_PROVEEDOR_KO, null);
+			return new Context(Evento.RES_MOSTRAR_PRODUCTOS_POR_ALMACEN_KO, null);
 	}
 
 }
