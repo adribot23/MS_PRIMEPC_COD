@@ -53,17 +53,19 @@ public class SAProveedorImp implements SAProveedor {
 
 	@Override
 	public Set<TProveedor> leerProveedorPorProducto(int idProducto) {
-		DAOProveedorProducto daoProveedorProducto = DAOAbstractFactory.getInstancia().generaDAOProveedorProducto();
-		DAOProveedor daoProveedor = DAOAbstractFactory.getInstancia().generaDAOProveedor();
-		Set<TProveedorProducto> vinculaciones;
-		Set<TProveedor> proveedores = new HashSet<>();
-
+	
 		TManager m = TManager.getInstance();
 		Transaction tr = m.createTransaction();
 
+		Set<TProveedorProducto> vinculaciones;
+		Set<TProveedor> proveedores = new HashSet<>();
 		if (tr != null) {
+			DAOProveedorProducto daoProveedorProducto = DAOAbstractFactory.getInstancia().generaDAOProveedorProducto();
+			DAOProveedor daoProveedor = DAOAbstractFactory.getInstancia().generaDAOProveedor();
+			
+
 			tr.start();
-			vinculaciones = daoProveedorProducto.read_all_by_proveedor(idProducto);
+			vinculaciones = daoProveedorProducto.read_all_by_producto(idProducto);
 
 			if (vinculaciones != null) {
 				for (TProveedorProducto v : vinculaciones) {
@@ -153,9 +155,10 @@ public class SAProveedorImp implements SAProveedor {
 		if (tr != null) {
 			tr.start();
 			DAOProveedor daoProveedor = DAOAbstractFactory.getInstancia().generaDAOProveedor();
+			DAOProveedorProducto daoProveedorProducto = DAOAbstractFactory.getInstancia().generaDAOProveedorProducto();
 			TProveedor proveedor = daoProveedor.read(idProveedor);
 
-			if (proveedor != null) {
+			if (proveedor != null && proveedor.getActivo() == 1 && daoProveedorProducto.read_all_by_proveedor(idProveedor).isEmpty()) {
 				if (proveedor.getActivo() == 1) {
 					exito = daoProveedor.delete(idProveedor);
 					if (exito != -1)

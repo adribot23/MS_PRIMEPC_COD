@@ -14,6 +14,7 @@ import presentacion.Controller.Controlador;
 import presentacion.Controller.Command.Context;
 import presentacion.GUI.IGUI;
 import presentacion.GUI.Evento;
+
 public class VAltaProducto extends JFrame implements IGUI {
 
 	private Controlador ctrl;
@@ -25,7 +26,7 @@ public class VAltaProducto extends JFrame implements IGUI {
 
 	public void initGUI() {
 		// Configuración del layout y borde
-		setLayout(new GridLayout(5, 2, 10, 10));
+		setLayout(new GridLayout(6, 2, 10, 10));
 		getRootPane().setBorder(BorderFactory.createTitledBorder("Alta Producto"));
 
 		// Componentes de entrada
@@ -41,6 +42,8 @@ public class VAltaProducto extends JFrame implements IGUI {
 		JLabel lblUnidades = new JLabel("Unidades:");
 		JTextField txtUnidades = new JTextField();
 
+		JLabel lblAlmacen = new JLabel("ID Almacen:");
+		JTextField txtAlmacen = new JTextField();
 		// Botones
 		JButton btnAlta = new JButton("Dar de Alta");
 		btnAlta.setBackground(new Color(200, 255, 200));
@@ -55,13 +58,13 @@ public class VAltaProducto extends JFrame implements IGUI {
 				String modelo = txtModelo.getText().trim();
 				double precio = Double.parseDouble(txtPrecio.getText().trim());
 				int unidades = Integer.parseInt(txtUnidades.getText().trim());
-
+				int idAlmacen = Integer.parseInt(txtAlmacen.getText().trim());
 				if (marca.isEmpty() || modelo.isEmpty()) {
 					JOptionPane.showMessageDialog(this, "Debe rellenar todos los campos.");
 					return;
 				}
 
-				TProducto nuevo = new TProducto(precio, modelo, unidades, marca);
+				TProducto nuevo = new TProducto(precio, modelo, unidades, marca, idAlmacen);
 				Controlador.getInstancia().accion(new Context(Evento.ALTA_PRODUCTO, nuevo));
 
 				// Limpiar los campos
@@ -69,6 +72,7 @@ public class VAltaProducto extends JFrame implements IGUI {
 				txtModelo.setText("");
 				txtPrecio.setText("");
 				txtUnidades.setText("");
+				txtAlmacen.setText("");
 
 			} catch (NumberFormatException ex) {
 				JOptionPane.showMessageDialog(this, "Error: los campos numéricos no son válidos.");
@@ -90,6 +94,8 @@ public class VAltaProducto extends JFrame implements IGUI {
 		add(txtPrecio);
 		add(lblUnidades);
 		add(txtUnidades);
+		add(lblAlmacen);
+		add(txtAlmacen);
 		add(btnAlta);
 		add(btnVolver);
 
@@ -105,17 +111,17 @@ public class VAltaProducto extends JFrame implements IGUI {
 		Object datos = context.getDatos();
 
 		switch (evento) {
-			case VALTA_PRODUCTO:
-				this.setVisible(true);
-				break;
-			case RES_ALTA_PRODUCTO_OK:
-				JOptionPane.showMessageDialog(null, "Producto dado de alta con ID: " + datos);
-				break;
-			case RES_ALTA_PRODUCTO_KO:
-				JOptionPane.showMessageDialog(null, "Error al dar de alta el producto.");
-				break;
-			default:
-				JOptionPane.showMessageDialog(null, "Evento no reconocido: " + evento);
+		case VALTA_PRODUCTO:
+			this.setVisible(true);
+			break;
+		case RES_ALTA_PRODUCTO_OK:
+			JOptionPane.showMessageDialog(null, "Producto dado de alta con ID: " + datos);
+			break;
+		case RES_ALTA_PRODUCTO_KO:
+			JOptionPane.showMessageDialog(null, "Error al dar de alta el producto.");
+			break;
+		default:
+			JOptionPane.showMessageDialog(null, "Evento no reconocido: " + evento);
 		}
 	}
 }
