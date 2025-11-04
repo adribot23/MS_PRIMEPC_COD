@@ -21,16 +21,20 @@ public class DAOVentaImp implements DAOVenta {
 			Transaction tr = tm.getTransaction();
 			Connection con = (Connection) tr.getResource();
 
-		PreparedStatement ps = con.prepareStatement(
-				"INSERT INTO VENTA (metodo_Pago, precio, descuento, id_empleado, id_cliente, activo) VALUES (?, ?, ?, ?, ?, ?)",
-				Statement.RETURN_GENERATED_KEYS);
+	PreparedStatement ps = con.prepareStatement(
+			"INSERT INTO VENTA (metodo_Pago, precio, descuento, id_empleado, id_cliente, activo) VALUES (?, ?, ?, ?, ?, ?)",
+			Statement.RETURN_GENERATED_KEYS);
 
-			ps.setString(1, venta.getMetodoPago());
-			ps.setDouble(2, venta.getPrecio());
-			ps.setDouble(3, venta.getDescuento());
-			ps.setInt(4, venta.getIdEmpleado());	
+		ps.setString(1, venta.getMetodoPago() != null ? venta.getMetodoPago() : "Efectivo");
+		ps.setDouble(2, venta.getPrecio() != null ? venta.getPrecio() : 0.0);
+		ps.setDouble(3, venta.getDescuento() != null ? venta.getDescuento() : 0.0);
+		ps.setInt(4, venta.getIdEmpleado());
+		if (venta.getIdCliente() != null && venta.getIdCliente() > 0) {
 			ps.setInt(5, venta.getIdCliente());
-			ps.setInt(6, 1);
+		} else {
+			ps.setNull(5, java.sql.Types.INTEGER);
+		}
+		ps.setInt(6, 1);
 
 			ps.executeUpdate();
 

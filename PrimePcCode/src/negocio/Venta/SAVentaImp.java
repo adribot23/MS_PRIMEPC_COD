@@ -6,7 +6,6 @@ import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-import integracion.Cliente.DAOCliente;
 import integracion.Empleado.DAOEmpleado;
 import integracion.FactoriaDAO.DAOAbstractFactory;
 import integracion.Producto.DAOProducto;
@@ -14,7 +13,6 @@ import integracion.Transaction.TManager;
 import integracion.Transaction.Transaction;
 import integracion.Venta.DAOLineaVenta;
 import integracion.Venta.DAOVenta;
-import negocio.Cliente.TCliente;
 import negocio.Empleado.TEmpleado;
 import negocio.Producto.TProducto;
 
@@ -139,14 +137,12 @@ public class SAVentaImp implements SAVenta {
 		if (tr != null) {
 			tr.start();
 
-			TVenta venta = carrito.getVenta();
+		TVenta venta = carrito.getVenta();
 
-			DAOEmpleado daoEmp = DAOAbstractFactory.getInstancia().generaDAOEmpleado();
-			TEmpleado empleado = daoEmp.read(venta.getIdEmpleado());
-			DAOCliente daoCli = DAOAbstractFactory.getInstancia().generaDAOCliente();
-			TCliente cliente = daoCli.read(venta.getIdCliente());
+		DAOEmpleado daoEmp = DAOAbstractFactory.getInstancia().generaDAOEmpleado();
+		TEmpleado empleado = daoEmp.read(venta.getIdEmpleado());
 
-			if (empleado != null && empleado.getActivo() == 1 && cliente != null && cliente.getActivo() == 1) {
+		if (empleado != null && empleado.getActivo() == 1) {
 
 				Iterator<TLineaVenta> it = carrito.recorrerLineasVenta();
 
@@ -166,7 +162,7 @@ public class SAVentaImp implements SAVenta {
 
 						TLineaVenta tLineaf = new TLineaVenta();
 
-						if (lineaVenta.get_num_unidades() > producto.getUnidades()) {
+						if (producto.getUnidades() >= lineaVenta.get_num_unidades()) {
 							totalproducto = actualizardatosLineaVenta(tLineaf, lineaVenta, producto, lineasVenta,
 									totalproducto);
 
@@ -188,13 +184,19 @@ public class SAVentaImp implements SAVenta {
 					}
 				}
 
-				if (lineasVenta.size() > 0 && !exito) {
+			if (lineasVenta.size() > 0 && !exito) {
 
-					DAOVenta daoVenta = DAOAbstractFactory.getInstancia().generaDAOVenta();
+				DAOVenta daoVenta = DAOAbstractFactory.getInstancia().generaDAOVenta();
 
-					venta.setPrecio(totalproducto);
+			venta.setPrecio(totalproducto);
+			if (venta.getDescuento() == null) {
+				venta.setDescuento(0.0);
+			}
+			if (venta.getMetodoPago() == null || venta.getMetodoPago().isEmpty()) {
+				venta.setMetodoPago("Efectivo");
+			}
 
-					idVenta = daoVenta.create(venta);
+			idVenta = daoVenta.create(venta);
 
 					if (idVenta != -1) {
 
@@ -248,7 +250,7 @@ public class SAVentaImp implements SAVenta {
 	private double actualizardatosLineaVenta(TLineaVenta lineaVenta, TLineaVenta lineaVenta2, TProducto producto,
 			Set<TLineaVenta> lineasVenta, double totalproducto2) {
 
-		lineaVenta.set_precio_unidades(lineaVenta2.get_num_unidades());
+		lineaVenta.set_num_unidades(lineaVenta2.get_num_unidades());
 		lineaVenta.set_producto(lineaVenta2.get_producto());
 
 		double precioTotalLinea = producto.getPrecio() * lineaVenta.get_num_unidades();
@@ -461,12 +463,12 @@ public class SAVentaImp implements SAVenta {
 
 			if (ventaExistente != null && ventaExistente.getActivo() == 1) {
 
-				TEmpleado empleado = DAOAbstractFactory.getInstancia().generaDAOEmpleado().read(venta.getIdEmpleado());
+			TEmpleado empleado = DAOAbstractFactory.getInstancia().generaDAOEmpleado().read(venta.getIdEmpleado());
 
-				if (empleado != null || empleado.getActivo() == 1) {
+			if (empleado != null && empleado.getActivo() == 1) {
 
-					ventaExistente.setIdEmpleado(venta.getIdEmpleado());
-					res = daoVenta.update(ventaExistente);
+				ventaExistente.setIdEmpleado(venta.getIdEmpleado());
+				res = daoVenta.update(ventaExistente);
 
 					if (res == -1) {
 						tr.commit();

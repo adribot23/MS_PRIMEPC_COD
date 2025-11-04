@@ -20,18 +20,19 @@ public class CerrarVentaCommand implements Command {
 			return new Context(Evento.RES_CERRAR_VENTA_KO, "Los datos del carrito no son válidos.");
 		}
 
-		try {
-			SAVenta saVenta = SAAbstractFactory.getInstancia().generarSAVenta();
-			int resultado = saVenta.cerrarVenta((TCarrito) data);
+	try {
+		TCarrito carrito = (TCarrito) data;
+		SAVenta saVenta = SAAbstractFactory.getInstancia().generarSAVenta();
+		int resultado = saVenta.cerrarVenta(carrito);
 
-			if (resultado > 0) {
-				return new Context(Evento.RES_CERRAR_VENTA_OK, resultado);
-			} else {
-				return new Context(Evento.RES_CERRAR_VENTA_KO,
-						"No se pudo cerrar la venta.");
-			}
-		} catch (Exception ex) {
-			return new Context(Evento.RES_CERRAR_VENTA_KO, ex.getMessage());
+		if (resultado > 0) {
+			return new Context(Evento.RES_CERRAR_VENTA_OK, carrito);
+		} else {
+			return new Context(Evento.RES_CERRAR_VENTA_KO,
+					"No se pudo cerrar la venta.");
 		}
+	} catch (Exception ex) {
+		return new Context(Evento.RES_CERRAR_VENTA_KO, ex.getMessage());
+	}
 	}
 }

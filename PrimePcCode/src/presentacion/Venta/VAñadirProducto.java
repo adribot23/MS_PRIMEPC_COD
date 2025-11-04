@@ -124,16 +124,15 @@ public class VAñadirProducto extends JFrame implements IGUI {
 			JOptionPane.showMessageDialog(this, "Error en el traspaso del carrito.");
 			dispose();
 			break;
-		case RES_INSERTAR_PRODUCTO_VENTA_OK:
-			JOptionPane.showMessageDialog(this, "Producto añadido al carrito.");
-			Controlador.getInstancia().accion(new Context(Evento.PASAR_CARRITO_A_CERRAR, datos));
-			dispose();
-			break;
-		case RES_INSERTAR_PRODUCTO_VENTA_KO:
-			JOptionPane.showMessageDialog(this, "No se pudo añadir el producto al carrito. Compruebe los datos.");
-			Controlador.getInstancia().accion(new Context(Evento.PASAR_CARRITO_A_CERRAR, datos));
-			dispose();
-			break;
+	case RES_INSERTAR_PRODUCTO_VENTA_OK:
+		Controlador.getInstancia().accion(new Context(Evento.PASAR_CARRITO_A_CERRAR, datos));
+		dispose();
+		break;
+	case RES_INSERTAR_PRODUCTO_VENTA_KO:
+		JOptionPane.showMessageDialog(this, "No se pudo añadir el producto al carrito. Compruebe los datos.");
+		Controlador.getInstancia().accion(new Context(Evento.PASAR_CARRITO_A_CERRAR, datos));
+		dispose();
+		break;
 		default:
 			break;
 		}
