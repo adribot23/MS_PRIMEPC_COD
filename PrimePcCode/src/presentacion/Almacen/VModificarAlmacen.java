@@ -85,11 +85,11 @@ public class VModificarAlmacen extends JFrame implements IGUI {
 
 		case RES_MODIFICAR_ALMACEN_OK:
 			JOptionPane.showMessageDialog(this, 
-					"Proveedor modificado correctamente:\n" + context.toString());
+					"Almacén modificado correctamente:\n" + context.toString());
 			break;
 
 		case RES_MODIFICAR_ALMACEN_KO:
-			JOptionPane.showMessageDialog(this, "Error al modificar el proveedor.");
+			JOptionPane.showMessageDialog(this, "Error al modificar el almacén.");
 			break;
 
 		default:
