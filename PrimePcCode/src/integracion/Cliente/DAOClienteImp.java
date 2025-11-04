@@ -2,6 +2,7 @@
  * 
  */
 package integracion.Cliente;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -19,20 +20,22 @@ import negocio.Cliente.TClienteNoSocio;
 import negocio.Cliente.TClienteSocio;
 import negocio.Producto.TProducto;
 
-/** 
-* <!-- begin-UML-doc -->
-* <!-- end-UML-doc -->
-* @author adria
-* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-*/
+/**
+ * <!-- begin-UML-doc --> <!-- end-UML-doc -->
+ * 
+ * @author adria
+ * @generated "UML a Java
+ *            (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+ */
 public class DAOClienteImp implements DAOCliente {
-	
+
 	private Connection c;
 
 	private Connection conectar() throws SQLException {
-		return DriverManager.getConnection("jdbc:sqlite:bd/MSPrimePC.db", "root", "root"); //TODO Poner el nombre de la bd 
+		return DriverManager.getConnection("jdbc:sqlite:bd/MSPrimePC.db", "root", "root"); // TODO Poner el nombre de la
+																							// bd
 	}
-	
+
 	@Override
 	public int create(TCliente cliente) {
 		int id = -1;
@@ -40,44 +43,47 @@ public class DAOClienteImp implements DAOCliente {
 			TManager tManager = TManager.getInstance();
 			Transaction t = tManager.getTransaction();
 			Connection c = (Connection) t.getResource();
-			PreparedStatement s = c.prepareStatement("INSERT INTO CLIENTE (DNI, NOMBRE, ACTIVO) VALUES (?, ?, 1)",Statement.RETURN_GENERATED_KEYS);
+			PreparedStatement s = c.prepareStatement("INSERT INTO CLIENTE (DNI, NOMBRE, ACTIVO) VALUES (?, ?, 1)",
+					Statement.RETURN_GENERATED_KEYS);
 			s.setString(1, cliente.getDni());
 			s.setString(2, cliente.getNombre());
 			s.executeUpdate();
 
 			ResultSet r = s.getGeneratedKeys();
-			   if (r.next()) {
-		            id = r.getInt(1);
+			if (r.next()) {
+				id = r.getInt(1);
 
-		            if (cliente instanceof TClienteSocio) {
-		                TClienteSocio socio = (TClienteSocio) cliente;
-		                PreparedStatement psSocio = c.prepareStatement("INSERT INTO SOCIO (ID, PUNTOS, NUM_SOCIO) VALUES (?, ?, ?)");
-		                if (id != -1)
-		                    psSocio.setInt(1, id);
-		                psSocio.setInt(2, socio.getPuntos());
-		                psSocio.setInt(3, generarNumSocio(c)); 
-		                psSocio.executeUpdate();
-		                psSocio.close();
-		            } else if (cliente instanceof TClienteNoSocio) {
-		                TClienteNoSocio noSocio = (TClienteNoSocio) cliente;
-		                PreparedStatement psNoSocio = c.prepareStatement("INSERT INTO NOSOCIO (ID, NUM_VISITAS) VALUES (?, ?)");
-		                if (id != -1)
-		                    psNoSocio.setInt(1, id);
-		                psNoSocio.setInt(2, noSocio.getNumVisitas());
-		                psNoSocio.executeUpdate();
-		                psNoSocio.close();
-		            }
-		        } else {
-		            throw new SQLException();
-		        }
+				if (cliente instanceof TClienteSocio) {
+					TClienteSocio socio = (TClienteSocio) cliente;
+					PreparedStatement psSocio = c
+							.prepareStatement("INSERT INTO SOCIO (ID, PUNTOS, NUM_SOCIO) VALUES (?, ?, ?)");
+					if (id != -1)
+						psSocio.setInt(1, id);
+					psSocio.setInt(2, socio.getPuntos());
+					psSocio.setInt(3, generarNumSocio(c));
+					psSocio.executeUpdate();
+					psSocio.close();
+				} else if (cliente instanceof TClienteNoSocio) {
+					TClienteNoSocio noSocio = (TClienteNoSocio) cliente;
+					PreparedStatement psNoSocio = c
+							.prepareStatement("INSERT INTO NOSOCIO (ID, NUM_VISITAS) VALUES (?, ?)");
+					if (id != -1)
+						psNoSocio.setInt(1, id);
+					psNoSocio.setInt(2, noSocio.getNumVisitas());
+					psNoSocio.executeUpdate();
+					psNoSocio.close();
+				}
+			} else {
+				throw new SQLException();
+			}
 
-		        r.close();
-		        s.close();
-		    } catch (SQLException e) {
-		        e.printStackTrace();
-		        return -1;
-		    } 
-		    return id;
+			r.close();
+			s.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return -1;
+		}
+		return id;
 	}
 
 	@Override
@@ -94,7 +100,7 @@ public class DAOClienteImp implements DAOCliente {
 				String dni = r.getString("DNI");
 				String nombre = r.getString("NOMBRE");
 				int activo = r.getInt("ACTIVO");
-				
+
 				PreparedStatement psSocio = c
 						.prepareStatement("SELECT PUNTOS, NUM_SOCIO FROM SOCIO WHERE ID = ? FOR UPDATE");
 				psSocio.setInt(1, id);
@@ -104,7 +110,7 @@ public class DAOClienteImp implements DAOCliente {
 					int puntos = rsSocio.getInt("PUNTOS");
 					int numSocio = rsSocio.getInt("NUM_SOCIO");
 
-					TClienteSocio socio = new TClienteSocio(id, nombre,dni, activo, numSocio,puntos);
+					TClienteSocio socio = new TClienteSocio(id, nombre, dni, activo, numSocio, puntos);
 					cliente = socio;
 				} else {
 					PreparedStatement psNoSocio = c
@@ -115,7 +121,7 @@ public class DAOClienteImp implements DAOCliente {
 					if (rsNoSocio.next()) {
 						int numVisitas = rsNoSocio.getInt("NUM_VISITAS");
 
-						TClienteNoSocio noSocio = new TClienteNoSocio(id, nombre,dni, activo, numVisitas);
+						TClienteNoSocio noSocio = new TClienteNoSocio(id, nombre, dni, activo, numVisitas);
 						cliente = noSocio;
 					}
 
@@ -203,73 +209,66 @@ public class DAOClienteImp implements DAOCliente {
 		else
 			return exito;
 	}
-	
-/*
-	@Override
-	public int eliminarFisicamente(int id) {  //solo para el test
-	    int filasAfectadas = 0;
-	    try {
-	        c = conectar();
-	        String sql = "DELETE FROM CLIENTE WHERE ID = ?";
-	        PreparedStatement ps = c.prepareStatement(sql);
-	        ps.setInt(1, id);
-	        filasAfectadas = ps.executeUpdate();
-	        ps.close();
-	        c.close();
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	    }
-	    return filasAfectadas;
-	}
 
-*/
+	/*
+	 * @Override public int eliminarFisicamente(int id) { //solo para el test int
+	 * filasAfectadas = 0; try { c = conectar(); String sql =
+	 * "DELETE FROM CLIENTE WHERE ID = ?"; PreparedStatement ps =
+	 * c.prepareStatement(sql); ps.setInt(1, id); filasAfectadas =
+	 * ps.executeUpdate(); ps.close(); c.close(); } catch (SQLException e) {
+	 * e.printStackTrace(); } return filasAfectadas; }
+	 * 
+	 */
 	@Override
 	public TCliente read_by_DNI(String dni) {
-	    if (dni == null || dni.isEmpty()) {
-	        return null;
-	    }
+		if (dni == null || dni.isEmpty()) {
+			return null;
+		}
 
-	    TCliente cliente = null;
+		TCliente cliente = null;
 
-	    try (Connection c = conectar();
-	         PreparedStatement psCliente = c.prepareStatement("SELECT ID, NOMBRE, ACTIVO FROM CLIENTE WHERE DNI = ? FOR UPDATE")) {
+		try (Connection c = conectar();
+				PreparedStatement psCliente = c
+						.prepareStatement("SELECT ID, NOMBRE, ACTIVO FROM CLIENTE WHERE DNI = ? FOR UPDATE")) {
 
-	        psCliente.setString(1, dni);
-	        try (ResultSet rsCliente = psCliente.executeQuery()) {
-	            if (rsCliente.next()) {
-	                int id = rsCliente.getInt("ID");
-	                String nombre = rsCliente.getString("NOMBRE");
-	                int activo = rsCliente.getInt("ACTIVO");
+			psCliente.setString(1, dni);
+			try (ResultSet rsCliente = psCliente.executeQuery()) {
+				if (rsCliente.next()) {
+					int id = rsCliente.getInt("ID");
+					String nombre = rsCliente.getString("NOMBRE");
+					int activo = rsCliente.getInt("ACTIVO");
 
-	                try (PreparedStatement psSocio = c.prepareStatement("SELECT PUNTOS, NUM_SOCIO FROM SOCIO WHERE ID = ? FOR UPDATE")) {
-	                    psSocio.setInt(1, id);
-	                    try (ResultSet rsSocio = psSocio.executeQuery()) {
-	                        if (rsSocio.next()) {
-	                            int puntos = rsSocio.getInt("PUNTOS");
-	                            int numSocio = rsSocio.getInt("NUM_SOCIO");
-	                            cliente = new TClienteSocio(id, nombre, dni, activo, numSocio, puntos);
-	                        } else {
-	                            try (PreparedStatement psNoSocio = c.prepareStatement("SELECT NUM_VISITAS FROM NOSOCIO WHERE ID = ? FOR UPDATE")) {
-	                                psNoSocio.setInt(1, id);
-	                                try (ResultSet rsNoSocio = psNoSocio.executeQuery()) {
-	                                    if (rsNoSocio.next()) {
-	                                        int numVisitas = rsNoSocio.getInt("NUM_VISITAS");
-	                                        cliente = new TClienteNoSocio(id, nombre, dni, activo, numVisitas);
-	                                    }
-	                                }
-	                            }
-	                        }
-	                    }
-	                }
-	            }
-	        }
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	    }
+					try (PreparedStatement psSocio = c
+							.prepareStatement("SELECT PUNTOS, NUM_SOCIO FROM SOCIO WHERE ID = ? FOR UPDATE")) {
+						psSocio.setInt(1, id);
+						try (ResultSet rsSocio = psSocio.executeQuery()) {
+							if (rsSocio.next()) {
+								int puntos = rsSocio.getInt("PUNTOS");
+								int numSocio = rsSocio.getInt("NUM_SOCIO");
+								cliente = new TClienteSocio(id, nombre, dni, activo, numSocio, puntos);
+							} else {
+								try (PreparedStatement psNoSocio = c
+										.prepareStatement("SELECT NUM_VISITAS FROM NOSOCIO WHERE ID = ? FOR UPDATE")) {
+									psNoSocio.setInt(1, id);
+									try (ResultSet rsNoSocio = psNoSocio.executeQuery()) {
+										if (rsNoSocio.next()) {
+											int numVisitas = rsNoSocio.getInt("NUM_VISITAS");
+											cliente = new TClienteNoSocio(id, nombre, dni, activo, numVisitas);
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 
-	    return cliente;
+		return cliente;
 	}
-	
+
 	@Override
 	public Set<TCliente> read_all() {
 		Set<TCliente> clientes = new HashSet<TCliente>();
@@ -287,7 +286,8 @@ public class DAOClienteImp implements DAOCliente {
 				String nombre = r.getString("NOMBRE");
 				int activo = r.getInt("ACTIVO");
 
-				PreparedStatement psSocio = c.prepareStatement("SELECT PUNTOS, NUM_SOCIO FROM SOCIO WHERE ID = ? FOR UPDATE");
+				PreparedStatement psSocio = c
+						.prepareStatement("SELECT PUNTOS, NUM_SOCIO FROM SOCIO WHERE ID = ? FOR UPDATE");
 				psSocio.setInt(1, id);
 				ResultSet rsSocio = psSocio.executeQuery();
 
@@ -298,7 +298,8 @@ public class DAOClienteImp implements DAOCliente {
 					TClienteSocio socio = new TClienteSocio(id, nombre, dni, activo, numSocio, puntos);
 					clientes.add(socio);
 				} else {
-					PreparedStatement psNoSocio = c.prepareStatement("SELECT NUM_VISITAS FROM NOSOCIO WHERE ID = ? FOR UPDATE");
+					PreparedStatement psNoSocio = c
+							.prepareStatement("SELECT NUM_VISITAS FROM NOSOCIO WHERE ID = ? FOR UPDATE");
 					psNoSocio.setInt(1, id);
 					ResultSet rsNoSocio = psNoSocio.executeQuery();
 
@@ -330,14 +331,14 @@ public class DAOClienteImp implements DAOCliente {
 	}
 
 	private int generarNumSocio(Connection c) throws SQLException {
-	    String sql = "SELECT MAX(NUM_SOCIO) FROM SOCIO FOR UPDATE";
-	    Statement s = c.createStatement();
-	    ResultSet rs = s.executeQuery(sql);
-	    int nuevoID = 1;
-	    if (rs.next()) {
-	        nuevoID = rs.getInt(1) + 1;
-	    }
-	    return nuevoID;
+		String sql = "SELECT MAX(NUM_SOCIO) FROM SOCIO FOR UPDATE";
+		Statement s = c.createStatement();
+		ResultSet rs = s.executeQuery(sql);
+		int nuevoID = 1;
+		if (rs.next()) {
+			nuevoID = rs.getInt(1) + 1;
+		}
+		return nuevoID;
 
 	}
 }

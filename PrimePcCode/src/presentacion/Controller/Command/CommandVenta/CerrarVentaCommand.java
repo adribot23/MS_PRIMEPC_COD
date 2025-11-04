@@ -10,7 +10,7 @@ public class CerrarVentaCommand implements Command {
 
 	@Override
 	public Context execute(Object data) {
-		
+
 		if (data == null) {
 			return new Context(Evento.CERRAR_VENTA, null);
 		}

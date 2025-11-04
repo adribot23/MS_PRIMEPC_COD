@@ -52,296 +52,278 @@ import presentacion.Venta.VMostrarPorCliente;
 import presentacion.Venta.VMostrarPorEmpleado;
 import primePcMain.MainWindow;
 
+public class GUIAbstractFactoryImp extends GUIAbstractFactory {
 
-public class GUIAbstractFactoryImp extends GUIAbstractFactory{
+	@Override
+	public IGUI generarVistas(Evento evento) {
 
+		switch (evento) {
 
-	 @Override
-	 public IGUI generarVistas(Evento evento) {
-		
-	        switch (evento) {
+		case VISTA_PRINCIPAL:
+			return new MainWindow();
 
-	        case VISTA_PRINCIPAL:
-	        	return new MainWindow();
-	        	
-	            /* ======================
-	             * ========
-	             * ======== CLIENTE ============
-	             * ============================== */
-	            case CLIENTE:
-	                return new GUICliente();
+		/*
+		 * ====================== ======== ======== CLIENTE ============
+		 * ==============================
+		 */
+		case CLIENTE:
+			return new GUICliente();
 
-	            case VALTA_CLIENTE:
-	            case RES_ALTA_CLIENTE_OK:
-	            case RES_ALTA_CLIENTE_KO:
-	                return new VAltaCliente();
+		case VALTA_CLIENTE:
+		case RES_ALTA_CLIENTE_OK:
+		case RES_ALTA_CLIENTE_KO:
+			return new VAltaCliente();
 
-	            case VBAJA_CLIENTE:
-	            case RES_BAJA_CLIENTE_OK:
-	            case RES_BAJA_CLIENTE_KO:
-	                return new VBajaCliente();
+		case VBAJA_CLIENTE:
+		case RES_BAJA_CLIENTE_OK:
+		case RES_BAJA_CLIENTE_KO:
+			return new VBajaCliente();
 
-	            case VBUSCAR_CLIENTE:
-	            case RES_BUSCAR_CLIENTE_OK:
-	            case RES_BUSCAR_CLIENTE_KO:
-	                return new VBuscarCliente();
+		case VBUSCAR_CLIENTE:
+		case RES_BUSCAR_CLIENTE_OK:
+		case RES_BUSCAR_CLIENTE_KO:
+			return new VBuscarCliente();
 
-	            case VMODIFICAR_CLIENTE:
-	            case RES_MODIFICAR_CLIENTE_OK:
-	            case RES_MODIFICAR_CLIENTE_KO:
-	                return new VModificarCliente();
+		case VMODIFICAR_CLIENTE:
+		case RES_MODIFICAR_CLIENTE_OK:
+		case RES_MODIFICAR_CLIENTE_KO:
+			return new VModificarCliente();
 
-	            case VMOSTRAR_TODOS_CLIENTES:
-	            case RES_MOSTRAR_TODOS_CLIENTES_OK:
-	            case RES_MOSTRAR_TODOS_CLIENTES_KO:
-	                return new VMostrarCliente();
+		case VMOSTRAR_TODOS_CLIENTES:
+		case RES_MOSTRAR_TODOS_CLIENTES_OK:
+		case RES_MOSTRAR_TODOS_CLIENTES_KO:
+			return new VMostrarCliente();
 
-	            /* ==============================
-	             * ======== EMPLEADO ============
-	             * ============================== */
-	            case EMPLEADO:
-	                return new GUIEmpleado();
+		/*
+		 * ============================== ======== EMPLEADO ============
+		 * ==============================
+		 */
+		case EMPLEADO:
+			return new GUIEmpleado();
 
-	            case VALTA_EMPLEADO:
-	            case RES_ALTA_EMPLEADO_OK:
-	            case RES_ALTA_EMPLEADO_KO:
-	                return new VAltaEmpleado();
+		case VALTA_EMPLEADO:
+		case RES_ALTA_EMPLEADO_OK:
+		case RES_ALTA_EMPLEADO_KO:
+			return new VAltaEmpleado();
 
-	            case VBAJA_EMPLEADO:
-	            case RES_BAJA_EMPLEADO_OK:
-	            case RES_BAJA_EMPLEADO_KO:
-	                return new VBajaEmpleado();
+		case VBAJA_EMPLEADO:
+		case RES_BAJA_EMPLEADO_OK:
+		case RES_BAJA_EMPLEADO_KO:
+			return new VBajaEmpleado();
 
-	            case VBUSCAR_EMPLEADO:
-	            case RES_BUSCAR_EMPLEADO_OK:
-	            case RES_BUSCAR_EMPLEADO_KO:
-	                return new VBuscarEmpleado();
+		case VBUSCAR_EMPLEADO:
+		case RES_BUSCAR_EMPLEADO_OK:
+		case RES_BUSCAR_EMPLEADO_KO:
+			return new VBuscarEmpleado();
 
-	            case VMODIFICAR_EMPLEADO:
-	            case RES_MODIFICAR_EMPLEADO_OK:
-	            case RES_MODIFICAR_EMPLEADO_KO:
-	                return new VModificarEmpleado();
+		case VMODIFICAR_EMPLEADO:
+		case RES_MODIFICAR_EMPLEADO_OK:
+		case RES_MODIFICAR_EMPLEADO_KO:
+			return new VModificarEmpleado();
 
-	            case VMOSTRAR_TODOS_EMPLEADOS:
-	            case RES_MOSTRAR_TODOS_EMPLEADOS_OK:
-	            case RES_MOSTRAR_TODOS_EMPLEADOS_KO:
-	                return new VMostrarEmpleado();
+		case VMOSTRAR_TODOS_EMPLEADOS:
+		case RES_MOSTRAR_TODOS_EMPLEADOS_OK:
+		case RES_MOSTRAR_TODOS_EMPLEADOS_KO:
+			return new VMostrarEmpleado();
 
-	            
-	            case VCALCULAR_MAS_VENDIDO:
-	            case RES_CALCULAR_MAS_VENDIDO_OK:
-	            case RES_CALCULAR_MAS_VENDIDO_KO:
-	                return new VCalcularImporteMasVendido();
-	            /* ==============================
-	             * ======== PROVEEDOR ============
-	             * ============================== */
-	            case PROVEEDOR:
-	                return new GUIProveedor();
+		case VCALCULAR_MAS_VENDIDO:
+		case RES_CALCULAR_MAS_VENDIDO_OK:
+		case RES_CALCULAR_MAS_VENDIDO_KO:
+			return new VCalcularImporteMasVendido();
+		/*
+		 * ============================== ======== PROVEEDOR ============
+		 * ==============================
+		 */
+		case PROVEEDOR:
+			return new GUIProveedor();
 
-	            case VALTA_PROVEEDOR:
-	            case RES_ALTA_PROVEEDOR_OK:
-	            case RES_ALTA_PROVEEDOR_KO:
-	                return new VAltaProveedor();
+		case VALTA_PROVEEDOR:
+		case RES_ALTA_PROVEEDOR_OK:
+		case RES_ALTA_PROVEEDOR_KO:
+			return new VAltaProveedor();
 
-	            case VBAJA_PROVEEDOR:
-	            case RES_BAJA_PROVEEDOR_OK:
-	            case RES_BAJA_PROVEEDOR_KO:
-	                return new VBajaProveedor();
+		case VBAJA_PROVEEDOR:
+		case RES_BAJA_PROVEEDOR_OK:
+		case RES_BAJA_PROVEEDOR_KO:
+			return new VBajaProveedor();
 
-	            case VBUSCAR_PROVEEDOR:
-	            case RES_BUSCAR_PROVEEDOR_OK:
-	            case RES_BUSCAR_PROVEEDOR_KO:
-	                return new VBuscarProveedor();
+		case VBUSCAR_PROVEEDOR:
+		case RES_BUSCAR_PROVEEDOR_OK:
+		case RES_BUSCAR_PROVEEDOR_KO:
+			return new VBuscarProveedor();
 
-	            case VMODIFICAR_PROVEEDOR:
-	            case RES_MODIFICAR_PROVEEDOR_OK:
-	            case RES_MODIFICAR_PROVEEDOR_KO:
-	                return new VModificarProveedor();
+		case VMODIFICAR_PROVEEDOR:
+		case RES_MODIFICAR_PROVEEDOR_OK:
+		case RES_MODIFICAR_PROVEEDOR_KO:
+			return new VModificarProveedor();
 
-	            case VMOSTRAR_TODOS_PROVEEDORES:
-	            case RES_MOSTRAR_TODOS_PROVEEDORES_OK:
-	            case RES_MOSTRAR_TODOS_PROVEEDORES_KO:
-	                return new VMostrarProveedor();
+		case VMOSTRAR_TODOS_PROVEEDORES:
+		case RES_MOSTRAR_TODOS_PROVEEDORES_OK:
+		case RES_MOSTRAR_TODOS_PROVEEDORES_KO:
+			return new VMostrarProveedor();
 
-	            case VMOSTRAR_PROVEEDORES_POR_PRODUCTO:
-	            case RES_MOSTRAR_PROVEEDORES_POR_PRODUCTO_OK:
-	            case RES_MOSTRAR_PROVEEDORES_POR_PRODUCTO_KO:
-	                return new VVerPorProducto();
+		case VMOSTRAR_PROVEEDORES_POR_PRODUCTO:
+		case RES_MOSTRAR_PROVEEDORES_POR_PRODUCTO_OK:
+		case RES_MOSTRAR_PROVEEDORES_POR_PRODUCTO_KO:
+			return new VVerPorProducto();
 
-	            case VVINCULAR_PRODUCTO_PROVEEDOR:
-	            case RES_VINCULAR_PRODUCTO_PROVEEDOR_OK:
-	            case RES_VINCULAR_PRODUCTO_PROVEEDOR_KO:
-	           
-	                return new VVincularProveedor();
+		case VVINCULAR_PRODUCTO_PROVEEDOR:
+		case RES_VINCULAR_PRODUCTO_PROVEEDOR_OK:
+		case RES_VINCULAR_PRODUCTO_PROVEEDOR_KO:
 
-	            case VDESVINCULAR_PRODUCTO_PROVEEDOR:
-	            case RES_DESVINCULAR_PRODUCTO_PROVEEDOR_OK:
-	            case RES_DESVINCULAR_PRODUCTO_PROVEEDOR_KO:
-	                return new VDesvincularProveedor()  ; 
-	                
-	            case VPROVEEDOR_CON_MAS_UDS:
-	            case PROVEEDOR_CON_MAS_UDS:
-	            case RES_PROVEEDOR_CON_MAS_UDS_OK:
-	            case RES_PROVEEDOR_CON_MAS_UDS_KO:
-	                return new VProveedorConMasUnidadesDeProductoVendidas();
-	                
-	                
-	           
-	            
-	            /* ==============================
-	             * ======== PRODUCTO ============
-	             * ============================== */
-	            case PRODUCTO:
-	                return new GUIProducto();
+			return new VVincularProveedor();
 
-	            case VALTA_PRODUCTO:
-	            case RES_ALTA_PRODUCTO_OK:
-	            case RES_ALTA_PRODUCTO_KO:
-	                return new VAltaProducto();
+		case VDESVINCULAR_PRODUCTO_PROVEEDOR:
+		case RES_DESVINCULAR_PRODUCTO_PROVEEDOR_OK:
+		case RES_DESVINCULAR_PRODUCTO_PROVEEDOR_KO:
+			return new VDesvincularProveedor();
 
-	            case VBAJA_PRODUCTO:
-	            case RES_BAJA_PRODUCTO_OK:
-	            case RES_BAJA_PRODUCTO_KO:
-	                return new VBajaProducto();
+		case VPROVEEDOR_CON_MAS_UDS:
+		case RES_PROVEEDOR_CON_MAS_UDS_OK:
+		case RES_PROVEEDOR_CON_MAS_UDS_KO:
+			return new VProveedorConMasUnidadesDeProductoVendidas();
 
-	            case VMODIFICAR_PRODUCTO:
-	            case RES_MODIFICAR_PRODUCTO_OK:
-	            case RES_MODIFICAR_PRODUCTO_KO:
-	                return new VModificarProducto();
+		/*
+		 * ============================== ======== PRODUCTO ============
+		 * ==============================
+		 */
+		case PRODUCTO:
+			return new GUIProducto();
 
-	            case VBUSCAR_PRODUCTO:
-	            case RES_BUSCAR_PRODUCTO_OK:
-	            case RES_BUSCAR_PRODUCTO_KO:
-	                return new VBuscarProducto();
+		case VALTA_PRODUCTO:
+		case RES_ALTA_PRODUCTO_OK:
+		case RES_ALTA_PRODUCTO_KO:
+			return new VAltaProducto();
 
-	            case VMOSTRAR_TODOS_PRODUCTOS:
-	            case RES_MOSTRAR_TODOS_PRODUCTOS_OK:
-	            case RES_MOSTRAR_TODOS_PRODUCTOS_KO:
-	                return new VMostrarProducto();
+		case VBAJA_PRODUCTO:
+		case RES_BAJA_PRODUCTO_OK:
+		case RES_BAJA_PRODUCTO_KO:
+			return new VBajaProducto();
 
-	            case VMOSTRAR_PRODUCTOS_POR_PROVEEDOR:
-	            case RES_MOSTRAR_PRODUCTOS_POR_PROVEEDOR_OK:
-	            case RES_MOSTRAR_PRODUCTOS_POR_PROVEEDOR_KO:
-	                return new VVerProdPorProveedor();
+		case VMODIFICAR_PRODUCTO:
+		case RES_MODIFICAR_PRODUCTO_OK:
+		case RES_MODIFICAR_PRODUCTO_KO:
+			return new VModificarProducto();
 
-	            case VMOSTRAR_PRODUCTOS_POR_ALMACEN:
-	            case RES_MOSTRAR_PRODUCTOS_POR_ALMACEN_OK:
-	            case RES_MOSTRAR_PRODUCTOS_POR_ALMACEN_KO:
-	                return new VVerProdPorAlmacen();
+		case VBUSCAR_PRODUCTO:
+		case RES_BUSCAR_PRODUCTO_OK:
+		case RES_BUSCAR_PRODUCTO_KO:
+			return new VBuscarProducto();
 
-	            /* ==============================
-	             * ======== ALMACÉN ============
-	             * ============================== */
-	            case ALMACEN:
-	                return new GUIAlmacen();
+		case VMOSTRAR_TODOS_PRODUCTOS:
+		case RES_MOSTRAR_TODOS_PRODUCTOS_OK:
+		case RES_MOSTRAR_TODOS_PRODUCTOS_KO:
+			return new VMostrarProducto();
 
-	            case VALTA_ALMACEN:
-	            case RES_ALTA_ALMACEN_OK:
-	            case RES_ALTA_ALMACEN_KO:
-	                return new VAltaAlmacen();
+		case VMOSTRAR_PRODUCTOS_POR_PROVEEDOR:
+		case RES_MOSTRAR_PRODUCTOS_POR_PROVEEDOR_OK:
+		case RES_MOSTRAR_PRODUCTOS_POR_PROVEEDOR_KO:
+			return new VVerProdPorProveedor();
 
-	            case VBAJA_ALMACEN:
-	            case RES_BAJA_ALMACEN_OK:
-	            case RES_BAJA_ALMACEN_KO:
-	                return new VBajaAlmacen();
+		case VMOSTRAR_PRODUCTOS_POR_ALMACEN:
+		case RES_MOSTRAR_PRODUCTOS_POR_ALMACEN_OK:
+		case RES_MOSTRAR_PRODUCTOS_POR_ALMACEN_KO:
+			return new VVerProdPorAlmacen();
 
-	            case VBUSCAR_ALMACEN:
-	            case RES_BUSCAR_ALMACEN_OK:
-	            case RES_BUSCAR_ALMACEN_KO:
-	                return new VBuscarAlmacen();
+		/*
+		 * ============================== ======== ALMACÉN ============
+		 * ==============================
+		 */
+		case ALMACEN:
+			return new GUIAlmacen();
 
-	            case VMODIFICAR_ALMACEN:
-	            case RES_MODIFICAR_ALMACEN_OK:
-	            case RES_MODIFICAR_ALMACEN_KO:
-	                return new VModificarAlmacen();
+		case VALTA_ALMACEN:
+		case RES_ALTA_ALMACEN_OK:
+		case RES_ALTA_ALMACEN_KO:
+			return new VAltaAlmacen();
 
-	            case VMOSTRAR_TODOS_ALMACENES:
-	            case RES_MOSTRAR_TODOS_ALMACENES_OK:
-	            case RES_MOSTRAR_TODOS_ALMACENES_KO:
-	                return new VMostrarAlmacen();
+		case VBAJA_ALMACEN:
+		case RES_BAJA_ALMACEN_OK:
+		case RES_BAJA_ALMACEN_KO:
+			return new VBajaAlmacen();
 
-	           
+		case VBUSCAR_ALMACEN:
+		case RES_BUSCAR_ALMACEN_OK:
+		case RES_BUSCAR_ALMACEN_KO:
+			return new VBuscarAlmacen();
 
-	            /* ==============================
-	             * ======== VENTA ============
-	             * ============================== */
-	                // ==== VENTANA PRINCIPAL DE VENTA ====
-	            case VENTA:
-	                return new GUIVenta();
+		case VMODIFICAR_ALMACEN:
+		case RES_MODIFICAR_ALMACEN_OK:
+		case RES_MODIFICAR_ALMACEN_KO:
+			return new VModificarAlmacen();
 
-	            // ==== CASOS DE USO ====
+		case VMOSTRAR_TODOS_ALMACENES:
+		case RES_MOSTRAR_TODOS_ALMACENES_OK:
+		case RES_MOSTRAR_TODOS_ALMACENES_KO:
+			return new VMostrarAlmacen();
 
-	            case VABRIR_VENTA:
-	            case ABRIR_VENTA:
-	            case RES_ABRIR_VENTA_OK:
-	            case RES_ABRIR_VENTA_KO:
-	                return new VAbrirVenta();
+		/*
+		 * ============================== ======== VENTA ============
+		 * ==============================
+		 */
+		// ==== VENTANA PRINCIPAL DE VENTA ====
+		case VENTA:
+			return new GUIVenta();
 
-	            case VCERRAR_VENTA:
-	            case CERRAR_VENTA:
-	            case RES_CERRAR_VENTA_OK:
-	            case RES_CERRAR_VENTA_KO:
-	                return new VCerrarVenta();
+		// ==== CASOS DE USO ====
 
-	            case VINSERTAR_PRODUCTO_VENTA:
-	            case INSERTAR_PRODUCTO_VENTA:
-	            case RES_INSERTAR_PRODUCTO_VENTA_OK:
-	            case RES_INSERTAR_PRODUCTO_VENTA_KO:
-	                return new VInsertarProducto();
+		case VABRIR_VENTA:
+		case RES_ABRIR_VENTA_OK:
+		case RES_ABRIR_VENTA_KO:
+			return new VAbrirVenta();
 
-	            case VQUITAR_PRODUCTO_VENTA:
-	            case QUITAR_PRODUCTO_VENTA:
-	            case RES_QUITAR_PRODUCTO_VENTA_OK:
-	            case RES_QUITAR_PRODUCTO_VENTA_KO:
-	                return new VEliminarProducto();
+		case VCERRAR_VENTA:
+		case RES_CERRAR_VENTA_OK:
+		case RES_CERRAR_VENTA_KO:
+			return new VCerrarVenta();
 
-	            case VBAJA_VENTA:
-	            case BAJA_VENTA:
-	            case RES_BAJA_VENTA_OK:
-	            case RES_BAJA_VENTA_KO:
-	                return new VBajaVenta();
+		case VINSERTAR_PRODUCTO_VENTA:
+		case RES_INSERTAR_PRODUCTO_VENTA_OK:
+		case RES_INSERTAR_PRODUCTO_VENTA_KO:
+			return new VInsertarProducto();
 
-	            case VMODIFICAR_VENTA:
-	            case MODIFICAR_VENTA:
-	            case RES_MODIFICAR_VENTA_OK:
-	            case RES_MODIFICAR_VENTA_KO:
-	                return new VModificarVenta();
+		case VQUITAR_PRODUCTO_VENTA:
+		case RES_QUITAR_PRODUCTO_VENTA_OK:
+		case RES_QUITAR_PRODUCTO_VENTA_KO:
+			return new VEliminarProducto();
 
-	            case VBUSCAR_VENTA:
-	            case BUSCAR_VENTA:
-	            case RES_BUSCAR_VENTA_OK:
-	            case RES_BUSCAR_VENTA_KO:
-	                return new VBuscarVenta();
+		case VBAJA_VENTA:
+		case RES_BAJA_VENTA_OK:
+		case RES_BAJA_VENTA_KO:
+			return new VBajaVenta();
 
-	            case VMOSTRAR_TODAS_VENTAS:
-	            case MOSTRAR_TODAS_VENTAS:
-	            case RES_MOSTRAR_TODAS_VENTAS_OK:
-	            case RES_MOSTRAR_TODAS_VENTAS_KO:
-	                return new VListarVenta();
+		case VMODIFICAR_VENTA:
+		case RES_MODIFICAR_VENTA_OK:
+		case RES_MODIFICAR_VENTA_KO:
+			return new VModificarVenta();
 
-	            case VMOSTRAR_VENTAS_POR_EMPLEADO:
-	            case MOSTRAR_VENTAS_POR_EMPLEADO:
-	            case RES_MOSTRAR_VENTAS_POR_EMPLEADO_OK:
-	            case RES_MOSTRAR_VENTAS_POR_EMPLEADO_KO:
-	                return new VMostrarPorEmpleado();
+		case VBUSCAR_VENTA:
+		case RES_BUSCAR_VENTA_OK:
+		case RES_BUSCAR_VENTA_KO:
+			return new VBuscarVenta();
 
-	            case VMOSTRAR_VENTAS_POR_CLIENTE:
-	            case MOSTRAR_VENTAS_POR_CLIENTE:
-	            case RES_MOSTRAR_VENTAS_POR_CLIENTE_OK:
-	            case RES_MOSTRAR_VENTAS_POR_CLIENTE_KO:
-	                return new VMostrarPorCliente();
+		case VMOSTRAR_TODAS_VENTAS:
+		case RES_MOSTRAR_TODAS_VENTAS_OK:
+		case RES_MOSTRAR_TODAS_VENTAS_KO:
+			return new VListarVenta();
 
-	            case VDEVOLVER_VENTA:
-	            case RES_DEVOLVER_VENTA_OK:
-	            case RES_DEVOLVER_VENTA_KO:
-	                return new VDevolverVenta();
+		case VMOSTRAR_VENTAS_POR_EMPLEADO:
+		case RES_MOSTRAR_VENTAS_POR_EMPLEADO_OK:
+		case RES_MOSTRAR_VENTAS_POR_EMPLEADO_KO:
+			return new VMostrarPorEmpleado();
 
-	            default:
-	                return null;
-	        }
-	        }
-	    }
+		case VMOSTRAR_VENTAS_POR_CLIENTE:
+		case RES_MOSTRAR_VENTAS_POR_CLIENTE_OK:
+		case RES_MOSTRAR_VENTAS_POR_CLIENTE_KO:
+			return new VMostrarPorCliente();
 
+		case VDEVOLVER_VENTA:
+		case RES_DEVOLVER_VENTA_OK:
+		case RES_DEVOLVER_VENTA_KO:
+			return new VDevolverVenta();
 
-
-	
+		default:
+			return null;
+		}
+	}
+}

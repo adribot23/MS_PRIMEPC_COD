@@ -64,8 +64,6 @@ public class GUICliente extends JFrame implements IGUI {
 		// Fila 2
 		botonesPanel.add(crearBotonVerde("BUSCAR CLIENTE", Evento.VBUSCAR_CLIENTE));
 		botonesPanel.add(crearBotonVerde("LISTAR TODOS LOS CLIENTES", Evento.VMOSTRAR_TODOS_CLIENTES));
-		
-
 
 		mainPanel.add(botonesPanel, BorderLayout.CENTER);
 
@@ -131,76 +129,42 @@ public class GUICliente extends JFrame implements IGUI {
 
 }
 /*
-	@SuppressWarnings("unchecked")
-	@Override
-	public void actualizar(Context context) {
-		Evento evento = context.getEvento();
-		Object datos = context.getDatos();
-		switch (evento) {
-		case RES_ALTA_CLIENTE_OK:
-			JOptionPane.showMessageDialog(null, "Cliente dado de alta con ID: " + datos);
-			break;
-		case RES_ALTA_CLIENTE_KO:
-			JOptionPane.showMessageDialog(null, "Error al dar de alta el cliente.");
-			break;
-		case RES_BAJA_CLIENTE_OK:
-			JOptionPane.showMessageDialog(null, "Cliente dado de baja correctamente.");
-			break;
-		case RES_BAJA_CLIENTE_KO:
-			JOptionPane.showMessageDialog(null, "Error al dar de baja el cliente.");
-			break;
-		case RES_MODIFICAR_CLIENTE_OK:
-			JOptionPane.showMessageDialog(null, "Cliente modificado correctamente.");
-			break;
-		case RES_MODIFICAR_CLIENTE_KO:
-			JOptionPane.showMessageDialog(null, "Error al modificar el cliente. Verifica los datos.");
-			break;
-		case RES_BUSCAR_CLIENTE_OK:
-			JOptionPane.showMessageDialog(null, (TCliente) datos);
-			break;
-		case RES_BUSCAR_CLIENTE_KO:
-			JOptionPane.showMessageDialog(null, "Cliente no encontrado.");
-			break;
-		case RES_MOSTRAR_TODOS_CLIENTES_OK:
-			mostrarTabla((Collection<TCliente>) datos);
-			break;
-		case RES_MOSTRAR_TODOS_CLIENTES_KO:
-			JOptionPane.showMessageDialog(null, "No hay clientes para mostrar.");
-			break;
-		default:
-			JOptionPane.showMessageDialog(null, "Evento no reconocido: " + evento);
-		}
-	}
-
-	private void mostrarTabla(Collection<TCliente> clientes) {
-		String[] columnNames = { "ID", "Nombre", "DNI", "Tipo", "Numero Socio", "Puntos de Socio", "Numero Visitas",
-				"Activo" };
-		Object[][] data = new Object[clientes.size()][columnNames.length];
-		int i = 0;
-		for (TCliente cli : clientes) {
-			data[i][0] = cli.getId();
-			data[i][1] = cli.getNombre();
-			data[i][2] = cli.getDni();
-			data[i][7] = cli.getActivo();
-			if (cli instanceof TClienteSocio) {
-				data[i][4] = "Socio";
-				data[i][5] = ((TClienteSocio) cli).getNumeroDeSocio();
-				data[i][6] = ((TClienteSocio) cli).getPuntos();
-				data[i][7] = "---";
-			} else {
-				data[i][4] = "No Socio";
-				data[i][5] = "---";
-				data[i][6] = "---";
-				data[i][7] = ((TClienteNoSocio) cli).getNumVisitas();
-			}
-			i++;
-		}
-		JTable table = new JTable(data, columnNames);
-		table.setFillsViewportHeight(true);
-		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-		table.setEnabled(false);
-		JScrollPane scrollPane = new JScrollPane(table);
-		JOptionPane.showMessageDialog(null, scrollPane, "Clientes", JOptionPane.PLAIN_MESSAGE);
-	}
-}
-*/
+ * @SuppressWarnings("unchecked")
+ * 
+ * @Override public void actualizar(Context context) { Evento evento =
+ * context.getEvento(); Object datos = context.getDatos(); switch (evento) {
+ * case RES_ALTA_CLIENTE_OK: JOptionPane.showMessageDialog(null,
+ * "Cliente dado de alta con ID: " + datos); break; case RES_ALTA_CLIENTE_KO:
+ * JOptionPane.showMessageDialog(null, "Error al dar de alta el cliente.");
+ * break; case RES_BAJA_CLIENTE_OK: JOptionPane.showMessageDialog(null,
+ * "Cliente dado de baja correctamente."); break; case RES_BAJA_CLIENTE_KO:
+ * JOptionPane.showMessageDialog(null, "Error al dar de baja el cliente.");
+ * break; case RES_MODIFICAR_CLIENTE_OK: JOptionPane.showMessageDialog(null,
+ * "Cliente modificado correctamente."); break; case RES_MODIFICAR_CLIENTE_KO:
+ * JOptionPane.showMessageDialog(null,
+ * "Error al modificar el cliente. Verifica los datos."); break; case
+ * RES_BUSCAR_CLIENTE_OK: JOptionPane.showMessageDialog(null, (TCliente) datos);
+ * break; case RES_BUSCAR_CLIENTE_KO: JOptionPane.showMessageDialog(null,
+ * "Cliente no encontrado."); break; case RES_MOSTRAR_TODOS_CLIENTES_OK:
+ * mostrarTabla((Collection<TCliente>) datos); break; case
+ * RES_MOSTRAR_TODOS_CLIENTES_KO: JOptionPane.showMessageDialog(null,
+ * "No hay clientes para mostrar."); break; default:
+ * JOptionPane.showMessageDialog(null, "Evento no reconocido: " + evento); } }
+ * 
+ * private void mostrarTabla(Collection<TCliente> clientes) { String[]
+ * columnNames = { "ID", "Nombre", "DNI", "Tipo", "Numero Socio",
+ * "Puntos de Socio", "Numero Visitas", "Activo" }; Object[][] data = new
+ * Object[clientes.size()][columnNames.length]; int i = 0; for (TCliente cli :
+ * clientes) { data[i][0] = cli.getId(); data[i][1] = cli.getNombre();
+ * data[i][2] = cli.getDni(); data[i][7] = cli.getActivo(); if (cli instanceof
+ * TClienteSocio) { data[i][4] = "Socio"; data[i][5] = ((TClienteSocio)
+ * cli).getNumeroDeSocio(); data[i][6] = ((TClienteSocio) cli).getPuntos();
+ * data[i][7] = "---"; } else { data[i][4] = "No Socio"; data[i][5] = "---";
+ * data[i][6] = "---"; data[i][7] = ((TClienteNoSocio) cli).getNumVisitas(); }
+ * i++; } JTable table = new JTable(data, columnNames);
+ * table.setFillsViewportHeight(true);
+ * table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF); table.setEnabled(false);
+ * JScrollPane scrollPane = new JScrollPane(table);
+ * JOptionPane.showMessageDialog(null, scrollPane, "Clientes",
+ * JOptionPane.PLAIN_MESSAGE); } }
+ */

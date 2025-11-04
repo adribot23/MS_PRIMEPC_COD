@@ -64,7 +64,7 @@ public class SAProveedorImp implements SAProveedor {
 		if (tr != null) {
 			tr.start();
 			vinculaciones = daoProveedorProducto.read_all_by_proveedor(idProducto);
-			
+
 			if (vinculaciones != null) {
 				for (TProveedorProducto v : vinculaciones) {
 					proveedores.add(daoProveedor.read(v.getIdProveedor()));

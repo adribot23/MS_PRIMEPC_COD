@@ -8,7 +8,6 @@ import presentacion.Controller.Command.Command;
 import presentacion.Controller.Command.Context;
 import presentacion.GUI.Evento;
 
-
 public class BuscarVentaCommand implements Command {
 
 	@Override

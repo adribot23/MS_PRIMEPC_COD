@@ -32,8 +32,7 @@ public class VMostrarPorCliente extends JFrame implements IGUI {
 		super("Ventas por cliente");
 
 		tableModel = new DefaultTableModel(
-				new Object[] { "Id venta", "Empleado", "Cliente", "Método pago", "Precio", "Descuento", "Activa" },
-				0) {
+				new Object[] { "Id venta", "Empleado", "Cliente", "Método pago", "Precio", "Descuento", "Activa" }, 0) {
 			private static final long serialVersionUID = 1L;
 
 			@Override

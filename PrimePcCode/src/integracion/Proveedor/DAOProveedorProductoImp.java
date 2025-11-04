@@ -1,4 +1,5 @@
 package integracion.Proveedor;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,7 +10,8 @@ import java.util.Set;
 import integracion.Transaction.TManager;
 import integracion.Transaction.Transaction;
 import negocio.Proveedor.TProveedorProducto;
-public class DaoProveedorProductoImp implements DAOProveedorProducto {
+
+public class DAOProveedorProductoImp implements DAOProveedorProducto {
 	public int create(TProveedorProducto tProveedorProducto) {
 		int id = -1;
 		try {
@@ -18,7 +20,8 @@ public class DaoProveedorProductoImp implements DAOProveedorProducto {
 
 			Connection c = (Connection) tr.getResource();
 			PreparedStatement s = c.prepareStatement(
-					"INSERT INTO PRODUCTO_PROVEEDOR(ID_PRODUCTO,ID_PROVEEDOR) VALUES (?,?,?)",Statement.RETURN_GENERATED_KEYS);
+					"INSERT INTO PRODUCTO_PROVEEDOR(ID_PRODUCTO,ID_PROVEEDOR) VALUES (?,?,?)",
+					Statement.RETURN_GENERATED_KEYS);
 			s.setInt(1, tProveedorProducto.getIdProducto());
 			s.setInt(2, tProveedorProducto.getIdProveedor());
 			s.executeUpdate();
@@ -75,8 +78,8 @@ public class DaoProveedorProductoImp implements DAOProveedorProducto {
 			Transaction tr = m.getTransaction();
 
 			Connection c = (Connection) tr.getResource();
-			PreparedStatement s = c.prepareStatement(
-					"DELETE PRODUCTO_PROVEEDOR WHERE ID_PRODUCTO = ? AND ID_PROVEEDOR = ?");
+			PreparedStatement s = c
+					.prepareStatement("DELETE PRODUCTO_PROVEEDOR WHERE ID_PRODUCTO = ? AND ID_PROVEEDOR = ?");
 			s.setInt(1, id_producto);
 			s.setInt(2, id_proveedor);
 			exito = s.executeUpdate();
@@ -101,7 +104,8 @@ public class DaoProveedorProductoImp implements DAOProveedorProducto {
 			while (r.next()) {
 				TProveedorProducto vinculacion = new TProveedorProducto();
 				int idProducto = r.getInt("ID_PRODUCTO");
-				int idProveedor = r.getInt("ID_PROVEEDOR");;
+				int idProveedor = r.getInt("ID_PROVEEDOR");
+				;
 				vinculacion.setIdProducto(idProducto);
 				vinculacion.setIdProveedor(idProveedor);
 				vinculaciones.add(vinculacion);
@@ -150,7 +154,8 @@ public class DaoProveedorProductoImp implements DAOProveedorProducto {
 			Transaction tr = m.getTransaction();
 
 			Connection c = (Connection) tr.getResource();
-			PreparedStatement s = c.prepareStatement("SELECT * FROM PRODUCTO_PROVEEDOR WHERE ID_PROVEEDOR=? FOR UPDATE");
+			PreparedStatement s = c
+					.prepareStatement("SELECT * FROM PRODUCTO_PROVEEDOR WHERE ID_PROVEEDOR=? FOR UPDATE");
 			s.setInt(1, id_proveedor);
 			ResultSet r = s.executeQuery();
 			while (r.next()) {

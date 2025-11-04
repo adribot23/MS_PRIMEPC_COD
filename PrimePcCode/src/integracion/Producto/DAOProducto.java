@@ -22,5 +22,4 @@ public interface DAOProducto {
 
 	public Set<TProducto> read_by_almacen(int idAlmacen);
 
-
 }

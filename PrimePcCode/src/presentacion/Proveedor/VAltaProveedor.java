@@ -38,7 +38,7 @@ public class VAltaProveedor extends JFrame implements IGUI {
 
 	public void initGUI() {
 		// Configuración de la ventana
-		setLayout(new GridLayout(4, 1, 10, 10));
+		setLayout(new GridLayout(2, 2, 10, 10));
 		getRootPane().setBorder(BorderFactory.createTitledBorder("Alta Proveedor"));
 
 		// Componentes
@@ -54,6 +54,7 @@ public class VAltaProveedor extends JFrame implements IGUI {
 				TProveedor p = new TProveedor(0, nombre);
 				Controlador.getInstancia().accion(new Context(Evento.ALTA_PROVEEDOR, p));
 				altaNombre.setText("");
+
 			}
 		});
 
@@ -70,9 +71,9 @@ public class VAltaProveedor extends JFrame implements IGUI {
 		add(btnVolver);
 		// Configuración final de la ventana
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setSize(350, 200);
+		setSize(350, 150);
 		setLocationRelativeTo(null);
-		setVisible(true);
+
 	}
 
 	@Override
@@ -92,7 +93,7 @@ public class VAltaProveedor extends JFrame implements IGUI {
 			break;
 		default:
 			JOptionPane.showMessageDialog(null, "Evento no reconocido: " + evento);
-			
+
 		}
 
 	}

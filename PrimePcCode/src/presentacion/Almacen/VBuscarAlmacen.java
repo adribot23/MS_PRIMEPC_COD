@@ -8,15 +8,15 @@ import java.awt.GridLayout;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import presentacion.Controller.Controlador;
 import presentacion.Controller.Command.Context;
-import presentacion.GUI.IGUI;
 import presentacion.GUI.Evento;
+import presentacion.GUI.IGUI;
 
 /** 
 * <!-- begin-UML-doc -->
@@ -24,23 +24,16 @@ import presentacion.GUI.Evento;
 * @author adria
 * @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 */
-public class VBuscarAlmacen extends JPanel implements IGUI {
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	*/
-	private Controlador ctrl;
+public class VBuscarAlmacen extends JFrame implements IGUI {
+	public VBuscarAlmacen() {
+		super("Buscar Almacén");
+		initGUI();
+	}
 
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @return
-	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	*/
 	public void initGUI() {
-		setBorder(BorderFactory.createTitledBorder("Buscar Almacen"));
-		setLayout(new GridLayout(3, 1, 5, 5));
+		// Configuración general
+		setLayout(new GridLayout(4, 1, 10, 10));
+		getRootPane().setBorder(BorderFactory.createTitledBorder("Buscar Almacén"));
 
 		JTextField idField = new JTextField();
 		JButton buscarButton = new JButton("Buscar");
@@ -57,12 +50,39 @@ public class VBuscarAlmacen extends JPanel implements IGUI {
 				JOptionPane.showMessageDialog(this, "El ID debe ser un numero.");
 			}
 		});
+		
+		JButton btnVolver = new JButton("Volver");
+		btnVolver.setBackground(new Color(255, 220, 220));
+		btnVolver.addActionListener(e -> {
+			Controlador.getInstancia().accion(new Context(Evento.ALMACEN, null));
+			this.dispose();
+		});
+		
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setSize(350, 200);
+		setLocationRelativeTo(null);
+		setVisible(true);
 	}
 
 	public void actualizar(Context context) {
-		// begin-user-code
-		// TODO Ap�ndice de m�todo generado autom�ticamente
+		Evento evento = context.getEvento();
+		Object datos = context.getDatos();
 
-		// end-user-code
+		switch (evento) {
+		case VBUSCAR_ALMACEN:
+			this.setVisible(true);
+			break;
+		case RES_BUSCAR_ALMACEN_OK:
+			JOptionPane.showMessageDialog(this, datos.toString());
+			break;
+
+		case RES_BUSCAR_ALMACEN_KO:
+			JOptionPane.showMessageDialog(this, "Almacén no encontrado.");
+			break;
+
+		default:
+			JOptionPane.showMessageDialog(this, "Evento no reconocido: " + evento);
+			break;
+		}
 	}
 }

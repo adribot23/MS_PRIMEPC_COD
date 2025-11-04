@@ -8,15 +8,15 @@ import java.awt.GridLayout;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import presentacion.Controller.Controlador;
 import presentacion.Controller.Command.Context;
-import presentacion.GUI.IGUI;
 import presentacion.GUI.Evento;
+import presentacion.GUI.IGUI;
 
 /** 
 * <!-- begin-UML-doc -->
@@ -24,23 +24,18 @@ import presentacion.GUI.Evento;
 * @author adria
 * @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 */
-public class VBajaAlmacen extends JPanel implements IGUI {
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	*/
-	private Controlador ctrl;
+public class VBajaAlmacen extends JFrame implements IGUI {
 
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @return
-	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	*/
+	private static final long serialVersionUID = 1L;
+	
+	public VBajaAlmacen() {
+		super("Baja de Almacén");
+		initGUI();
+	}
+	
 	public void initGUI() {
-		setBorder(BorderFactory.createTitledBorder("Baja Almacen"));
-		setLayout(new GridLayout(3, 1, 5, 5));
+		setLayout(new GridLayout(4, 1, 100, 10));
+		getRootPane().setBorder(BorderFactory.createTitledBorder("Baja Almacén"));
 
 		JTextField idField = new JTextField();
 		JButton bajaButton = new JButton("Dar de baja");
@@ -57,12 +52,36 @@ public class VBajaAlmacen extends JPanel implements IGUI {
 				JOptionPane.showMessageDialog(this, "ID invalido.");
 			}
 		});
+		
+		JButton btnVolver = new JButton("Volver");
+		btnVolver.setBackground(new Color(255, 220, 220));
+		btnVolver.addActionListener(e -> {
+			Controlador.getInstancia().accion(new Context(Evento.ALMACEN, null));
+			this.dispose();
+		});
+		
+		// Configuración final de la ventana
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setSize(350, 200);
+		setLocationRelativeTo(null);
+		setVisible(true);
 	}
 
 	public void actualizar(Context context) {
-		// begin-user-code
-		// TODO Ap�ndice de m�todo generado autom�ticamente
+		Evento evento = context.getEvento();
 
-		// end-user-code
+		switch (evento) {
+		case VBAJA_ALMACEN:
+			this.setVisible(true);
+			break;
+		case RES_BAJA_ALMACEN_OK:
+			JOptionPane.showMessageDialog(null, "Proveedor dado de baja correctamente.");
+			break;
+		case RES_BAJA_ALMACEN_KO:
+			JOptionPane.showMessageDialog(null, "Error al dar de baja el almacén.");
+			break;
+		default:
+			JOptionPane.showMessageDialog(null, "Evento no reconocido: " + evento);
+		}
 	}
 }
