@@ -4,6 +4,8 @@ import java.util.Set;
 
 import integracion.Empleado.DAOEmpleado;
 import integracion.FactoriaDAO.DAOAbstractFactory;
+import integracion.FactoriaQuery.FactoriaQuery;
+import integracion.FactoriaQuery.Query;
 import integracion.Transaction.TManager;
 import integracion.Transaction.Transaction;
 import negocio.Producto.TProducto;
@@ -149,6 +151,30 @@ public class SAEmpleadoImp implements SAEmpleado {
 
 	@Override
 	public int calcularImporteMasVendido(int idProducto) {
-		return idProducto;
+		 int importe = -1; // Valor inicial por defecto en caso de error
+		    TManager tm = TManager.getInstance();
+		    Transaction tr = tm.createTransaction();
+
+		    if (tr != null) {
+		        tr.start();
+
+		        FactoriaQuery fq = FactoriaQuery.getInstance();
+		        Query q = fq.getNewQuery("CalcularImporteEmpleado");
+
+		        Object resultado = q.execute(idProducto);
+
+		        if (resultado == null) {
+		            tr.rollback();
+		            return importe;
+		        }
+
+		        if (resultado instanceof Integer) {
+		            importe = (Integer) resultado;
+		            tr.commit();
+		            tr.rollback();
+		        }
+		    }
+
+		    return importe;
 	}
 }
