@@ -1,13 +1,15 @@
 package presentacion.Venta;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
+import java.awt.Color;
+import java.awt.GridLayout;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import negocio.Venta.TLineaVenta;
@@ -31,39 +33,39 @@ public class VAñadirProducto extends JFrame implements IGUI {
 	}
 
 	private void initGUI() {
-		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		setLayout(new BorderLayout(10, 10));
+		setLayout(new GridLayout(5, 2, 10, 10));
+		getRootPane().setBorder(BorderFactory.createTitledBorder("Añadir producto a venta"));
+		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				volver();
+			}
+		});
 
-		JPanel datos = new JPanel(new java.awt.GridLayout(0, 2, 10, 8));
-		datos.setBorder(javax.swing.BorderFactory.createEmptyBorder(15, 15, 10, 15));
+		add(new JLabel("Id venta:"));
+		add(idVentaField);
 
-		datos.add(new JLabel("Id venta:"));
-		datos.add(idVentaField);
+		add(new JLabel("Id producto:"));
+		add(idProductoField);
 
-		datos.add(new JLabel("Id producto:"));
-		datos.add(idProductoField);
+		add(new JLabel("Unidades:"));
+		add(unidadesField);
 
-		datos.add(new JLabel("Unidades:"));
-		datos.add(unidadesField);
-
-		datos.add(new JLabel("Precio por unidad (€):"));
-		datos.add(precioUnidadField);
-
-		add(datos, BorderLayout.CENTER);
+		add(new JLabel("Precio por unidad (EUR):"));
+		add(precioUnidadField);
 
 		JButton aceptar = new JButton("Añadir");
+		aceptar.setBackground(new Color(200, 255, 200));
 		aceptar.addActionListener(e -> onAceptar());
+		add(aceptar);
 
-		JButton cancelar = new JButton("Cancelar");
-		cancelar.addActionListener(e -> dispose());
+		JButton volver = new JButton("Volver");
+		volver.setBackground(new Color(255, 220, 220));
+		volver.addActionListener(e -> volver());
+		add(volver);
 
-		JPanel botones = new JPanel();
-		botones.add(aceptar);
-		botones.add(cancelar);
-		add(botones, BorderLayout.PAGE_END);
-
-		setPreferredSize(new Dimension(360, 220));
-		pack();
+		setSize(380, 230);
 		setLocationRelativeTo(null);
 	}
 
@@ -84,6 +86,11 @@ public class VAñadirProducto extends JFrame implements IGUI {
 		} catch (IllegalArgumentException ex) {
 			JOptionPane.showMessageDialog(this, ex.getMessage(), "Datos incorrectos", JOptionPane.ERROR_MESSAGE);
 		}
+	}
+
+	private void volver() {
+		Controlador.getInstancia().accion(new Context(Evento.VENTA, null));
+		dispose();
 	}
 
 	private int parseEnteroPositivo(String valor, String campo) {
@@ -138,7 +145,7 @@ public class VAñadirProducto extends JFrame implements IGUI {
 		case RES_INSERTAR_PRODUCTO_VENTA_OK:
 			JOptionPane.showMessageDialog(this, "Producto añadido correctamente a la venta.", "Línea agregada",
 					JOptionPane.INFORMATION_MESSAGE);
-			dispose();
+			volver();
 			break;
 		case RES_INSERTAR_PRODUCTO_VENTA_KO:
 			String mensaje = datos instanceof String ? (String) datos : "No se pudo añadir el producto indicado.";

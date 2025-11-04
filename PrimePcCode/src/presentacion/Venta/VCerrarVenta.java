@@ -1,13 +1,15 @@
 package presentacion.Venta;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
+import java.awt.Color;
+import java.awt.GridLayout;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import presentacion.Controller.Command.Context;
@@ -27,30 +29,30 @@ public class VCerrarVenta extends JFrame implements IGUI {
 	}
 
 	private void initGUI() {
-		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		setLayout(new BorderLayout(10, 10));
-		setPreferredSize(new Dimension(360, 160));
+		setLayout(new GridLayout(2, 2, 10, 10));
+		getRootPane().setBorder(BorderFactory.createTitledBorder("Cerrar venta"));
+		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				volver();
+			}
+		});
 
-		JPanel inputPanel = new JPanel(new java.awt.GridLayout(1, 2, 10, 10));
-		inputPanel.setBorder(javax.swing.BorderFactory.createEmptyBorder(15, 15, 15, 15));
+		add(new JLabel("Id venta:"));
+		add(idVentaField);
 
-		inputPanel.add(new JLabel("Id venta:"));
-		inputPanel.add(idVentaField);
+		JButton cerrar = new JButton("Cerrar venta");
+		cerrar.setBackground(new Color(200, 255, 200));
+		cerrar.addActionListener(e -> onAceptar());
+		add(cerrar);
 
-		add(inputPanel, BorderLayout.CENTER);
+		JButton volver = new JButton("Volver");
+		volver.setBackground(new Color(255, 220, 220));
+		volver.addActionListener(e -> volver());
+		add(volver);
 
-		JButton aceptar = new JButton("Cerrar venta");
-		aceptar.addActionListener(e -> onAceptar());
-
-		JButton cancelar = new JButton("Cancelar");
-		cancelar.addActionListener(e -> dispose());
-
-		JPanel acciones = new JPanel();
-		acciones.add(aceptar);
-		acciones.add(cancelar);
-		add(acciones, BorderLayout.PAGE_END);
-
-		pack();
+		setSize(360, 160);
 		setLocationRelativeTo(null);
 	}
 
@@ -63,6 +65,11 @@ public class VCerrarVenta extends JFrame implements IGUI {
 		}
 	}
 
+	private void volver() {
+		Controlador.getInstancia().accion(new Context(Evento.VENTA, null));
+		dispose();
+	}
+
 	private int parseEnteroPositivo(String value, String campo) {
 		try {
 			int numero = Integer.parseInt(value.trim());
@@ -71,7 +78,7 @@ public class VCerrarVenta extends JFrame implements IGUI {
 			}
 			return numero;
 		} catch (NumberFormatException e) {
-			throw new IllegalArgumentException(campo + " debe ser un número entero positivo.");
+			throw new IllegalArgumentException(campo + " debe ser un numero entero positivo.");
 		}
 	}
 
@@ -96,7 +103,7 @@ public class VCerrarVenta extends JFrame implements IGUI {
 		case RES_CERRAR_VENTA_OK:
 			JOptionPane.showMessageDialog(this, "Venta cerrada correctamente.", "Cerrar venta",
 					JOptionPane.INFORMATION_MESSAGE);
-			dispose();
+			volver();
 			break;
 		case RES_CERRAR_VENTA_KO:
 			String mensaje = datos instanceof String ? (String) datos : "No se pudo cerrar la venta indicada.";

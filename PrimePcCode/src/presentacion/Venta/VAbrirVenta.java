@@ -1,13 +1,15 @@
 package presentacion.Venta;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
+import java.awt.Color;
+import java.awt.GridLayout;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import negocio.Venta.TVenta;
@@ -32,43 +34,42 @@ public class VAbrirVenta extends JFrame implements IGUI {
 	}
 
 	private void initGUI() {
-		setLayout(new BorderLayout(10, 10));
-		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		setLayout(new GridLayout(6, 2, 10, 10));
+		getRootPane().setBorder(BorderFactory.createTitledBorder("Abrir venta"));
+		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				volver();
+			}
+		});
 
-		JPanel datosPanel = new JPanel();
-		datosPanel.setLayout(new java.awt.GridLayout(0, 2, 10, 10));
-		datosPanel.setBorder(javax.swing.BorderFactory.createEmptyBorder(15, 15, 15, 15));
+		add(new JLabel("Id empleado:"));
+		add(empleadoField);
 
-		datosPanel.add(new JLabel("Id empleado:"));
-		datosPanel.add(empleadoField);
+		add(new JLabel("Id cliente:"));
+		add(clienteField);
 
-		datosPanel.add(new JLabel("Id cliente:"));
-		datosPanel.add(clienteField);
+		add(new JLabel("Metodo de pago:"));
+		add(metodoPagoField);
 
-		datosPanel.add(new JLabel("Método de pago:"));
-		datosPanel.add(metodoPagoField);
+		add(new JLabel("Importe total (EUR):"));
+		add(precioField);
 
-		datosPanel.add(new JLabel("Importe total (€):"));
-		datosPanel.add(precioField);
+		add(new JLabel("Descuento (EUR):"));
+		add(descuentoField);
 
-		datosPanel.add(new JLabel("Descuento (€):"));
-		datosPanel.add(descuentoField);
-
-		add(datosPanel, BorderLayout.CENTER);
-
-		JButton aceptar = new JButton("Aceptar");
+		JButton aceptar = new JButton("Abrir venta");
+		aceptar.setBackground(new Color(200, 255, 200));
 		aceptar.addActionListener(e -> onAceptar());
+		add(aceptar);
 
-		JButton cancelar = new JButton("Cancelar");
-		cancelar.addActionListener(e -> dispose());
+		JButton volver = new JButton("Volver");
+		volver.setBackground(new Color(255, 220, 220));
+		volver.addActionListener(e -> volver());
+		add(volver);
 
-		JPanel acciones = new JPanel();
-		acciones.add(aceptar);
-		acciones.add(cancelar);
-		add(acciones, BorderLayout.PAGE_END);
-
-		setPreferredSize(new Dimension(400, 280));
-		pack();
+		setSize(420, 260);
 		setLocationRelativeTo(null);
 	}
 
@@ -79,7 +80,7 @@ public class VAbrirVenta extends JFrame implements IGUI {
 			String metodoPago = metodoPagoField.getText().trim();
 
 			if (metodoPago.isEmpty()) {
-				throw new IllegalArgumentException("El método de pago no puede estar vacío.");
+				throw new IllegalArgumentException("El metodo de pago no puede estar vacio.");
 			}
 
 			double precio = parseDoubleNoNegativo(precioField.getText(), "Importe total");
@@ -100,6 +101,11 @@ public class VAbrirVenta extends JFrame implements IGUI {
 		}
 	}
 
+	private void volver() {
+		Controlador.getInstancia().accion(new Context(Evento.VENTA, null));
+		dispose();
+	}
+
 	private void limpiarCampos() {
 		empleadoField.setText("");
 		clienteField.setText("");
@@ -116,7 +122,7 @@ public class VAbrirVenta extends JFrame implements IGUI {
 			}
 			return valor;
 		} catch (NumberFormatException ex) {
-			throw new IllegalArgumentException(campo + " debe ser un número entero positivo.");
+			throw new IllegalArgumentException(campo + " debe ser un numero entero positivo.");
 		}
 	}
 
@@ -131,41 +137,34 @@ public class VAbrirVenta extends JFrame implements IGUI {
 			}
 			return valor;
 		} catch (NumberFormatException ex) {
-			throw new IllegalArgumentException(campo + " debe ser un número válido mayor o igual que cero.");
+			throw new IllegalArgumentException(campo + " debe ser un numero valido mayor o igual que cero.");
 		}
 	}
 
 	@Override
 	public void actualizar(Context context) {
-		if (context == null) {
+		if (context == null || context.getEvento() == null) {
 			return;
 		}
 
 		Evento evento = context.getEvento();
 		Object datos = context.getDatos();
 
-		if (evento == null) {
-			return;
-		}
-
 		switch (evento) {
 		case VABRIR_VENTA:
 			limpiarCampos();
 			setVisible(true);
 			break;
-
 		case RES_ABRIR_VENTA_OK:
 			String mensajeOk = datos instanceof Number ? "Venta creada con id " + datos : "Venta creada correctamente.";
 			JOptionPane.showMessageDialog(this, mensajeOk, "Venta abierta", JOptionPane.INFORMATION_MESSAGE);
-			dispose();
+			volver();
 			break;
-
 		case RES_ABRIR_VENTA_KO:
 			String mensajeError = datos instanceof String ? (String) datos : "No se pudo abrir la venta.";
 			JOptionPane.showMessageDialog(this, mensajeError, "Error al abrir venta", JOptionPane.ERROR_MESSAGE);
 			setVisible(true);
 			break;
-
 		default:
 			break;
 		}

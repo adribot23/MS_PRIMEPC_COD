@@ -6,6 +6,8 @@ import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -77,10 +79,7 @@ public class GUIVenta extends JFrame implements IGUI {
 		volver.setFocusPainted(false);
 		volver.setPreferredSize(new Dimension(300, 40));
 
-		volver.addActionListener(e -> {
-			Controlador.getInstancia().accion(new Context(Evento.VISTA_PRINCIPAL, null));
-			this.dispose();
-		});
+		volver.addActionListener(e -> volver());
 
 		JPanel volverPanel = new JPanel();
 		volverPanel.setBackground(Color.WHITE);
@@ -88,7 +87,13 @@ public class GUIVenta extends JFrame implements IGUI {
 		mainPanel.add(volverPanel, BorderLayout.SOUTH);
 
 		// === CONFIGURACIÓN FRAME ===
-		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				volver();
+			}
+		});
 		setMinimumSize(new Dimension(900, 600));
 		setLocationRelativeTo(null);
 		setVisible(true);
@@ -127,5 +132,10 @@ public class GUIVenta extends JFrame implements IGUI {
 	@Override
 	public void actualizar(Context context) {
 		setVisible(true);
+	}
+
+	private void volver() {
+		Controlador.getInstancia().accion(new Context(Evento.VISTA_PRINCIPAL, null));
+		this.dispose();
 	}
 }

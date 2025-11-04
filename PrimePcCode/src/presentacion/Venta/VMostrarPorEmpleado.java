@@ -1,10 +1,14 @@
 package presentacion.Venta;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
+import java.awt.Color;
+import java.awt.GridLayout;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.Collection;
 import java.util.Collections;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -32,7 +36,7 @@ public class VMostrarPorEmpleado extends JFrame implements IGUI {
 		super("Ventas por empleado");
 
 		tableModel = new DefaultTableModel(
-				new Object[] { "Id venta", "Empleado", "Cliente", "Método pago", "Precio", "Descuento", "Activa" }, 0) {
+				new Object[] { "Id venta", "Empleado", "Cliente", "Metodo pago", "Precio", "Descuento", "Activa" }, 0) {
 			private static final long serialVersionUID = 1L;
 
 			@Override
@@ -45,27 +49,40 @@ public class VMostrarPorEmpleado extends JFrame implements IGUI {
 	}
 
 	private void initGUI() {
-		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				volver();
+			}
+		});
+
+		getRootPane().setBorder(BorderFactory.createTitledBorder("Ventas por empleado"));
 		setLayout(new BorderLayout(10, 10));
 
-		JPanel filtro = new JPanel(new java.awt.GridLayout(1, 3, 10, 10));
-		filtro.setBorder(javax.swing.BorderFactory.createEmptyBorder(15, 15, 0, 15));
-
+		JPanel filtro = new JPanel(new GridLayout(1, 3, 10, 10));
 		filtro.add(new JLabel("Id empleado:"));
 		filtro.add(idEmpleadoField);
 
 		JButton buscar = new JButton("Buscar");
+		buscar.setBackground(new Color(200, 255, 200));
 		buscar.addActionListener(e -> onBuscar());
 		filtro.add(buscar);
 
-		add(filtro, BorderLayout.PAGE_START);
+		add(filtro, BorderLayout.NORTH);
 
 		JTable tabla = new JTable(tableModel);
 		tabla.setFillsViewportHeight(true);
 		add(new JScrollPane(tabla), BorderLayout.CENTER);
 
-		setPreferredSize(new Dimension(720, 360));
-		pack();
+		JButton volverButton = new JButton("Volver");
+		volverButton.setBackground(new Color(255, 220, 220));
+		volverButton.addActionListener(e -> volver());
+		JPanel southPanel = new JPanel();
+		southPanel.add(volverButton);
+		add(southPanel, BorderLayout.SOUTH);
+
+		setSize(760, 380);
 		setLocationRelativeTo(null);
 	}
 
@@ -78,6 +95,11 @@ public class VMostrarPorEmpleado extends JFrame implements IGUI {
 		}
 	}
 
+	private void volver() {
+		Controlador.getInstancia().accion(new Context(Evento.VENTA, null));
+		dispose();
+	}
+
 	private int parseEnteroPositivo(String valor, String campo) {
 		try {
 			int numero = Integer.parseInt(valor.trim());
@@ -86,7 +108,7 @@ public class VMostrarPorEmpleado extends JFrame implements IGUI {
 			}
 			return numero;
 		} catch (NumberFormatException ex) {
-			throw new IllegalArgumentException(campo + " debe ser un número entero positivo.");
+			throw new IllegalArgumentException(campo + " debe ser un numero entero positivo.");
 		}
 	}
 
@@ -98,7 +120,7 @@ public class VMostrarPorEmpleado extends JFrame implements IGUI {
 		limpiarTabla();
 		for (TVenta venta : convertirVentas(datos)) {
 			Object[] fila = { venta.getId(), venta.getIdEmpleado(), venta.getIdCliente(), venta.getMetodoPago(),
-					venta.getPrecio(), venta.getDescuento(), venta.getActivo() == 1 ? "Sí" : "No" };
+					venta.getPrecio(), venta.getDescuento(), venta.getActivo() == 1 ? "Si" : "No" };
 			tableModel.addRow(fila);
 		}
 	}
