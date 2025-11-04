@@ -21,7 +21,7 @@ public class DAOProductoImp implements DAOProducto {
 			Transaction t = tManager.getTransaction();
 			Connection c = (Connection) t.getResource();
 			PreparedStatement s = c.prepareStatement(
-					"INSERT INTO PRODUCTO (PRECIO, MODELO, NUM_UNIDADES, MARCA, ID_ALMACEN, ID_PROVEEDOR, ACTIVO) VALUES (?, ?, ?, ?, -1, -1, 1)",
+					"INSERT INTO PRODUCTO (PRECIO, MODELO, NUM_UNIDADES, MARCA, ID_ALMACEN, ACTIVO) VALUES (?, ?, ?, ?, NULL, 1)",
 					Statement.RETURN_GENERATED_KEYS);
 			s.setDouble(1, producto.getPrecio());
 			s.setString(2, producto.getModelo());

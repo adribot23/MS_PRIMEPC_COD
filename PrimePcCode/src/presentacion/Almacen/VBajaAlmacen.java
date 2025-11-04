@@ -59,7 +59,7 @@ public class VBajaAlmacen extends JFrame implements IGUI {
 			Controlador.getInstancia().accion(new Context(Evento.ALMACEN, null));
 			this.dispose();
 		});
-		
+		add(btnVolver);
 		// Configuración final de la ventana
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(350, 200);

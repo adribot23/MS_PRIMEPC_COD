@@ -58,6 +58,8 @@ public class VBuscarAlmacen extends JFrame implements IGUI {
 			this.dispose();
 		});
 		
+		add(btnVolver);
+		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(350, 200);
 		setLocationRelativeTo(null);
