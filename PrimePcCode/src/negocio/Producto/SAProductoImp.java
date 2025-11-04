@@ -126,8 +126,7 @@ public class SAProductoImp implements SAProducto {
 				transaction.rollback();
 			} else {
 				if (tpr.getActivo() == 1) {
-					tpr.setActivo(0);
-					exito = daoProducto.update(tpr);
+					exito = daoProducto.delete(id);
 					if (exito > 0)
 						transaction.commit();
 					else {
