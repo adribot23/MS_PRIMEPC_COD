@@ -55,7 +55,6 @@ public class VMostrarAlmacen extends JFrame implements IGUI {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(350, 200);
 		setLocationRelativeTo(null);
-		setVisible(true);
 	}
 
 	public void actualizar(Context context) {
