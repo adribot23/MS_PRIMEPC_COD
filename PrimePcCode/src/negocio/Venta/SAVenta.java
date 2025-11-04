@@ -6,8 +6,11 @@ import java.util.Set;
 public interface SAVenta {
 
 	public TCarrito abrirVenta(int idEmpleado);
+	
 
 	public int procesarCarrito(TCarrito carrito);
+	
+	public int pasar_carrito(TCarrito carrito);
 
 	public int insertarProductoCarrito(TCarrito carrito);
 

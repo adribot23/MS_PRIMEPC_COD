@@ -36,6 +36,11 @@ public class SAVentaImp implements SAVenta {
 		return carrito;
 
 	}
+	
+	public int pasar_carrito(TCarrito carrito) {
+		return carrito == null ? -1 : 1;
+	}
+
 
 	@Override
 	public int procesarCarrito(TCarrito carrito) {
