@@ -1,15 +1,22 @@
 package presentacion.Venta;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.Color;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
 import negocio.Venta.TVenta;
 import presentacion.Controller.Command.Context;
 import presentacion.Controller.Controlador;
@@ -26,7 +33,6 @@ public class VModificarVenta extends JFrame implements IGUI {
 	private final JTextField metodoPagoField = new JTextField();
 	private final JTextField precioField = new JTextField();
 	private final JTextField descuentoField = new JTextField();
-	private final JCheckBox activoCheck = new JCheckBox("Venta activa");
 
 	public VModificarVenta() {
 		super("Modificar venta");
@@ -34,48 +40,64 @@ public class VModificarVenta extends JFrame implements IGUI {
 	}
 
 	private void initGUI() {
-		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		setPreferredSize(new Dimension(420, 320));
 		setLayout(new BorderLayout(10, 10));
+		getRootPane().setBorder(BorderFactory.createTitledBorder("Modificar venta"));
+		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				volver();
+			}
+		});
 
-		JPanel datos = new JPanel(new java.awt.GridLayout(0, 2, 10, 10));
-		datos.setBorder(javax.swing.BorderFactory.createEmptyBorder(15, 15, 15, 15));
+		JPanel formPanel = new JPanel(new GridBagLayout());
+		formPanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 10, 15));
+		formPanel.setOpaque(false);
 
-		datos.add(new JLabel("Id venta:"));
-		datos.add(idVentaField);
+		GridBagConstraints base = new GridBagConstraints();
+		base.insets = new Insets(6, 8, 6, 8);
+		base.anchor = GridBagConstraints.WEST;
 
-		datos.add(new JLabel("Id empleado:"));
-		datos.add(empleadoField);
+		addRow(formPanel, base, 0, "Id venta:", idVentaField);
+		addRow(formPanel, base, 1, "Id empleado:", empleadoField);
+		addRow(formPanel, base, 2, "Id cliente:", clienteField);
+		addRow(formPanel, base, 3, "Metodo de pago:", metodoPagoField);
+		addRow(formPanel, base, 4, "Importe total (EUR):", precioField);
+		addRow(formPanel, base, 5, "Descuento (EUR):", descuentoField);
 
-		datos.add(new JLabel("Id cliente:"));
-		datos.add(clienteField);
-
-		datos.add(new JLabel("Método de pago:"));
-		datos.add(metodoPagoField);
-
-		datos.add(new JLabel("Importe total (€):"));
-		datos.add(precioField);
-
-		datos.add(new JLabel("Descuento (€):"));
-		datos.add(descuentoField);
-
-		datos.add(new JLabel(" "));
-		datos.add(activoCheck);
-
-		add(datos, BorderLayout.CENTER);
+		add(formPanel, BorderLayout.CENTER);
 
 		JButton aceptar = new JButton("Guardar cambios");
+		aceptar.setBackground(new Color(200, 255, 200));
 		aceptar.addActionListener(e -> onAceptar());
 
-		JButton cancelar = new JButton("Cancelar");
-		cancelar.addActionListener(e -> dispose());
+		JButton volver = new JButton("Volver");
+		volver.setBackground(new Color(255, 220, 220));
+		volver.addActionListener(e -> volver());
 
-		JPanel acciones = new JPanel();
-		acciones.add(aceptar);
-		acciones.add(cancelar);
-		add(acciones, BorderLayout.PAGE_END);
+		JPanel botonesPanel = new JPanel(new GridBagLayout());
+		botonesPanel.setBorder(BorderFactory.createEmptyBorder(0, 15, 15, 15));
+		botonesPanel.setOpaque(false);
+
+		GridBagConstraints btnLeft = new GridBagConstraints();
+		btnLeft.gridx = 0;
+		btnLeft.gridy = 0;
+		btnLeft.anchor = GridBagConstraints.WEST;
+		btnLeft.insets = new Insets(0, 0, 0, 10);
+		botonesPanel.add(volver, btnLeft);
+
+		GridBagConstraints btnRight = new GridBagConstraints();
+		btnRight.gridx = 1;
+		btnRight.gridy = 0;
+		btnRight.anchor = GridBagConstraints.EAST;
+		botonesPanel.add(aceptar, btnRight);
+
+		add(botonesPanel, BorderLayout.SOUTH);
 
 		pack();
+		if (getWidth() < 480 || getHeight() < 290) {
+			setSize(Math.max(getWidth(), 480), Math.max(getHeight(), 290));
+		}
 		setLocationRelativeTo(null);
 	}
 
@@ -87,7 +109,7 @@ public class VModificarVenta extends JFrame implements IGUI {
 			String metodoPago = metodoPagoField.getText().trim();
 
 			if (metodoPago.isEmpty()) {
-				throw new IllegalArgumentException("El método de pago no puede estar vacío.");
+				throw new IllegalArgumentException("El metodo de pago no puede estar vacio.");
 			}
 
 			double precio = parseDoubleNoNegativo(precioField.getText(), "Importe total");
@@ -100,12 +122,25 @@ public class VModificarVenta extends JFrame implements IGUI {
 			venta.setMetodoPago(metodoPago);
 			venta.setPrecio(precio);
 			venta.setDescuento(descuento);
-			venta.setActivo(activoCheck.isSelected() ? 1 : 0);
 
 			Controlador.getInstancia().accion(new Context(Evento.MODIFICAR_VENTA, venta));
 		} catch (IllegalArgumentException ex) {
 			JOptionPane.showMessageDialog(this, ex.getMessage(), "Datos incorrectos", JOptionPane.ERROR_MESSAGE);
 		}
+	}
+
+	private void volver() {
+		Controlador.getInstancia().accion(new Context(Evento.VENTA, null));
+		dispose();
+	}
+
+	private void limpiarCampos() {
+		idVentaField.setText("");
+		empleadoField.setText("");
+		clienteField.setText("");
+		metodoPagoField.setText("");
+		precioField.setText("");
+		descuentoField.setText("");
 	}
 
 	private int parseEnteroPositivo(String texto, String campo) {
@@ -116,7 +151,7 @@ public class VModificarVenta extends JFrame implements IGUI {
 			}
 			return valor;
 		} catch (NumberFormatException ex) {
-			throw new IllegalArgumentException(campo + " debe ser un número entero positivo.");
+			throw new IllegalArgumentException(campo + " debe ser un numero entero positivo.");
 		}
 	}
 
@@ -131,18 +166,8 @@ public class VModificarVenta extends JFrame implements IGUI {
 			}
 			return valor;
 		} catch (NumberFormatException ex) {
-			throw new IllegalArgumentException(campo + " debe ser un número válido mayor o igual que cero.");
+			throw new IllegalArgumentException(campo + " debe ser un numero valido mayor o igual que cero.");
 		}
-	}
-
-	private void limpiarCampos() {
-		idVentaField.setText("");
-		empleadoField.setText("");
-		clienteField.setText("");
-		metodoPagoField.setText("");
-		precioField.setText("");
-		descuentoField.setText("");
-		activoCheck.setSelected(true);
 	}
 
 	@Override
@@ -162,7 +187,7 @@ public class VModificarVenta extends JFrame implements IGUI {
 		case RES_MODIFICAR_VENTA_OK:
 			JOptionPane.showMessageDialog(this, "Venta modificada correctamente.", "Modificar venta",
 					JOptionPane.INFORMATION_MESSAGE);
-			dispose();
+			volver();
 			break;
 		case RES_MODIFICAR_VENTA_KO:
 			String mensaje = datos instanceof String ? (String) datos : "No se pudo modificar la venta indicada.";
@@ -172,5 +197,21 @@ public class VModificarVenta extends JFrame implements IGUI {
 		default:
 			break;
 		}
+	}
+
+	private void addRow(JPanel panel, GridBagConstraints base, int fila, String etiqueta, JComponent componente) {
+		GridBagConstraints gbcLabel = (GridBagConstraints) base.clone();
+		gbcLabel.gridx = 0;
+		gbcLabel.gridy = fila;
+		gbcLabel.weightx = 0;
+		gbcLabel.fill = GridBagConstraints.NONE;
+		panel.add(new JLabel(etiqueta), gbcLabel);
+
+		GridBagConstraints gbcField = (GridBagConstraints) base.clone();
+		gbcField.gridx = 1;
+		gbcField.gridy = fila;
+		gbcField.weightx = 1;
+		gbcField.fill = GridBagConstraints.HORIZONTAL;
+		panel.add(componente, gbcField);
 	}
 }

@@ -50,86 +50,126 @@ public class VModificarEmpleado extends JFrame implements IGUI {
 	 * @generated "UML a Java
 	 *            (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	 */
-	public void initGUI() {
-		setLayout(new GridLayout(12, 1));
-		// setBorder(BorderFactory.createTitledBorder("Modificar información"));
+	   private void initGUI() {
+	      
+	        setLayout(new GridLayout(8, 2, 5, 5));
+	        getRootPane().setBorder(BorderFactory.createTitledBorder("Modificar Empleado"));
 
-		JTextField modificarID = new JTextField();
-		JTextField modificarNombre = new JTextField();
-		JTextField modificarDNI = new JTextField();
-		JTextField modificarTlf = new JTextField();
-		JTextField modificarHoras = new JTextField();
-		JLabel lblHoras = new JLabel("Horas Extra:");
+	      
+	        JLabel lblID = new JLabel("ID Empleado:");
+	        JTextField txtID = new JTextField();
 
-		JRadioButton rdbCompleto = new JRadioButton("Completo");
-		JRadioButton rdbParcial = new JRadioButton("Parcial");
-		ButtonGroup grupoTipo = new ButtonGroup();
-		grupoTipo.add(rdbCompleto);
-		grupoTipo.add(rdbParcial);
-		rdbCompleto.setSelected(true);
+	        JLabel lblNombre = new JLabel("Nombre:");
+	        JTextField txtNombre = new JTextField();
 
-		rdbCompleto.addActionListener(e -> lblHoras.setText("Horas Extra:"));
-		rdbParcial.addActionListener(e -> lblHoras.setText("Horas Semanales:"));
+	        JLabel lblDNI = new JLabel("DNI:");
+	        JTextField txtDNI = new JTextField();
 
-		JPanel tipoPanel = new JPanel(new GridLayout(1, 2));
-		tipoPanel.add(rdbCompleto);
-		tipoPanel.add(rdbParcial);
+	        JLabel lblTlf = new JLabel("Teléfono:");
+	        JTextField txtTlf = new JTextField();
 
-		JButton btnModificar = new JButton("Modificar");
-		btnModificar.setBackground(new Color(200, 255, 200));
-		btnModificar.addActionListener(e -> {
-			try {
-				int id = Integer.parseInt(modificarID.getText());
-				String nombre = modificarNombre.getText();
-				String dni = modificarDNI.getText();
-				String tlf = modificarTlf.getText();
-				int horas = Integer.parseInt(modificarHoras.getText());
+	        JLabel lblHoras = new JLabel("Horas Extra:");
+	        JTextField txtHoras = new JTextField();
 
-				TEmpleado empleado;
-				if (rdbCompleto.isSelected()) {
-					empleado = new TEmpleadoCompleto(id, nombre, dni, tlf, horas);
-				} else {
-					empleado = new TEmpleadoParcial(id, nombre, dni, tlf, horas);
-				}
+	     
+	        JRadioButton rdbCompleto = new JRadioButton("Completo");
+	        JRadioButton rdbParcial = new JRadioButton("Parcial");
+	        ButtonGroup grupoTipo = new ButtonGroup();
+	        grupoTipo.add(rdbCompleto);
+	        grupoTipo.add(rdbParcial);
+	        rdbCompleto.setSelected(true);
 
-				Controlador.getInstancia().accion(new Context(Evento.MODIFICAR_EMPLEADO, empleado));
-			} catch (NumberFormatException ex) {
-				JOptionPane.showMessageDialog(this, "ID, teléfono y horas deben ser números.");
-			}
-		});
+	        JPanel tipoPanel = new JPanel(new GridLayout(1, 2));
+	        tipoPanel.add(rdbCompleto);
+	        tipoPanel.add(rdbParcial);
 
-		add(new JLabel("ID empleado:"));
-		add(modificarID);
-		add(new JLabel("Nombre:"));
-		add(modificarNombre);
-		add(new JLabel("DNI:"));
-		add(modificarDNI);
-		add(new JLabel("Tlf:"));
-		add(modificarTlf);
-		add(tipoPanel);
-		add(lblHoras);
-		add(modificarHoras);
-		add(btnModificar);
-	}
+	        
+	        rdbCompleto.addActionListener(e -> lblHoras.setText("Horas Extra:"));
+	        rdbParcial.addActionListener(e -> lblHoras.setText("Horas Semanales:"));
 
-	@Override
-	public void actualizar(Context context) {
-		Evento evento = context.getEvento();
-		Object datos = context.getDatos();
-		switch (evento) {
+	       
+	        JButton btnModificar = new JButton("Modificar");
+	        btnModificar.setBackground(new Color(200, 255, 200));
+	        btnModificar.addActionListener(e -> {
+	            try {
+	                int id = Integer.parseInt(txtID.getText().trim());
+	                String nombre = txtNombre.getText().trim();
+	                String dni = txtDNI.getText().trim();
+	                String tlf = txtTlf.getText().trim();
+	                int horas = Integer.parseInt(txtHoras.getText().trim());
 
-		case VMODIFICAR_EMPLEADO:
-			this.setVisible(true);
-			break;
-		case RES_MODIFICAR_EMPLEADO_OK:
-			JOptionPane.showMessageDialog(null, "Empleado modificado con ID: " + datos);
-			break;
-		case RES_MODIFICAR_EMPLEADO_KO:
-			JOptionPane.showMessageDialog(null, "Error al modificar el empleado.");
-			break;
-		default:
-			JOptionPane.showMessageDialog(null, "Evento no reconocido: " + evento);
+	                if (nombre.isEmpty() || dni.isEmpty() || tlf.isEmpty()) {
+	                    JOptionPane.showMessageDialog(this, "Todos los campos deben estar rellenados.");
+	                    return;
+	                }
 
-		}
-	}
+	                TEmpleado empleado;
+	                if (rdbCompleto.isSelected()) {
+	                    empleado = new TEmpleadoCompleto(id, nombre, dni, tlf, horas);
+	                } else {
+	                    empleado = new TEmpleadoParcial(id, nombre, dni, tlf, horas);
+	                }
+
+	                Controlador.getInstancia().accion(new Context(Evento.MODIFICAR_EMPLEADO, empleado));
+
+	                // Limpiar campos tras modificar
+	                txtID.setText("");
+	                txtNombre.setText("");
+	                txtDNI.setText("");
+	                txtTlf.setText("");
+	                txtHoras.setText("");
+	                rdbCompleto.setSelected(true);
+	                lblHoras.setText("Horas Extra:");
+	            } 
+	            catch (NumberFormatException ex) {
+	                JOptionPane.showMessageDialog(this, "ID y Horas deben ser números válidos.");
+	            }
+	        });
+
+	     
+	        JButton btnVolver = new JButton("Volver");
+	        btnVolver.setBackground(new Color(255, 220, 220));
+	        btnVolver.addActionListener(e -> {
+	            Controlador.getInstancia().accion(new Context(Evento.EMPLEADO, null));
+	            this.dispose();
+	        });
+
+	        
+	        add(lblID); add(txtID);
+	        add(lblNombre); add(txtNombre);
+	        add(lblDNI); add(txtDNI);
+	        add(lblTlf); add(txtTlf);
+	        add(new JLabel("Tipo de Empleado:")); add(tipoPanel);
+	        add(lblHoras); add(txtHoras);
+	        add(btnModificar); add(btnVolver);
+
+	        
+	        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+	        setSize(500, 300);
+	        setLocationRelativeTo(null);
+	    }
+
+	    @Override
+	    public void actualizar(Context context) {
+	        Evento evento = context.getEvento();
+	        Object datos = context.getDatos();
+
+	        switch (evento) {
+	            case VMODIFICAR_EMPLEADO:
+	                this.setVisible(true);
+	                break;
+
+	            case RES_MODIFICAR_EMPLEADO_OK:
+	                JOptionPane.showMessageDialog(this, "Empleado modificado con ID: " + datos);
+	                break;
+
+	            case RES_MODIFICAR_EMPLEADO_KO:
+	                JOptionPane.showMessageDialog(this, "Error al modificar el empleado.");
+	                break;
+
+	            default:
+	                JOptionPane.showMessageDialog(this, "Evento no reconocido: " + evento);
+	                break;
+	        }
+	    }
 }

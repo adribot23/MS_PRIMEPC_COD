@@ -1,12 +1,16 @@
 package presentacion.Venta;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
+import java.awt.Color;
+import java.awt.GridLayout;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.StringJoiner;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -39,35 +43,41 @@ public class VBuscarVenta extends JFrame implements IGUI {
 	}
 
 	private void initGUI() {
-		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		setPreferredSize(new Dimension(480, 320));
+		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				volver();
+			}
+		});
+
+		getRootPane().setBorder(BorderFactory.createTitledBorder("Buscar venta"));
 		setLayout(new BorderLayout(10, 10));
 
-		JPanel inputPanel = new JPanel(new java.awt.GridLayout(1, 3, 10, 10));
-		inputPanel.setBorder(javax.swing.BorderFactory.createEmptyBorder(15, 15, 0, 15));
-		inputPanel.add(new JLabel("Id venta:"));
-		inputPanel.add(idVentaField);
-
+		JPanel topPanel = new JPanel(new GridLayout(1, 3, 10, 10));
+		topPanel.add(new JLabel("Id venta:"));
+		topPanel.add(idVentaField);
 		JButton buscarButton = new JButton("Buscar");
+		buscarButton.setBackground(new Color(200, 255, 200));
 		buscarButton.addActionListener(e -> onBuscar());
-		inputPanel.add(buscarButton);
-
-		add(inputPanel, BorderLayout.PAGE_START);
+		topPanel.add(buscarButton);
+		add(topPanel, BorderLayout.NORTH);
 
 		resultadoArea.setEditable(false);
 		resultadoArea.setLineWrap(true);
 		resultadoArea.setWrapStyleWord(true);
 		JScrollPane scroll = new JScrollPane(resultadoArea);
-		scroll.setBorder(javax.swing.BorderFactory.createTitledBorder("Resultado"));
+		scroll.setBorder(BorderFactory.createTitledBorder("Resultado"));
 		add(scroll, BorderLayout.CENTER);
 
-		JButton cerrarButton = new JButton("Cerrar");
-		cerrarButton.addActionListener(e -> dispose());
+		JButton volverButton = new JButton("Volver");
+		volverButton.setBackground(new Color(255, 220, 220));
+		volverButton.addActionListener(e -> volver());
 		JPanel bottomPanel = new JPanel();
-		bottomPanel.add(cerrarButton);
-		add(bottomPanel, BorderLayout.PAGE_END);
+		bottomPanel.add(volverButton);
+		add(bottomPanel, BorderLayout.SOUTH);
 
-		pack();
+		setSize(500, 340);
 		setLocationRelativeTo(null);
 	}
 
@@ -78,6 +88,11 @@ public class VBuscarVenta extends JFrame implements IGUI {
 		} catch (IllegalArgumentException ex) {
 			JOptionPane.showMessageDialog(this, ex.getMessage(), "Datos incorrectos", JOptionPane.ERROR_MESSAGE);
 		}
+	}
+
+	private void volver() {
+		Controlador.getInstancia().accion(new Context(Evento.VENTA, null));
+		dispose();
 	}
 
 	private void limpiar() {
@@ -163,10 +178,10 @@ public class VBuscarVenta extends JFrame implements IGUI {
 		sb.append("Venta #").append(venta.getId()).append(System.lineSeparator());
 		sb.append("Empleado: ").append(venta.getIdEmpleado()).append(System.lineSeparator());
 		sb.append("Cliente: ").append(venta.getIdCliente()).append(System.lineSeparator());
-		sb.append("Método de pago: ").append(textoSeguro(venta.getMetodoPago())).append(System.lineSeparator());
-		sb.append("Importe: ").append(venta.getPrecio()).append(" €").append(System.lineSeparator());
-		sb.append("Descuento: ").append(venta.getDescuento()).append(" €").append(System.lineSeparator());
-		sb.append("Activa: ").append(venta.getActivo() == 1 ? "Sí" : "No");
+		sb.append("Metodo de pago: ").append(textoSeguro(venta.getMetodoPago())).append(System.lineSeparator());
+		sb.append("Importe: ").append(venta.getPrecio()).append(" EUR").append(System.lineSeparator());
+		sb.append("Descuento: ").append(venta.getDescuento()).append(" EUR").append(System.lineSeparator());
+		sb.append("Activa: ").append(venta.getActivo() == 1 ? "Si" : "No");
 		return sb.toString();
 	}
 
@@ -185,11 +200,11 @@ public class VBuscarVenta extends JFrame implements IGUI {
 
 		Set<TLineaVenta> lineas = toa.get_lista_lineasVenta();
 		if (lineas != null && !lineas.isEmpty()) {
-			sb.append("Líneas de venta:").append(System.lineSeparator());
+			sb.append("Lineas de venta:").append(System.lineSeparator());
 			for (TLineaVenta linea : lineas) {
-				sb.append("  · Producto ").append(linea.get_producto());
+				sb.append("  - Producto ").append(linea.get_producto());
 				sb.append(" - unidades: ").append(linea.get_num_unidades());
-				sb.append(" - precio unidad: ").append(linea.get_precio_unidades()).append(" €");
+				sb.append(" - precio unidad: ").append(linea.get_precio_unidades()).append(" EUR");
 				sb.append(System.lineSeparator());
 			}
 		}

@@ -22,7 +22,7 @@ public class DAOVentaImp implements DAOVenta {
 			Connection con = (Connection) tr.getResource();
 
 			PreparedStatement ps = con.prepareStatement(
-					"INSERT INTO ventas (metodoPago, precio, descuento, id_empleado, id_cliente, activo) VALUES (?, ?, ?, ?, ?, ?)",
+					"INSERT INTO ventas (metodo_Pago, precio, descuento, id_empleado, id_cliente, activo) VALUES (?, ?, ?, ?, ?, ?)",
 					Statement.RETURN_GENERATED_KEYS);
 
 			ps.setString(1, venta.getMetodoPago());
@@ -62,7 +62,7 @@ public class DAOVentaImp implements DAOVenta {
 			Connection con = (Connection) tr.getResource();
 
 			PreparedStatement ps = con.prepareStatement(
-					"SELECT id_venta, metodoPago, precio, descuento, id_empleado, activo FROM VENTA WHERE id_cliente = ? FOR UPDATE");
+					"SELECT id, metodo_Pago, precio, descuento, id_empleado, activo FROM VENTA WHERE id_cliente = ? FOR UPDATE");
 			ps.setInt(1, idCliente);
 
 			ResultSet rs = ps.executeQuery();
@@ -99,7 +99,7 @@ public class DAOVentaImp implements DAOVenta {
 			Connection con = (Connection) tr.getResource();
 
 			PreparedStatement ps = con.prepareStatement(
-					"SELECT id_venta, metodoPago, precio, descuento, id_empleado, activo FROM VENTA WHERE id_empleado = ? FOR UPDATE");
+					"SELECT id, metodo_Pago, precio, descuento, id_empleado, activo FROM VENTA WHERE id_empleado = ? FOR UPDATE");
 			ps.setInt(1, idEmpleado);
 
 			ResultSet rs = ps.executeQuery();
@@ -137,7 +137,7 @@ public class DAOVentaImp implements DAOVenta {
 			Connection con = (Connection) tr.getResource();
 
 			PreparedStatement ps = con.prepareStatement(
-					"SELECT metodoPago, precio, descuento, id_empleado, id_cliente, activo FROM VENTA WHERE id_venta = ? FOR UPDATE");
+					"SELECT metodo_Pago, precio, descuento, id_empleado, id_cliente, activo FROM VENTA WHERE id = ? FOR UPDATE");
 			ps.setInt(1, id_venta);
 
 			ResultSet rs = ps.executeQuery();
@@ -178,7 +178,7 @@ public class DAOVentaImp implements DAOVenta {
 			Connection con = (Connection) tr.getResource();
 
 			PreparedStatement ps = con.prepareStatement(
-					"UPDATE VENTA SET metodoPago = ?, precio = ?, descuento = ?, id_empleado = ?, id_cliente = ?, activo = ? WHERE id_venta = ?");
+					"UPDATE VENTA SET metodo_Pago = ?, precio = ?, descuento = ?, id_empleado = ?, id_cliente = ?, activo = ? WHERE id = ?");
 
 			ps.setString(1, venta.getMetodoPago());
 			ps.setDouble(2, venta.getPrecio());
@@ -208,7 +208,7 @@ public class DAOVentaImp implements DAOVenta {
 			Transaction tr = tm.getTransaction();
 			Connection con = (Connection) tr.getResource();
 
-			PreparedStatement ps = con.prepareStatement("UPDATE FROM VENTA WHERE id_venta = ? SET activo = 0");
+			PreparedStatement ps = con.prepareStatement("UPDATE FROM VENTA WHERE id = ? SET activo = 0");
 			ps.setInt(1, id_venta);
 			ps.setInt(2, 0);
 
@@ -237,7 +237,7 @@ public class DAOVentaImp implements DAOVenta {
 			Connection con = (Connection) tr.getResource();
 
 			PreparedStatement ps = con.prepareStatement(
-					"SELECT id_venta, metodoPago, precio, descuento, id_empleado, id_cliente, activo FROM VENTA FOR UPDATE");
+					"SELECT id, metodo_Pago, precio, descuento, id_empleado, id_cliente, activo FROM VENTA FOR UPDATE");
 
 			ResultSet rs = ps.executeQuery();
 

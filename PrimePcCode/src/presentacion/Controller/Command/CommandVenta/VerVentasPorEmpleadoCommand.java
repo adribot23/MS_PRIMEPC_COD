@@ -24,7 +24,8 @@ public class VerVentasPorEmpleadoCommand implements Command {
 
 		try {
 			SAVenta saVenta = SAAbstractFactory.getInstancia().generarSAVenta();
-			Set<TVenta> ventas = saVenta.leerVentasPorEmpleado((Integer) data);
+			int idEmpleado = (Integer) data;
+			Set<TVenta> ventas = saVenta.leerVentasPorEmpleado(idEmpleado);
 
 			if (ventas != null && !ventas.isEmpty()) {
 				return new Context(Evento.RES_MOSTRAR_VENTAS_POR_EMPLEADO_OK, ventas);

@@ -24,9 +24,9 @@ public class ModificarVentaCommand implements Command {
 
 		try {
 			SAVenta saVenta = SAAbstractFactory.getInstancia().generarSAVenta();
-			Integer resultado = saVenta.modificarVenta((TVenta) data);
+			int resultado = saVenta.modificarVenta((TVenta) data);
 
-			if (resultado != null && resultado > 0) {
+			if (resultado > 0) {
 				return new Context(Evento.RES_MODIFICAR_VENTA_OK, data);
 			} else {
 				return new Context(Evento.RES_MODIFICAR_VENTA_KO, resultado);
