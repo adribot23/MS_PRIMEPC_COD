@@ -127,15 +127,13 @@ public class VListarVenta extends JFrame implements IGUI {
 		case RES_MOSTRAR_TODAS_VENTAS_OK:
 			actualizarTabla(datos);
 			if (tableModel.getRowCount() == 0) {
-				JOptionPane.showMessageDialog(this, "No hay ventas registradas.", "Listado de ventas",
+				JOptionPane.showMessageDialog(null, "No hay ventas registradas.", "Listado de ventas",
 						JOptionPane.INFORMATION_MESSAGE);
 			}
-			setVisible(true);
 			break;
 		case RES_MOSTRAR_TODAS_VENTAS_KO:
 			String mensaje = datos instanceof String ? (String) datos : "No se pudo recuperar el listado de ventas.";
-			JOptionPane.showMessageDialog(this, mensaje, "Error al listar ventas", JOptionPane.ERROR_MESSAGE);
-			setVisible(true);
+			JOptionPane.showMessageDialog(null, mensaje, "Error al listar ventas", JOptionPane.ERROR_MESSAGE);
 			break;
 		default:
 			break;

@@ -77,6 +77,7 @@ public class VAñadirProducto extends JFrame implements IGUI {
 			carrito.setcantidadProducto(unidades);
 
 			Controlador.getInstancia().accion(new Context(Evento.INSERTAR_PRODUCTO_VENTA, carrito));
+			limpiarCampos();
 		} catch (IllegalArgumentException ex) {
 			JOptionPane.showMessageDialog(this, ex.getMessage(), "Datos incorrectos", JOptionPane.ERROR_MESSAGE);
 		}
@@ -120,14 +121,12 @@ public class VAñadirProducto extends JFrame implements IGUI {
 			setVisible(true);
 			break;
 		case RES_INSERTAR_PRODUCTO_VENTA_OK:
-			JOptionPane.showMessageDialog(this, "Producto añadido correctamente a la venta.", "Línea agregada",
+			JOptionPane.showMessageDialog(null, "Producto añadido correctamente a la venta.", "Línea agregada",
 					JOptionPane.INFORMATION_MESSAGE);
-			volver();
 			break;
 		case RES_INSERTAR_PRODUCTO_VENTA_KO:
 			String mensaje = datos instanceof String ? (String) datos : "No se pudo añadir el producto indicado.";
-			JOptionPane.showMessageDialog(this, mensaje, "Error al añadir producto", JOptionPane.ERROR_MESSAGE);
-			setVisible(true);
+			JOptionPane.showMessageDialog(null, mensaje, "Error al añadir producto", JOptionPane.ERROR_MESSAGE);
 			break;
 		default:
 			break;

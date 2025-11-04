@@ -128,12 +128,10 @@ public class VBuscarVenta extends JFrame implements IGUI {
 			break;
 		case RES_BUSCAR_VENTA_OK:
 			resultadoArea.setText(formatearResultado(datos));
-			setVisible(true);
 			break;
 		case RES_BUSCAR_VENTA_KO:
 			String mensaje = datos instanceof String ? (String) datos : "No se encontró la venta solicitada.";
-			JOptionPane.showMessageDialog(this, mensaje, "Venta no encontrada", JOptionPane.WARNING_MESSAGE);
-			setVisible(true);
+			JOptionPane.showMessageDialog(null, mensaje, "Venta no encontrada", JOptionPane.WARNING_MESSAGE);
 			break;
 		default:
 			break;

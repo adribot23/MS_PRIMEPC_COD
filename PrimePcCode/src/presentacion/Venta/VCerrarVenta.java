@@ -65,6 +65,7 @@ public class VCerrarVenta extends JFrame implements IGUI {
 			carrito.setId(idVenta);
 
 			Controlador.getInstancia().accion(new Context(Evento.CERRAR_VENTA, carrito));
+			limpiar();
 		} catch (IllegalArgumentException ex) {
 			JOptionPane.showMessageDialog(this, ex.getMessage(), "Datos incorrectos", JOptionPane.ERROR_MESSAGE);
 		}
@@ -106,14 +107,12 @@ public class VCerrarVenta extends JFrame implements IGUI {
 			setVisible(true);
 			break;
 		case RES_CERRAR_VENTA_OK:
-			JOptionPane.showMessageDialog(this, "Venta cerrada correctamente.", "Cerrar venta",
+			JOptionPane.showMessageDialog(null, "Venta cerrada correctamente.", "Cerrar venta",
 					JOptionPane.INFORMATION_MESSAGE);
-			volver();
 			break;
 		case RES_CERRAR_VENTA_KO:
 			String mensaje = datos instanceof String ? (String) datos : "No se pudo cerrar la venta indicada.";
-			JOptionPane.showMessageDialog(this, mensaje, "Error al cerrar venta", JOptionPane.ERROR_MESSAGE);
-			setVisible(true);
+			JOptionPane.showMessageDialog(null, mensaje, "Error al cerrar venta", JOptionPane.ERROR_MESSAGE);
 			break;
 		default:
 			break;

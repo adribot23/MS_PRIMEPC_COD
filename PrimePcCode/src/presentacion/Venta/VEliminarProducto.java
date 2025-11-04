@@ -77,6 +77,7 @@ public class VEliminarProducto extends JFrame implements IGUI {
 			carrito.setcantidadProducto(unidades);
 
 			Controlador.getInstancia().accion(new Context(Evento.QUITAR_PRODUCTO_VENTA, carrito));
+			limpiarCampos();
 		} catch (IllegalArgumentException ex) {
 			JOptionPane.showMessageDialog(this, ex.getMessage(), "Datos incorrectos", JOptionPane.ERROR_MESSAGE);
 		}
@@ -120,14 +121,12 @@ public class VEliminarProducto extends JFrame implements IGUI {
 			setVisible(true);
 			break;
 		case RES_QUITAR_PRODUCTO_VENTA_OK:
-			JOptionPane.showMessageDialog(this, "Producto eliminado de la venta.", "Línea actualizada",
+			JOptionPane.showMessageDialog(null, "Producto eliminado de la venta.", "Línea actualizada",
 					JOptionPane.INFORMATION_MESSAGE);
-			volver();
 			break;
 		case RES_QUITAR_PRODUCTO_VENTA_KO:
 			String mensaje = datos instanceof String ? (String) datos : "No se pudo eliminar el producto indicado.";
-			JOptionPane.showMessageDialog(this, mensaje, "Error al eliminar producto", JOptionPane.ERROR_MESSAGE);
-			setVisible(true);
+			JOptionPane.showMessageDialog(null, mensaje, "Error al eliminar producto", JOptionPane.ERROR_MESSAGE);
 			break;
 		default:
 			break;

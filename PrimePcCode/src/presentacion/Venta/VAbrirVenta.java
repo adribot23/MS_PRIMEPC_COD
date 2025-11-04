@@ -61,6 +61,7 @@ public class VAbrirVenta extends JFrame implements IGUI {
 			int idEmpleado = parseEnteroPositivo(empleadoField.getText(), "Id empleado");
 
 			Controlador.getInstancia().accion(new Context(Evento.ABRIR_VENTA, idEmpleado));
+			limpiarCampos();
 
 		} catch (IllegalArgumentException ex) {
 			JOptionPane.showMessageDialog(this, ex.getMessage(), "Datos incorrectos", JOptionPane.ERROR_MESSAGE);
@@ -103,14 +104,20 @@ public class VAbrirVenta extends JFrame implements IGUI {
 			setVisible(true);
 			break;
 		case RES_ABRIR_VENTA_OK:
-			String mensajeOk = datos instanceof Number ? "Venta creada con id " + datos : "Venta creada correctamente.";
-			JOptionPane.showMessageDialog(this, mensajeOk, "Venta abierta", JOptionPane.INFORMATION_MESSAGE);
-			volver();
+			String mensajeOk = "Venta creada correctamente.";
+			if (datos != null) {
+				try {
+					negocio.Venta.TCarrito carrito = (negocio.Venta.TCarrito) datos;
+					mensajeOk = "Venta creada correctamente.\nCon ID: " + carrito.getId();
+				} catch (ClassCastException e) {
+					// Si no es un TCarrito, usar mensaje genérico
+				}
+			}
+			JOptionPane.showMessageDialog(null, mensajeOk, "Venta abierta", JOptionPane.INFORMATION_MESSAGE);
 			break;
 		case RES_ABRIR_VENTA_KO:
 			String mensajeError = datos instanceof String ? (String) datos : "No se pudo abrir la venta.";
-			JOptionPane.showMessageDialog(this, mensajeError, "Error al abrir venta", JOptionPane.ERROR_MESSAGE);
-			setVisible(true);
+			JOptionPane.showMessageDialog(null, mensajeError, "Error al abrir venta", JOptionPane.ERROR_MESSAGE);
 			break;
 		default:
 			break;
