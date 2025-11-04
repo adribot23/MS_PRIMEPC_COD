@@ -45,46 +45,75 @@ public class VBajaEmpleado extends JFrame implements IGUI {
 	 * @generated "UML a Java
 	 *            (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	 */
-	public void initGUI() {
-		setLayout(new GridLayout(3, 1));
-		// setBorder(BorderFactory.createTitledBorder("Baja Empleado"));
 
-		JTextField bajaID = new JTextField();
-		JButton btnBaja = new JButton("Dar de baja");
-		btnBaja.setBackground(new Color(200, 255, 200));
-		add(new JLabel("ID empleado:"));
-		add(bajaID);
-		add(btnBaja);
+    private void initGUI() {
+       
+        setLayout(new GridLayout(3, 2, 5, 5));
+        getRootPane().setBorder(BorderFactory.createTitledBorder("Baja Empleado"));
 
-		btnBaja.addActionListener(e -> {
-			try {
-				int id = Integer.parseInt(bajaID.getText());
-				Controlador.getInstancia().accion(new Context(Evento.BAJA_EMPLEADO, id));
-			} catch (NumberFormatException ex) {
-				JOptionPane.showMessageDialog(this, "ID debe ser un numero.");
-			}
-		});
-	}
+        
+        JLabel lblID = new JLabel("ID del Empleado:");
+        JTextField txtID = new JTextField();
 
-	@Override
-	public void actualizar(Context context) {
-		Evento evento = context.getEvento();
-		Object datos = context.getDatos();
-		switch (evento) {
+      
+        JButton btnBaja = new JButton("Dar de Baja");
+        btnBaja.setBackground(new Color(200, 255, 200));
+        btnBaja.addActionListener(e -> {
+            try {
+                int id = Integer.parseInt(txtID.getText().trim());
+                if (id <= 0) {
+                    JOptionPane.showMessageDialog(this, "El ID debe ser un número positivo.");
+                    return;
+                }
 
-		case VBAJA_EMPLEADO:
-			this.setVisible(true);
-			break;
-		case RES_BAJA_EMPLEADO_OK:
-			JOptionPane.showMessageDialog(null, "Empleado dado de baja con ID: " + datos);
-			break;
-		case RES_ALTA_EMPLEADO_KO:
-			JOptionPane.showMessageDialog(null, "Error al dar de baja el empleado.");
-			break;
-		default:
-			JOptionPane.showMessageDialog(null, "Evento no reconocido: " + evento);
+                Controlador.getInstancia().accion(new Context(Evento.BAJA_EMPLEADO, id));
+                txtID.setText("");
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(this, "El ID debe ser un número válido.");
+            }
+        });
 
-		}
+        
+        JButton btnVolver = new JButton("Volver");
+        btnVolver.setBackground(new Color(255, 220, 220));
+        btnVolver.addActionListener(e -> {
+            Controlador.getInstancia().accion(new Context(Evento.EMPLEADO, null));
+            this.dispose();
+        });
 
-	}
+     
+        add(lblID);
+        add(txtID);
+        add(btnBaja);
+        add(btnVolver);
+
+       
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setSize(400, 180);
+        setLocationRelativeTo(null);
+    }
+
+    @Override
+    public void actualizar(Context context) {
+        Evento evento = context.getEvento();
+        Object datos = context.getDatos();
+
+        switch (evento) {
+            case VBAJA_EMPLEADO:
+                this.setVisible(true);
+                break;
+
+            case RES_BAJA_EMPLEADO_OK:
+                JOptionPane.showMessageDialog(this, "Empleado dado de baja con ID: " + datos);
+                break;
+
+            case RES_BAJA_EMPLEADO_KO:
+                JOptionPane.showMessageDialog(this, "Error al dar de baja el empleado.");
+                break;
+
+            default:
+                JOptionPane.showMessageDialog(this, "Evento no reconocido: " + evento);
+                break;
+        }
+    }
 }
