@@ -25,10 +25,7 @@ public class AbrirVentaCommand implements Command {
 			int idEmpleado = (Integer) data;
 			TCarrito carrito = saVenta.abrirVenta(idEmpleado);
 
-			if (carrito != null) {
-				if (carrito.getId() <= 0) {
-					carrito.setId(idEmpleado);
-				}
+			if (carrito != null && carrito.getId() > 0) {
 				return new Context(Evento.RES_ABRIR_VENTA_OK, carrito);
 			}
 
