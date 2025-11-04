@@ -30,21 +30,16 @@ public class VBajaCliente extends JFrame implements  IGUI {
 	public VBajaCliente() {
 		super("Baja de Cliente");
 		initGUI();
-		setSize(400, 200);
-	    setLocationRelativeTo(null);
-	    setVisible(true);
 	}
 	
 	public void initGUI() {
-		setLayout(new GridLayout(4, 1, 100, 10));
+		setLayout(new GridLayout(2, 2, 100, 10));
 		getRootPane().setBorder(BorderFactory.createTitledBorder("Baja Cliente"));
 
-		//setBorder(BorderFactory.createTitledBorder("Baja Cliente"));
 
 		JTextField bajaID = new JTextField();
 		JButton btnBaja = new JButton("Dar de baja");
 		btnBaja.setBackground(new Color(200, 255, 200));
-		add(new JLabel("ID cliente:"));
 		
 		JButton btnVolver = new JButton("Volver");
 		btnVolver.setBackground(new Color(255, 220, 220));
@@ -52,9 +47,6 @@ public class VBajaCliente extends JFrame implements  IGUI {
 			Controlador.getInstancia().accion(new Context(Evento.CLIENTE, null));
 			dispose();
 		});
-		add(bajaID);
-		add(btnBaja);
-		add(btnVolver);
 
 		btnBaja.addActionListener(e -> {
 			try {
@@ -64,6 +56,15 @@ public class VBajaCliente extends JFrame implements  IGUI {
 				JOptionPane.showMessageDialog(this, "ID debe ser un numero.");
 			}
 		});
+
+		add(new JLabel("ID cliente:"));
+		add(bajaID);
+		add(btnBaja);
+		add(btnVolver);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setSize(350, 150);
+		setLocationRelativeTo(null);
+		
 	}
 
 	@Override
@@ -76,7 +77,7 @@ public class VBajaCliente extends JFrame implements  IGUI {
 			this.setVisible(true);
 			break;
 		case RES_BAJA_CLIENTE_OK:
-			JOptionPane.showMessageDialog(null, "Cliente dado de baja con ID: " + datos);
+			JOptionPane.showMessageDialog(null, "Cliente dado de baja correctamente");
 			break;
 		case RES_BAJA_CLIENTE_KO:
 			JOptionPane.showMessageDialog(null, "Error al dar de baja el cliente.");

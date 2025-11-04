@@ -35,9 +35,6 @@ public class VModificarCliente extends JFrame implements IGUI {
 	public VModificarCliente() {
 		super("Modificar Cliente");
 		initGUI();
-		setSize(400, 400);
-	    setLocationRelativeTo(null);
-	    setVisible(true);
 	}
 	
 	public void initGUI() {
@@ -108,6 +105,10 @@ public class VModificarCliente extends JFrame implements IGUI {
 		add(modificarPuntos);
 		add(btnModificar);
 		add(btnVolver);
+		
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setSize(400, 400);
+	    setLocationRelativeTo(null);
 	}
 
 	@Override

@@ -29,24 +29,15 @@ import presentacion.Controller.Command.Context;
 import presentacion.GUI.Evento;
 import presentacion.GUI.IGUI;
 
-/** 
-* <!-- begin-UML-doc -->
-* <!-- end-UML-doc -->
-* @author adria
-* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-*/
 public class VAltaCliente extends JFrame implements IGUI {
 
 	public VAltaCliente() {
 		super("Alta de Cliente");
 		initGUI();
-		setSize(400, 400);
-	    setLocationRelativeTo(null);
-	    setVisible(true);
 	}
 	
 	public void initGUI() {
-		setLayout(new GridLayout(10, 1, 10, 10));
+		setLayout(new GridLayout(10, 2, 10, 10));
 		getRootPane().setBorder(BorderFactory.createTitledBorder("Alta Cliente"));
 
 		//setBorder(BorderFactory.createTitledBorder("Alta Cliente"));
@@ -75,20 +66,27 @@ public class VAltaCliente extends JFrame implements IGUI {
 		btnAlta.setBackground(new Color(200, 255, 200));
 		btnAlta.addActionListener(e -> {
 			try {
-				String nombre = altaNombre.getText();
-				String dni = altaDNI.getText();
-				TCliente cliente;
+				String nombre = altaNombre.getText().trim();
+				String dni = altaDNI.getText().trim();
 
-				if (rdbSocio.isSelected()) {
-					int puntos = Integer.parseInt(altaVisitas.getText());
-					cliente = new TClienteSocio(-1, nombre, dni, puntos);
-				} else {
-					int numVisitas = Integer.parseInt(altaVisitas.getText());
-					cliente = new TClienteNoSocio(nombre, dni, numVisitas);
+				if(!nombre.isEmpty() && !dni.isEmpty()) {
+					TCliente cliente;
+					if (rdbSocio.isSelected()) {
+						int puntos = Integer.parseInt(altaVisitas.getText().trim());
+						cliente = new TClienteSocio(-1, nombre, dni, puntos);
+					} else {
+						int numVisitas = Integer.parseInt(altaVisitas.getText().trim());
+						cliente = new TClienteNoSocio(nombre, dni, numVisitas);
+					}
+
+					Controlador.getInstancia().accion(new Context(Evento.ALTA_CLIENTE, cliente));
+
+					rdbSocio.setSelected(true);
+					lblVisitas.setText("Puntos:");
+					altaNombre.setText("");
+					altaDNI.setText("");
+					altaVisitas.setText("");
 				}
-
-				Controlador.getInstancia().accion(new Context(Evento.ALTA_CLIENTE, cliente));
-
 			} catch (NumberFormatException ex) {
 				JOptionPane.showMessageDialog(this, "Los campos numéricos deben ser válidos.");
 			}
@@ -98,7 +96,7 @@ public class VAltaCliente extends JFrame implements IGUI {
 		btnVolver.setBackground(new Color(255, 220, 220));
 		btnVolver.addActionListener(e -> {
 			Controlador.getInstancia().accion(new Context(Evento.CLIENTE, null));
-			dispose();
+			this.dispose();
 		});
 
 		add(new JLabel("Nombre:"));
@@ -110,6 +108,11 @@ public class VAltaCliente extends JFrame implements IGUI {
 		add(altaVisitas);
 		add(btnAlta);
 		add(btnVolver);
+		
+
+	    setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setSize(400, 400);
+	    setLocationRelativeTo(null);
 	}
 
 	public void actualizar(Context context) {
