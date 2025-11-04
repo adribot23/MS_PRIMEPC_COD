@@ -46,7 +46,7 @@ public class VCalcularImporteMasVendido extends JFrame implements IGUI {
 	 */
 	 private void initGUI() {
 	       
-	        setLayout(new GridLayout(3, 2, 5, 5));
+	        setLayout(new GridLayout(2, 2, 10, 10));
 	        getRootPane().setBorder(BorderFactory.createTitledBorder("Calcular Importe Más Vendido"));
 
 	       
@@ -82,12 +82,13 @@ public class VCalcularImporteMasVendido extends JFrame implements IGUI {
 	       
 	        add(lblID);
 	        add(txtID);
+	       
 	        add(btnCalcular);
 	        add(btnVolver);
 
 	       
 	        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-	        setSize(400, 180);
+	        setSize(350, 150);
 	        setLocationRelativeTo(null);
 	    }
 

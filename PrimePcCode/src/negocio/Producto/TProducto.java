@@ -7,7 +7,6 @@ public class TProducto {
 	protected int unidades;
 	protected String marca;
 	protected int activo;
-	protected int id_proveedor;
 	protected int id_almacen;
 
 	public TProducto() {
@@ -18,19 +17,21 @@ public class TProducto {
 		this.id_almacen = id_almacen;
 	}
 
-	public TProducto(double precio, String modelo, int unidades, String marca) {
+	public TProducto(double precio, String modelo, int unidades, String marca,int id_almacen) {
 		this.precio = precio;
 		this.modelo = modelo;
 		this.unidades = unidades;
 		this.marca = marca;
+		this.id_almacen = id_almacen;
 	}
 
-	public TProducto(int id, double precio, String modelo, int unidades, String marca) {
+	public TProducto(int id, double precio, String modelo, int unidades, String marca,int id_almacen) {
 		this.id = id;
 		this.precio = precio;
 		this.modelo = modelo;
 		this.unidades = unidades;
 		this.marca = marca;
+		this.id_almacen = id_almacen;
 	}
 
 	public int getId() {
@@ -81,13 +82,7 @@ public class TProducto {
 		this.activo = activo;
 	}
 
-	public int getIdProveedor() {
-		return this.id_proveedor;
-	}
-
-	public void setIdProveedor(int id_proveedor) {
-		this.id_proveedor = id_proveedor;
-	}
+	
 
 	public int getIdAlmacen() {
 		return this.id_almacen;
@@ -100,6 +95,6 @@ public class TProducto {
 	@Override
 	public String toString() {
 		return "Producto [ID: " + id + ", Marca: " + marca + ", Modelo: " + modelo + ", Precio: " + precio
-				+ ", Unidades: " + unidades + "]";
+				+ ", Unidades: " + unidades + ", ID Almacen: " + id_almacen + ", Activo: " + activo + "]";
 	}
 }

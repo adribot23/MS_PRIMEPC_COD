@@ -2,12 +2,15 @@ package negocio.Producto;
 
 import java.util.HashSet;
 import java.util.Set;
+
+import integracion.Almacen.DAOAlmacen;
 import integracion.FactoriaDAO.DAOAbstractFactory;
 import integracion.Producto.DAOProducto;
 import integracion.Proveedor.DAOProveedor;
 import integracion.Proveedor.DAOProveedorProducto;
 import integracion.Transaction.TManager;
 import integracion.Transaction.Transaction;
+import negocio.Almacen.TAlmacen;
 import negocio.Proveedor.TProveedor;
 import negocio.Proveedor.TProveedorProducto;
 
@@ -25,12 +28,39 @@ public class SAProductoImp implements SAProducto {
 			transaction.start();
 
 			DAOProducto daoProducto = DAOAbstractFactory.getInstancia().generaDAOProducto();
+			DAOAlmacen daoAlmacen = DAOAbstractFactory.getInstancia().generaDAOAlmacen();
+
 			TProducto pr = daoProducto.read_by_modelo(producto.getModelo());
 
+			TAlmacen almacen = daoAlmacen.read(producto.getIdAlmacen());
+
+			if (almacen == null || almacen.getActivo() == 0) {
+
+				transaction.rollback();
+				return -1;
+			}
+
+			int capacidadMax = almacen.getCapacidadMaxima();
+			int ocupacionActual = almacen.getOcupacion();
+			int nuevasUnidades = producto.getUnidades();
+
+			if (ocupacionActual + nuevasUnidades > capacidadMax) {
+
+				transaction.rollback();
+				return -1;
+			}
 			if (pr == null) {
 				exito = daoProducto.create(producto);
 				if (exito != -1) {
-					transaction.commit();
+					almacen.setOcupacion(ocupacionActual + nuevasUnidades);
+					int actualizado = daoAlmacen.update(almacen);
+
+					if (actualizado != -1)
+						transaction.commit();
+					else {
+						transaction.rollback();
+						exito = -1;
+					}
 				} else
 					transaction.rollback();
 
@@ -39,14 +69,22 @@ public class SAProductoImp implements SAProducto {
 				producto.setActivo(1);
 				exito = daoProducto.update(producto);
 				if (exito != -1) {
-					exito = pr.getId();
-					transaction.commit();
+					almacen.setOcupacion(ocupacionActual + nuevasUnidades);
+					int actualizado = daoAlmacen.update(almacen);
+					if (actualizado != -1) {
+						exito = pr.getId();
+						transaction.commit();
+					} else {
+						transaction.rollback();
+					}
 				} else
 					transaction.rollback();
-			} else
+			} else {
 				transaction.rollback();
-
+				exito = -1;
+			}
 		}
+
 		return exito;
 	}
 
@@ -120,22 +158,37 @@ public class SAProductoImp implements SAProducto {
 			transaction.start();
 
 			DAOProducto daoProducto = DAOAbstractFactory.getInstancia().generaDAOProducto();
+			DAOAlmacen daoAlmacen = DAOAbstractFactory.getInstancia().generaDAOAlmacen();
+			DAOProveedorProducto daoProveedorProducto = DAOAbstractFactory.getInstancia().generaDAOProveedorProducto();
 			TProducto tpr = daoProducto.read(id);
 
 			if (tpr == null) {
 				transaction.rollback();
-			} else {
-				if (tpr.getActivo() == 1) {
-					exito = daoProducto.delete(id);
-					if (exito > 0)
-						transaction.commit();
-					else {
-						transaction.rollback();
-					}
-				} else {
-					transaction.rollback();
-				}
+				return -1;
 			}
+
+			if (tpr.getActivo() == 1 && daoProveedorProducto.read_all_by_producto(tpr.getId()).isEmpty()) {
+
+				TAlmacen almacen = daoAlmacen.read(tpr.getIdAlmacen());
+				if (almacen != null && almacen.getActivo() == 1) {
+
+					int nuevaOcupacion = almacen.getOcupacion() - tpr.getUnidades();
+					almacen.setOcupacion(Math.max(0, nuevaOcupacion)); // evitar negativos
+					int actualizado = daoAlmacen.update(almacen);
+
+					if (actualizado != -1) {
+						
+						exito = daoProducto.delete(id);
+						if (exito > 0)
+							transaction.commit();
+						else
+							transaction.rollback();
+					} else
+						transaction.rollback();
+				} else
+					transaction.rollback();
+			} else
+				transaction.rollback();
 		}
 
 		return exito;
@@ -143,8 +196,8 @@ public class SAProductoImp implements SAProducto {
 
 	@Override
 	public int modificarProducto(TProducto producto) {
-
 		int exito = -1;
+
 		TManager tManager = TManager.getInstance();
 		tManager.createTransaction();
 		Transaction transaction = tManager.getTransaction();
@@ -153,23 +206,52 @@ public class SAProductoImp implements SAProducto {
 			transaction.start();
 
 			DAOProducto daoProducto = DAOAbstractFactory.getInstancia().generaDAOProducto();
-			TProducto tpByModelo = daoProducto.read_by_modelo(producto.getModelo());
-			TProducto tpById = daoProducto.read(producto.getId());
+			DAOAlmacen daoAlmacen = DAOAbstractFactory.getInstancia().generaDAOAlmacen();
 
-			if (tpByModelo == null
-					|| (tpByModelo.getId() == tpById.getId() && tpByModelo.getModelo().equals(tpById.getModelo()))) {
-				exito = daoProducto.update(producto);
-				if (exito != -1)
-					transaction.commit();
-				else
+			TProducto productoAntiguo = daoProducto.read(producto.getId());
+			if (productoAntiguo == null) {
+				transaction.rollback();
+				return -1;
+			}
+
+			TProducto tpByModelo = daoProducto.read_by_modelo(producto.getModelo());
+			if (tpByModelo != null && tpByModelo.getId() != producto.getId()) {
+
+				transaction.rollback();
+				return -1;
+			}
+
+			if (productoAntiguo.getIdAlmacen() != producto.getIdAlmacen()) {
+				TAlmacen almacenAntiguo = daoAlmacen.read(productoAntiguo.getIdAlmacen());
+				TAlmacen almacenNuevo = daoAlmacen.read(producto.getIdAlmacen());
+
+				if (almacenNuevo == null || almacenNuevo.getActivo() == 0 || almacenAntiguo == null) {
 					transaction.rollback();
-			} else
+					return -1;
+				}
+
+				int capacidadDisponible = almacenNuevo.getCapacidadMaxima() - almacenNuevo.getOcupacion();
+				if (capacidadDisponible < producto.getUnidades()) {
+
+					transaction.rollback();
+					return -1;
+				}
+
+				almacenAntiguo.setOcupacion(Math.max(0, almacenAntiguo.getOcupacion() - productoAntiguo.getUnidades()));
+				daoAlmacen.update(almacenAntiguo);
+
+				almacenNuevo.setOcupacion(almacenNuevo.getOcupacion() + producto.getUnidades());
+				daoAlmacen.update(almacenNuevo);
+			}
+
+			exito = daoProducto.update(producto);
+			if (exito != -1)
+				transaction.commit();
+			else
 				transaction.rollback();
 		}
+
 		return exito;
-
-		// TODO Apéndice de método generado automáticamente
-
 	}
 
 	@Override

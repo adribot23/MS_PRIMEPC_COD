@@ -51,12 +51,11 @@ public class VMostrarEmpleado extends JFrame implements IGUI {
 	 */
     private void initGUI() {
         
-        setLayout(new GridLayout(2, 1, 5, 5));
+        setLayout(new GridLayout(2, 1, 10, 5));
         getRootPane().setBorder(BorderFactory.createTitledBorder("Mostrar Empleados"));
 
       
-        JPanel panelBotones = new JPanel(new GridLayout(1, 2, 5, 5));
-
+       
         JButton btnMostrarTodos = new JButton("Mostrar todos los empleados");
         btnMostrarTodos.setBackground(new Color(200, 255, 200));
         btnMostrarTodos.addActionListener(e ->
@@ -70,21 +69,14 @@ public class VMostrarEmpleado extends JFrame implements IGUI {
             this.dispose();
         });
 
-        panelBotones.add(btnMostrarTodos);
-        panelBotones.add(btnVolver);
-
-        
-        textArea = new JTextArea();
-        textArea.setEditable(false);
-        JScrollPane scrollPane = new JScrollPane(textArea);
-
-       
-        add(panelBotones);
-        add(scrollPane);
+      
+      
+        add(btnMostrarTodos);
+        add(btnVolver);
 
       
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setSize(600, 400);
+        setSize(300, 150);
         setLocationRelativeTo(null);
     }
 
