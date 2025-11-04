@@ -93,10 +93,14 @@ public class VBajaVenta extends JFrame implements IGUI {
 			setVisible(true);
 			break;
 		case RES_BAJA_VENTA_OK:
-			JOptionPane.showMessageDialog(this, "Venta dada de baja correctamente.");
+			JOptionPane.showMessageDialog(this, "Éxito al dar de baja venta.");
+			Controlador.getInstancia().accion(new Context(Evento.VENTA, null));
+			dispose();
 			break;
 		case RES_BAJA_VENTA_KO:
-			JOptionPane.showMessageDialog(this, "No se pudo dar de baja la venta.");
+			JOptionPane.showMessageDialog(this, "Error al dar de baja venta.");
+			Controlador.getInstancia().accion(new Context(Evento.VENTA, null));
+			dispose();
 			break;
 		default:
 			break;

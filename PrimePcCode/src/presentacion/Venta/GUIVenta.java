@@ -45,26 +45,27 @@ public class GUIVenta extends JFrame implements IGUI {
 		titulo.setBorder(BorderFactory.createEmptyBorder(10, 0, 20, 0));
 		mainPanel.add(titulo, BorderLayout.NORTH);
 
-		// === PANEL DE BOTONES ===
-		JPanel botonesPanel = new JPanel(new GridLayout(4, 2, 20, 20));
-		botonesPanel.setBackground(Color.WHITE);
+	// === PANEL DE BOTONES ===
+	JPanel botonesPanel = new JPanel(new GridLayout(4, 2, 20, 20));
+	botonesPanel.setBackground(Color.WHITE);
 
-		// Fila 1
-		botonesPanel.add(crearBotonVerde("ABRIR VENTA", Evento.VABRIR_VENTA));
-		botonesPanel.add(crearBotonVerde("ELIMINAR VENTA", Evento.VBAJA_VENTA));
+	// Fila 1
+	botonesPanel.add(crearBotonVerde("ABRIR VENTA", Evento.VABRIR_VENTA));
+	botonesPanel.add(crearBotonVerde("ELIMINAR VENTA", Evento.VBAJA_VENTA));
 
-		// Fila 2
-		botonesPanel.add(crearBotonVerde("MODIFICAR VENTA", Evento.VMODIFICAR_VENTA));
-		botonesPanel.add(crearBotonVerde("BUSCAR VENTA", Evento.VBUSCAR_VENTA));
+	// Fila 2
+	botonesPanel.add(crearBotonVerde("MODIFICAR VENTA", Evento.VMODIFICAR_VENTA));
+	botonesPanel.add(crearBotonVerde("DEVOLVER VENTA", Evento.VDEVOLVER_VENTA));
 
-		// Fila 3
-		botonesPanel.add(crearBotonVerde("MOSTRAR TODAS LAS VENTAS", Evento.VMOSTRAR_TODAS_VENTAS));
-		botonesPanel.add(crearBotonVerde("VENTAS POR EMPLEADO", Evento.VMOSTRAR_VENTAS_POR_EMPLEADO));
+	// Fila 3
+	botonesPanel.add(crearBotonVerde("BUSCAR VENTA", Evento.VBUSCAR_VENTA));
+	botonesPanel.add(crearBotonVerde("MOSTRAR TODAS LAS VENTAS", Evento.VMOSTRAR_TODAS_VENTAS));
 
-		// Fila 4
-		botonesPanel.add(crearBotonVerde("VENTAS POR CLIENTE", Evento.VMOSTRAR_VENTAS_POR_CLIENTE));
+	// Fila 4
+	botonesPanel.add(crearBotonVerde("VENTAS POR EMPLEADO", Evento.VMOSTRAR_VENTAS_POR_EMPLEADO));
+	botonesPanel.add(crearBotonVerde("VENTAS POR CLIENTE", Evento.VMOSTRAR_VENTAS_POR_CLIENTE));
 
-		mainPanel.add(botonesPanel, BorderLayout.CENTER);
+	mainPanel.add(botonesPanel, BorderLayout.CENTER);
 
 		// === PANEL INFERIOR (VOLVER) ===
 		JButton volver = new JButton("VOLVER A VISTA PRINCIPAL");

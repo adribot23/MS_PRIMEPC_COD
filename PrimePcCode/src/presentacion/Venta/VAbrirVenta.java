@@ -94,17 +94,14 @@ public class VAbrirVenta extends JFrame implements IGUI {
 			setVisible(true);
 			break;
 		case RES_ABRIR_VENTA_OK:
-			if (datos instanceof negocio.Venta.TCarrito) {
-				negocio.Venta.TCarrito carrito = (negocio.Venta.TCarrito) datos;
-				JOptionPane.showMessageDialog(this, "Venta abierta con ID: " + carrito.getId());
-				Controlador.getInstancia().accion(new Context(Evento.PASAR_CARRITO_A_CERRAR, carrito));
-			} else {
-				JOptionPane.showMessageDialog(this, "Venta abierta correctamente.");
-			}
+			JOptionPane.showMessageDialog(this, "Carrito generado con éxito.");
+			Controlador.getInstancia().accion(new Context(Evento.PASAR_CARRITO_A_CERRAR, datos));
 			dispose();
 			break;
 		case RES_ABRIR_VENTA_KO:
-			JOptionPane.showMessageDialog(this, "No se pudo abrir la venta.");
+			JOptionPane.showMessageDialog(this, "Error inesperado al iniciar la venta.");
+			Controlador.getInstancia().accion(new Context(Evento.VENTA, null));
+			dispose();
 			break;
 		default:
 			break;

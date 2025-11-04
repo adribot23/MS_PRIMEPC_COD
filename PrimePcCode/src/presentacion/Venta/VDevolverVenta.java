@@ -121,10 +121,14 @@ public class VDevolverVenta extends JFrame implements IGUI {
 			setVisible(true);
 			break;
 		case RES_DEVOLVER_VENTA_OK:
-			JOptionPane.showMessageDialog(this, "Devolución registrada correctamente.");
+			JOptionPane.showMessageDialog(this, "Devolución del producto con éxito.");
+			Controlador.getInstancia().accion(new Context(Evento.VENTA, null));
+			dispose();
 			break;
 		case RES_DEVOLVER_VENTA_KO:
-			JOptionPane.showMessageDialog(this, "No se pudo realizar la devolución.");
+			JOptionPane.showMessageDialog(this, "Error en la devolución del producto, compruebe datos.");
+			Controlador.getInstancia().accion(new Context(Evento.VENTA, null));
+			dispose();
 			break;
 		default:
 			break;

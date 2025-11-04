@@ -126,16 +126,12 @@ public class VEliminarProducto extends JFrame implements IGUI {
 			break;
 		case RES_QUITAR_PRODUCTO_VENTA_OK:
 			JOptionPane.showMessageDialog(this, "Producto eliminado del carrito.");
-			if (datos instanceof TCarrito) {
-				Controlador.getInstancia().accion(new Context(Evento.PASAR_CARRITO_A_CERRAR, datos));
-			}
+			Controlador.getInstancia().accion(new Context(Evento.PASAR_CARRITO_A_CERRAR, datos));
 			dispose();
 			break;
 		case RES_QUITAR_PRODUCTO_VENTA_KO:
-			JOptionPane.showMessageDialog(this, "No se pudo eliminar el producto del carrito.");
-			if (datos instanceof TCarrito) {
-				Controlador.getInstancia().accion(new Context(Evento.PASAR_CARRITO_A_CERRAR, datos));
-			}
+			JOptionPane.showMessageDialog(this, "No se pudo eliminar el producto del carrito. Compruebe los datos.");
+			Controlador.getInstancia().accion(new Context(Evento.PASAR_CARRITO_A_CERRAR, datos));
 			dispose();
 			break;
 		default:
