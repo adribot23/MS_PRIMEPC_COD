@@ -5,10 +5,8 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.Set;
-import java.util.StringJoiner;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -77,16 +75,22 @@ public class VBuscarVenta extends JFrame implements IGUI {
 		bottomPanel.add(volverButton);
 		add(bottomPanel, BorderLayout.SOUTH);
 
-		setSize(500, 340);
+		setSize(600, 400);
 		setLocationRelativeTo(null);
 	}
 
 	private void onBuscar() {
 		try {
-			int idVenta = parseEnteroPositivo(idVentaField.getText(), "Id venta");
+			int idVenta = Integer.parseInt(idVentaField.getText().trim());
+			if (idVenta <= 0) {
+				JOptionPane.showMessageDialog(this, "El Id venta debe ser un numero positivo.", "Datos incorrectos",
+						JOptionPane.ERROR_MESSAGE);
+				return;
+			}
 			Controlador.getInstancia().accion(new Context(Evento.BUSCAR_VENTA, idVenta));
-		} catch (IllegalArgumentException ex) {
-			JOptionPane.showMessageDialog(this, ex.getMessage(), "Datos incorrectos", JOptionPane.ERROR_MESSAGE);
+		} catch (NumberFormatException ex) {
+			JOptionPane.showMessageDialog(this, "El Id venta debe ser un numero entero positivo.",
+					"Datos incorrectos", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 
@@ -98,18 +102,6 @@ public class VBuscarVenta extends JFrame implements IGUI {
 	private void limpiar() {
 		idVentaField.setText("");
 		resultadoArea.setText("");
-	}
-
-	private int parseEnteroPositivo(String valor, String campo) {
-		try {
-			int numero = Integer.parseInt(valor.trim());
-			if (numero <= 0) {
-				throw new NumberFormatException();
-			}
-			return numero;
-		} catch (NumberFormatException ex) {
-			throw new IllegalArgumentException(campo + " debe ser un número entero positivo.");
-		}
 	}
 
 	@Override
@@ -127,33 +119,20 @@ public class VBuscarVenta extends JFrame implements IGUI {
 			setVisible(true);
 			break;
 		case RES_BUSCAR_VENTA_OK:
-			resultadoArea.setText(formatearResultado(datos));
+			String factura = rellenarFactura(datos);
+			resultadoArea.setText(factura);
 			break;
 		case RES_BUSCAR_VENTA_KO:
-			String mensaje = datos instanceof String ? (String) datos : "No se encontró la venta solicitada.";
-			JOptionPane.showMessageDialog(null, mensaje, "Venta no encontrada", JOptionPane.WARNING_MESSAGE);
+			JOptionPane.showMessageDialog(this, "Venta no encontrada.");
 			break;
 		default:
 			break;
 		}
 	}
 
-	private String formatearResultado(Object datos) {
+	private String rellenarFactura(Object datos) {
 		if (datos == null) {
 			return "No hay información disponible.";
-		}
-
-		if (datos instanceof Collection<?>) {
-			StringBuilder builder = new StringBuilder();
-			Iterator<?> it = ((Collection<?>) datos).iterator();
-			while (it.hasNext()) {
-				Object elemento = it.next();
-				builder.append(formatearResultado(elemento));
-				if (it.hasNext()) {
-					builder.append(System.lineSeparator()).append(System.lineSeparator());
-				}
-			}
-			return builder.toString();
 		}
 
 		if (datos instanceof TVentaTOA) {
@@ -173,64 +152,86 @@ public class VBuscarVenta extends JFrame implements IGUI {
 		}
 
 		StringBuilder sb = new StringBuilder();
-		sb.append("Venta #").append(venta.getId()).append(System.lineSeparator());
-		sb.append("Empleado: ").append(venta.getIdEmpleado()).append(System.lineSeparator());
-		sb.append("Cliente: ").append(venta.getIdCliente()).append(System.lineSeparator());
-		sb.append("Metodo de pago: ").append(textoSeguro(venta.getMetodoPago())).append(System.lineSeparator());
-		sb.append("Importe: ").append(venta.getPrecio()).append(" EUR").append(System.lineSeparator());
-		sb.append("Descuento: ").append(venta.getDescuento()).append(" EUR").append(System.lineSeparator());
+		sb.append("Venta encontrada con id: ").append(venta.getId()).append("\n");
+		sb.append("Empleado: ").append(venta.getIdEmpleado()).append("\n");
+		sb.append("Cliente: ").append(venta.getIdCliente()).append("\n");
+		sb.append("Método de pago: ").append(venta.getMetodoPago() != null ? venta.getMetodoPago() : "-")
+				.append("\n");
+		sb.append("Precio total: ").append(venta.getPrecio()).append(" EUR\n");
+		sb.append("Descuento: ").append(venta.getDescuento()).append(" EUR\n");
 		sb.append("Activa: ").append(venta.getActivo() == 1 ? "Si" : "No");
 		return sb.toString();
 	}
 
 	private String formatearVentaTOA(TVentaTOA toa) {
-		StringBuilder sb = new StringBuilder();
+		StringBuilder builder = new StringBuilder();
+
 		TVenta venta = toa.get_venta();
-		if (venta != null) {
-			sb.append(formatearVentaSimple(venta)).append(System.lineSeparator());
-		}
-
 		TEmpleado empleado = toa.get_empleado();
-		if (empleado != null) {
-			sb.append("Empleado asignado: ").append(textoSeguro(empleado.getNombre()));
-			sb.append(" (id ").append(empleado.getId()).append(")").append(System.lineSeparator());
-		}
-
-		Set<TLineaVenta> lineas = toa.get_lista_lineasVenta();
-		if (lineas != null && !lineas.isEmpty()) {
-			sb.append("Lineas de venta:").append(System.lineSeparator());
-			for (TLineaVenta linea : lineas) {
-				sb.append("  - Producto ").append(linea.get_producto());
-				sb.append(" - unidades: ").append(linea.get_num_unidades());
-				sb.append(" - precio unidad: ").append(linea.get_precio_unidades()).append(" EUR");
-				sb.append(System.lineSeparator());
-			}
-		}
-
+		Set<TLineaVenta> lineasVenta = toa.get_lista_lineasVenta();
 		Set<TProducto> productos = toa.get_lista_producto();
-		if (productos != null && !productos.isEmpty()) {
-			StringJoiner joiner = new StringJoiner(", ");
-			for (TProducto producto : productos) {
-				String etiqueta = nombreProducto(producto);
-				joiner.add(etiqueta + " (id " + producto.getId() + ")");
+
+		String cabecera = rellenarCabecera(venta, empleado);
+		String lineas = rellenarLineasVenta(lineasVenta, productos);
+
+		return cabecera + lineas;
+	}
+
+	private String rellenarCabecera(TVenta venta, TEmpleado empleado) {
+		StringBuilder builder = new StringBuilder();
+
+		if (venta != null) {
+			builder.append("Se ha encontrado venta con id: ").append(venta.getId()).append("\n");
+		}
+
+		if (empleado != null) {
+			builder.append("Empleado: ").append(empleado.getId());
+			builder.append(", DNI: ").append(empleado.getDNI() != null ? empleado.getDNI() : "-");
+			builder.append(", nombre: ").append(empleado.getNombre() != null ? empleado.getNombre() : "-");
+			builder.append(", activo: ").append(empleado.getActivo() == 1 ? "Si" : "No").append("\n");
+		}
+
+		if (venta != null) {
+			builder.append("Total factura: ").append(venta.getPrecio()).append(" EUR\n");
+			builder.append(
+					"-------------------------------------------------------------------------------------\n");
+		}
+
+		return builder.toString();
+	}
+
+	private String rellenarLineasVenta(Set<TLineaVenta> lineasVenta, Set<TProducto> productos) {
+		StringBuilder builder = new StringBuilder();
+
+		if (lineasVenta == null || lineasVenta.isEmpty()) {
+			return builder.toString();
+		}
+
+		Iterator<TLineaVenta> itLineas = lineasVenta.iterator();
+		Iterator<TProducto> itProductos = productos != null ? productos.iterator() : null;
+
+		while (itLineas.hasNext()) {
+			TLineaVenta linea = itLineas.next();
+			builder.append("id_producto: ").append(linea.get_producto());
+			builder.append(", cantidad: ").append(linea.get_num_unidades());
+			builder.append(", precio: ").append(linea.get_precio_unidades()).append(" EUR");
+			builder.append(", activo: ").append(linea.get_activo()).append("\n");
+
+			if (itProductos != null && itProductos.hasNext()) {
+				TProducto producto = itProductos.next();
+				builder.append("     Datos actuales del producto:\n");
+				builder.append("          id_producto: ").append(producto.getId());
+				builder.append(", marca: ").append(producto.getMarca() != null ? producto.getMarca() : "-");
+				builder.append(", modelo: ").append(producto.getModelo() != null ? producto.getModelo() : "-");
+				builder.append(", stock: ").append(producto.getStock());
+				builder.append(", precio actual: ").append(producto.getPrecio()).append(" EUR");
+				builder.append(", activo: ").append(producto.getActivo()).append("\n");
 			}
-			sb.append("Productos vendidos: ").append(joiner.toString());
+
+			builder.append(
+					"-------------------------------------------------------------------------------------\n");
 		}
 
-		return sb.toString();
-	}
-
-	private String nombreProducto(TProducto producto) {
-		if (producto == null) {
-			return "Producto";
-		}
-		String marca = producto.getMarca() != null ? producto.getMarca() : "";
-		String modelo = producto.getModelo() != null ? producto.getModelo() : "";
-		String combinado = (marca + " " + modelo).trim();
-		return combinado.isEmpty() ? "Producto" : combinado;
-	}
-
-	private String textoSeguro(String value) {
-		return value == null || value.isEmpty() ? "-" : value;
+		return builder.toString();
 	}
 }

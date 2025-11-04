@@ -58,35 +58,25 @@ public class VAbrirVenta extends JFrame implements IGUI {
 
 	private void onAceptar() {
 		try {
-			int idEmpleado = parseEnteroPositivo(empleadoField.getText(), "Id empleado");
+			int idEmpleado = Integer.parseInt(empleadoField.getText().trim());
+			if (idEmpleado <= 0) {
+				JOptionPane.showMessageDialog(this, "El Id empleado debe ser un numero positivo.", "Datos incorrectos",
+						JOptionPane.ERROR_MESSAGE);
+				return;
+			}
 
 			Controlador.getInstancia().accion(new Context(Evento.ABRIR_VENTA, idEmpleado));
-			limpiarCampos();
+			empleadoField.setText("");
 
-		} catch (IllegalArgumentException ex) {
-			JOptionPane.showMessageDialog(this, ex.getMessage(), "Datos incorrectos", JOptionPane.ERROR_MESSAGE);
+		} catch (NumberFormatException ex) {
+			JOptionPane.showMessageDialog(this, "El Id empleado debe ser un numero entero positivo.",
+					"Datos incorrectos", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 
 	private void volver() {
 		Controlador.getInstancia().accion(new Context(Evento.VENTA, null));
 		dispose();
-	}
-
-	private void limpiarCampos() {
-		empleadoField.setText("");
-	}
-
-	private int parseEnteroPositivo(String text, String campo) {
-		try {
-			int valor = Integer.parseInt(text.trim());
-			if (valor <= 0) {
-				throw new NumberFormatException();
-			}
-			return valor;
-		} catch (NumberFormatException ex) {
-			throw new IllegalArgumentException(campo + " debe ser un numero entero positivo.");
-		}
 	}
 
 	@Override
@@ -100,24 +90,19 @@ public class VAbrirVenta extends JFrame implements IGUI {
 
 		switch (evento) {
 		case VABRIR_VENTA:
-			limpiarCampos();
+			empleadoField.setText("");
 			setVisible(true);
 			break;
 		case RES_ABRIR_VENTA_OK:
-			String mensajeOk = "Venta creada correctamente.";
-			if (datos != null) {
-				try {
-					negocio.Venta.TCarrito carrito = (negocio.Venta.TCarrito) datos;
-					mensajeOk = "Venta creada correctamente.\nCon ID: " + carrito.getId();
-				} catch (ClassCastException e) {
-					// Si no es un TCarrito, usar mensaje genérico
-				}
+			if (datos instanceof negocio.Venta.TCarrito) {
+				negocio.Venta.TCarrito carrito = (negocio.Venta.TCarrito) datos;
+				JOptionPane.showMessageDialog(this, "Venta abierta con ID: " + carrito.getId());
+			} else {
+				JOptionPane.showMessageDialog(this, "Venta abierta correctamente.");
 			}
-			JOptionPane.showMessageDialog(null, mensajeOk, "Venta abierta", JOptionPane.INFORMATION_MESSAGE);
 			break;
 		case RES_ABRIR_VENTA_KO:
-			String mensajeError = datos instanceof String ? (String) datos : "No se pudo abrir la venta.";
-			JOptionPane.showMessageDialog(null, mensajeError, "Error al abrir venta", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(this, "No se pudo abrir la venta.");
 			break;
 		default:
 			break;

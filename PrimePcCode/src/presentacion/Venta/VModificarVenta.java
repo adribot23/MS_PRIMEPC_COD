@@ -186,12 +186,10 @@ public class VModificarVenta extends JFrame implements IGUI {
 			setVisible(true);
 			break;
 		case RES_MODIFICAR_VENTA_OK:
-			JOptionPane.showMessageDialog(null, "Venta modificada correctamente.", "Modificar venta",
-					JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(this, "Venta modificada correctamente.");
 			break;
 		case RES_MODIFICAR_VENTA_KO:
-			String mensaje = datos instanceof String ? (String) datos : "No se pudo modificar la venta indicada.";
-			JOptionPane.showMessageDialog(null, mensaje, "Error al modificar venta", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(this, "No se pudo modificar la venta.");
 			break;
 		default:
 			break;
