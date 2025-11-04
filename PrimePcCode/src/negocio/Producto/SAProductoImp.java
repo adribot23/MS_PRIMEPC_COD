@@ -257,28 +257,29 @@ public class SAProductoImp implements SAProducto {
 	@Override
 	public TProducto leerProducto(int id) {
 
-		TProducto tpr = null;
+	    TProducto tpr = null;
 
-		TManager tManager = TManager.getInstance();
-		tManager.createTransaction();
-		Transaction transaction = tManager.getTransaction();
+	    TManager tManager = TManager.getInstance();
+	    tManager.createTransaction();
+	    Transaction transaction = tManager.getTransaction();
 
-		if (transaction != null) {
-			transaction.start();
+	    if (transaction != null) {
+	        transaction.start();
 
-			DAOProducto daoProducto = DAOAbstractFactory.getInstancia().generaDAOProducto();
-			tpr = daoProducto.read(id);
+	        DAOProducto daoProducto = DAOAbstractFactory.getInstancia().generaDAOProducto();
+	        TProducto productoLeido = daoProducto.read(id);
 
-			if (tpr == null)
-				transaction.rollback();
-			else
-				transaction.commit();
-		}
-		return tpr;
+	        if (productoLeido != null && productoLeido.getActivo() == 1) {
+	            tpr = productoLeido;
+	            transaction.commit();
+	        } else {
+	            transaction.rollback();
+	        }
+	    }
 
-		// TODO Apéndice de método generado automáticamente
-
+	    return tpr;
 	}
+
 
 	@Override
 	public Set<TProducto> leerTodosProductos() {

@@ -29,7 +29,6 @@ public class VAltaAlmacen extends JFrame implements IGUI {
 
 	private static final long serialVersionUID = 1L;
 
-
 	public VAltaAlmacen() {
 		super("Alta de Almacen");
 		initGUI();

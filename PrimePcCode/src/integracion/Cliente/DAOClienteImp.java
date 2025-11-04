@@ -24,11 +24,11 @@ public class DAOClienteImp implements DAOCliente {
             Transaction t = tManager.getTransaction();
             Connection c = (Connection) t.getResource();
             
-            PreparedStatement check = c.prepareStatement("SELECT ID FROM CLIENTE WHERE DNI = ?");
+            PreparedStatement check = c.prepareStatement("SELECT ID FROM CLIENTE WHERE DNI = ? FOR UPDATE");
             check.setString(1, cliente.getDni());
             ResultSet rsCheck = check.executeQuery();
             if (rsCheck.next()) {
-                System.err.println("⚠️ Cliente con DNI " + cliente.getDni() + " ya existe.");
+                System.err.println("Cliente con DNI " + cliente.getDni() + " ya existe.");
                 rsCheck.close();
                 check.close();
                 return -1;
@@ -86,7 +86,7 @@ public class DAOClienteImp implements DAOCliente {
             Transaction t = tManager.getTransaction();
             Connection c = (Connection) t.getResource();
 
-            PreparedStatement ps = c.prepareStatement("SELECT DNI, NOMBRE, ACTIVO FROM CLIENTE WHERE ID = ?");
+            PreparedStatement ps = c.prepareStatement("SELECT DNI, NOMBRE, ACTIVO FROM CLIENTE WHERE ID = ? FOR UPDATE");
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
 
@@ -95,7 +95,7 @@ public class DAOClienteImp implements DAOCliente {
                 String nombre = rs.getString("NOMBRE");
                 int activo = rs.getInt("ACTIVO");
 
-                PreparedStatement psSocio = c.prepareStatement("SELECT PUNTOS, NUM_SOCIO FROM SOCIO WHERE ID = ?");
+                PreparedStatement psSocio = c.prepareStatement("SELECT PUNTOS, NUM_SOCIO FROM SOCIO WHERE ID = ? FOR UPDATE");
                 psSocio.setInt(1, id);
                 ResultSet rsSocio = psSocio.executeQuery();
 
@@ -104,7 +104,7 @@ public class DAOClienteImp implements DAOCliente {
                     int numSocio = rsSocio.getInt("NUM_SOCIO");
                     cliente = new TClienteSocio(id, nombre, dni, activo, numSocio, puntos);
                 } else {
-                    PreparedStatement psNoSocio = c.prepareStatement("SELECT NUM_VISITAS FROM NOSOCIO WHERE ID = ?");
+                    PreparedStatement psNoSocio = c.prepareStatement("SELECT NUM_VISITAS FROM NOSOCIO WHERE ID = ? FOR UPDATE");
                     psNoSocio.setInt(1, id);
                     ResultSet rsNoSocio = psNoSocio.executeQuery();
 
@@ -155,7 +155,7 @@ public class DAOClienteImp implements DAOCliente {
             }
 
             PreparedStatement s = c.prepareStatement(
-                    "UPDATE CLIENTE SET DNI = ?, NOMBRE = ?, ACTIVO = 1 WHERE ID = ?");
+                    "UPDATE CLIENTE SET DNI = ?, NOMBRE = ?, ACTIVO = 1 WHERE ID = ? ");
             s.setString(1, cliente.getDni());
             s.setString(2, cliente.getNombre());
             s.setInt(3, cliente.getId());
@@ -218,7 +218,7 @@ public class DAOClienteImp implements DAOCliente {
             Connection c = (Connection) t.getResource();
 
             PreparedStatement psCliente = c.prepareStatement(
-                    "SELECT ID, NOMBRE, ACTIVO FROM CLIENTE WHERE DNI = ?");
+                    "SELECT ID, NOMBRE, ACTIVO FROM CLIENTE WHERE DNI = ? FOR UPDATE");
             psCliente.setString(1, dni);
             ResultSet rsCliente = psCliente.executeQuery();
 
@@ -227,7 +227,7 @@ public class DAOClienteImp implements DAOCliente {
                 String nombre = rsCliente.getString("NOMBRE");
                 int activo = rsCliente.getInt("ACTIVO");
 
-                PreparedStatement psSocio = c.prepareStatement("SELECT PUNTOS, NUM_SOCIO FROM SOCIO WHERE ID = ?");
+                PreparedStatement psSocio = c.prepareStatement("SELECT PUNTOS, NUM_SOCIO FROM SOCIO WHERE ID = ? FOR UPDATE");
                 psSocio.setInt(1, id);
                 ResultSet rsSocio = psSocio.executeQuery();
 
@@ -236,7 +236,7 @@ public class DAOClienteImp implements DAOCliente {
                     int numSocio = rsSocio.getInt("NUM_SOCIO");
                     cliente = new TClienteSocio(id, nombre, dni, activo, numSocio, puntos);
                 } else {
-                    PreparedStatement psNoSocio = c.prepareStatement("SELECT NUM_VISITAS FROM NOSOCIO WHERE ID = ?");
+                    PreparedStatement psNoSocio = c.prepareStatement("SELECT NUM_VISITAS FROM NOSOCIO WHERE ID = ? FOR UPDATE");
                     psNoSocio.setInt(1, id);
                     ResultSet rsNoSocio = psNoSocio.executeQuery();
                     if (rsNoSocio.next()) {
@@ -270,7 +270,7 @@ public class DAOClienteImp implements DAOCliente {
             Transaction t = tManager.getTransaction();
             Connection c = (Connection) t.getResource();
 
-            PreparedStatement s = c.prepareStatement("SELECT ID, DNI, NOMBRE, ACTIVO FROM CLIENTE");
+            PreparedStatement s = c.prepareStatement("SELECT ID, DNI, NOMBRE, ACTIVO FROM CLIENTE FOR UPDATE");
             ResultSet r = s.executeQuery();
 
             while (r.next()) {
@@ -279,7 +279,7 @@ public class DAOClienteImp implements DAOCliente {
                 String nombre = r.getString("NOMBRE");
                 int activo = r.getInt("ACTIVO");
 
-                PreparedStatement psSocio = c.prepareStatement("SELECT PUNTOS, NUM_SOCIO FROM SOCIO WHERE ID = ?");
+                PreparedStatement psSocio = c.prepareStatement("SELECT PUNTOS, NUM_SOCIO FROM SOCIO WHERE ID = ? FOR UPDATE");
                 psSocio.setInt(1, id);
                 ResultSet rsSocio = psSocio.executeQuery();
 
@@ -288,7 +288,7 @@ public class DAOClienteImp implements DAOCliente {
                     int numSocio = rsSocio.getInt("NUM_SOCIO");
                     clientes.add(new TClienteSocio(id, nombre, dni, activo, numSocio, puntos));
                 } else {
-                    PreparedStatement psNoSocio = c.prepareStatement("SELECT NUM_VISITAS FROM NOSOCIO WHERE ID = ?");
+                    PreparedStatement psNoSocio = c.prepareStatement("SELECT NUM_VISITAS FROM NOSOCIO WHERE ID = ? FOR UPDATE");
                     psNoSocio.setInt(1, id);
                     ResultSet rsNoSocio = psNoSocio.executeQuery();
                     if (rsNoSocio.next()) {

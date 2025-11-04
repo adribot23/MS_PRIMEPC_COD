@@ -76,7 +76,7 @@ public class VBajaAlmacen extends JFrame implements IGUI {
 			this.setVisible(true);
 			break;
 		case RES_BAJA_ALMACEN_OK:
-			JOptionPane.showMessageDialog(null, "Proveedor dado de baja correctamente.");
+			JOptionPane.showMessageDialog(null, "Almacén dado de baja correctamente.");
 			break;
 		case RES_BAJA_ALMACEN_KO:
 			JOptionPane.showMessageDialog(null, "Error al dar de baja el almacén.");
