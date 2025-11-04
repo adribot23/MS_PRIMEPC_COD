@@ -117,6 +117,7 @@ public class VEliminarProducto extends JFrame implements IGUI {
 		case RES_PASAR_CARRITO_A_ELIMINAR_OK:
 			if (datos instanceof TCarrito) {
 				this.carrito = (TCarrito) datos;
+				setVisible(true);
 			}
 			break;
 		case RES_PASAR_CARRITO_A_ELIMINAR_KO:

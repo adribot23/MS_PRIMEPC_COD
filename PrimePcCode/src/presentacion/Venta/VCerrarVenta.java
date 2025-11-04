@@ -139,6 +139,7 @@ public class VCerrarVenta extends JFrame implements IGUI {
 			if (datos instanceof TCarrito) {
 				carrito = (TCarrito) datos;
 				actualizarTabla();
+				setVisible(true);
 			}
 			break;
 		case RES_PASAR_CARRITO_A_CERRAR_KO:

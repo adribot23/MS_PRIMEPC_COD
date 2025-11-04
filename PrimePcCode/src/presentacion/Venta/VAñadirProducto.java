@@ -117,6 +117,7 @@ public class VAñadirProducto extends JFrame implements IGUI {
 		case RES_PASAR_CARRITO_A_INSERTAR_OK:
 			if (datos instanceof TCarrito) {
 				this.carrito = (TCarrito) datos;
+				setVisible(true);
 			}
 			break;
 		case RES_PASAR_CARRITO_A_INSERTAR_KO:
