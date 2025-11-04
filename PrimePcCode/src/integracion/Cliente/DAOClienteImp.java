@@ -29,29 +29,25 @@ import negocio.Producto.TProducto;
  */
 public class DAOClienteImp implements DAOCliente {
 
-	private Connection c;
-
-	private Connection conectar() throws SQLException {
-		return DriverManager.getConnection("jdbc:sqlite:bd/MSPrimePC.db", "root", "root"); // TODO Poner el nombre de la
-																							// bd
-	}
-
 	@Override
 	public int create(TCliente cliente) {
 		int id = -1;
 		try {
 			TManager tManager = TManager.getInstance();
 			Transaction t = tManager.getTransaction();
+			
 			Connection c = (Connection) t.getResource();
-			PreparedStatement s = c.prepareStatement("INSERT INTO CLIENTE (DNI, NOMBRE, ACTIVO) VALUES (?, ?, 1)",
-					Statement.RETURN_GENERATED_KEYS);
-			s.setString(1, cliente.getDni());
-			s.setString(2, cliente.getNombre());
-			s.executeUpdate();
+			
+			String sql = "INSERT INTO CLIENTE (DNI, NOMBRE, ACTIVO) VALUES (?, ?, 1)";
+			PreparedStatement ps = c.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			ps.setString(1, cliente.getDni());
+			ps.setString(2, cliente.getNombre());
+			
+			ps.executeUpdate();
 
-			ResultSet r = s.getGeneratedKeys();
-			if (r.next()) {
-				id = r.getInt(1);
+			ResultSet rs = ps.getGeneratedKeys();
+			if (rs.next()) {
+				id = rs.getInt(1);
 
 				if (cliente instanceof TClienteSocio) {
 					TClienteSocio socio = (TClienteSocio) cliente;
@@ -73,16 +69,15 @@ public class DAOClienteImp implements DAOCliente {
 					psNoSocio.executeUpdate();
 					psNoSocio.close();
 				}
-			} else {
-				throw new SQLException();
-			}
-
-			r.close();
-			s.close();
+			} 
+			
+			ps.close();
+			rs.close();
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return -1;
 		}
+		
 		return id;
 	}
 
@@ -92,14 +87,17 @@ public class DAOClienteImp implements DAOCliente {
 		try {
 			TManager tManager = TManager.getInstance();
 			Transaction t = tManager.getTransaction();
+			
 			Connection c = (Connection) t.getResource();
-			PreparedStatement s = c.prepareStatement("SELECT DNI, NOMBRE, ACTIVO FROM CLIENTE WHERE ID = ? FOR UPDATE");
-			s.setInt(1, id);
-			ResultSet r = s.executeQuery();
-			if (r.next()) {
-				String dni = r.getString("DNI");
-				String nombre = r.getString("NOMBRE");
-				int activo = r.getInt("ACTIVO");
+			String sql = "SELECT DNI, NOMBRE, ACTIVO FROM CLIENTE WHERE ID = ? FOR UPDATE";
+			PreparedStatement ps = c.prepareStatement(sql);
+			ps.setInt(1, id);
+			ResultSet rs = ps.executeQuery();
+			
+			if (rs.next()) {
+				String dni = rs.getString("DNI");
+				String nombre = rs.getString("NOMBRE");
+				int activo = rs.getInt("ACTIVO");
 
 				PreparedStatement psSocio = c
 						.prepareStatement("SELECT PUNTOS, NUM_SOCIO FROM SOCIO WHERE ID = ? FOR UPDATE");
@@ -128,14 +126,18 @@ public class DAOClienteImp implements DAOCliente {
 					rsNoSocio.close();
 					psNoSocio.close();
 				}
+				
+				rsSocio.close();
+				psSocio.close();
 
 			}
-			s.close();
-			r.close();
+			rs.close();
+			ps.close();
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return null;
 		}
+		
 		return cliente;
 	}
 
@@ -224,10 +226,11 @@ public class DAOClienteImp implements DAOCliente {
 		if (dni == null || dni.isEmpty()) {
 			return null;
 		}
-
+		TManager tManager = TManager.getInstance();
+		Transaction t = tManager.getTransaction();
 		TCliente cliente = null;
 
-		try (Connection c = conectar();
+		try (Connection c = (Connection) t.getResource();
 				PreparedStatement psCliente = c
 						.prepareStatement("SELECT ID, NOMBRE, ACTIVO FROM CLIENTE WHERE DNI = ? FOR UPDATE")) {
 
