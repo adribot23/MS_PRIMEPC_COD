@@ -24,7 +24,8 @@ public class VerVentasPorClienteCommand implements Command {
 
 		try {
 			SAVenta saVenta = SAAbstractFactory.getInstancia().generarSAVenta();
-			Set<TVenta> ventas = saVenta.leerVentasPorCliente((Integer) data);
+			int idCliente = (Integer) data;
+			Set<TVenta> ventas = saVenta.leerVentasPorCliente(idCliente);
 
 			if (ventas != null && !ventas.isEmpty()) {
 				return new Context(Evento.RES_MOSTRAR_VENTAS_POR_CLIENTE_OK, ventas);

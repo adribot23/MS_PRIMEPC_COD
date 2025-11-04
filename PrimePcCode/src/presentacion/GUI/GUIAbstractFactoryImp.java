@@ -40,12 +40,11 @@ import presentacion.Proveedor.VVerPorProducto;
 import presentacion.Proveedor.VVincularProveedor;
 import presentacion.Venta.GUIVenta;
 import presentacion.Venta.VAbrirVenta;
-import presentacion.Venta.VBajaVenta;
 import presentacion.Venta.VBuscarVenta;
 import presentacion.Venta.VCerrarVenta;
 import presentacion.Venta.VDevolverVenta;
+import presentacion.Venta.VAñadirProducto;
 import presentacion.Venta.VEliminarProducto;
-import presentacion.Venta.VInsertarProducto;
 import presentacion.Venta.VListarVenta;
 import presentacion.Venta.VModificarVenta;
 import presentacion.Venta.VMostrarPorCliente;
@@ -280,17 +279,12 @@ public class GUIAbstractFactoryImp extends GUIAbstractFactory {
 		case VINSERTAR_PRODUCTO_VENTA:
 		case RES_INSERTAR_PRODUCTO_VENTA_OK:
 		case RES_INSERTAR_PRODUCTO_VENTA_KO:
-			return new VInsertarProducto();
+			return new VAñadirProducto();
 
 		case VQUITAR_PRODUCTO_VENTA:
 		case RES_QUITAR_PRODUCTO_VENTA_OK:
 		case RES_QUITAR_PRODUCTO_VENTA_KO:
 			return new VEliminarProducto();
-
-		case VBAJA_VENTA:
-		case RES_BAJA_VENTA_OK:
-		case RES_BAJA_VENTA_KO:
-			return new VBajaVenta();
 
 		case VMODIFICAR_VENTA:
 		case RES_MODIFICAR_VENTA_OK:
