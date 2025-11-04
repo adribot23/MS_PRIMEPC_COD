@@ -591,5 +591,53 @@ public class SAVentaImp implements SAVenta {
 
 		return ventas;
 	}
+	
+	public int eliminar_venta(int idVenta) {
+
+		TManager tm = TManager.getInstance();
+		Transaction tr = tm.createTransaction();
+		int res = -1;
+		boolean error = false;
+
+		if (tr != null) {
+			tr.start();
+
+			DAOVenta daoVenta = DAOAbstractFactory.getInstancia().generaDAOVenta();
+			TVenta venta = daoVenta.read(idVenta);
+
+			if (venta != null && venta.getActivo() != 0) {
+
+				DAOLineaVenta daoLineaVenta = DAOAbstractFactory.getInstancia().generaDAOLineaVenta();
+				Set<TLineaVenta> setLineaVenta = daoLineaVenta.read_all(venta.getId());
+
+				for (TLineaVenta lineaVenta : setLineaVenta) {
+					if (daoLineaVenta.delete(lineaVenta) == -1) {
+						error = true;
+						break;
+					}
+				}
+
+				if (!error) {
+
+					res = daoVenta.delete(idVenta);
+
+					if (res != -1) {
+						tr.commit();
+					}
+
+					else {
+						tr.rollback();
+					}
+
+				} else {
+					tr.rollback();
+				}
+			} else {
+				tr.rollback();
+			}
+		}
+
+		return res;
+	}
 
 }

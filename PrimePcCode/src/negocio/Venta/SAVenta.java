@@ -28,4 +28,6 @@ public interface SAVenta {
 	public Set<TVenta> leerTodasVentas();
 
 	public Set<TVenta> leerVentasPorCliente(int idCliente);
+	
+	public int eliminar_venta(int idVenta);
 }
