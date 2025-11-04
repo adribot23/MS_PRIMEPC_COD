@@ -38,31 +38,15 @@ public class VModificarCliente extends JFrame implements IGUI {
 	}
 	
 	public void initGUI() {
-		setLayout(new GridLayout(12, 1, 5, 5));
+		setLayout(new GridLayout(10, 1, 5, 5));
 		getRootPane().setBorder(BorderFactory.createTitledBorder("Modificar Cliente"));
-		//setBorder(BorderFactory.createTitledBorder("Modificar información"));
 
 		JTextField modificarID = new JTextField();
 		JTextField modificarNombre = new JTextField();
 		JTextField modificarDNI = new JTextField();
 		JTextField modificarPuntos = new JTextField();
 
-		JLabel lblPuntos = new JLabel("Puntos:");
-
-		JRadioButton rdbSocio = new JRadioButton("Socio");
-		JRadioButton rdbNoSocio = new JRadioButton("No Socio");
-		ButtonGroup grupoTipo = new ButtonGroup();
-		grupoTipo.add(rdbSocio);
-		grupoTipo.add(rdbNoSocio);
-		rdbSocio.setSelected(true);
-
-		JPanel tipoPanel = new JPanel(new GridLayout(1, 2));
-		tipoPanel.add(rdbSocio);
-		tipoPanel.add(rdbNoSocio);
-
-
-		rdbSocio.addActionListener(e -> lblPuntos.setText("Puntos:"));
-		rdbNoSocio.addActionListener(e -> lblPuntos.setText("Numero de Visitas:"));
+		JLabel lblPuntos = new JLabel("Puntos / Número de Visitas:");
 
 		JButton btnModificar = new JButton("Modificar");
 		btnModificar.setBackground(new Color(200, 255, 200));
@@ -71,19 +55,12 @@ public class VModificarCliente extends JFrame implements IGUI {
 				int id = Integer.parseInt(modificarID.getText());
 				String nombre = modificarNombre.getText();
 				String dni = modificarDNI.getText();
-
-				TCliente cliente;
-				if (rdbSocio.isSelected()) {
-					int puntos = Integer.parseInt(modificarPuntos.getText());
-					cliente = new TClienteSocio(id, nombre, dni, puntos);
-				} else {
-					int visitas = Integer.parseInt(modificarPuntos.getText());
-					cliente = new TClienteNoSocio(nombre, dni, visitas);
-				}
+				int puntosVisitas = Integer.parseInt(modificarPuntos.getText());
+				TCliente cliente = new TCliente(id, nombre, dni, puntosVisitas);
 
 				Controlador.getInstancia().accion(new Context(Evento.MODIFICAR_CLIENTE, cliente));
 			} catch (NumberFormatException ex) {
-				JOptionPane.showMessageDialog(this, "ID y los campos numéricos deben ser números.");
+				JOptionPane.showMessageDialog(this, "ID y Puntos/Visitas deben ser números.");
 			}
 		});
 		
@@ -100,14 +77,13 @@ public class VModificarCliente extends JFrame implements IGUI {
 		add(modificarNombre);
 		add(new JLabel("DNI:"));
 		add(modificarDNI);
-		add(tipoPanel);
 		add(lblPuntos);
 		add(modificarPuntos);
 		add(btnModificar);
 		add(btnVolver);
-		
+
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setSize(400, 400);
+		setSize(400, 350);
 	    setLocationRelativeTo(null);
 	}
 
@@ -116,19 +92,17 @@ public class VModificarCliente extends JFrame implements IGUI {
 		Evento evento = context.getEvento();
 		Object datos = context.getDatos();
 		switch (evento) {
-
-		case VMODIFICAR_CLIENTE:
-			this.setVisible(true);
-			break;
-		case RES_MODIFICAR_CLIENTE_OK:
-			JOptionPane.showMessageDialog(null, "Cliente modificado con ID: " + datos);
-			break;
-		case RES_MODIFICAR_CLIENTE_KO:
-			JOptionPane.showMessageDialog(null, "Error al modificar el cliente.");
-			break;
-		default:
-			JOptionPane.showMessageDialog(null, "Evento no reconocido: " + evento);
-			
+			case VMODIFICAR_CLIENTE:
+				this.setVisible(true);
+				break;
+			case RES_MODIFICAR_CLIENTE_OK:
+				JOptionPane.showMessageDialog(null, "Cliente modificado con ID: " + datos);
+				break;
+			case RES_MODIFICAR_CLIENTE_KO:
+				JOptionPane.showMessageDialog(null, "Error al modificar el cliente.");
+				break;
+			default:
+				JOptionPane.showMessageDialog(null, "Evento no reconocido: " + evento);
 		}
 	}
 }

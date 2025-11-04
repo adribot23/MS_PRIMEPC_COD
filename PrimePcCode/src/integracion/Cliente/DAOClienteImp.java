@@ -150,6 +150,20 @@ public class DAOClienteImp implements DAOCliente {
 			Transaction t = tManager.getTransaction();
 			Connection c = (Connection) t.getResource();
 
+			TCliente clienteActual = read(cliente.getId());
+			if (clienteActual == null) {
+				return -1;
+			}
+
+			boolean tipoDiferente = 
+				(clienteActual instanceof TClienteSocio && cliente instanceof TClienteNoSocio)
+				|| (clienteActual instanceof TClienteNoSocio && cliente instanceof TClienteSocio);
+
+			if (tipoDiferente) {
+				System.err.println("No se puede cambiar el tipo de cliente.");
+				return -1;
+			}
+
 			// Actualizar tabla CLIENTE
 			PreparedStatement s = c.prepareStatement("UPDATE CLIENTE SET DNI = ?, NOMBRE = ?, ACTIVO = 1 WHERE ID = ?");
 			s.setString(1, cliente.getDni());
@@ -190,6 +204,7 @@ public class DAOClienteImp implements DAOCliente {
 		else
 			return exito;
 	}
+
 
 	@Override
 	public int delete(int id) {
