@@ -12,7 +12,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-import negocio.Venta.TVenta;
 import presentacion.Controller.Command.Context;
 import presentacion.Controller.Controlador;
 import presentacion.GUI.Evento;
@@ -23,10 +22,6 @@ public class VAbrirVenta extends JFrame implements IGUI {
 	private static final long serialVersionUID = 1L;
 
 	private final JTextField empleadoField = new JTextField();
-	private final JTextField clienteField = new JTextField();
-	private final JTextField metodoPagoField = new JTextField();
-	private final JTextField precioField = new JTextField();
-	private final JTextField descuentoField = new JTextField();
 
 	public VAbrirVenta() {
 		super("Abrir venta");
@@ -34,7 +29,7 @@ public class VAbrirVenta extends JFrame implements IGUI {
 	}
 
 	private void initGUI() {
-		setLayout(new GridLayout(6, 2, 10, 10));
+		setLayout(new GridLayout(2, 2, 10, 10));
 		getRootPane().setBorder(BorderFactory.createTitledBorder("Abrir venta"));
 		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		addWindowListener(new WindowAdapter() {
@@ -47,18 +42,6 @@ public class VAbrirVenta extends JFrame implements IGUI {
 		add(new JLabel("Id empleado:"));
 		add(empleadoField);
 
-		add(new JLabel("Id cliente:"));
-		add(clienteField);
-
-		add(new JLabel("Metodo de pago:"));
-		add(metodoPagoField);
-
-		add(new JLabel("Importe total (EUR):"));
-		add(precioField);
-
-		add(new JLabel("Descuento (EUR):"));
-		add(descuentoField);
-
 		JButton aceptar = new JButton("Abrir venta");
 		aceptar.setBackground(new Color(200, 255, 200));
 		aceptar.addActionListener(e -> onAceptar());
@@ -69,32 +52,15 @@ public class VAbrirVenta extends JFrame implements IGUI {
 		volver.addActionListener(e -> volver());
 		add(volver);
 
-		setSize(420, 260);
+		setSize(360, 160);
 		setLocationRelativeTo(null);
 	}
 
 	private void onAceptar() {
 		try {
 			int idEmpleado = parseEnteroPositivo(empleadoField.getText(), "Id empleado");
-			int idCliente = parseEnteroPositivo(clienteField.getText(), "Id cliente");
-			String metodoPago = metodoPagoField.getText().trim();
 
-			if (metodoPago.isEmpty()) {
-				throw new IllegalArgumentException("El metodo de pago no puede estar vacio.");
-			}
-
-			double precio = parseDoubleNoNegativo(precioField.getText(), "Importe total");
-			double descuento = parseDoubleNoNegativo(descuentoField.getText(), "Descuento");
-
-			TVenta venta = new TVenta();
-			venta.setIdEmpleado(idEmpleado);
-			venta.setIdCliente(idCliente);
-			venta.setMetodoPago(metodoPago);
-			venta.setPrecio(precio);
-			venta.setDescuento(descuento);
-			venta.setActivo(1);
-
-			Controlador.getInstancia().accion(new Context(Evento.ABRIR_VENTA, venta));
+			Controlador.getInstancia().accion(new Context(Evento.ABRIR_VENTA, idEmpleado));
 
 		} catch (IllegalArgumentException ex) {
 			JOptionPane.showMessageDialog(this, ex.getMessage(), "Datos incorrectos", JOptionPane.ERROR_MESSAGE);
@@ -108,10 +74,6 @@ public class VAbrirVenta extends JFrame implements IGUI {
 
 	private void limpiarCampos() {
 		empleadoField.setText("");
-		clienteField.setText("");
-		metodoPagoField.setText("");
-		precioField.setText("");
-		descuentoField.setText("");
 	}
 
 	private int parseEnteroPositivo(String text, String campo) {
@@ -123,21 +85,6 @@ public class VAbrirVenta extends JFrame implements IGUI {
 			return valor;
 		} catch (NumberFormatException ex) {
 			throw new IllegalArgumentException(campo + " debe ser un numero entero positivo.");
-		}
-	}
-
-	private double parseDoubleNoNegativo(String text, String campo) {
-		if (text == null || text.trim().isEmpty()) {
-			return 0.0;
-		}
-		try {
-			double valor = Double.parseDouble(text.trim());
-			if (valor < 0) {
-				throw new NumberFormatException();
-			}
-			return valor;
-		} catch (NumberFormatException ex) {
-			throw new IllegalArgumentException(campo + " debe ser un numero valido mayor o igual que cero.");
 		}
 	}
 

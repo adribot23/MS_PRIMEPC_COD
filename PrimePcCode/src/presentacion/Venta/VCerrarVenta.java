@@ -12,6 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
+import negocio.Venta.TCarrito;
 import presentacion.Controller.Command.Context;
 import presentacion.Controller.Controlador;
 import presentacion.GUI.Evento;
@@ -59,7 +60,11 @@ public class VCerrarVenta extends JFrame implements IGUI {
 	private void onAceptar() {
 		try {
 			int idVenta = parseEnteroPositivo(idVentaField.getText(), "Id venta");
-			Controlador.getInstancia().accion(new Context(Evento.CERRAR_VENTA, idVenta));
+
+			TCarrito carrito = new TCarrito();
+			carrito.setId(idVenta);
+
+			Controlador.getInstancia().accion(new Context(Evento.CERRAR_VENTA, carrito));
 		} catch (IllegalArgumentException ex) {
 			JOptionPane.showMessageDialog(this, ex.getMessage(), "Datos incorrectos", JOptionPane.ERROR_MESSAGE);
 		}

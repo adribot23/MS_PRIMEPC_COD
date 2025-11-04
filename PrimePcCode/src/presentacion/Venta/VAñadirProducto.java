@@ -12,7 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-import negocio.Venta.TLineaVenta;
+import negocio.Venta.TCarrito;
 import presentacion.Controller.Command.Context;
 import presentacion.Controller.Controlador;
 import presentacion.GUI.Evento;
@@ -25,7 +25,6 @@ public class VAñadirProducto extends JFrame implements IGUI {
 	private final JTextField idVentaField = new JTextField();
 	private final JTextField idProductoField = new JTextField();
 	private final JTextField unidadesField = new JTextField();
-	private final JTextField precioUnidadField = new JTextField();
 
 	public VAñadirProducto() {
 		super("Añadir producto a venta");
@@ -33,7 +32,7 @@ public class VAñadirProducto extends JFrame implements IGUI {
 	}
 
 	private void initGUI() {
-		setLayout(new GridLayout(5, 2, 10, 10));
+		setLayout(new GridLayout(4, 2, 10, 10));
 		getRootPane().setBorder(BorderFactory.createTitledBorder("Añadir producto a venta"));
 		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		addWindowListener(new WindowAdapter() {
@@ -52,9 +51,6 @@ public class VAñadirProducto extends JFrame implements IGUI {
 		add(new JLabel("Unidades:"));
 		add(unidadesField);
 
-		add(new JLabel("Precio por unidad (EUR):"));
-		add(precioUnidadField);
-
 		JButton aceptar = new JButton("Añadir");
 		aceptar.setBackground(new Color(200, 255, 200));
 		aceptar.addActionListener(e -> onAceptar());
@@ -65,7 +61,7 @@ public class VAñadirProducto extends JFrame implements IGUI {
 		volver.addActionListener(e -> volver());
 		add(volver);
 
-		setSize(380, 230);
+		setSize(360, 210);
 		setLocationRelativeTo(null);
 	}
 
@@ -74,15 +70,13 @@ public class VAñadirProducto extends JFrame implements IGUI {
 			int idVenta = parseEnteroPositivo(idVentaField.getText(), "Id venta");
 			int idProducto = parseEnteroPositivo(idProductoField.getText(), "Id producto");
 			int unidades = parseEnteroPositivo(unidadesField.getText(), "Unidades");
-			double precioUnidad = parseDoubleNoNegativo(precioUnidadField.getText(), "Precio por unidad");
 
-			TLineaVenta lineaVenta = new TLineaVenta();
-			lineaVenta.set_venta(idVenta);
-			lineaVenta.set_producto(idProducto);
-			lineaVenta.set_num_unidades(unidades);
-			lineaVenta.set_precio_unidades(precioUnidad);
+			TCarrito carrito = new TCarrito();
+			carrito.setId(idVenta);
+			carrito.setidProducto(idProducto);
+			carrito.setcantidadProducto(unidades);
 
-			Controlador.getInstancia().accion(new Context(Evento.INSERTAR_PRODUCTO_VENTA, lineaVenta));
+			Controlador.getInstancia().accion(new Context(Evento.INSERTAR_PRODUCTO_VENTA, carrito));
 		} catch (IllegalArgumentException ex) {
 			JOptionPane.showMessageDialog(this, ex.getMessage(), "Datos incorrectos", JOptionPane.ERROR_MESSAGE);
 		}
@@ -105,27 +99,10 @@ public class VAñadirProducto extends JFrame implements IGUI {
 		}
 	}
 
-	private double parseDoubleNoNegativo(String valor, String campo) {
-		if (valor == null || valor.trim().isEmpty()) {
-			return 0.0;
-		}
-
-		try {
-			double numero = Double.parseDouble(valor.trim());
-			if (numero < 0) {
-				throw new NumberFormatException();
-			}
-			return numero;
-		} catch (NumberFormatException ex) {
-			throw new IllegalArgumentException(campo + " debe ser un número válido mayor o igual que cero.");
-		}
-	}
-
 	private void limpiarCampos() {
 		idVentaField.setText("");
 		idProductoField.setText("");
 		unidadesField.setText("");
-		precioUnidadField.setText("");
 	}
 
 	@Override

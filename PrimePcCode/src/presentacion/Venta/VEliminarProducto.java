@@ -12,7 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-import negocio.Venta.TLineaVenta;
+import negocio.Venta.TCarrito;
 import presentacion.Controller.Command.Context;
 import presentacion.Controller.Controlador;
 import presentacion.GUI.Evento;
@@ -71,12 +71,12 @@ public class VEliminarProducto extends JFrame implements IGUI {
 			int idProducto = parseEnteroPositivo(idProductoField.getText(), "Id producto");
 			int unidades = parseEnteroPositivo(unidadesField.getText(), "Unidades a quitar");
 
-			TLineaVenta lineaVenta = new TLineaVenta();
-			lineaVenta.set_venta(idVenta);
-			lineaVenta.set_producto(idProducto);
-			lineaVenta.set_num_unidades(unidades);
+			TCarrito carrito = new TCarrito();
+			carrito.setId(idVenta);
+			carrito.setidProducto(idProducto);
+			carrito.setcantidadProducto(unidades);
 
-			Controlador.getInstancia().accion(new Context(Evento.QUITAR_PRODUCTO_VENTA, lineaVenta));
+			Controlador.getInstancia().accion(new Context(Evento.QUITAR_PRODUCTO_VENTA, carrito));
 		} catch (IllegalArgumentException ex) {
 			JOptionPane.showMessageDialog(this, ex.getMessage(), "Datos incorrectos", JOptionPane.ERROR_MESSAGE);
 		}
