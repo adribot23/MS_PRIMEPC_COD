@@ -33,7 +33,7 @@ public class VBajaCliente extends JFrame implements  IGUI {
 	}
 	
 	public void initGUI() {
-		setLayout(new GridLayout(2, 2, 100, 10));
+		setLayout(new GridLayout(2, 1, 10, 10));
 		getRootPane().setBorder(BorderFactory.createTitledBorder("Baja Cliente"));
 
 

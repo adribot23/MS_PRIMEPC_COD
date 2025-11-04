@@ -38,7 +38,7 @@ public class VModificarCliente extends JFrame implements IGUI {
 	}
 	
 	public void initGUI() {
-		setLayout(new GridLayout(10, 1, 5, 5));
+		setLayout(new GridLayout(5, 1, 10, 10));
 		getRootPane().setBorder(BorderFactory.createTitledBorder("Modificar Cliente"));
 
 		JTextField modificarID = new JTextField();
@@ -83,7 +83,7 @@ public class VModificarCliente extends JFrame implements IGUI {
 		add(btnVolver);
 
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setSize(400, 350);
+		setSize(400, 250);
 	    setLocationRelativeTo(null);
 	}
 

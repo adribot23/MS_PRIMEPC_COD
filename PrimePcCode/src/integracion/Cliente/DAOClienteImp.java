@@ -24,7 +24,7 @@ public class DAOClienteImp implements DAOCliente {
             Transaction t = tManager.getTransaction();
             Connection c = (Connection) t.getResource();
             
-            PreparedStatement check = c.prepareStatement("SELECT ID FROM CLIENTE WHERE DNI = ?");
+            PreparedStatement check = c.prepareStatement("SELECT ID FROM CLIENTE WHERE DNI = ? FOR UPDATE");
             check.setString(1, cliente.getDni());
             ResultSet rsCheck = check.executeQuery();
             if (rsCheck.next()) {

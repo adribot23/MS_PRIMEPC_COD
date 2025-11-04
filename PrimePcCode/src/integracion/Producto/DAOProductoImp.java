@@ -21,12 +21,13 @@ public class DAOProductoImp implements DAOProducto {
 			Transaction t = tManager.getTransaction();
 			Connection c = (Connection) t.getResource();
 			PreparedStatement s = c.prepareStatement(
-					"INSERT INTO PRODUCTO (PRECIO, MODELO, NUM_UNIDADES, MARCA, ID_ALMACEN, ACTIVO) VALUES (?, ?, ?, ?, NULL, 1)",
+					"INSERT INTO PRODUCTO (PRECIO, MODELO, NUM_UNIDADES, MARCA, ID_ALMACEN, ACTIVO) VALUES (?, ?, ?, ?, ?, 1)",
 					Statement.RETURN_GENERATED_KEYS);
 			s.setDouble(1, producto.getPrecio());
 			s.setString(2, producto.getModelo());
 			s.setInt(3, producto.getUnidades());
 			s.setString(4, producto.getMarca());
+			s.setInt(5,producto.getIdAlmacen());
 			s.executeUpdate();
 
 			ResultSet r = s.getGeneratedKeys();
@@ -73,14 +74,12 @@ public class DAOProductoImp implements DAOProducto {
 			Transaction t = tManager.getTransaction();
 			Connection c = (Connection) t.getResource();
 			PreparedStatement s = c.prepareStatement(
-					"UPDATE PRODUCTO SET PRECIO = ?, MODELO = ?, NUM_UNIDADES = ?, MARCA = ?,ID_ALMACEN=?, ID_PROVEEDOR=?, ACTIVO = 1 WHERE ID = ?");
+					"UPDATE PRODUCTO SET PRECIO = ?, MODELO = ?, NUM_UNIDADES = ?, MARCA = ?,ID_ALMACEN=NULL, ACTIVO = 1 WHERE ID = ?");
 			s.setDouble(1, producto.getPrecio());
 			s.setString(2, producto.getModelo());
 			s.setInt(3, producto.getUnidades());
 			s.setString(4, producto.getMarca());
-			s.setInt(5, producto.getIdAlmacen());
-			s.setInt(6, producto.getIdProveedor());
-			s.setInt(7, producto.getId());
+			s.setInt(5, producto.getId());
 			exito = s.executeUpdate();
 			s.close();
 		} catch (SQLException e) {
@@ -95,19 +94,25 @@ public class DAOProductoImp implements DAOProducto {
 
 	@Override
 	public int delete(int id) {
-		int exito = -1;
-		try {
-			TManager tManager = TManager.getInstance();
-			Transaction t = tManager.getTransaction();
-			Connection c = (Connection) t.getResource();
-			PreparedStatement s = c.prepareStatement("UPDATE PRODUCTO SET activo = 0 WHERE id_producto=?");
-			s.setInt(1, id);
-			exito = s.executeUpdate();
-			s.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return -1;
-		}
+	    int exito = -1;
+	    try {
+	        TManager tManager = TManager.getInstance();
+	        Transaction t = tManager.getTransaction();
+	        Connection c = (Connection) t.getResource();
+
+	        // Desvincular el producto del almacén y marcarlo como inactivo
+	        PreparedStatement s = c.prepareStatement(
+	            "UPDATE PRODUCTO SET ACTIVO = 0, ID_ALMACEN = NULL WHERE ID = ?"
+	        );
+	        s.setInt(1, id);
+
+	        exito = s.executeUpdate();
+	        s.close();
+
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        return -1;
+	    }
 		if (exito == 0)
 			return -1;
 		else
@@ -218,7 +223,6 @@ public class DAOProductoImp implements DAOProducto {
 		producto.setUnidades(rs.getInt("NUM_UNIDADES"));
 		producto.setMarca(rs.getString("MARCA"));
 		producto.setIdAlmacen(rs.getInt("ID_ALMACEN"));
-		producto.setIdProveedor(rs.getInt("ID_PROVEEDOR"));
 		producto.setActivo(rs.getInt("ACTIVO"));
 		return producto;
 	}

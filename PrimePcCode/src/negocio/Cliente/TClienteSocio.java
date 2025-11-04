@@ -51,6 +51,6 @@ public class TClienteSocio extends TCliente {
 
 	@Override
 	public String toString() {
-		return super.toString() + ", Socio con nï¿½mero : " + numero_socio + ", Puntos: " + puntos + "]";
+		return super.toString() + ", Socio con numero : " + numero_socio + ", Puntos: " + puntos + "]";
 	}
 }

@@ -34,7 +34,7 @@ public class VBajaAlmacen extends JFrame implements IGUI {
 	}
 	
 	public void initGUI() {
-		setLayout(new GridLayout(4, 1, 100, 10));
+		setLayout(new GridLayout(2, 1, 10, 10));
 		getRootPane().setBorder(BorderFactory.createTitledBorder("Baja Almacén"));
 
 		JTextField idField = new JTextField();
@@ -48,6 +48,7 @@ public class VBajaAlmacen extends JFrame implements IGUI {
 			try {
 				int id = Integer.parseInt(idField.getText().trim());
 				Controlador.getInstancia().accion(new Context(Evento.BAJA_ALMACEN, id));
+				idField.setText("");
 			} catch (NumberFormatException ex) {
 				JOptionPane.showMessageDialog(this, "ID invalido.");
 			}
@@ -62,9 +63,9 @@ public class VBajaAlmacen extends JFrame implements IGUI {
 		add(btnVolver);
 		// Configuración final de la ventana
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setSize(350, 200);
+		setSize(350, 150);
 		setLocationRelativeTo(null);
-		setVisible(true);
+	
 	}
 
 	public void actualizar(Context context) {
@@ -75,7 +76,7 @@ public class VBajaAlmacen extends JFrame implements IGUI {
 			this.setVisible(true);
 			break;
 		case RES_BAJA_ALMACEN_OK:
-			JOptionPane.showMessageDialog(null, "Proveedor dado de baja correctamente.");
+			JOptionPane.showMessageDialog(null, "Almacén dado de baja correctamente.");
 			break;
 		case RES_BAJA_ALMACEN_KO:
 			JOptionPane.showMessageDialog(null, "Error al dar de baja el almacén.");

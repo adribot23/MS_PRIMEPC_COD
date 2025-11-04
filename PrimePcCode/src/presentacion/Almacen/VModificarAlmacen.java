@@ -59,6 +59,10 @@ public class VModificarAlmacen extends JFrame implements IGUI {
 				int capacidad = Integer.parseInt(capacidadField.getText());
 				TAlmacen almacen = new TAlmacen(id, nombre, capacidad, -1);
 				Controlador.getInstancia().accion(new Context(Evento.MODIFICAR_ALMACEN, almacen));
+				idField.setText("");
+				nombreField.setText("");
+				capacidadField.setText("");
+				
 			} catch (NumberFormatException ex) {
 				JOptionPane.showMessageDialog(this, "Campos numericos inválidos.");
 			}
@@ -75,7 +79,7 @@ public class VModificarAlmacen extends JFrame implements IGUI {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(350, 200);
 		setLocationRelativeTo(null);
-		setVisible(true);
+		
 	}
 
 	public void actualizar(Context context) {
@@ -86,11 +90,11 @@ public class VModificarAlmacen extends JFrame implements IGUI {
 
 		case RES_MODIFICAR_ALMACEN_OK:
 			JOptionPane.showMessageDialog(this, 
-					"Proveedor modificado correctamente:\n" + context.toString());
+					"Almacén modificado correctamente:\n" + context.toString());
 			break;
 
 		case RES_MODIFICAR_ALMACEN_KO:
-			JOptionPane.showMessageDialog(this, "Error al modificar el proveedor.");
+			JOptionPane.showMessageDialog(this, "Error al modificar el almacén.");
 			break;
 
 		default:
