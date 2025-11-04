@@ -39,9 +39,6 @@ public class VMostrarCliente extends JFrame implements IGUI {
 	public VMostrarCliente() {
 		super("Mostrar Clientes");
 		initGUI();
-		setSize(400, 200);
-	    setLocationRelativeTo(null);
-	    setVisible(true);
 	}
 	
 	public void initGUI() {
@@ -66,8 +63,9 @@ public class VMostrarCliente extends JFrame implements IGUI {
 
 		add(panel);
 
-		pack();
-		setVisible(true);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setSize(300, 150);
+		setLocationRelativeTo(null);
 	}
 
 	@Override
@@ -102,15 +100,15 @@ public class VMostrarCliente extends JFrame implements IGUI {
 			data[i][2] = cli.getDni();
 			data[i][7] = cli.getActivo();
 			if (cli instanceof TClienteSocio) {
-				data[i][4] = "Socio";
-				data[i][5] = ((TClienteSocio) cli).getNumeroDeSocio();
-				data[i][6] = ((TClienteSocio) cli).getPuntos();
-				data[i][7] = "---";
-			} else {
-				data[i][4] = "No Socio";
-				data[i][5] = "---";
+				data[i][3] = "Socio";
+				data[i][4] = ((TClienteSocio) cli).getNumeroDeSocio();
+				data[i][5] = ((TClienteSocio) cli).getPuntos();
 				data[i][6] = "---";
-				data[i][7] = ((TClienteNoSocio) cli).getNumVisitas();
+			} else {
+				data[i][3] = "No Socio";
+				data[i][4] = "---";
+				data[i][5] = "---";
+				data[i][6] = ((TClienteNoSocio) cli).getNumVisitas();
 			}
 			i++;
 		}
