@@ -35,7 +35,7 @@ public class VMostrarAlmacen extends JFrame implements IGUI {
 	}
 	public void initGUI() {
 		getRootPane().setBorder(BorderFactory.createTitledBorder("Listar Almacenes"));
-		setLayout(new GridLayout(3, 1, 10, 10));
+		setLayout(new GridLayout(2, 1, 10, 10));
 
 		JButton btnMostrarTodos = new JButton("Listar todos");
 		btnMostrarTodos.setBackground(new Color(200, 255, 200)); // Verde
@@ -53,8 +53,9 @@ public class VMostrarAlmacen extends JFrame implements IGUI {
 		add(btnVolver, BorderLayout.SOUTH);
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setSize(350, 200);
+		setSize(350, 150);
 		setLocationRelativeTo(null);
+		
 	}
 
 	public void actualizar(Context context) {

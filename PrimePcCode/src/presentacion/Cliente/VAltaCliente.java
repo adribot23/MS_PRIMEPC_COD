@@ -37,7 +37,7 @@ public class VAltaCliente extends JFrame implements IGUI {
 	}
 	
 	public void initGUI() {
-		setLayout(new GridLayout(10, 2, 10, 10));
+		setLayout(new GridLayout(5, 2, 10, 10));
 		getRootPane().setBorder(BorderFactory.createTitledBorder("Alta Cliente"));
 
 		//setBorder(BorderFactory.createTitledBorder("Alta Cliente"));
@@ -103,15 +103,16 @@ public class VAltaCliente extends JFrame implements IGUI {
 		add(altaNombre);
 		add(new JLabel("DNI:"));
 		add(altaDNI);
-		add(altaTipoPanel);
 		add(lblVisitas);
 		add(altaVisitas);
+		add(new JLabel("Tipo de Cliente:"));
+		add(altaTipoPanel);
 		add(btnAlta);
 		add(btnVolver);
 		
 
 	    setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setSize(400, 400);
+		setSize(350, 250);
 	    setLocationRelativeTo(null);
 	}
 

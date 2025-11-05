@@ -36,7 +36,7 @@ public class VAltaAlmacen extends JFrame implements IGUI {
 	
 	public void initGUI() {
 		
-		setLayout(new GridLayout(4, 1, 10, 10));
+		setLayout(new GridLayout(3, 1, 10, 10));
 		getRootPane().setBorder(BorderFactory.createTitledBorder("Alta Almacen"));
 
 		JTextField nombreField = new JTextField();
@@ -62,8 +62,10 @@ public class VAltaAlmacen extends JFrame implements IGUI {
 				int capacidad = Integer.parseInt(capacidadField.getText().trim());
 				TAlmacen almacen = new TAlmacen(nombre, capacidad, 0);
 				Controlador.getInstancia().accion(new Context(Evento.ALTA_ALMACEN, almacen));
+				nombreField.setText("");
+				capacidadField.setText("");
 			} catch (NumberFormatException ex) {
-				JOptionPane.showMessageDialog(this, "Capacidad y ocupacion deben ser numeros.");
+				JOptionPane.showMessageDialog(this, "Capacidad debe ser un número.");
 			}
 		});
 		
@@ -71,6 +73,7 @@ public class VAltaAlmacen extends JFrame implements IGUI {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(350, 200);
 		setLocationRelativeTo(null);
+		
 	}
 
 	public void actualizar(Context context) {

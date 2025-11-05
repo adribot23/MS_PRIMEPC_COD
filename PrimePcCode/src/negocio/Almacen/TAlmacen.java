@@ -71,6 +71,6 @@ package negocio.Almacen;
 		@Override
 		public String toString() {
 			return "Almacen [ID: " + id + ", Nombre: " + nombre + ", Capacidad Maxima : " + capacidadMaxima
-					+ ", Ocupacion: " + ocupacion + "]";
+					+ ", Ocupacion: " + ocupacion + ", Activo: " + activo+"]";
 		}
 }

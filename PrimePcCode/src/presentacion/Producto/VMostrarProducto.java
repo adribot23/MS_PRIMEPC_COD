@@ -32,7 +32,7 @@ public class VMostrarProducto extends JFrame implements IGUI {
 	private void initGUI() {
 
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setSize(400, 200);
+		setSize(350, 150);
 		setLocationRelativeTo(null);
 
 		JPanel panel = new JPanel(new GridLayout(2, 1, 10, 10));
@@ -86,7 +86,7 @@ public class VMostrarProducto extends JFrame implements IGUI {
 			return;
 		}
 
-		String[] columnNames = { "ID", "Marca", "Modelo", "Precio", "Unidades", "Activo" };
+		String[] columnNames = { "ID", "Marca", "Modelo", "Precio", "Unidades","ID Almacen", "Activo" };
 		Object[][] tableData = new Object[productos.size()][columnNames.length];
 
 		int i = 0;
@@ -96,6 +96,7 @@ public class VMostrarProducto extends JFrame implements IGUI {
 			tableData[i][2] = p.getModelo();
 			tableData[i][3] = p.getPrecio();
 			tableData[i][4] = p.getUnidades();
+			tableData[i][6] = p.getIdAlmacen();
 			tableData[i][5] = p.getActivo();
 			i++;
 		}

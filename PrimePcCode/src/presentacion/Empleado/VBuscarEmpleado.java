@@ -49,7 +49,7 @@ public class VBuscarEmpleado extends JFrame implements IGUI {
 	 */
     private void initGUI() {
         
-        setLayout(new GridLayout(3, 2, 5, 5));
+        setLayout(new GridLayout(2, 2, 10, 10));
         getRootPane().setBorder(BorderFactory.createTitledBorder("Buscar Empleado"));
 
        
@@ -90,7 +90,7 @@ public class VBuscarEmpleado extends JFrame implements IGUI {
 
       
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setSize(400, 180);
+        setSize(350, 150);
         setLocationRelativeTo(null);
     }
 

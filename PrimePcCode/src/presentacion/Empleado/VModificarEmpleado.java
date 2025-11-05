@@ -52,7 +52,7 @@ public class VModificarEmpleado extends JFrame implements IGUI {
 	 */
 	   private void initGUI() {
 	      
-	        setLayout(new GridLayout(8, 2, 5, 5));
+	        setLayout(new GridLayout(7, 2, 10, 10));
 	        getRootPane().setBorder(BorderFactory.createTitledBorder("Modificar Empleado"));
 
 	      
@@ -139,13 +139,14 @@ public class VModificarEmpleado extends JFrame implements IGUI {
 	        add(lblNombre); add(txtNombre);
 	        add(lblDNI); add(txtDNI);
 	        add(lblTlf); add(txtTlf);
-	        add(new JLabel("Tipo de Empleado:")); add(tipoPanel);
+	    
 	        add(lblHoras); add(txtHoras);
+	        add(new JLabel("Tipo de Empleado:")); add(tipoPanel);
 	        add(btnModificar); add(btnVolver);
 
 	        
 	        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-	        setSize(500, 300);
+	        setSize(450, 300);
 	        setLocationRelativeTo(null);
 	    }
 

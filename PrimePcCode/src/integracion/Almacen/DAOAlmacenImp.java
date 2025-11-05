@@ -15,6 +15,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -152,7 +153,7 @@ public class DAOAlmacenImp implements DAOAlmacen {
 	}
 
 	public Set<TAlmacen> read_all() {
-		Set<TAlmacen> almacenes = new HashSet<>();
+		Set<TAlmacen> almacenes = new LinkedHashSet<>();
 		try {
 			TManager tManager = TManager.getInstance();
 			Transaction t = tManager.getTransaction();
