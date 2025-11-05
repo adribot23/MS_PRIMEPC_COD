@@ -74,12 +74,13 @@ public class DAOProductoImp implements DAOProducto {
 			Transaction t = tManager.getTransaction();
 			Connection c = (Connection) t.getResource();
 			PreparedStatement s = c.prepareStatement(
-					"UPDATE PRODUCTO SET PRECIO = ?, MODELO = ?, NUM_UNIDADES = ?, MARCA = ?,ID_ALMACEN=NULL, ACTIVO = 1 WHERE ID = ?");
+					"UPDATE PRODUCTO SET PRECIO = ?, MODELO = ?, NUM_UNIDADES = ?, MARCA = ?,ID_ALMACEN=?, ACTIVO = 1 WHERE ID = ?");
 			s.setDouble(1, producto.getPrecio());
 			s.setString(2, producto.getModelo());
 			s.setInt(3, producto.getUnidades());
 			s.setString(4, producto.getMarca());
-			s.setInt(5, producto.getId());
+			s.setInt(5, producto.getIdAlmacen());
+			s.setInt(6, producto.getId());
 			exito = s.executeUpdate();
 			s.close();
 		} catch (SQLException e) {
