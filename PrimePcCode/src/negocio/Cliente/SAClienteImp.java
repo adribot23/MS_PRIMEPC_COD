@@ -75,33 +75,38 @@ public class SAClienteImp implements SACliente {
 
 	@Override
 	public int modificarCliente(TCliente cliente) {
-		int res = -1;
+	    int res = -1;
 
-		TManager m = TManager.getInstance();
-		Transaction tr = m.createTransaction();
+	    TManager m = TManager.getInstance();
+	    Transaction tr = m.createTransaction();
 
-		if (tr != null) {
-			tr.start();
-			
-			DAOCliente daoCliente = DAOAbstractFactory.getInstancia().generaDAOCliente();
-			
-			TCliente existente = daoCliente.read(cliente.getId());
+	    if (tr != null) {
+	        tr.start();
 
-			if (existente != null && existente.getActivo() == 1 && (cliente.getNombre().equals(existente.getNombre())
-					|| daoCliente.read_by_DNI(cliente.getDni()) == null)) {
-				res = daoCliente.update(cliente);
-				if (res != -1)
-					if (res != -1) {
-						tr.commit();
-					} else {
-						tr.rollback();
-					}
-				} else {
-					tr.rollback();
-				}
-			}
-			return res;
+	        DAOCliente daoCliente = DAOAbstractFactory.getInstancia().generaDAOCliente();
+	        TCliente existente = daoCliente.read(cliente.getId());
+
+	        if (existente != null && existente.getActivo() == 1) {
+
+	            TCliente clienteConMismoDni = daoCliente.read_by_DNI(cliente.getDni());
+	            if (clienteConMismoDni == null || clienteConMismoDni.getId() == cliente.getId()) {
+
+	                res = daoCliente.update(cliente);
+
+	                if (res != -1)
+	                    tr.commit();
+	                else
+	                    tr.rollback();
+
+	            } 
+
+	        }
+	    }
+
+	    return res;
 	}
+
+
 
 	@Override
 	public TCliente leerCliente(int id) {

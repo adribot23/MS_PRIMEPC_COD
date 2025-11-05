@@ -181,7 +181,7 @@ public class DAOClienteImp implements DAOCliente {
             }
 
             s.close();
-
+          //  t.commit();
         } catch (SQLException e) {
             e.printStackTrace();
             return -1;
