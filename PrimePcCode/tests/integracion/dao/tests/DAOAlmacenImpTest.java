@@ -35,9 +35,6 @@ public class DAOAlmacenImpTest {
         transaccion = tManager.createTransaction();
         if (transaccion != null) {
             transaccion.start();
-            System.out.println("[DEBUG] Transacción iniciada correctamente.");
-        } else {
-            System.err.println("[ERROR] No se pudo crear la transacción (ya existía).");
         }
 
         daoAlmacen = new DAOAbstractFactoryImp().generaDAOAlmacen();
@@ -50,9 +47,7 @@ public class DAOAlmacenImpTest {
         if (transaccion != null) {
             try {
                 transaccion.commit();
-                System.out.println("[DEBUG] Transacción confirmada y cerrada correctamente.");
             } catch (Exception e) {
-                System.err.println("[ERROR] Fallo al cerrar transacción: " + e.getMessage());
                 e.printStackTrace();
             }
         }
@@ -73,7 +68,6 @@ public class DAOAlmacenImpTest {
             filasAfectadas = ps.executeUpdate();
             ps.close();
             conexion.close();
-            System.out.println("[DEBUG] Almacén eliminado físicamente: ID = " + id);
         } catch (SQLException e) {
             e.printStackTrace();
         }

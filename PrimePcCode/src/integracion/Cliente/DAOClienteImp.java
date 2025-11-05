@@ -139,10 +139,15 @@ public class DAOClienteImp implements DAOCliente {
         Connection c = (Connection) t.getResource();
         
         try {
-            TCliente clienteActual = read(cliente.getId());
-            if (clienteActual == null) {
+            TCliente existente = read(cliente.getId());
+            if (existente == null) {
                 return -1;
             }
+            
+            if(existente == null || existente.getActivo() == 0 || !cliente.getClass().equals(existente.getClass())) {
+				return -1;
+			}
+            
             String updateSql = "UPDATE CLIENTE SET DNI = ?, NOMBRE = ?, ACTIVO = 1 WHERE ID = ? ";
             PreparedStatement s = c.prepareStatement(updateSql);
             s.setString(1, cliente.getDni());

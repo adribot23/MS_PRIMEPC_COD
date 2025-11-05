@@ -34,9 +34,6 @@ public class DAOEmpleadoImpTest {
         transaccion = tManager.createTransaction();
         if (transaccion != null) {
             transaccion.start();
-            System.out.println("[DEBUG] Transacción iniciada correctamente.");
-        } else {
-            System.err.println("[ERROR] No se pudo crear transacción (ya existía en este hilo).");
         }
 
         daoEmpleado = new DAOAbstractFactoryImp().generaDAOEmpleado();
@@ -47,9 +44,7 @@ public class DAOEmpleadoImpTest {
         if (transaccion != null) {
             try {
                 transaccion.commit();
-                System.out.println("[DEBUG] Transacción confirmada y cerrada correctamente.");
             } catch (Exception e) {
-                System.err.println("[ERROR] Fallo al cerrar transacción: " + e.getMessage());
                 e.printStackTrace();
             }
         }
@@ -84,7 +79,6 @@ public class DAOEmpleadoImpTest {
             psEmpleado.close();
 
             conexion.close();
-            System.out.println("[DEBUG] Empleado eliminado físicamente: ID = " + id);
         } catch (SQLException e) {
             e.printStackTrace();
         }

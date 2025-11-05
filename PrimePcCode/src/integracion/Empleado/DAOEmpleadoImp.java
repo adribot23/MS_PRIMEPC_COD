@@ -138,6 +138,9 @@ public class DAOEmpleadoImp implements DAOEmpleado {
             if (empleadoActual == null) {
                 return -1;
             }
+            if(empleadoActual == null || empleadoActual.getActivo() == 0 || !empleado.getClass().equals(empleadoActual.getClass())) {
+				return -1;
+			}
         	
             String updateSql = "UPDATE EMPLEADO SET DNI = ?, NOMBRE = ?, TELEFONO = ?, ACTIVO = 1 WHERE ID = ?";
             PreparedStatement updatePs = c.prepareStatement(updateSql);
