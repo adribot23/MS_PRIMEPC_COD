@@ -89,14 +89,18 @@ public class SAEmpleadoImp implements SAEmpleado {
 			DAOEmpleado daoEmpleado = DAOAbstractFactory.getInstancia().generaDAOEmpleado();
 			TEmpleado existente = daoEmpleado.read(tEmpleado.getId());
 
-			if (existente == null || existente.getActivo() == 0) {
+			if(existente == null || existente.getActivo() == 0 || !tEmpleado.getClass().equals(existente.getClass())) {
+				if(existente != null && existente.getActivo() == 1) {
+					System.err.println("No se puede cambiar el tipo de cliente.");
+				}
 				transaction.rollback();
 			} else {
 				exito = daoEmpleado.update(tEmpleado);
-				if (exito != -1)
+				if (exito != -1) {
 					transaction.commit();
-				else
+				} else {
 					transaction.rollback();
+				}
 			}
 		}
 
