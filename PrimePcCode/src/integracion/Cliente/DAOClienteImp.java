@@ -134,12 +134,11 @@ public class DAOClienteImp implements DAOCliente {
     @Override
     public int update(TCliente cliente) {
         int exito = -1;
-
+        TManager tManager = TManager.getInstance();
+        Transaction t = tManager.getTransaction();
+        Connection c = (Connection) t.getResource();
+        
         try {
-            TManager tManager = TManager.getInstance();
-            Transaction t = tManager.getTransaction();
-            Connection c = (Connection) t.getResource();
-
             TCliente clienteActual = read(cliente.getId());
             if (clienteActual == null) {
                 return -1;
@@ -154,12 +153,13 @@ public class DAOClienteImp implements DAOCliente {
                 return -1;
             }
 
-            PreparedStatement s = c.prepareStatement(
-                    "UPDATE CLIENTE SET DNI = ?, NOMBRE = ?, ACTIVO = 1 WHERE ID = ? ");
+            String updateSql = "UPDATE CLIENTE SET DNI = ?, NOMBRE = ?, ACTIVO = 1 WHERE ID = ? ";
+            PreparedStatement s = c.prepareStatement(updateSql);
             s.setString(1, cliente.getDni());
             s.setString(2, cliente.getNombre());
             s.setInt(3, cliente.getId());
             exito = s.executeUpdate();
+            s.close();
 
             if (cliente instanceof TClienteSocio) {
                 TClienteSocio socio = (TClienteSocio) cliente;
@@ -169,6 +169,7 @@ public class DAOClienteImp implements DAOCliente {
                 psSocio.setInt(2, socio.getId());
                 psSocio.executeUpdate();
                 psSocio.close();
+                exito = socio.getId();
 
             } else if (cliente instanceof TClienteNoSocio) {
                 TClienteNoSocio noSocio = (TClienteNoSocio) cliente;
@@ -178,15 +179,14 @@ public class DAOClienteImp implements DAOCliente {
                 psNoSocio.setInt(2, noSocio.getId());
                 psNoSocio.executeUpdate();
                 psNoSocio.close();
+                exito = noSocio.getId();
             }
-
-            s.close();
 
         } catch (SQLException e) {
             e.printStackTrace();
             return -1;
         }
-        return (exito > 0) ? exito : -1;
+        return exito;
     }
 
     @Override

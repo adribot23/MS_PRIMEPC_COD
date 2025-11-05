@@ -78,7 +78,8 @@ public class SAClienteImp implements SACliente {
 		int res = -1;
 
 		TManager m = TManager.getInstance();
-		Transaction tr = m.createTransaction();
+		m.createTransaction();
+		Transaction tr = m.getTransaction();
 
 		if (tr != null) {
 			tr.start();
@@ -86,22 +87,27 @@ public class SAClienteImp implements SACliente {
 			DAOCliente daoCliente = DAOAbstractFactory.getInstancia().generaDAOCliente();
 			
 			TCliente existente = daoCliente.read(cliente.getId());
-
-			if (existente != null && existente.getActivo() == 1 && (cliente.getNombre().equals(existente.getNombre())
-					|| daoCliente.read_by_DNI(cliente.getDni()) == null)) {
+			
+			if(existente == null || existente.getActivo() == 0 || !cliente.getClass().equals(existente.getClass())) {
+				if(existente != null && existente.getActivo() == 1) {
+					System.err.println("No se puede cambiar el tipo de cliente.");
+				}
+				tr.rollback();
+			} else {
 				res = daoCliente.update(cliente);
-				if (res != -1)
-					if (res != -1) {
-						tr.commit();
-					} else {
-						tr.rollback();
-					}
+				if (res != -1) {
+					tr.commit();
 				} else {
 					tr.rollback();
 				}
 			}
-			return res;
+		}
+			
+		return res;
 	}
+
+
+
 
 	@Override
 	public TCliente leerCliente(int id) {
