@@ -65,7 +65,7 @@ public class VAltaAlmacen extends JFrame implements IGUI {
 				nombreField.setText("");
 				capacidadField.setText("");
 			} catch (NumberFormatException ex) {
-				JOptionPane.showMessageDialog(this, "Capacidad y ocupacion deben ser numeros.");
+				JOptionPane.showMessageDialog(this, "Capacidad debe ser un número.");
 			}
 		});
 		

@@ -90,7 +90,7 @@ public class VModificarAlmacen extends JFrame implements IGUI {
 
 		case RES_MODIFICAR_ALMACEN_OK:
 			JOptionPane.showMessageDialog(this, 
-					"Almacén modificado correctamente:\n" + context.toString());
+					"Almacén modificado correctamente.\n");
 			break;
 
 		case RES_MODIFICAR_ALMACEN_KO:
