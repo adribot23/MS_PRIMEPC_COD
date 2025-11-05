@@ -158,12 +158,14 @@ public class VMostrarPorEmpleado extends JFrame implements IGUI {
 			break;
 		case RES_MOSTRAR_VENTAS_POR_EMPLEADO_OK:
 			actualizarTabla(datos);
+			setVisible(true);
 			if (tableModel.getRowCount() == 0) {
 				JOptionPane.showMessageDialog(this, "El empleado no tiene ventas registradas.");
 			}
 			break;
 		case RES_MOSTRAR_VENTAS_POR_EMPLEADO_KO:
 			JOptionPane.showMessageDialog(this, "No se pudieron recuperar las ventas del empleado.");
+			setVisible(true);
 			break;
 		default:
 			break;

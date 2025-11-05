@@ -506,45 +506,27 @@ public class SAVentaImp implements SAVenta {
 				DAOEmpleado daoEmpleado = DAOAbstractFactory.getInstancia().generaDAOEmpleado();
 				TEmpleado empleado = daoEmpleado.read(venta.getIdEmpleado());
 
-				if (empleado != null) {
+				DAOLineaVenta daoLineaVenta = DAOAbstractFactory.getInstancia().generaDAOLineaVenta();
+				Set<TLineaVenta> lineasVenta = daoLineaVenta.read_all(id);
 
-					DAOLineaVenta daoLineaVenta = DAOAbstractFactory.getInstancia().generaDAOLineaVenta();
-					Set<TLineaVenta> lineasVenta = daoLineaVenta.read_all(id);
+				Set<TProducto> listaProductos = new LinkedHashSet<>();
 
-					if (lineasVenta != null) {
-						Iterator<TLineaVenta> it = lineasVenta.iterator();
-						Set<TProducto> listaProductos = new LinkedHashSet<>();
+				if (lineasVenta != null && !lineasVenta.isEmpty()) {
+					Iterator<TLineaVenta> it = lineasVenta.iterator();
+					DAOProducto daoProducto = DAOAbstractFactory.getInstancia().generaDAOProducto();
 
-						DAOProducto daoProducto = DAOAbstractFactory.getInstancia().generaDAOProducto();
+					while (it.hasNext()) {
+						TLineaVenta lineaVenta = it.next();
+						TProducto producto = daoProducto.read(lineaVenta.get_producto());
 
-						boolean fallo = false;
-
-						while (it.hasNext()) {
-							TLineaVenta lineaVenta = it.next();
-							TProducto producto = daoProducto.read(lineaVenta.get_producto());
-
-							if (producto != null) {
-								listaProductos.add(producto);
-							} else {
-								fallo = true;
-								break;
-							}
+						if (producto != null) {
+							listaProductos.add(producto);
 						}
-
-						if (!listaProductos.isEmpty() && !fallo) {
-							ventaTOA = new TVentaTOA(venta, empleado, lineasVenta, listaProductos);
-							tr.commit();
-						} else {
-							tr.rollback();
-						}
-
-					} else {
-						tr.rollback();
 					}
-				} else {
-					tr.rollback();
-
 				}
+
+				ventaTOA = new TVentaTOA(venta, empleado, lineasVenta, listaProductos);
+				tr.commit();
 
 			} else {
 				tr.rollback();

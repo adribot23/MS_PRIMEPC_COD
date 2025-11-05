@@ -121,9 +121,11 @@ public class VBuscarVenta extends JFrame implements IGUI {
 		case RES_BUSCAR_VENTA_OK:
 			String factura = rellenarFactura(datos);
 			resultadoArea.setText(factura);
+			setVisible(true);
 			break;
 		case RES_BUSCAR_VENTA_KO:
 			JOptionPane.showMessageDialog(this, "Venta no encontrada.");
+			setVisible(true);
 			break;
 		default:
 			break;
@@ -186,7 +188,7 @@ public class VBuscarVenta extends JFrame implements IGUI {
 
 		if (empleado != null) {
 			builder.append("Empleado: ").append(empleado.getId());
-			builder.append(", DNI: ").append(empleado.getDNI() != null ? empleado.getDNI() : "-");
+			builder.append(", DNI: ").append(empleado.getDni() != null ? empleado.getDni() : "-");
 			builder.append(", nombre: ").append(empleado.getNombre() != null ? empleado.getNombre() : "-");
 			builder.append(", activo: ").append(empleado.getActivo() == 1 ? "Si" : "No").append("\n");
 		}
@@ -223,7 +225,7 @@ public class VBuscarVenta extends JFrame implements IGUI {
 				builder.append("          id_producto: ").append(producto.getId());
 				builder.append(", marca: ").append(producto.getMarca() != null ? producto.getMarca() : "-");
 				builder.append(", modelo: ").append(producto.getModelo() != null ? producto.getModelo() : "-");
-				builder.append(", stock: ").append(producto.getStock());
+				builder.append(", stock: ").append(producto.getUnidades());
 				builder.append(", precio actual: ").append(producto.getPrecio()).append(" EUR");
 				builder.append(", activo: ").append(producto.getActivo()).append("\n");
 			}
