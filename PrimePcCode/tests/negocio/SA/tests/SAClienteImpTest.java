@@ -24,6 +24,7 @@ public class SAClienteImpTest {
 
     private SACliente saCliente;
     private int idCliente;
+    private int segundoCliente;
 
     // Genera un DNI aleatorio de 9 caracteres (8 dígitos + 1 letra)
     private String generarDniAleatorio() {
@@ -50,6 +51,9 @@ public class SAClienteImpTest {
     public void tearDown() {
         if (idCliente > 0) {
             eliminarFisicamente(idCliente);
+        }
+        if (segundoCliente > 0) {
+            eliminarFisicamente(segundoCliente);
         }
     }
 
@@ -98,6 +102,7 @@ public class SAClienteImpTest {
         clienteDuplicado.setNumVisitas(3);
 
         int idDuplicado = saCliente.altaCliente(clienteDuplicado);
+        segundoCliente = idDuplicado; 
         assertEquals("No debería crear un cliente nuevo con el mismo DNI activo", -1, idDuplicado);
     }
 
