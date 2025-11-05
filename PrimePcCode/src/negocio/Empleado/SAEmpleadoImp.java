@@ -4,6 +4,8 @@ import java.util.Set;
 
 import integracion.Empleado.DAOEmpleado;
 import integracion.FactoriaDAO.DAOAbstractFactory;
+import integracion.FactoriaQuery.FactoriaQuery;
+import integracion.FactoriaQuery.Query;
 import integracion.Transaction.TManager;
 import integracion.Transaction.Transaction;
 import negocio.Producto.TProducto;
@@ -103,23 +105,29 @@ public class SAEmpleadoImp implements SAEmpleado {
 
 	@Override
 	public TEmpleado leerEmpleado(int id) {
-		TEmpleado empleado = null;
+	    TEmpleado empleado = null;
 
-		TManager tManager = TManager.getInstance();
-		tManager.createTransaction();
-		Transaction transaction = tManager.getTransaction();
+	    TManager tManager = TManager.getInstance();
+	    tManager.createTransaction();
+	    Transaction transaction = tManager.getTransaction();
 
-		if (transaction != null) {
-			transaction.start();
+	    if (transaction != null) {
+	        transaction.start();
 
-			DAOEmpleado daoEmpleado = DAOAbstractFactory.getInstancia().generaDAOEmpleado();
-			empleado = daoEmpleado.read(id);
+	        DAOEmpleado daoEmpleado = DAOAbstractFactory.getInstancia().generaDAOEmpleado();
+	        TEmpleado temp = daoEmpleado.read(id);
 
-			transaction.commit();
-		}
+	        if (temp != null && temp.getActivo() == 1) {
+	            empleado = temp; 
+	            transaction.commit();
+	        } else {
+	            transaction.rollback();
+	        }
+	    }
 
-		return empleado;
+	    return empleado;
 	}
+
 
 	@Override
 	public Set<TEmpleado> leerTodosEmpleados() {
@@ -143,6 +151,30 @@ public class SAEmpleadoImp implements SAEmpleado {
 
 	@Override
 	public int calcularImporteMasVendido(int idProducto) {
-		return idProducto;
+		 int importe = -1; // Valor inicial por defecto en caso de error
+		    TManager tm = TManager.getInstance();
+		    Transaction tr = tm.createTransaction();
+
+		    if (tr != null) {
+		        tr.start();
+
+		        FactoriaQuery fq = FactoriaQuery.getInstance();
+		        Query q = fq.getNewQuery("CalcularImporteEmpleado");
+
+		        Object resultado = q.execute(idProducto);
+
+		        if (resultado == null) {
+		            tr.rollback();
+		            return importe;
+		        }
+
+		        if (resultado instanceof Integer) {
+		            importe = (Integer) resultado;
+		            tr.commit();
+		            tr.rollback();
+		        }
+		    }
+
+		    return importe;
 	}
 }

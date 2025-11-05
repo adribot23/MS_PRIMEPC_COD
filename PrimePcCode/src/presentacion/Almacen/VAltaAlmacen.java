@@ -29,7 +29,6 @@ public class VAltaAlmacen extends JFrame implements IGUI {
 
 	private static final long serialVersionUID = 1L;
 
-
 	public VAltaAlmacen() {
 		super("Alta de Almacen");
 		initGUI();
@@ -72,7 +71,6 @@ public class VAltaAlmacen extends JFrame implements IGUI {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(350, 200);
 		setLocationRelativeTo(null);
-		setVisible(true);
 	}
 
 	public void actualizar(Context context) {

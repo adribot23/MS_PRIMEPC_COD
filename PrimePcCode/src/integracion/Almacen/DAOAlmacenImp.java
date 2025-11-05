@@ -46,7 +46,6 @@ public class DAOAlmacenImp implements DAOAlmacen {
 
 			rs.close();
 			ps.close();
-			conexion.close();
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -77,7 +76,6 @@ public class DAOAlmacenImp implements DAOAlmacen {
 
 			rs.close();
 			ps.close();
-			conexion.close();
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -101,7 +99,6 @@ public class DAOAlmacenImp implements DAOAlmacen {
 
 			filasAfectadas = ps.executeUpdate();
 			ps.close();
-			conexion.close();
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -120,7 +117,7 @@ public class DAOAlmacenImp implements DAOAlmacen {
 			ps.setInt(1, id);
 			filasAfectadas = ps.executeUpdate();
 			ps.close();
-			conexion.close();
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -147,7 +144,6 @@ public class DAOAlmacenImp implements DAOAlmacen {
 			}
 			rs.close();
 			ps.close();
-			conexion.close();
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -179,7 +175,6 @@ public class DAOAlmacenImp implements DAOAlmacen {
 
 			rs.close();
 			ps.close();
-			conexion.close();
 
 		} catch (SQLException e) {
 			e.printStackTrace();
