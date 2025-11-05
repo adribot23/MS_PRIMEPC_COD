@@ -2,6 +2,7 @@ package presentacion.Venta;
 
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.awt.Window;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -100,6 +101,14 @@ public class VAñadirProducto extends JFrame implements IGUI {
 		cantidadField.setText("");
 	}
 
+	private void cerrarTodasLasVentanasDeEsteipo() {
+		for (Window window : Window.getWindows()) {
+			if (window instanceof VAñadirProducto && window.isVisible()) {
+				window.dispose();
+			}
+		}
+	}
+
 	@Override
 	public void actualizar(Context context) {
 		if (context == null || context.getEvento() == null) {
@@ -125,13 +134,17 @@ public class VAñadirProducto extends JFrame implements IGUI {
 			dispose();
 			break;
 	case RES_INSERTAR_PRODUCTO_VENTA_OK:
-		Controlador.getInstancia().accion(new Context(Evento.PASAR_CARRITO_A_CERRAR, datos));
-		dispose();
+		cerrarTodasLasVentanasDeEsteipo();
+		if (datos instanceof TCarrito) {
+			Controlador.getInstancia().accion(new Context(Evento.PASAR_CARRITO_A_CERRAR, datos));
+		} else {
+			Controlador.getInstancia().accion(new Context(Evento.PASAR_CARRITO_A_CERRAR, carrito));
+		}
 		break;
 	case RES_INSERTAR_PRODUCTO_VENTA_KO:
-		JOptionPane.showMessageDialog(this, "No se pudo añadir el producto al carrito. Compruebe los datos.");
-		Controlador.getInstancia().accion(new Context(Evento.PASAR_CARRITO_A_CERRAR, datos));
-		dispose();
+		cerrarTodasLasVentanasDeEsteipo();
+		JOptionPane.showMessageDialog(null, "No se pudo añadir el producto al carrito. Compruebe los datos.");
+		Controlador.getInstancia().accion(new Context(Evento.PASAR_CARRITO_A_CERRAR, carrito));
 		break;
 		default:
 			break;

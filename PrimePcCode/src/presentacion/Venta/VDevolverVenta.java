@@ -2,6 +2,7 @@ package presentacion.Venta;
 
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.awt.Window;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -106,6 +107,14 @@ public class VDevolverVenta extends JFrame implements IGUI {
 		unidadesField.setText("");
 	}
 
+	private void cerrarTodasLasVentanasDeEsteipo() {
+		for (Window window : Window.getWindows()) {
+			if (window instanceof VDevolverVenta && window.isVisible()) {
+				window.dispose();
+			}
+		}
+	}
+
 	@Override
 	public void actualizar(Context context) {
 		if (context == null || context.getEvento() == null) {
@@ -113,7 +122,6 @@ public class VDevolverVenta extends JFrame implements IGUI {
 		}
 
 		Evento evento = context.getEvento();
-		Object datos = context.getDatos();
 
 		switch (evento) {
 		case VDEVOLVER_VENTA:
@@ -121,14 +129,14 @@ public class VDevolverVenta extends JFrame implements IGUI {
 			setVisible(true);
 			break;
 		case RES_DEVOLVER_VENTA_OK:
-			JOptionPane.showMessageDialog(this, "Devolución del producto con éxito.");
+			cerrarTodasLasVentanasDeEsteipo();
+			JOptionPane.showMessageDialog(null, "Devolución del producto con éxito.");
 			Controlador.getInstancia().accion(new Context(Evento.VENTA, null));
-			dispose();
 			break;
 		case RES_DEVOLVER_VENTA_KO:
-			JOptionPane.showMessageDialog(this, "Error en la devolución del producto, compruebe datos.");
+			cerrarTodasLasVentanasDeEsteipo();
+			JOptionPane.showMessageDialog(null, "Error en la devolución del producto, compruebe datos.");
 			Controlador.getInstancia().accion(new Context(Evento.VENTA, null));
-			dispose();
 			break;
 		default:
 			break;

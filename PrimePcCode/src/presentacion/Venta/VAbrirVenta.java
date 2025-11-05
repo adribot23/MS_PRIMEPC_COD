@@ -2,6 +2,7 @@ package presentacion.Venta;
 
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.awt.Window;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -79,6 +80,14 @@ public class VAbrirVenta extends JFrame implements IGUI {
 		dispose();
 	}
 
+	private void cerrarTodasLasVentanasDeEsteipo() {
+		for (Window window : Window.getWindows()) {
+			if (window instanceof VAbrirVenta && window.isVisible()) {
+				window.dispose();
+			}
+		}
+	}
+
 	@Override
 	public void actualizar(Context context) {
 		if (context == null || context.getEvento() == null) {
@@ -94,14 +103,14 @@ public class VAbrirVenta extends JFrame implements IGUI {
 			setVisible(true);
 			break;
 		case RES_ABRIR_VENTA_OK:
-			JOptionPane.showMessageDialog(this, "Carrito generado con éxito.");
+			cerrarTodasLasVentanasDeEsteipo();
+			JOptionPane.showMessageDialog(null, "Carrito generado con éxito.");
 			Controlador.getInstancia().accion(new Context(Evento.PASAR_CARRITO_A_CERRAR, datos));
-			dispose();
 			break;
 		case RES_ABRIR_VENTA_KO:
-			JOptionPane.showMessageDialog(this, "Error inesperado al iniciar la venta.");
+			cerrarTodasLasVentanasDeEsteipo();
+			JOptionPane.showMessageDialog(null, "Error inesperado al iniciar la venta.");
 			Controlador.getInstancia().accion(new Context(Evento.VENTA, null));
-			dispose();
 			break;
 		default:
 			break;

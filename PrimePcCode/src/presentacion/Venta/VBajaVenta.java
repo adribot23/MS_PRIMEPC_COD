@@ -2,6 +2,7 @@ package presentacion.Venta;
 
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.awt.Window;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -79,6 +80,14 @@ public class VBajaVenta extends JFrame implements IGUI {
 		dispose();
 	}
 
+	private void cerrarTodasLasVentanasDeEsteipo() {
+		for (Window window : Window.getWindows()) {
+			if (window instanceof VBajaVenta && window.isVisible()) {
+				window.dispose();
+			}
+		}
+	}
+
 	@Override
 	public void actualizar(Context context) {
 		if (context == null || context.getEvento() == null) {
@@ -93,14 +102,14 @@ public class VBajaVenta extends JFrame implements IGUI {
 			setVisible(true);
 			break;
 		case RES_BAJA_VENTA_OK:
-			JOptionPane.showMessageDialog(this, "Éxito al dar de baja venta.");
+			cerrarTodasLasVentanasDeEsteipo();
+			JOptionPane.showMessageDialog(null, "Éxito al dar de baja venta.");
 			Controlador.getInstancia().accion(new Context(Evento.VENTA, null));
-			dispose();
 			break;
 		case RES_BAJA_VENTA_KO:
-			JOptionPane.showMessageDialog(this, "Error al dar de baja venta.");
+			cerrarTodasLasVentanasDeEsteipo();
+			JOptionPane.showMessageDialog(null, "Error al dar de baja venta.");
 			Controlador.getInstancia().accion(new Context(Evento.VENTA, null));
-			dispose();
 			break;
 		default:
 			break;
