@@ -19,11 +19,12 @@ public class DAOLineaVentaImp implements DAOLineaVenta {
 			Connection con = (Connection) tr.getResource();
 
 			PreparedStatement ps = con.prepareStatement(
-					"INSERT INTO LINEAVENTA (ID_PRODUCTO, ID_VENTA, NUM_UNIDADES, PRECIO_UNIDADES) VALUES (?, ?, ?, ?)");
+					"INSERT INTO LINEAVENTA (ID_PRODUCTO, ID_VENTA, NUM_UNIDADES, PRECIO_UNIDADES, ACTIVO) VALUES (?, ?, ?, ?, ?)");
 			ps.setInt(1, lineaVenta.get_producto());
 			ps.setInt(2, lineaVenta.get_venta());
 			ps.setInt(3, lineaVenta.get_num_unidades());
 			ps.setDouble(4, lineaVenta.get_precio_unidades());
+			ps.setInt(5, lineaVenta.get_activo());
 
 			int filas = ps.executeUpdate();
 			ps.close();
