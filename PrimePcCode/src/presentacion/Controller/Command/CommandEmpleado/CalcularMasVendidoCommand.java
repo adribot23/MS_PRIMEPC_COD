@@ -1,5 +1,7 @@
 package presentacion.Controller.Command.CommandEmpleado;
 
+import java.util.AbstractMap;
+
 import negocio.FactoriaSA.SAAbstractFactory;
 import presentacion.Controller.Command.Command;
 import presentacion.Controller.Command.Context;
@@ -11,11 +13,11 @@ public class CalcularMasVendidoCommand implements Command {
     public Context execute(Object data) {
         Integer idProducto = (Integer) data;
 
-        int idEmpleadoMasVendedor = SAAbstractFactory.getInstancia()
+        AbstractMap.SimpleEntry<Integer, Integer> idEmpleadoCantidad = SAAbstractFactory.getInstancia()
                 .generarSAEmpleado().calcularImporteMasVendido(idProducto);
 
-        if (idEmpleadoMasVendedor > 0)
-            return new Context(Evento.RES_CALCULAR_MAS_VENDIDO_OK, idEmpleadoMasVendedor);
+        if (idEmpleadoCantidad != null)
+            return new Context(Evento.RES_CALCULAR_MAS_VENDIDO_OK, idEmpleadoCantidad);
         else
             return new Context(Evento.RES_CALCULAR_MAS_VENDIDO_KO, null);
     }

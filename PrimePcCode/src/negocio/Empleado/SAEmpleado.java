@@ -3,6 +3,7 @@
  */
 package negocio.Empleado;
 
+import java.util.AbstractMap;
 import java.util.Set;
 
 import negocio.Producto.TProducto;
@@ -11,7 +12,7 @@ public interface SAEmpleado {
 
 	public int altaEmpleado(TEmpleado tEmpleado);
 
-	public int calcularImporteMasVendido(int idProducto);
+	public AbstractMap.SimpleEntry<Integer, Integer> calcularImporteMasVendido(int idProducto);
 
 	public int bajaEmpleado(int id);
 
