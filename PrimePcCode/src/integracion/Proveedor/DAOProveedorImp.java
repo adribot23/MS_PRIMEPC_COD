@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import integracion.Transaction.TManager;
@@ -163,7 +164,7 @@ public class DAOProveedorImp implements DAOProveedor {
 
 	@Override
 	public Set<TProveedor> read_all() {
-		Set<TProveedor> proveedores = new HashSet<>();
+		Set<TProveedor> proveedores = new LinkedHashSet<>();
 
 		try {
 			TManager m = TManager.getInstance();
