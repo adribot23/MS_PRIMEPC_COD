@@ -81,17 +81,20 @@ public class SAAlmacenImp implements SAAlmacen {
 		int res = -1;
 		if (tr != null) {
 			tr.start();
-			DAOAlmacen daoAlmacen = DAOAbstractFactory.getInstancia().generaDAOAlmacen();
-			TAlmacen existente = daoAlmacen.read(almacen.getId());
-			almacen.setOcupacion(existente.getOcupacion());
-			if (existente != null && existente.getActivo() == 1
-					&& almacen.getCapacidadMaxima() >= existente.getOcupacion() && almacen.getCapacidadMaxima() > 0
-					&& (almacen.getNombre().equals(existente.getNombre())
-							|| daoAlmacen.read_by_name(almacen.getNombre()) == null)) {
-				res = daoAlmacen.update(almacen);
-				if (res > 0)
-					tr.commit();
-				else
+			if (almacen != null) {
+				DAOAlmacen daoAlmacen = DAOAbstractFactory.getInstancia().generaDAOAlmacen();
+				TAlmacen existente = daoAlmacen.read(almacen.getId());
+				almacen.setOcupacion(existente.getOcupacion());
+				if (existente != null && existente.getActivo() == 1
+						&& almacen.getCapacidadMaxima() >= existente.getOcupacion() && almacen.getCapacidadMaxima() > 0
+						&& (almacen.getNombre().equals(existente.getNombre())
+								|| daoAlmacen.read_by_name(almacen.getNombre()) == null)) {
+					res = daoAlmacen.update(almacen);
+					if (res > 0)
+						tr.commit();
+					else
+						tr.rollback();
+				} else
 					tr.rollback();
 			} else
 				tr.rollback();
@@ -106,7 +109,7 @@ public class SAAlmacenImp implements SAAlmacen {
 			tr.start();
 			DAOAlmacen daoAlmacen = DAOAbstractFactory.getInstancia().generaDAOAlmacen();
 			TAlmacen leido = daoAlmacen.read(id);
-			if (leido != null && leido.getActivo() == 1) {
+			if (leido != null) {
 				tr.commit();
 				return leido;
 
@@ -133,76 +136,4 @@ public class SAAlmacenImp implements SAAlmacen {
 		return lista;
 	}
 
-	/*public Integer vincularProductoAlmacen(Integer idProducto, Integer idAlmacen) {
-		TManager tm = TManager.getInstance();
-		Transaction tr = tm.createTransaction();
-		int res = -1;
-		if (tr != null) {
-			tr.start();
-			DAOAlmacen daoAlmacen = DAOAbstractFactory.getInstancia().generaDAOAlmacen();
-			DAOProducto daoProducto = DAOAbstractFactory.getInstancia().generaDAOProducto();
-			TProducto productoLeido = daoProducto.read(idProducto);
-			TAlmacen almacenLeido = daoAlmacen.read(idAlmacen);
-
-			if (productoLeido != null && almacenLeido != null && productoLeido.getActivo() == 1
-					&& almacenLeido.getActivo() == 1 && productoLeido.getIdAlmacen() == -1) {
-				int unidades = productoLeido.getUnidades();
-				int capacidadActual = almacenLeido.getOcupacion() + unidades;
-
-				if (capacidadActual <= almacenLeido.getCapacidadMaxima()) {
-					almacenLeido.setOcupacion(capacidadActual);
-					int resAlmacen = daoAlmacen.update(almacenLeido);
-					productoLeido.setIdAlmacen(almacenLeido.getId());
-					int resProducto = daoProducto.update(productoLeido);
-					if (resAlmacen > 0 && resProducto > 0) {
-						res = resAlmacen + resProducto;
-						tr.commit();
-					} else
-						tr.rollback();
-				} else
-					tr.rollback();
-
-			} else
-				tr.rollback();
-		}
-
-		return res;
-	}*/
-
-	/*public Integer desvincularProductoAlmacen(Integer idProducto, Integer idAlmacen) {
-		TManager tm = TManager.getInstance();
-		Transaction tr = tm.createTransaction();
-		int res = -1;
-		if (tr != null) {
-			tr.start();
-			DAOAlmacen daoAlmacen = DAOAbstractFactory.getInstancia().generaDAOAlmacen();
-			DAOProducto daoProducto = DAOAbstractFactory.getInstancia().generaDAOProducto();
-			TProducto productoLeido = daoProducto.read(idProducto);
-			TAlmacen almacenLeido = daoAlmacen.read(idAlmacen);
-
-			if (productoLeido != null && almacenLeido != null && productoLeido.getActivo() == 1
-					&& almacenLeido.getActivo() == 1 && productoLeido.getIdAlmacen() != -1
-					&& idAlmacen == productoLeido.getIdAlmacen()) {
-
-				int unidades = productoLeido.getUnidades();
-				int capacidadActual = almacenLeido.getOcupacion() - unidades;
-
-				if (capacidadActual >= 0) {
-					almacenLeido.setOcupacion(capacidadActual);
-					int resAlmacen = daoAlmacen.update(almacenLeido);
-					productoLeido.setIdAlmacen(-1);
-					int resProducto = daoProducto.update(productoLeido);
-					if (resAlmacen > 0 && resProducto > 0) {
-						res = resAlmacen + resProducto;
-						tr.commit();
-					} else
-						tr.rollback();
-				}
-
-			} else
-				tr.rollback();
-		}
-
-		return res;
-	}*/
 }
