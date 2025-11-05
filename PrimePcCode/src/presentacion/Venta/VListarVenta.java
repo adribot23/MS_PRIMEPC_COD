@@ -127,14 +127,14 @@ public class VListarVenta extends JFrame implements IGUI {
 			break;
 		case RES_MOSTRAR_TODAS_VENTAS_OK:
 			actualizarTabla(datos);
-			setVisible(true);
 			if (tableModel.getRowCount() == 0) {
 				JOptionPane.showMessageDialog(this, "No hay ventas registradas.");
 			}
+			dispose();
 			break;
 		case RES_MOSTRAR_TODAS_VENTAS_KO:
 			JOptionPane.showMessageDialog(this, "No se pudo recuperar el listado de ventas.");
-			setVisible(true);
+			dispose();
 			break;
 		default:
 			break;
