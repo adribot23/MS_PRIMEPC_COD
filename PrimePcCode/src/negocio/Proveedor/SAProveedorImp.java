@@ -240,25 +240,25 @@ public class SAProveedorImp implements SAProveedor {
 	}
 
 	@Override
-	public TProveedor proveedorConMasUnidadesDeProductoVendidas(int idProducto) {
+	public int proveedorConMasUnidadesDeProductoVendidas(int idProducto) {
 		TManager tm = TManager.getInstance();
 		Transaction tr = tm.createTransaction();
-		TProveedor proveedor = null;
+		int id_proveedor = -1;
 
 		if (tr != null) {
 
 			tr.start();
 			Query q = FactoriaQuery.getInstance().getNewQuery("CalcularProveedorMasUnidades");
-			proveedor = (TProveedor) q.execute(idProducto);
+			id_proveedor = (Integer) q.execute(idProducto);
 
-			if (proveedor != null)
+			if (id_proveedor > 0)
 				tr.commit();
 			else
 				tr.rollback();
 
 		}
 
-		return proveedor;
+		return id_proveedor;
 	}
 
 }

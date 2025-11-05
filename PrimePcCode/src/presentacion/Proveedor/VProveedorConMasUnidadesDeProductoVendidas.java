@@ -39,21 +39,17 @@ public class VProveedorConMasUnidadesDeProductoVendidas extends JFrame implement
 
 	private void initGUI() {
 		// Configuración de la ventana
-		setLayout(new GridLayout(2, 2, 10, 10));
+		setLayout(new GridLayout(2, 1, 10, 10));
 		getRootPane().setBorder(BorderFactory.createTitledBorder("Proveedor con más unidades vendidas de un producto"));
 
 		// Componentes
-		JLabel lblId = new JLabel("ID Producto:");
-		idProducto = new JTextField();
 		JButton btnCalcular = new JButton("Calcular");
 		btnCalcular.setBackground(new Color(200, 255, 200));
 
 		// Acción del botón Calcular
 		btnCalcular.addActionListener(e -> {
 			try {
-				int id = Integer.parseInt(idProducto.getText().trim());
-				Controlador.getInstancia().accion(new Context(Evento.PROVEEDOR_CON_MAS_UDS, id));
-				idProducto.setText("");
+				Controlador.getInstancia().accion(new Context(Evento.PROVEEDOR_CON_MAS_UDS, -1));
 			} catch (NumberFormatException ex) {
 				JOptionPane.showMessageDialog(this, "ID inválido. Introduce un número entero.");
 			}
@@ -68,14 +64,12 @@ public class VProveedorConMasUnidadesDeProductoVendidas extends JFrame implement
 		});
 
 		// Añadir componentes
-		add(lblId);
-		add(idProducto);
 		add(btnCalcular);
 		add(btnVolver);
 
 		// Configuración final de la ventana
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setSize(350, 150);
+		setSize(400, 150);
 		setLocationRelativeTo(null);
 
 	}
@@ -91,7 +85,7 @@ public class VProveedorConMasUnidadesDeProductoVendidas extends JFrame implement
 			break;
 
 		case RES_PROVEEDOR_CON_MAS_UDS_OK:
-			JOptionPane.showMessageDialog(null, "Proveedor con más unidades vendidas:\n" + datos.toString());
+			JOptionPane.showMessageDialog(null, "Proveedor con más unidades vendidas:" + datos);
 			break;
 
 		case RES_PROVEEDOR_CON_MAS_UDS_KO:

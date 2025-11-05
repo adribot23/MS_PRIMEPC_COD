@@ -30,6 +30,7 @@ import presentacion.Controller.Command.CommandProveedor.BuscarProveedorCommand;
 import presentacion.Controller.Command.CommandProveedor.DesvincularProveedorProductoCommand;
 import presentacion.Controller.Command.CommandProveedor.ModificarProveedorCommand;
 import presentacion.Controller.Command.CommandProveedor.MostrarProveedoresCommand;
+import presentacion.Controller.Command.CommandProveedor.ProveedorConMasUnidadesDeProductoVendidasCommand;
 import presentacion.Controller.Command.CommandProveedor.VerProvPorProductoCommand;
 import presentacion.Controller.Command.CommandProveedor.VincularProveedorProductoCommand;
 import presentacion.Controller.Command.CommandVenta.AbrirVentaCommand;
@@ -157,6 +158,8 @@ public class CommandFactoryImp extends CommandFactory {
 		case DESVINCULAR_PRODUCTO_PROVEEDOR:
 			command = new DesvincularProveedorProductoCommand();
 			break;
+		case PROVEEDOR_CON_MAS_UDS:
+			command = new ProveedorConMasUnidadesDeProductoVendidasCommand();
 
 	// ---- VENTA ----
 	case ABRIR_VENTA:
