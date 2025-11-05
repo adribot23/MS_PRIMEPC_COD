@@ -14,6 +14,7 @@ import presentacion.Controller.Command.CommandCliente.MostrarClientesCommand;
 import presentacion.Controller.Command.CommandEmpleado.AltaEmpleadoCommand;
 import presentacion.Controller.Command.CommandEmpleado.BajaEmpleadoCommand;
 import presentacion.Controller.Command.CommandEmpleado.BuscarEmpleadoCommand;
+import presentacion.Controller.Command.CommandEmpleado.CalcularMasVendidoCommand;
 import presentacion.Controller.Command.CommandEmpleado.ModificarEmpleadoCommand;
 import presentacion.Controller.Command.CommandEmpleado.MostrarEmpleadosCommand;
 import presentacion.Controller.Command.CommandProducto.AltaProductoCommand;
@@ -104,7 +105,10 @@ public class CommandFactoryImp extends CommandFactory {
 		case MOSTRAR_TODOS_EMPLEADOS:
 			command = new MostrarEmpleadosCommand();
 			break;
-
+		case CALCULAR_MAS_VENDIDO:
+			command = new CalcularMasVendidoCommand();
+			break;
+		
 		// ---- PRODUCTO ----
 		case ALTA_PRODUCTO:
 			command = new AltaProductoCommand();
