@@ -32,12 +32,16 @@ import presentacion.Controller.Command.CommandProveedor.MostrarProveedoresComman
 import presentacion.Controller.Command.CommandProveedor.VerProvPorProductoCommand;
 import presentacion.Controller.Command.CommandProveedor.VincularProveedorProductoCommand;
 import presentacion.Controller.Command.CommandVenta.AbrirVentaCommand;
+import presentacion.Controller.Command.CommandVenta.BajaVentaCommand;
 import presentacion.Controller.Command.CommandVenta.BuscarVentaCommand;
 import presentacion.Controller.Command.CommandVenta.CerrarVentaCommand;
 import presentacion.Controller.Command.CommandVenta.DevolverVentaCommand;
 import presentacion.Controller.Command.CommandVenta.InsertarProductoVentaCommand;
 import presentacion.Controller.Command.CommandVenta.ModificarVentaCommand;
 import presentacion.Controller.Command.CommandVenta.MostrarVentasCommand;
+import presentacion.Controller.Command.CommandVenta.PasarCarritoACerrarCommand;
+import presentacion.Controller.Command.CommandVenta.PasarCarritoAEliminarCommand;
+import presentacion.Controller.Command.CommandVenta.PasarCarritoAInsertarCommand;
 import presentacion.Controller.Command.CommandVenta.QuitarProductoVentaCommand;
 import presentacion.Controller.Command.CommandVenta.VerVentasPorClienteCommand;
 import presentacion.Controller.Command.CommandVenta.VerVentasPorEmpleadoCommand;
@@ -150,36 +154,49 @@ public class CommandFactoryImp extends CommandFactory {
 			command = new DesvincularProveedorProductoCommand();
 			break;
 
-		// ---- VENTA ----
-		case ABRIR_VENTA:
-			command = new AbrirVentaCommand();
-			break;
-		case CERRAR_VENTA:
-			command = new CerrarVentaCommand();
-			break;
-		case INSERTAR_PRODUCTO_VENTA:
-			command = new InsertarProductoVentaCommand();
-			break;
-		case QUITAR_PRODUCTO_VENTA:
-			command = new QuitarProductoVentaCommand();
-			break;
-		case MODIFICAR_VENTA:
-			command = new ModificarVentaCommand();
-			break;
-		case BUSCAR_VENTA:
-			command = new BuscarVentaCommand();
-			break;
-		case MOSTRAR_TODAS_VENTAS:
-			command = new MostrarVentasCommand();
-			break;
-		case MOSTRAR_VENTAS_POR_CLIENTE:
-			command = new VerVentasPorClienteCommand();
-			break;
-		case MOSTRAR_VENTAS_POR_EMPLEADO:
-			command = new VerVentasPorEmpleadoCommand();
-			break;
-		case DEVOLVER_VENTA:
-			command = new DevolverVentaCommand();
+	// ---- VENTA ----
+	case ABRIR_VENTA:
+		command = new AbrirVentaCommand();
+		break;
+	case CERRAR_VENTA:
+		command = new CerrarVentaCommand();
+		break;
+	case INSERTAR_PRODUCTO_VENTA:
+		command = new InsertarProductoVentaCommand();
+		break;
+	case QUITAR_PRODUCTO_VENTA:
+		command = new QuitarProductoVentaCommand();
+		break;
+	case PASAR_CARRITO_A_INSERTAR:
+		command = new PasarCarritoAInsertarCommand();
+		break;
+	case PASAR_CARRITO_A_ELIMINAR:
+		command = new PasarCarritoAEliminarCommand();
+		break;
+	case PASAR_CARRITO_A_CERRAR:
+		command = new PasarCarritoACerrarCommand();
+		break;
+	case BAJA_VENTA:
+		command = new BajaVentaCommand();
+		break;
+	case MODIFICAR_VENTA:
+		command = new ModificarVentaCommand();
+		break;
+	case BUSCAR_VENTA:
+		command = new BuscarVentaCommand();
+		break;
+	case MOSTRAR_TODAS_VENTAS:
+		command = new MostrarVentasCommand();
+		break;
+	case MOSTRAR_VENTAS_POR_CLIENTE:
+		command = new VerVentasPorClienteCommand();
+		break;
+	case MOSTRAR_VENTAS_POR_EMPLEADO:
+		command = new VerVentasPorEmpleadoCommand();
+		break;
+	case DEVOLVER_VENTA:
+		command = new DevolverVentaCommand();
+		break;
 		default:
 			break;
 		}

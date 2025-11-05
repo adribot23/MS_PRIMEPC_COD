@@ -143,16 +143,6 @@ public class DAOClienteImp implements DAOCliente {
             if (clienteActual == null) {
                 return -1;
             }
-
-            boolean tipoDiferente =
-                    (clienteActual instanceof TClienteSocio && cliente instanceof TClienteNoSocio)
-                            || (clienteActual instanceof TClienteNoSocio && cliente instanceof TClienteSocio);
-
-            if (tipoDiferente) {
-                System.err.println("No se puede cambiar el tipo de cliente.");
-                return -1;
-            }
-
             String updateSql = "UPDATE CLIENTE SET DNI = ?, NOMBRE = ?, ACTIVO = 1 WHERE ID = ? ";
             PreparedStatement s = c.prepareStatement(updateSql);
             s.setString(1, cliente.getDni());

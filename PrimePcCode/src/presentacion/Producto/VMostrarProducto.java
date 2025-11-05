@@ -96,8 +96,8 @@ public class VMostrarProducto extends JFrame implements IGUI {
 			tableData[i][2] = p.getModelo();
 			tableData[i][3] = p.getPrecio();
 			tableData[i][4] = p.getUnidades();
-			tableData[i][6] = p.getIdAlmacen();
-			tableData[i][5] = p.getActivo();
+			tableData[i][5] = p.getIdAlmacen();
+			tableData[i][6] = p.getActivo();
 			i++;
 		}
 

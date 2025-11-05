@@ -17,20 +17,20 @@ import presentacion.Controller.Controlador;
 import presentacion.GUI.Evento;
 import presentacion.GUI.IGUI;
 
-public class VAbrirVenta extends JFrame implements IGUI {
+public class VBajaVenta extends JFrame implements IGUI {
 
 	private static final long serialVersionUID = 1L;
 
-	private final JTextField empleadoField = new JTextField();
+	private final JTextField idVentaField = new JTextField();
 
-	public VAbrirVenta() {
-		super("Abrir venta");
+	public VBajaVenta() {
+		super("Dar de baja venta");
 		initGUI();
 	}
 
 	private void initGUI() {
 		setLayout(new GridLayout(2, 2, 10, 10));
-		getRootPane().setBorder(BorderFactory.createTitledBorder("Abrir venta"));
+		getRootPane().setBorder(BorderFactory.createTitledBorder("Dar de baja venta"));
 		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		addWindowListener(new WindowAdapter() {
 			@Override
@@ -39,10 +39,10 @@ public class VAbrirVenta extends JFrame implements IGUI {
 			}
 		});
 
-		add(new JLabel("Id empleado:"));
-		add(empleadoField);
+		add(new JLabel("Id venta:"));
+		add(idVentaField);
 
-		JButton aceptar = new JButton("Abrir venta");
+		JButton aceptar = new JButton("Dar de baja");
 		aceptar.setBackground(new Color(200, 255, 200));
 		aceptar.addActionListener(e -> onAceptar());
 		add(aceptar);
@@ -58,18 +58,18 @@ public class VAbrirVenta extends JFrame implements IGUI {
 
 	private void onAceptar() {
 		try {
-			int idEmpleado = Integer.parseInt(empleadoField.getText().trim());
-			if (idEmpleado <= 0) {
-				JOptionPane.showMessageDialog(this, "El Id empleado debe ser un numero positivo.", "Datos incorrectos",
+			int idVenta = Integer.parseInt(idVentaField.getText().trim());
+			if (idVenta <= 0) {
+				JOptionPane.showMessageDialog(this, "El Id venta debe ser un numero positivo.", "Datos incorrectos",
 						JOptionPane.ERROR_MESSAGE);
 				return;
 			}
 
-			Controlador.getInstancia().accion(new Context(Evento.ABRIR_VENTA, idEmpleado));
-			empleadoField.setText("");
+			Controlador.getInstancia().accion(new Context(Evento.BAJA_VENTA, idVenta));
+			idVentaField.setText("");
 
 		} catch (NumberFormatException ex) {
-			JOptionPane.showMessageDialog(this, "El Id empleado debe ser un numero entero positivo.",
+			JOptionPane.showMessageDialog(this, "El Id venta debe ser un numero entero positivo.",
 					"Datos incorrectos", JOptionPane.ERROR_MESSAGE);
 		}
 	}
@@ -86,20 +86,19 @@ public class VAbrirVenta extends JFrame implements IGUI {
 		}
 
 		Evento evento = context.getEvento();
-		Object datos = context.getDatos();
 
 		switch (evento) {
-		case VABRIR_VENTA:
-			empleadoField.setText("");
+		case VBAJA_VENTA:
+			idVentaField.setText("");
 			setVisible(true);
 			break;
-		case RES_ABRIR_VENTA_OK:
-			JOptionPane.showMessageDialog(this, "Carrito generado con éxito.");
-			Controlador.getInstancia().accion(new Context(Evento.PASAR_CARRITO_A_CERRAR, datos));
+		case RES_BAJA_VENTA_OK:
+			JOptionPane.showMessageDialog(this, "Éxito al dar de baja venta.");
+			Controlador.getInstancia().accion(new Context(Evento.VENTA, null));
 			dispose();
 			break;
-		case RES_ABRIR_VENTA_KO:
-			JOptionPane.showMessageDialog(this, "Error inesperado al iniciar la venta.");
+		case RES_BAJA_VENTA_KO:
+			JOptionPane.showMessageDialog(this, "Error al dar de baja venta.");
 			Controlador.getInstancia().accion(new Context(Evento.VENTA, null));
 			dispose();
 			break;

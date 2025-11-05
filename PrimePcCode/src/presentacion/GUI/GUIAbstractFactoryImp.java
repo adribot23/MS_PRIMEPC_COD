@@ -40,6 +40,7 @@ import presentacion.Proveedor.VVerPorProducto;
 import presentacion.Proveedor.VVincularProveedor;
 import presentacion.Venta.GUIVenta;
 import presentacion.Venta.VAbrirVenta;
+import presentacion.Venta.VBajaVenta;
 import presentacion.Venta.VBuscarVenta;
 import presentacion.Venta.VCerrarVenta;
 import presentacion.Venta.VDevolverVenta;
@@ -271,20 +272,26 @@ public class GUIAbstractFactoryImp extends GUIAbstractFactory {
 		case RES_ABRIR_VENTA_KO:
 			return new VAbrirVenta();
 
-		case VCERRAR_VENTA:
-		case RES_CERRAR_VENTA_OK:
-		case RES_CERRAR_VENTA_KO:
-			return new VCerrarVenta();
+	case VCERRAR_VENTA:
+	case RES_CERRAR_VENTA_OK:
+	case RES_CERRAR_VENTA_KO:
+	case RES_PASAR_CARRITO_A_CERRAR_OK:
+	case RES_PASAR_CARRITO_A_CERRAR_KO:
+		return new VCerrarVenta();
 
-		case VINSERTAR_PRODUCTO_VENTA:
-		case RES_INSERTAR_PRODUCTO_VENTA_OK:
-		case RES_INSERTAR_PRODUCTO_VENTA_KO:
-			return new VAñadirProducto();
+	case VINSERTAR_PRODUCTO_VENTA:
+	case RES_INSERTAR_PRODUCTO_VENTA_OK:
+	case RES_INSERTAR_PRODUCTO_VENTA_KO:
+	case RES_PASAR_CARRITO_A_INSERTAR_OK:
+	case RES_PASAR_CARRITO_A_INSERTAR_KO:
+		return new VAñadirProducto();
 
-		case VQUITAR_PRODUCTO_VENTA:
-		case RES_QUITAR_PRODUCTO_VENTA_OK:
-		case RES_QUITAR_PRODUCTO_VENTA_KO:
-			return new VEliminarProducto();
+	case VQUITAR_PRODUCTO_VENTA:
+	case RES_QUITAR_PRODUCTO_VENTA_OK:
+	case RES_QUITAR_PRODUCTO_VENTA_KO:
+	case RES_PASAR_CARRITO_A_ELIMINAR_OK:
+	case RES_PASAR_CARRITO_A_ELIMINAR_KO:
+		return new VEliminarProducto();
 
 		case VMODIFICAR_VENTA:
 		case RES_MODIFICAR_VENTA_OK:
@@ -311,13 +318,18 @@ public class GUIAbstractFactoryImp extends GUIAbstractFactory {
 		case RES_MOSTRAR_VENTAS_POR_CLIENTE_KO:
 			return new VMostrarPorCliente();
 
-		case VDEVOLVER_VENTA:
-		case RES_DEVOLVER_VENTA_OK:
-		case RES_DEVOLVER_VENTA_KO:
-			return new VDevolverVenta();
+	case VDEVOLVER_VENTA:
+	case RES_DEVOLVER_VENTA_OK:
+	case RES_DEVOLVER_VENTA_KO:
+		return new VDevolverVenta();
 
-		default:
-			return null;
-		}
+	case VBAJA_VENTA:
+	case RES_BAJA_VENTA_OK:
+	case RES_BAJA_VENTA_KO:
+		return new VBajaVenta();
+
+	default:
+		return null;
 	}
+}
 }

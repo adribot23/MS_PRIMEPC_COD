@@ -22,9 +22,9 @@ public class VEliminarProducto extends JFrame implements IGUI {
 
 	private static final long serialVersionUID = 1L;
 
-	private final JTextField idVentaField = new JTextField();
 	private final JTextField idProductoField = new JTextField();
-	private final JTextField unidadesField = new JTextField();
+	private final JTextField cantidadField = new JTextField();
+	private TCarrito carrito;
 
 	public VEliminarProducto() {
 		super("Eliminar producto de venta");
@@ -32,7 +32,7 @@ public class VEliminarProducto extends JFrame implements IGUI {
 	}
 
 	private void initGUI() {
-		setLayout(new GridLayout(4, 2, 10, 10));
+		setLayout(new GridLayout(3, 2, 10, 10));
 		getRootPane().setBorder(BorderFactory.createTitledBorder("Eliminar producto de venta"));
 		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		addWindowListener(new WindowAdapter() {
@@ -42,16 +42,13 @@ public class VEliminarProducto extends JFrame implements IGUI {
 			}
 		});
 
-		add(new JLabel("Id venta:"));
-		add(idVentaField);
-
 		add(new JLabel("Id producto:"));
 		add(idProductoField);
 
-		add(new JLabel("Unidades a quitar:"));
-		add(unidadesField);
+		add(new JLabel("Cantidad:"));
+		add(cantidadField);
 
-		JButton aceptar = new JButton("Eliminar");
+		JButton aceptar = new JButton("Eliminar producto");
 		aceptar.setBackground(new Color(200, 255, 200));
 		aceptar.addActionListener(e -> onAceptar());
 		add(aceptar);
@@ -61,48 +58,46 @@ public class VEliminarProducto extends JFrame implements IGUI {
 		volver.addActionListener(e -> volver());
 		add(volver);
 
-		setSize(360, 210);
+		setSize(400, 200);
 		setLocationRelativeTo(null);
 	}
 
 	private void onAceptar() {
 		try {
-			int idVenta = parseEnteroPositivo(idVentaField.getText(), "Id venta");
-			int idProducto = parseEnteroPositivo(idProductoField.getText(), "Id producto");
-			int unidades = parseEnteroPositivo(unidadesField.getText(), "Unidades a quitar");
+			int idProducto = Integer.parseInt(idProductoField.getText().trim());
+			int cantidad = Integer.parseInt(cantidadField.getText().trim());
 
-			TCarrito carrito = new TCarrito();
-			carrito.setId(idVenta);
-			carrito.setidProducto(idProducto);
-			carrito.setcantidadProducto(unidades);
+			if (idProducto <= 0 || cantidad <= 0) {
+				JOptionPane.showMessageDialog(this, "El Id producto y la cantidad deben ser numeros positivos.",
+						"Datos incorrectos", JOptionPane.ERROR_MESSAGE);
+				return;
+			}
 
-			Controlador.getInstancia().accion(new Context(Evento.QUITAR_PRODUCTO_VENTA, carrito));
-		} catch (IllegalArgumentException ex) {
-			JOptionPane.showMessageDialog(this, ex.getMessage(), "Datos incorrectos", JOptionPane.ERROR_MESSAGE);
+			if (carrito != null) {
+				carrito.setidProducto(idProducto);
+				carrito.setcantidadProducto(cantidad);
+				Controlador.getInstancia().accion(new Context(Evento.QUITAR_PRODUCTO_VENTA, carrito));
+				limpiarCampos();
+			}
+
+		} catch (NumberFormatException ex) {
+			JOptionPane.showMessageDialog(this, "El Id producto y la cantidad deben ser numeros enteros positivos.",
+					"Datos incorrectos", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 
 	private void volver() {
-		Controlador.getInstancia().accion(new Context(Evento.VENTA, null));
+		if (carrito != null) {
+			Controlador.getInstancia().accion(new Context(Evento.PASAR_CARRITO_A_CERRAR, carrito));
+		} else {
+			Controlador.getInstancia().accion(new Context(Evento.VENTA, null));
+		}
 		dispose();
 	}
 
-	private int parseEnteroPositivo(String valor, String campo) {
-		try {
-			int numero = Integer.parseInt(valor.trim());
-			if (numero <= 0) {
-				throw new NumberFormatException();
-			}
-			return numero;
-		} catch (NumberFormatException ex) {
-			throw new IllegalArgumentException(campo + " debe ser un número entero positivo.");
-		}
-	}
-
 	private void limpiarCampos() {
-		idVentaField.setText("");
 		idProductoField.setText("");
-		unidadesField.setText("");
+		cantidadField.setText("");
 	}
 
 	@Override
@@ -119,16 +114,25 @@ public class VEliminarProducto extends JFrame implements IGUI {
 			limpiarCampos();
 			setVisible(true);
 			break;
-		case RES_QUITAR_PRODUCTO_VENTA_OK:
-			JOptionPane.showMessageDialog(this, "Producto eliminado de la venta.", "Línea actualizada",
-					JOptionPane.INFORMATION_MESSAGE);
-			volver();
+		case RES_PASAR_CARRITO_A_ELIMINAR_OK:
+			if (datos instanceof TCarrito) {
+				this.carrito = (TCarrito) datos;
+				setVisible(true);
+			}
 			break;
-		case RES_QUITAR_PRODUCTO_VENTA_KO:
-			String mensaje = datos instanceof String ? (String) datos : "No se pudo eliminar el producto indicado.";
-			JOptionPane.showMessageDialog(this, mensaje, "Error al eliminar producto", JOptionPane.ERROR_MESSAGE);
-			setVisible(true);
+		case RES_PASAR_CARRITO_A_ELIMINAR_KO:
+			JOptionPane.showMessageDialog(this, "Error en el traspaso del carrito.");
+			dispose();
 			break;
+	case RES_QUITAR_PRODUCTO_VENTA_OK:
+		Controlador.getInstancia().accion(new Context(Evento.PASAR_CARRITO_A_CERRAR, datos));
+		dispose();
+		break;
+	case RES_QUITAR_PRODUCTO_VENTA_KO:
+		JOptionPane.showMessageDialog(this, "No se pudo eliminar el producto del carrito. Compruebe los datos.");
+		Controlador.getInstancia().accion(new Context(Evento.PASAR_CARRITO_A_CERRAR, datos));
+		dispose();
+		break;
 		default:
 			break;
 		}
