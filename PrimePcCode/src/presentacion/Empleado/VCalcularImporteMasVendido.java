@@ -5,6 +5,7 @@ package presentacion.Empleado;
 
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.util.AbstractMap;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -95,7 +96,7 @@ public class VCalcularImporteMasVendido extends JFrame implements IGUI {
 	    @Override
 	    public void actualizar(Context context) {
 	        Evento evento = context.getEvento();
-	        Object datos = context.getDatos();
+	        AbstractMap.SimpleEntry<Integer, Integer> datos = (AbstractMap.SimpleEntry<Integer, Integer>)context.getDatos();
 
 	        switch (evento) {
 	            case VCALCULAR_MAS_VENDIDO:
@@ -104,8 +105,8 @@ public class VCalcularImporteMasVendido extends JFrame implements IGUI {
 
 	            case RES_CALCULAR_MAS_VENDIDO_OK:
 	                JOptionPane.showMessageDialog(this, 
-	                    "Empleado que más ha vendido: ID " + datos, 
-	                    "Resultado", 
+	                    "Empleado que más ha vendido es el id " + datos.getKey()+" con importe total de " + datos.getValue(),
+	                    "Resultado",
 	                    JOptionPane.INFORMATION_MESSAGE);
 	                break;
 

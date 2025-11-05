@@ -1,5 +1,6 @@
 package negocio.Empleado;
 
+import java.util.AbstractMap;
 import java.util.Set;
 
 import integracion.Empleado.DAOEmpleado;
@@ -152,31 +153,34 @@ public class SAEmpleadoImp implements SAEmpleado {
 	}
 
 	@Override
-	public int calcularImporteMasVendido(int idProducto) {
-		 int importe = -1; // Valor inicial por defecto en caso de error
-		    TManager tm = TManager.getInstance();
-		    Transaction tr = tm.createTransaction();
+	public AbstractMap.SimpleEntry<Integer, Integer> calcularImporteMasVendido(int idProducto) {
+	    AbstractMap.SimpleEntry<Integer, Integer> resultadoFinal = null;
 
-		    if (tr != null) {
-		        tr.start();
+	    TManager tm = TManager.getInstance();
+	    Transaction tr = tm.createTransaction();
 
-		        FactoriaQuery fq = FactoriaQuery.getInstance();
-		        Query q = fq.getNewQuery("CalcularImporteEmpleado");
+	    if (tr != null) {
+	        tr.start();
 
-		        Object resultado = q.execute(idProducto);
+	        FactoriaQuery fq = FactoriaQuery.getInstance();
+	        Query q = fq.getNewQuery("CalcularImporteEmpleado");
 
-		        if (resultado == null) {
-		            tr.rollback();
-		            return importe;
-		        }
+	        Object resultado = q.execute(idProducto);
 
-		        if (resultado instanceof Integer) {
-		            importe = (Integer) resultado;
-		            tr.commit();
-		            tr.rollback();
-		        }
-		    }
+	        if (resultado == null) {
+	            tr.rollback();
+	            return null;
+	        }
 
-		    return importe;
+	        if (resultado instanceof AbstractMap.SimpleEntry) {
+	            resultadoFinal = (AbstractMap.SimpleEntry<Integer, Integer>) resultado;
+	            tr.commit();
+	        } else {
+	            tr.rollback();
+	        }
+	    }
+
+	    return resultadoFinal;
 	}
+
 }
