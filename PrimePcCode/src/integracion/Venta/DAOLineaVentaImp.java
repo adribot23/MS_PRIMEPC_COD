@@ -47,7 +47,7 @@ public class DAOLineaVentaImp implements DAOLineaVenta {
 			Transaction tr = tm.getTransaction();
 			Connection con = (Connection) tr.getResource();
 
-			PreparedStatement ps = con.prepareStatement("DELETE LINEAVENTA WHERE ID_PRODUCTO = ? AND ID_VENTA = ?");
+			PreparedStatement ps = con.prepareStatement("DELETE FROM LINEAVENTA WHERE ID_PRODUCTO = ? AND ID_VENTA = ?");
 			ps.setInt(1, tlineaVenta.get_producto());
 			ps.setInt(2, tlineaVenta.get_venta());
 

@@ -420,59 +420,6 @@ public class SAVentaImp implements SAVenta {
 		return ventas;
 	}
 
-	@Override
-	public int bajaVenta(int id) {
-
-		TManager tm = TManager.getInstance();
-		Transaction tr = tm.createTransaction();
-		int res = -1;
-		boolean exito = false;
-
-		if (tr != null) {
-
-			tr.start();
-
-			DAOVenta daoVenta = DAOAbstractFactory.getInstancia().generaDAOVenta();
-			TVenta venta = daoVenta.read(id);
-
-			if (venta != null && venta.getActivo() == 1) {
-
-				DAOLineaVenta daoLineaVenta = DAOAbstractFactory.getInstancia().generaDAOLineaVenta();
-				Set<TLineaVenta> lineasVenta = daoLineaVenta.read_all(venta.getId());
-
-				for (TLineaVenta lineaVenta : lineasVenta) {
-
-					if (daoLineaVenta.delete(lineaVenta) == -1) {
-						exito = true;
-						break;
-					}
-				}
-
-				if (!exito) {
-
-					res = daoVenta.delete(id);
-
-					if (res == -1) {
-						exito = true;
-					}
-
-					else {
-						tr.rollback();
-					}
-				}
-
-				else {
-					tr.rollback();
-				}
-
-			} else {
-				tr.rollback();
-			}
-		}
-
-		return res;
-
-	}
 
 	@Override
 	public int modificarVenta(TVenta venta) {
@@ -629,12 +576,15 @@ public class SAVentaImp implements SAVenta {
 
 				DAOLineaVenta daoLineaVenta = DAOAbstractFactory.getInstancia().generaDAOLineaVenta();
 				Set<TLineaVenta> setLineaVenta = daoLineaVenta.read_all(venta.getId());
-
-				for (TLineaVenta lineaVenta : setLineaVenta) {
-					if (daoLineaVenta.delete(lineaVenta) == -1) {
-						error = true;
-						break;
-					}
+				if (setLineaVenta == null) {
+				    error = true;
+				} else {
+				    for (TLineaVenta lineaVenta : setLineaVenta) {
+				        if (daoLineaVenta.delete(lineaVenta) == -1) {
+				            error = true;
+				            break;
+				        }
+				    }
 				}
 
 				if (!error) {

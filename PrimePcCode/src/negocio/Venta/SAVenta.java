@@ -22,8 +22,6 @@ public interface SAVenta {
 
 	public Set<TVenta> leerVentasPorEmpleado(int idEmpleado);
 
-	public int bajaVenta(int id);
-
 	public int modificarVenta(TVenta venta);
 
 	public TVentaTOA leerVenta(int id);
