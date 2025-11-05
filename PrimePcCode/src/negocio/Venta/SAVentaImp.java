@@ -88,6 +88,8 @@ public class SAVentaImp implements SAVenta {
 		
 		if (tr != null) {
 			
+		tr.start();
+			
 		DAOProducto daoProd = DAOAbstractFactory.getInstancia().generaDAOProducto();
 		
 		int idProducto = carrito.getidProducto();
