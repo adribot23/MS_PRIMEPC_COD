@@ -21,14 +21,22 @@ public class SAVentaImp implements SAVenta {
 	@Override
 	public TCarrito abrirVenta(int idEmpleado) {
 		
+		TManager tm = TManager.getInstance();
+		Transaction tr = tm.createTransaction();
+		
+		TCarrito carrito = new TCarrito();
+
+		if (tr != null) {
+		
+		tr.start();
+		
 		DAOEmpleado daoEmp = DAOAbstractFactory.getInstancia().generaDAOEmpleado();
 		
 		TEmpleado empleado = daoEmp.read(idEmpleado);
 		
 		if (empleado != null && empleado.getActivo() == 1) {
 
-		TCarrito carrito = new TCarrito();
-
+		
 		carrito.setLineasVenta(new HashSet<TLineaVenta>());
 
 		TVenta venta = new TVenta();
@@ -36,14 +44,21 @@ public class SAVentaImp implements SAVenta {
 		venta.setIdEmpleado(idEmpleado);
 
 		carrito.setVenta(venta);
+		tr.commit();
 
-		return carrito;
 		
 		}
 		
 		else {
-			return null;
+			tr.rollback();
+			carrito = null;
+			
 		}
+		
+		
+		}
+		
+		return carrito;
 
 	}
 	
