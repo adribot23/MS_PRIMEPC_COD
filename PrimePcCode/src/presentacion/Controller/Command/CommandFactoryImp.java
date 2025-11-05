@@ -160,6 +160,7 @@ public class CommandFactoryImp extends CommandFactory {
 			break;
 		case PROVEEDOR_CON_MAS_UDS:
 			command = new ProveedorConMasUnidadesDeProductoVendidasCommand();
+			break;
 
 	// ---- VENTA ----
 	case ABRIR_VENTA:

@@ -19,7 +19,7 @@ import integracion.Transaction.Transaction;
  */
 public class ObtenerElProveedorQueMasUnidadesHaSuministradoDeCualquierProducto implements Query {
 	public Object execute(Object param) {
-        double idProveedor = -1;
+        int idProveedor = -1;
 
         try {
             TManager tManager = TManager.getInstance();
@@ -28,13 +28,13 @@ public class ObtenerElProveedorQueMasUnidadesHaSuministradoDeCualquierProducto i
 
             // No se puede hacer FOR UPDATE con filas agregadas
             String query =
-            		"SELECT pr.ID, pr.NOMBRE, SUM(p.NUM_UNIDADES) AS total_unidades" +
-            		"FROM PROVEEDOR pr"+
-            		"JOIN PRODUCTO_PROVEEDOR pp ON pr.ID = pp.ID_PROVEEDOR"+
-            		"JOIN PRODUCTO p ON pp.ID_PRODUCTO = p.ID"+
-            		"WHERE pr.ACTIVO = 1"+
-            		"GROUP BY pr.ID, pr.NOMBRE"+
-            		"ORDER BY total_unidades DESC"+
+            		"SELECT pr.ID, pr.NOMBRE, SUM(p.NUM_UNIDADES) AS total_unidades " +
+            		"FROM PROVEEDOR pr " +
+            		"JOIN PRODUCTO_PROVEEDOR pp ON pr.ID = pp.ID_PROVEEDOR " +
+            		"JOIN PRODUCTO p ON pp.ID_PRODUCTO = p.ID " +
+            		"WHERE pr.ACTIVO = 1 " +
+            		"GROUP BY pr.ID, pr.NOMBRE " +
+            		"ORDER BY total_unidades DESC " +
             		"LIMIT 1;";
 
 

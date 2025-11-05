@@ -85,7 +85,7 @@ public class VProveedorConMasUnidadesDeProductoVendidas extends JFrame implement
 			break;
 
 		case RES_PROVEEDOR_CON_MAS_UDS_OK:
-			JOptionPane.showMessageDialog(null, "Proveedor con más unidades vendidas:" + datos);
+			JOptionPane.showMessageDialog(null, "Proveedor con más unidades vendidas: " + datos);
 			break;
 
 		case RES_PROVEEDOR_CON_MAS_UDS_KO:
