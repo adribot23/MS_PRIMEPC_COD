@@ -63,7 +63,6 @@ public class SAAlmacenImpTest {
             filasAfectadas = ps.executeUpdate();
             ps.close();
             conexion.close();
-            System.out.println("[DEBUG] Almacén eliminado físicamente: " + id);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -80,7 +79,6 @@ public class SAAlmacenImpTest {
             filasAfectadas = ps.executeUpdate();
             ps.close();
             conexion.close();
-            System.out.println("[DEBUG] Producto eliminado físicamente: " + id);
         } catch (SQLException e) {
             e.printStackTrace();
         }

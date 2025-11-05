@@ -37,7 +37,6 @@ public class DAOProductoImpTest {
         transaccion = tManager.createTransaction();
         if (transaccion != null) {
             transaccion.start();
-            System.out.println("[DEBUG] Transacción iniciada correctamente.");
         }
 
         daoProducto = new DAOAbstractFactoryImp().generaDAOProducto();
@@ -55,7 +54,6 @@ public class DAOProductoImpTest {
         producto.setIdAlmacen(idAlmacenDummy); 
 
         idProducto = daoProducto.create(producto);
-        System.out.println("[DEBUG] Producto de prueba creado con ID = " + idProducto);
     }
 
     @After
@@ -63,7 +61,6 @@ public class DAOProductoImpTest {
         if (transaccion != null) {
             try {
                 transaccion.commit();
-                System.out.println("[DEBUG] Transacción confirmada correctamente.");
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -87,7 +84,6 @@ public class DAOProductoImpTest {
             if (rs.next()) id = rs.getInt(1);
             rs.close();
             ps.close();
-            System.out.println("[DEBUG] Almacén dummy creado con ID = " + id);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -100,7 +96,6 @@ public class DAOProductoImpTest {
             ps.setInt(1, id);
             ps.executeUpdate();
             ps.close();
-            System.out.println("[DEBUG] Producto eliminado físicamente: ID = " + id);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -112,7 +107,6 @@ public class DAOProductoImpTest {
             ps.setInt(1, id);
             ps.executeUpdate();
             ps.close();
-            System.out.println("[DEBUG] Almacén dummy eliminado: ID = " + id);
         } catch (SQLException e) {
             e.printStackTrace();
         }

@@ -43,9 +43,6 @@ public class DAOClienteImpTest {
         transaccion = tManager.createTransaction();
         if (transaccion != null) {
             transaccion.start();
-            System.out.println("[DEBUG] Transacción iniciada correctamente.");
-        } else {
-            System.err.println("[ERROR] No se pudo crear transacción (ya existía en este hilo).");
         }
 
         daoCliente = new DAOAbstractFactoryImp().generaDAOCliente();
@@ -58,9 +55,7 @@ public class DAOClienteImpTest {
         if (transaccion != null) {
             try {
                 transaccion.commit();
-                System.out.println("[DEBUG] Transacción confirmada y cerrada correctamente.");
             } catch (Exception e) {
-                System.err.println("[ERROR] Fallo al cerrar transacción: " + e.getMessage());
                 e.printStackTrace();
             }
         }

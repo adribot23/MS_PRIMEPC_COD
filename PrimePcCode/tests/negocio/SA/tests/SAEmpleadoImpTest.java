@@ -33,7 +33,6 @@ public class SAEmpleadoImpTest {
         saEmpleado = factoria.generarSAEmpleado();
         idEmpleadoCompleto = -1;
         idEmpleadoParcial = -1;
-        System.out.println("[DEBUG] SAEmpleado inicializado correctamente.");
     }
 
     @After
@@ -46,7 +45,6 @@ public class SAEmpleadoImpTest {
             eliminarFisicamente(idEmpleadoParcial);
             idEmpleadoParcial = -1;
         }
-        System.out.println("[DEBUG] Limpieza completada tras test.");
     }
 
     public int eliminarFisicamente(int id) {
@@ -73,7 +71,6 @@ public class SAEmpleadoImpTest {
             psEmpleado.close();
 
             conexion.close();
-            System.out.println("[DEBUG] Empleado eliminado físicamente: ID = " + id);
         } catch (SQLException e) {
             e.printStackTrace();
         }

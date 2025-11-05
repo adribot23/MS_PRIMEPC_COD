@@ -34,7 +34,6 @@ public class DAOProveedorImpTest {
         transaccion = tManager.createTransaction();
         if (transaccion != null) {
             transaccion.start();
-            System.out.println("[DEBUG] Transacción iniciada correctamente.");
         }
         daoProveedor = new DAOAbstractFactoryImp().generaDAOProveedor();
 
@@ -44,14 +43,12 @@ public class DAOProveedorImpTest {
         proveedor.setNombre(nombreTest);
 
         idProveedor = daoProveedor.create(proveedor);
-        System.out.println("[DEBUG] Proveedor de prueba creado con ID = " + idProveedor);
     }
 
     @After
     public void tearDown() {
         if (idProveedor > 0) {
             eliminarFisicamente(idProveedor);
-            System.out.println("[DEBUG] Proveedor eliminado físicamente: ID = " + idProveedor);
         }
     }
 
