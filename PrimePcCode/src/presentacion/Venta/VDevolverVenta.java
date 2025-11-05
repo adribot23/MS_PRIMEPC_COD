@@ -77,6 +77,7 @@ public class VDevolverVenta extends JFrame implements IGUI {
 			lineaVenta.set_num_unidades(unidades);
 
 			Controlador.getInstancia().accion(new Context(Evento.DEVOLVER_VENTA, lineaVenta));
+			limpiarCampos();
 		} catch (IllegalArgumentException ex) {
 			JOptionPane.showMessageDialog(this, ex.getMessage(), "Datos incorrectos", JOptionPane.ERROR_MESSAGE);
 		}
@@ -120,14 +121,14 @@ public class VDevolverVenta extends JFrame implements IGUI {
 			setVisible(true);
 			break;
 		case RES_DEVOLVER_VENTA_OK:
-			JOptionPane.showMessageDialog(this, "Devolución registrada correctamente.", "Devolver producto",
-					JOptionPane.INFORMATION_MESSAGE);
-			volver();
+			JOptionPane.showMessageDialog(this, "Devolución del producto con éxito.");
+			Controlador.getInstancia().accion(new Context(Evento.VENTA, null));
+			dispose();
 			break;
 		case RES_DEVOLVER_VENTA_KO:
-			String mensaje = datos instanceof String ? (String) datos : "No se pudo realizar la devolución indicada.";
-			JOptionPane.showMessageDialog(this, mensaje, "Error al devolver producto", JOptionPane.ERROR_MESSAGE);
-			setVisible(true);
+			JOptionPane.showMessageDialog(this, "Error en la devolución del producto, compruebe datos.");
+			Controlador.getInstancia().accion(new Context(Evento.VENTA, null));
+			dispose();
 			break;
 		default:
 			break;

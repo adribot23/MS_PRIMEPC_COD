@@ -2,6 +2,7 @@
 package negocio.Venta;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -18,7 +19,7 @@ public class TCarrito {
 
 	private Double total;
 
-	private Set<TLineaVenta> lineasVenta;
+	private Set<TLineaVenta> lineasVenta = new HashSet<>();
 
 	private TVenta venta;
 
@@ -82,11 +83,11 @@ public class TCarrito {
 	}
 
 	public void setLineasVenta(Set<TLineaVenta> lineasVenta) {
-
-		for (TLineaVenta lineaVenta : lineasVenta) {
-			this.lineasVenta.add(lineaVenta);
+		if (lineasVenta != null) {
+			this.lineasVenta = new HashSet<>(lineasVenta);
+		} else {
+			this.lineasVenta = new HashSet<>();
 		}
-
 	}
 
 	public TVenta getVenta() {

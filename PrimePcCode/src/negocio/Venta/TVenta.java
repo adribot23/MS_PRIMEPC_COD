@@ -13,7 +13,7 @@ public class TVenta {
 
 	private int id_empleado;
 
-	private int id_cliente;
+	private Integer id_cliente;
 
 	private int activo;
 
@@ -69,7 +69,7 @@ public class TVenta {
 		return this.id_cliente;
 	}
 
-	public void setIdCliente(int idCliente) {
+	public void setIdCliente(Integer idCliente) {
 
 		this.id_cliente = idCliente;
 	}
