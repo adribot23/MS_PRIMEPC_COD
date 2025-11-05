@@ -63,8 +63,45 @@ public class VCerrarVenta extends JFrame implements IGUI {
 		getRootPane().setBorder(BorderFactory.createTitledBorder("Cerrar venta"));
 		setLayout(new BorderLayout(10, 10));
 
-		JPanel northPanel = new JPanel(new BorderLayout());
+		// === PANEL NORTE: Información ===
+		JLabel infoLabel = new JLabel(
+				"<html><center>Ha entrado en el proceso de compra<br>CERRAR VENTA para finalizar - VOLVER para salir</center></html>");
+		infoLabel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+		add(infoLabel, BorderLayout.NORTH);
 
+		// === PANEL CENTRO: Tabla de productos + Botones añadir/eliminar ===
+		JPanel centerPanel = new JPanel(new BorderLayout(5, 5));
+
+		// Tabla de productos
+		JTable tabla = new JTable(tableModel);
+		tabla.setFillsViewportHeight(true);
+		JScrollPane scrollTabla = new JScrollPane(tabla);
+		scrollTabla.setBorder(BorderFactory.createTitledBorder("Lista de productos"));
+		centerPanel.add(scrollTabla, BorderLayout.CENTER);
+
+		// Botones de añadir/eliminar producto
+		JPanel botonesProductoPanel = new JPanel(new GridLayout(1, 2, 10, 10));
+		botonesProductoPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+
+		JButton anadirButton = new JButton("Añadir producto");
+		anadirButton.setBackground(new Color(200, 255, 200));
+		anadirButton.addActionListener(e -> onAnadir());
+		botonesProductoPanel.add(anadirButton);
+
+		JButton eliminarButton = new JButton("Eliminar producto");
+		eliminarButton.setBackground(new Color(255, 200, 200));
+		eliminarButton.addActionListener(e -> onEliminar());
+		botonesProductoPanel.add(eliminarButton);
+
+		centerPanel.add(botonesProductoPanel, BorderLayout.SOUTH);
+
+		add(centerPanel, BorderLayout.CENTER);
+
+		// === PANEL SUR: Datos de la venta + Botones cerrar/volver ===
+		JPanel southPanel = new JPanel(new BorderLayout(5, 5));
+		southPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+
+		// Datos de la venta
 		JPanel camposPanel = new JPanel(new GridLayout(3, 2, 5, 5));
 		camposPanel.setBorder(BorderFactory.createTitledBorder("Datos de la venta"));
 		camposPanel.add(new JLabel("ID Cliente:"));
@@ -73,39 +110,27 @@ public class VCerrarVenta extends JFrame implements IGUI {
 		camposPanel.add(metodoPagoField);
 		camposPanel.add(new JLabel("Descuento (EUR):"));
 		camposPanel.add(descuentoField);
-		northPanel.add(camposPanel, BorderLayout.CENTER);
+		southPanel.add(camposPanel, BorderLayout.CENTER);
 
-		add(northPanel, BorderLayout.NORTH);
-
-		JTable tabla = new JTable(tableModel);
-		tabla.setFillsViewportHeight(true);
-		add(new JScrollPane(tabla), BorderLayout.CENTER);
-
-		JPanel botonesPanel = new JPanel(new GridLayout(2, 2, 10, 10));
-
-		JButton anadirButton = new JButton("Añadir producto");
-		anadirButton.setBackground(new Color(200, 255, 200));
-		anadirButton.addActionListener(e -> onAnadir());
-		botonesPanel.add(anadirButton);
-
-		JButton eliminarButton = new JButton("Eliminar producto");
-		eliminarButton.setBackground(new Color(255, 200, 200));
-		eliminarButton.addActionListener(e -> onEliminar());
-		botonesPanel.add(eliminarButton);
+		// Botones de cerrar venta y volver
+		JPanel botonesFinalesPanel = new JPanel(new GridLayout(1, 2, 10, 10));
+		botonesFinalesPanel.setBorder(BorderFactory.createEmptyBorder(5, 0, 0, 0));
 
 		JButton cerrarButton = new JButton("Cerrar venta");
 		cerrarButton.setBackground(new Color(200, 255, 200));
 		cerrarButton.addActionListener(e -> onCerrar());
-		botonesPanel.add(cerrarButton);
+		botonesFinalesPanel.add(cerrarButton);
 
 		JButton volverButton = new JButton("Volver");
 		volverButton.setBackground(new Color(255, 220, 220));
 		volverButton.addActionListener(e -> volver());
-		botonesPanel.add(volverButton);
+		botonesFinalesPanel.add(volverButton);
 
-		add(botonesPanel, BorderLayout.SOUTH);
+		southPanel.add(botonesFinalesPanel, BorderLayout.SOUTH);
 
-		setSize(550, 500);
+		add(southPanel, BorderLayout.SOUTH);
+
+		setSize(550, 600);
 		setLocationRelativeTo(null);
 	}
 

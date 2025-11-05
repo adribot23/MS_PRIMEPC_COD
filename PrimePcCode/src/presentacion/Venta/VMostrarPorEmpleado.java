@@ -3,6 +3,7 @@ package presentacion.Venta;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.awt.Window;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.Collection;
@@ -142,6 +143,15 @@ public class VMostrarPorEmpleado extends JFrame implements IGUI {
 		return Collections.emptyList();
 	}
 
+	private VMostrarPorEmpleado obtenerVentanaOriginal() {
+		for (Window window : Window.getWindows()) {
+			if (window instanceof VMostrarPorEmpleado && window.isVisible() && window != this) {
+				return (VMostrarPorEmpleado) window;
+			}
+		}
+		return null;
+	}
+
 	@Override
 	public void actualizar(Context context) {
 		if (context == null || context.getEvento() == null) {
@@ -157,15 +167,30 @@ public class VMostrarPorEmpleado extends JFrame implements IGUI {
 			setVisible(true);
 			break;
 		case RES_MOSTRAR_VENTAS_POR_EMPLEADO_OK:
-			actualizarTabla(datos);
-			setVisible(true);
-			if (tableModel.getRowCount() == 0) {
-				JOptionPane.showMessageDialog(this, "El empleado no tiene ventas registradas.");
+			VMostrarPorEmpleado ventanaOriginal = obtenerVentanaOriginal();
+			if (ventanaOriginal != null) {
+				ventanaOriginal.actualizarTabla(datos);
+				dispose();
+				if (ventanaOriginal.tableModel.getRowCount() == 0) {
+					JOptionPane.showMessageDialog(ventanaOriginal, "El empleado no tiene ventas registradas.");
+				}
+			} else {
+				actualizarTabla(datos);
+				setVisible(true);
+				if (tableModel.getRowCount() == 0) {
+					JOptionPane.showMessageDialog(this, "El empleado no tiene ventas registradas.");
+				}
 			}
 			break;
 		case RES_MOSTRAR_VENTAS_POR_EMPLEADO_KO:
-			JOptionPane.showMessageDialog(this, "No se pudieron recuperar las ventas del empleado.");
-			setVisible(true);
+			VMostrarPorEmpleado ventanaOriginalKO = obtenerVentanaOriginal();
+			if (ventanaOriginalKO != null) {
+				dispose();
+				JOptionPane.showMessageDialog(ventanaOriginalKO, "No se pudieron recuperar las ventas del empleado.");
+			} else {
+				JOptionPane.showMessageDialog(this, "No se pudieron recuperar las ventas del empleado.");
+				setVisible(true);
+			}
 			break;
 		default:
 			break;

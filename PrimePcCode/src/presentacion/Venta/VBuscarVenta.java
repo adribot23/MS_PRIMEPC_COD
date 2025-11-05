@@ -3,6 +3,7 @@ package presentacion.Venta;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.awt.Window;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.Iterator;
@@ -104,6 +105,15 @@ public class VBuscarVenta extends JFrame implements IGUI {
 		resultadoArea.setText("");
 	}
 
+	private VBuscarVenta obtenerVentanaOriginal() {
+		for (Window window : Window.getWindows()) {
+			if (window instanceof VBuscarVenta && window.isVisible() && window != this) {
+				return (VBuscarVenta) window;
+			}
+		}
+		return null;
+	}
+
 	@Override
 	public void actualizar(Context context) {
 		if (context == null || context.getEvento() == null) {
@@ -119,13 +129,26 @@ public class VBuscarVenta extends JFrame implements IGUI {
 			setVisible(true);
 			break;
 		case RES_BUSCAR_VENTA_OK:
-			String factura = rellenarFactura(datos);
-			resultadoArea.setText(factura);
-			setVisible(true);
+			VBuscarVenta ventanaOriginal = obtenerVentanaOriginal();
+			if (ventanaOriginal != null) {
+				String factura = rellenarFactura(datos);
+				ventanaOriginal.resultadoArea.setText(factura);
+				dispose();
+			} else {
+				String factura = rellenarFactura(datos);
+				resultadoArea.setText(factura);
+				setVisible(true);
+			}
 			break;
 		case RES_BUSCAR_VENTA_KO:
-			JOptionPane.showMessageDialog(this, "Venta no encontrada.");
-			setVisible(true);
+			VBuscarVenta ventanaOriginalKO = obtenerVentanaOriginal();
+			if (ventanaOriginalKO != null) {
+				dispose();
+				JOptionPane.showMessageDialog(ventanaOriginalKO, "Venta no encontrada.");
+			} else {
+				JOptionPane.showMessageDialog(this, "Venta no encontrada.");
+				setVisible(true);
+			}
 			break;
 		default:
 			break;

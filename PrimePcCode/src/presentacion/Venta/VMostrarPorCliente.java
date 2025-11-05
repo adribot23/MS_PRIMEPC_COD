@@ -3,6 +3,7 @@ package presentacion.Venta;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.awt.Window;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.Collection;
@@ -142,6 +143,15 @@ public class VMostrarPorCliente extends JFrame implements IGUI {
 		return Collections.emptyList();
 	}
 
+	private VMostrarPorCliente obtenerVentanaOriginal() {
+		for (Window window : Window.getWindows()) {
+			if (window instanceof VMostrarPorCliente && window.isVisible() && window != this) {
+				return (VMostrarPorCliente) window;
+			}
+		}
+		return null;
+	}
+
 	@Override
 	public void actualizar(Context context) {
 		if (context == null || context.getEvento() == null) {
@@ -157,15 +167,30 @@ public class VMostrarPorCliente extends JFrame implements IGUI {
 			setVisible(true);
 			break;
 		case RES_MOSTRAR_VENTAS_POR_CLIENTE_OK:
-			actualizarTabla(datos);
-			setVisible(true);
-			if (tableModel.getRowCount() == 0) {
-				JOptionPane.showMessageDialog(this, "El cliente no tiene ventas registradas.");
+			VMostrarPorCliente ventanaOriginal = obtenerVentanaOriginal();
+			if (ventanaOriginal != null) {
+				ventanaOriginal.actualizarTabla(datos);
+				dispose();
+				if (ventanaOriginal.tableModel.getRowCount() == 0) {
+					JOptionPane.showMessageDialog(ventanaOriginal, "El cliente no tiene ventas registradas.");
+				}
+			} else {
+				actualizarTabla(datos);
+				setVisible(true);
+				if (tableModel.getRowCount() == 0) {
+					JOptionPane.showMessageDialog(this, "El cliente no tiene ventas registradas.");
+				}
 			}
 			break;
 		case RES_MOSTRAR_VENTAS_POR_CLIENTE_KO:
-			setVisible(true);
-			JOptionPane.showMessageDialog(this, "No se pudieron recuperar las ventas del cliente.");
+			VMostrarPorCliente ventanaOriginalKO = obtenerVentanaOriginal();
+			if (ventanaOriginalKO != null) {
+				dispose();
+				JOptionPane.showMessageDialog(ventanaOriginalKO, "No se pudieron recuperar las ventas del cliente.");
+			} else {
+				JOptionPane.showMessageDialog(this, "No se pudieron recuperar las ventas del cliente.");
+				setVisible(true);
+			}
 			break;
 		default:
 			break;
