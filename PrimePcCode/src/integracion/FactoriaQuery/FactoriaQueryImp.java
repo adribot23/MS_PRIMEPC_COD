@@ -11,11 +11,10 @@ public class FactoriaQueryImp extends FactoriaQuery {
             return new CalcularElImporteTotalDelEmpleadoQueMasHaVendidoUnProducto();
 
         case "CalcularProveedorMasUnidades":
-            return new ObtenerElProveedorQueMasUnidadesHaSuministradoDeUnProducto();
+            return new ObtenerElProveedorQueMasUnidadesHaSuministradoDeCualquierProducto();
 
         default:
             return null;
         }
     }
 }
-

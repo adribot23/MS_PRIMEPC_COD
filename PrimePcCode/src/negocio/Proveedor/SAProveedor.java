@@ -92,5 +92,5 @@ public interface SAProveedor {
 	 */
 	public Set<TProveedor> leerTodosProveedores();
 
-	public TProveedor proveedorConMasUnidadesDeProductoVendidas(int idProducto);
+	public int proveedorConMasUnidadesDeProductoVendidas(int idProducto);
 }
