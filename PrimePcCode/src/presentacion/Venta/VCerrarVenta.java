@@ -15,6 +15,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import negocio.Venta.TCarrito;
@@ -31,6 +32,9 @@ public class VCerrarVenta extends JFrame implements IGUI {
 
 	private final DefaultTableModel tableModel;
 	private TCarrito carrito;
+	private final JTextField idClienteField = new JTextField(10);
+	private final JTextField metodoPagoField = new JTextField(10);
+	private final JTextField descuentoField = new JTextField(10);
 
 	public VCerrarVenta() {
 		super("Cerrar venta");
@@ -59,9 +63,22 @@ public class VCerrarVenta extends JFrame implements IGUI {
 		getRootPane().setBorder(BorderFactory.createTitledBorder("Cerrar venta"));
 		setLayout(new BorderLayout(10, 10));
 
+		JPanel northPanel = new JPanel(new BorderLayout());
 		JLabel infoLabel = new JLabel(
 				"<html><center>Ha entrado en el proceso de compra<br>CERRAR VENTA para finalizar - VOLVER para salir</center></html>");
-		add(infoLabel, BorderLayout.NORTH);
+		northPanel.add(infoLabel, BorderLayout.NORTH);
+
+		JPanel camposPanel = new JPanel(new GridLayout(3, 2, 5, 5));
+		camposPanel.setBorder(BorderFactory.createTitledBorder("Datos de la venta"));
+		camposPanel.add(new JLabel("ID Cliente:"));
+		camposPanel.add(idClienteField);
+		camposPanel.add(new JLabel("Metodo de pago:"));
+		camposPanel.add(metodoPagoField);
+		camposPanel.add(new JLabel("Descuento (EUR):"));
+		camposPanel.add(descuentoField);
+		northPanel.add(camposPanel, BorderLayout.CENTER);
+
+		add(northPanel, BorderLayout.NORTH);
 
 		JTable tabla = new JTable(tableModel);
 		tabla.setFillsViewportHeight(true);
@@ -91,7 +108,7 @@ public class VCerrarVenta extends JFrame implements IGUI {
 
 		add(botonesPanel, BorderLayout.SOUTH);
 
-		setSize(500, 400);
+		setSize(550, 500);
 		setLocationRelativeTo(null);
 	}
 
@@ -111,14 +128,68 @@ public class VCerrarVenta extends JFrame implements IGUI {
 
 	private void onCerrar() {
 		if (carrito != null) {
-			Controlador.getInstancia().accion(new Context(Evento.CERRAR_VENTA, carrito));
-			dispose();
+			try {
+				int idCliente = parseEnteroPositivo(idClienteField.getText(), "ID Cliente");
+				String metodoPago = parseString(metodoPagoField.getText(), "Metodo de pago");
+				double descuento = parseDecimalPositivo(descuentoField.getText(), "Descuento");
+
+				TVenta venta = carrito.getVenta();
+				if (venta == null) {
+					venta = new TVenta();
+				}
+				venta.setIdCliente(idCliente);
+				venta.setMetodoPago(metodoPago);
+				venta.setDescuento(descuento);
+				carrito.setVenta(venta);
+
+				Controlador.getInstancia().accion(new Context(Evento.CERRAR_VENTA, carrito));
+				dispose();
+			} catch (IllegalArgumentException ex) {
+				JOptionPane.showMessageDialog(this, ex.getMessage(), "Datos incorrectos", JOptionPane.ERROR_MESSAGE);
+			}
 		}
 	}
 
 	private void volver() {
 		Controlador.getInstancia().accion(new Context(Evento.VENTA, null));
 		dispose();
+	}
+
+	private int parseEnteroPositivo(String value, String campo) {
+		try {
+			int numero = Integer.parseInt(value.trim());
+			if (numero <= 0) {
+				throw new NumberFormatException();
+			}
+			return numero;
+		} catch (NumberFormatException e) {
+			throw new IllegalArgumentException(campo + " debe ser un numero entero positivo.");
+		}
+	}
+
+	private String parseString(String value, String campo) {
+		if (value == null || value.trim().isEmpty()) {
+			throw new IllegalArgumentException(campo + " no puede estar vacio.");
+		}
+		return value.trim();
+	}
+
+	private double parseDecimalPositivo(String value, String campo) {
+		try {
+			double numero = Double.parseDouble(value.trim());
+			if (numero < 0) {
+				throw new IllegalArgumentException(campo + " debe ser un numero positivo o cero.");
+			}
+			return numero;
+		} catch (NumberFormatException e) {
+			throw new IllegalArgumentException(campo + " debe ser un numero decimal valido.");
+		}
+	}
+
+	private void limpiarCampos() {
+		idClienteField.setText("");
+		metodoPagoField.setText("");
+		descuentoField.setText("");
 	}
 
 	@Override
@@ -133,12 +204,14 @@ public class VCerrarVenta extends JFrame implements IGUI {
 		switch (evento) {
 		case VCERRAR_VENTA:
 			tableModel.setRowCount(0);
+			limpiarCampos();
 			setVisible(true);
 			break;
 		case RES_PASAR_CARRITO_A_CERRAR_OK:
 			if (datos instanceof TCarrito) {
 				carrito = (TCarrito) datos;
 				actualizarTabla();
+				limpiarCampos();
 				setVisible(true);
 			}
 			break;
