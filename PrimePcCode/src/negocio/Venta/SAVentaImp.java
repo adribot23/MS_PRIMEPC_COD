@@ -495,9 +495,13 @@ public class SAVentaImp implements SAVenta {
 			if (empleado != null && empleado.getActivo() == 1) {
 
 				ventaExistente.setIdEmpleado(venta.getIdEmpleado());
+				ventaExistente.setIdCliente(venta.getIdCliente());
+				ventaExistente.setMetodoPago(venta.getMetodoPago());
+				ventaExistente.setPrecio(venta.getPrecio());
+				ventaExistente.setDescuento(venta.getDescuento());
 				res = daoVenta.update(ventaExistente);
 
-					if (res == -1) {
+					if (res != -1) {
 						tr.commit();
 					}
 
