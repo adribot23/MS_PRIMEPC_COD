@@ -31,7 +31,7 @@ public class CalcularElImporteTotalDelEmpleadoQueMasHaVendidoUnProducto implemen
                     "    GROUP BY v_in.ID_EMPLEADO " +
                     "    ORDER BY SUM(lv_in.NUM_UNIDADES * lv_in.PRECIO_UNIDADES) DESC " +
                     "    LIMIT 1" +
-                    ") AND lv.ID_PRODUCTO = ? AND v.ACTIVO = 1 FOR UPDATE";
+                    ") AND lv.ID_PRODUCTO = ? AND v.ACTIVO = 1";
 
             PreparedStatement statement = c.prepareStatement(query);
             statement.setInt(1, idProducto);
