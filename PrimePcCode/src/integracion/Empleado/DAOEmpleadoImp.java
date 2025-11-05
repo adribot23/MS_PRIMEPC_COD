@@ -10,6 +10,9 @@ import java.util.Set;
 
 import integracion.Transaction.TManager;
 import integracion.Transaction.Transaction;
+import negocio.Cliente.TCliente;
+import negocio.Cliente.TClienteNoSocio;
+import negocio.Cliente.TClienteSocio;
 import negocio.Empleado.TEmpleado;
 import negocio.Empleado.TEmpleadoCompleto;
 import negocio.Empleado.TEmpleadoParcial;
@@ -125,19 +128,33 @@ public class DAOEmpleadoImp implements DAOEmpleado {
 
     @Override
     public int update(TEmpleado empleado) {
-        int filasAfectadas = 0;
+        int exito = -1;
         TManager tManager = TManager.getInstance();
         Transaction t = tManager.getTransaction();
         Connection c = (Connection) t.getResource();
 
         try {
+        	TEmpleado empleadoActual = read(empleado.getId());
+            if (empleadoActual == null) {
+                return -1;
+            }
+
+            boolean tipoDiferente =
+                    (empleadoActual instanceof TEmpleadoCompleto && empleado instanceof TEmpleadoParcial)
+                            || (empleadoActual instanceof TEmpleadoParcial && empleado instanceof TEmpleadoCompleto);
+
+            if (tipoDiferente) {
+                System.err.println("No se puede cambiar el tipo de empleado.");
+                return -1;
+            }
+        	
             String updateSql = "UPDATE EMPLEADO SET DNI = ?, NOMBRE = ?, TELEFONO = ?, ACTIVO = 1 WHERE ID = ?";
             PreparedStatement updatePs = c.prepareStatement(updateSql);
             updatePs.setString(1, empleado.getDni());
             updatePs.setString(2, empleado.getNombre());
             updatePs.setString(3, empleado.getTelefono());
             updatePs.setInt(4, empleado.getId());
-            filasAfectadas += updatePs.executeUpdate();
+            exito = updatePs.executeUpdate();
             updatePs.close();
 
             if (empleado instanceof TEmpleadoCompleto) {
@@ -146,22 +163,22 @@ public class DAOEmpleadoImp implements DAOEmpleado {
                 PreparedStatement psCompleto = c.prepareStatement(updateCompletoSql);
                 psCompleto.setInt(1, completo.getHorasExtra());
                 psCompleto.setInt(2, completo.getId());
-                filasAfectadas += psCompleto.executeUpdate();
                 psCompleto.close();
+                exito = completo.getId();
             } else if (empleado instanceof TEmpleadoParcial) {
                 TEmpleadoParcial parcial = (TEmpleadoParcial) empleado;
                 String updateParcialSql = "UPDATE PARCIAL SET HORAS_SEMANALES = ? WHERE ID = ?";
                 PreparedStatement psParcial = c.prepareStatement(updateParcialSql);
                 psParcial.setInt(1, parcial.getHorasSemanales());
                 psParcial.setInt(2, parcial.getId());
-                filasAfectadas += psParcial.executeUpdate();
                 psParcial.close();
+                exito = parcial.getId();
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return filasAfectadas;
+        return exito;
     }
 
     @Override
