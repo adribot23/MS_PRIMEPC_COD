@@ -25,7 +25,7 @@ public class SAVentaImp implements SAVenta {
 		
 		TEmpleado empleado = daoEmp.read(idEmpleado);
 		
-		if (empleado != null) {
+		if (empleado != null && empleado.getActivo() == 1) {
 
 		TCarrito carrito = new TCarrito();
 
