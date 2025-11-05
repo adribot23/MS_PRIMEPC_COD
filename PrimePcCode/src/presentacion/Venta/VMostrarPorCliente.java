@@ -158,14 +158,14 @@ public class VMostrarPorCliente extends JFrame implements IGUI {
 			break;
 		case RES_MOSTRAR_VENTAS_POR_CLIENTE_OK:
 			actualizarTabla(datos);
+			setVisible(true);
 			if (tableModel.getRowCount() == 0) {
 				JOptionPane.showMessageDialog(this, "El cliente no tiene ventas registradas.");
 			}
-			dispose();
 			break;
 		case RES_MOSTRAR_VENTAS_POR_CLIENTE_KO:
+			setVisible(true);
 			JOptionPane.showMessageDialog(this, "No se pudieron recuperar las ventas del cliente.");
-			dispose();
 			break;
 		default:
 			break;
