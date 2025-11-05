@@ -138,15 +138,6 @@ public class DAOEmpleadoImp implements DAOEmpleado {
             if (empleadoActual == null) {
                 return -1;
             }
-
-            boolean tipoDiferente =
-                    (empleadoActual instanceof TEmpleadoCompleto && empleado instanceof TEmpleadoParcial)
-                            || (empleadoActual instanceof TEmpleadoParcial && empleado instanceof TEmpleadoCompleto);
-
-            if (tipoDiferente) {
-                System.err.println("No se puede cambiar el tipo de empleado.");
-                return -1;
-            }
         	
             String updateSql = "UPDATE EMPLEADO SET DNI = ?, NOMBRE = ?, TELEFONO = ?, ACTIVO = 1 WHERE ID = ?";
             PreparedStatement updatePs = c.prepareStatement(updateSql);
