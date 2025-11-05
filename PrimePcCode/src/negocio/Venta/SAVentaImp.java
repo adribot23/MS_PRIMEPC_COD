@@ -82,8 +82,19 @@ public class SAVentaImp implements SAVenta {
 
 	@Override
 	public int insertarProductoCarrito(TCarrito carrito) {
-
+		
+		TManager tm = TManager.getInstance();
+		Transaction tr = tm.createTransaction();
+		
+		if (tr != null) {
+			
+		DAOProducto daoProd = DAOAbstractFactory.getInstancia().generaDAOProducto();
+		
 		int idProducto = carrito.getidProducto();
+		
+		TProducto producto = daoProd.read(idProducto);
+		
+		if (producto != null && producto.getActivo() == 1) {
 
 		int cantidad = carrito.getcantidadProducto();
 
@@ -107,6 +118,14 @@ public class SAVentaImp implements SAVenta {
 
 			lineasVenta.add(lineaVenta);
 
+		}
+		tr.commit();
+		}
+		
+		else {
+			tr.rollback();
+		}
+		
 		}
 
 		return 1;
