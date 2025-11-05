@@ -38,27 +38,60 @@ public class VModificarCliente extends JFrame implements IGUI {
 	}
 	
 	public void initGUI() {
-		setLayout(new GridLayout(5, 1, 10, 10));
+		setLayout(new GridLayout(6, 1, 10, 10));
 		getRootPane().setBorder(BorderFactory.createTitledBorder("Modificar Cliente"));
 
 		JTextField modificarID = new JTextField();
 		JTextField modificarNombre = new JTextField();
 		JTextField modificarDNI = new JTextField();
+
+		JLabel lblPuntos = new JLabel("Puntos:");
 		JTextField modificarPuntos = new JTextField();
+		
+		JRadioButton rdbSocio = new JRadioButton("Socio");
+        JRadioButton rdbNosocio = new JRadioButton("No socio");
+        ButtonGroup grupoTipo = new ButtonGroup();
+        grupoTipo.add(rdbSocio);
+        grupoTipo.add(rdbNosocio);
+        rdbSocio.setSelected(true);
 
-		JLabel lblPuntos = new JLabel("Puntos / Número de Visitas:");
-
+        JPanel tipoPanel = new JPanel(new GridLayout(1, 2));
+        tipoPanel.add(rdbSocio);
+        tipoPanel.add(rdbNosocio);
+        
+        rdbSocio.addActionListener(e -> lblPuntos.setText("Puntos:"));
+        rdbNosocio.addActionListener(e -> lblPuntos.setText("Numero de Visitas:"));
+        
 		JButton btnModificar = new JButton("Modificar");
 		btnModificar.setBackground(new Color(200, 255, 200));
 		btnModificar.addActionListener(e -> {
 			try {
-				int id = Integer.parseInt(modificarID.getText());
-				String nombre = modificarNombre.getText();
-				String dni = modificarDNI.getText();
-				int puntosVisitas = Integer.parseInt(modificarPuntos.getText());
-				TCliente cliente = new TCliente(id, nombre, dni, puntosVisitas);
+				int id = Integer.parseInt(modificarID.getText().trim());
+				String nombre = modificarNombre.getText().trim();
+				String dni = modificarDNI.getText().trim();
+				int puntosVisitas = Integer.parseInt(modificarPuntos.getText().trim());
+
+				if (nombre.isEmpty() || dni.isEmpty()) {
+					JOptionPane.showMessageDialog(this, "Todos los campos deben estar rellenados.");
+                    return;
+				}
+				
+				TCliente cliente;
+				if(rdbSocio.isSelected()) {
+					cliente = new TClienteSocio(id, nombre, dni, puntosVisitas);
+				} else {
+					cliente = new TClienteNoSocio(id, nombre, dni, puntosVisitas);
+				}
+				
 
 				Controlador.getInstancia().accion(new Context(Evento.MODIFICAR_CLIENTE, cliente));
+				modificarID.setText("");
+				modificarNombre.setText("");
+				modificarDNI.setText("");
+				modificarPuntos.setText("");
+				lblPuntos.setText("Puntos:");
+				rdbSocio.setSelected(true);
+				
 			} catch (NumberFormatException ex) {
 				JOptionPane.showMessageDialog(this, "ID y Puntos/Visitas deben ser números.");
 			}
@@ -77,6 +110,7 @@ public class VModificarCliente extends JFrame implements IGUI {
 		add(modificarNombre);
 		add(new JLabel("DNI:"));
 		add(modificarDNI);
+		add(new JLabel("Tipo de Cliente:")); add(tipoPanel);
 		add(lblPuntos);
 		add(modificarPuntos);
 		add(btnModificar);
