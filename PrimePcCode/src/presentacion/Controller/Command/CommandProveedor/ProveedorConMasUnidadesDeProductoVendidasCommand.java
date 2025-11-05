@@ -10,10 +10,12 @@ public class ProveedorConMasUnidadesDeProductoVendidasCommand implements Command
 
 	@Override
 	public Context execute(Object data) {
-		TProveedor proveedor = SAAbstractFactory.getInstancia().generarSAProveedor()
-				.proveedorConMasUnidadesDeProductoVendidas((int) data);
-		if (proveedor != null)
-			return new Context(Evento.RES_PROVEEDOR_CON_MAS_UDS_OK, proveedor);
+		Integer idProducto = (Integer) data;
+		
+		int id_proveedor = SAAbstractFactory.getInstancia().generarSAProveedor()
+				.proveedorConMasUnidadesDeProductoVendidas(idProducto);
+		if (id_proveedor > 0)
+			return new Context(Evento.RES_PROVEEDOR_CON_MAS_UDS_OK, id_proveedor);
 		else
 			return new Context(Evento.RES_PROVEEDOR_CON_MAS_UDS_KO, null);
 	}

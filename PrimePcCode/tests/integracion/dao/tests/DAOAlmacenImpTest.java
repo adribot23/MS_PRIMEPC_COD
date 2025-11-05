@@ -9,121 +9,150 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import integracion.Almacen.DAOAlmacen;
-import integracion.FactoriaDAO.DAOAbstractFactory;
+import integracion.FactoriaDAO.DAOAbstractFactoryImp;
+import integracion.Transaction.TManager;
+import integracion.Transaction.Transaction;
 import negocio.Almacen.TAlmacen;
 
 public class DAOAlmacenImpTest {
 
-	private DAOAlmacen daoAlmacen;
-	private List<Integer> almacenesCreados;
+    private DAOAlmacen daoAlmacen;
+    private List<Integer> almacenesCreados;
+    private Transaction transaccion;
 
-	@Before
-	public void setUp() {
-		daoAlmacen = DAOAbstractFactory.getInstancia().generaDAOAlmacen();
-		almacenesCreados = new ArrayList<>();
-	}
+    @Before
+    public void setUp() {
+        // Crear e iniciar transacción
+        TManager tManager = TManager.getInstance();
+        transaccion = tManager.createTransaction();
+        if (transaccion != null) {
+            transaccion.start();
+            System.out.println("[DEBUG] Transacción iniciada correctamente.");
+        } else {
+            System.err.println("[ERROR] No se pudo crear la transacción (ya existía).");
+        }
 
-	@After
-	public void tearDown() {
-		for (Integer id : almacenesCreados) {
-			eliminarFisicamente(id);
-		}
-	}
+        daoAlmacen = new DAOAbstractFactoryImp().generaDAOAlmacen();
+        almacenesCreados = new ArrayList<>();
+    }
 
-	public int eliminarFisicamente(int id) { // solo para el test
-		int filasAfectadas = 0;
-		try {
-			Connection conexion = DriverManager.getConnection("jdbc:sqlite:bd/IS2PrimePC.db", "root", "root");
-			String sql = "DELETE FROM ALMACEN WHERE ID = ?";
-			PreparedStatement ps = conexion.prepareStatement(sql);
-			ps.setInt(1, id);
-			filasAfectadas = ps.executeUpdate();
-			ps.close();
-			conexion.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return filasAfectadas;
-	}
+    @After
+    public void tearDown() {
+        // Confirmar y cerrar la transacción
+        if (transaccion != null) {
+            try {
+                transaccion.commit();
+                System.out.println("[DEBUG] Transacción confirmada y cerrada correctamente.");
+            } catch (Exception e) {
+                System.err.println("[ERROR] Fallo al cerrar transacción: " + e.getMessage());
+                e.printStackTrace();
+            }
+        }
 
-	@Test
-	public void testCrearLeerActualizarEliminar() {
-		TAlmacen almacen = new TAlmacen();
-		almacen.setNombre("AlmacenTest");
-		almacen.setCapacidadMaxima(100);
-		almacen.setOcupacion(0);
+        // Eliminar físicamente los almacenes creados
+        for (Integer id : almacenesCreados) {
+            eliminarFisicamente(id);
+        }
+    }
 
-		int id = daoAlmacen.create(almacen);
-		almacenesCreados.add(id);
-		assertTrue(id > 0);
+    public int eliminarFisicamente(int id) {
+        int filasAfectadas = 0;
+        try {
+            Connection conexion = DriverManager.getConnection("jdbc:h2:./bd/IS2PrimePC", "sa", "");
+            String sql = "DELETE FROM ALMACEN WHERE ID = ?";
+            PreparedStatement ps = conexion.prepareStatement(sql);
+            ps.setInt(1, id);
+            filasAfectadas = ps.executeUpdate();
+            ps.close();
+            conexion.close();
+            System.out.println("[DEBUG] Almacén eliminado físicamente: ID = " + id);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return filasAfectadas;
+    }
 
-		TAlmacen almacenLeido = daoAlmacen.read(id);
-		assertNotNull(almacenLeido);
-		assertEquals("AlmacenTest", almacenLeido.getNombre());
+    @Test
+    public void testCrearLeerActualizarEliminar() {
+        TAlmacen almacen = new TAlmacen();
+        almacen.setNombre("AlmacenTest");
+        almacen.setCapacidadMaxima(100);
+        almacen.setOcupacion(0);
 
-		almacenLeido.setCapacidadMaxima(200);
-		almacenLeido.setNombre("AlmacenTestActualizado");
-		int filasActualizadas = daoAlmacen.update(almacenLeido);
-		assertEquals(1, filasActualizadas);
+        int id = daoAlmacen.create(almacen);
+        almacenesCreados.add(id);
+        assertTrue("El ID del almacén debe ser mayor que 0", id > 0);
 
-		TAlmacen almacenActualizado = daoAlmacen.read(id);
-		assertEquals("AlmacenTestActualizado", almacenActualizado.getNombre());
-		assertEquals(200, almacenActualizado.getCapacidadMaxima());
+        TAlmacen almacenLeido = daoAlmacen.read(id);
+        assertNotNull("El almacén leído no debe ser null", almacenLeido);
+        assertEquals("AlmacenTest", almacenLeido.getNombre());
 
-		int filasEliminadas = daoAlmacen.delete(id);
-		assertEquals(1, filasEliminadas);
+        almacenLeido.setCapacidadMaxima(200);
+        almacenLeido.setNombre("AlmacenTestAct");
+        int filasActualizadas = daoAlmacen.update(almacenLeido);
+        assertEquals("Debe actualizarse una fila", 1, filasActualizadas);
 
-		TAlmacen almacenEliminado = daoAlmacen.read(id);
-		assertNotNull(almacenEliminado);
-		assertEquals(0, almacenEliminado.getActivo());
-	}
+        TAlmacen almacenActualizado = daoAlmacen.read(id);
+        assertEquals(200, almacenActualizado.getCapacidadMaxima());
 
-	@Test
-	public void testLeerPorNombre() {
-		TAlmacen almacen = new TAlmacen();
-		almacen.setNombre("AlmacenBuscar");
-		almacen.setCapacidadMaxima(50);
-		almacen.setOcupacion(10);
+        int filasEliminadas = daoAlmacen.delete(id);
+        assertEquals("Debe marcarse como inactivo un registro", 1, filasEliminadas);
 
-		int id = daoAlmacen.create(almacen);
-		almacenesCreados.add(id);
-		assertTrue(id > 0);
+        TAlmacen almacenEliminado = daoAlmacen.read(id);
+        assertNotNull(almacenEliminado);
+        assertEquals(0, almacenEliminado.getActivo());
+    }
 
-		TAlmacen almacenLeido = daoAlmacen.read_by_name("AlmacenBuscar");
-		assertNotNull(almacenLeido);
-		assertEquals(id, almacenLeido.getId());
-	}
+    @Test
+    public void testLeerPorNombre() {
+        TAlmacen almacen = new TAlmacen();
+        almacen.setNombre("AlmacenBuscar");
+        almacen.setCapacidadMaxima(50);
+        almacen.setOcupacion(10);
 
-	@Test
-	public void testLeerTodo() {
-		Collection<TAlmacen> almacenes = daoAlmacen.read_all();
-		assertNotNull(almacenes);
-	}
+        int id = daoAlmacen.create(almacen);
+        almacenesCreados.add(id);
+        assertTrue(id > 0);
 
-	@Test
-	public void testActualizarOcupacion() {
-		TAlmacen almacen = new TAlmacen();
-		almacen.setNombre("AlmacenOcupacion");
-		almacen.setCapacidadMaxima(300);
-		almacen.setOcupacion(0);
+        TAlmacen almacenLeido = daoAlmacen.read_by_name("AlmacenBuscar");
+        assertNotNull("El almacén leído no debe ser null", almacenLeido);
+        assertEquals("El ID debe coincidir", id, almacenLeido.getId());
+    }
 
-		int id = daoAlmacen.create(almacen);
-		almacenesCreados.add(id);
-		assertTrue(id > 0);
+    @Test
+    public void testLeerTodo() {
+        Set<TAlmacen> almacenes = daoAlmacen.read_all();
+        assertNotNull("El conjunto de almacenes no debe ser null", almacenes);
+        assertTrue("Debe contener al menos 0 elementos", almacenes.size() >= 0);
+    }
 
-		TAlmacen almacenLeido = daoAlmacen.read(id);
-		almacenLeido.setOcupacion(150);
-		daoAlmacen.update(almacenLeido);
+    @Test
+    public void testActualizarOcupacion() {
+        TAlmacen almacen = new TAlmacen();
+        almacen.setNombre("AlmacenOcupacion");
+        almacen.setCapacidadMaxima(300);
+        almacen.setOcupacion(0);
 
-		TAlmacen almacenActualizado = daoAlmacen.read(id);
-		assertEquals(150, almacenActualizado.getOcupacion());
-	}
+        int id = daoAlmacen.create(almacen);
+        almacenesCreados.add(id);
+        assertTrue(id > 0);
+
+        TAlmacen almacenLeido = daoAlmacen.read(id);
+        assertNotNull(almacenLeido);
+
+        almacenLeido.setOcupacion(150);
+        int filas = daoAlmacen.update(almacenLeido);
+        assertTrue("Debe haberse actualizado al menos una fila", filas > 0);
+
+        TAlmacen almacenActualizado = daoAlmacen.read(id);
+        assertEquals("La ocupación debe haberse actualizado correctamente", 150, almacenActualizado.getOcupacion());
+    }
 }

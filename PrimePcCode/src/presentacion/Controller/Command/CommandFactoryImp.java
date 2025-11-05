@@ -14,6 +14,7 @@ import presentacion.Controller.Command.CommandCliente.MostrarClientesCommand;
 import presentacion.Controller.Command.CommandEmpleado.AltaEmpleadoCommand;
 import presentacion.Controller.Command.CommandEmpleado.BajaEmpleadoCommand;
 import presentacion.Controller.Command.CommandEmpleado.BuscarEmpleadoCommand;
+import presentacion.Controller.Command.CommandEmpleado.CalcularMasVendidoCommand;
 import presentacion.Controller.Command.CommandEmpleado.ModificarEmpleadoCommand;
 import presentacion.Controller.Command.CommandEmpleado.MostrarEmpleadosCommand;
 import presentacion.Controller.Command.CommandProducto.AltaProductoCommand;
@@ -29,6 +30,7 @@ import presentacion.Controller.Command.CommandProveedor.BuscarProveedorCommand;
 import presentacion.Controller.Command.CommandProveedor.DesvincularProveedorProductoCommand;
 import presentacion.Controller.Command.CommandProveedor.ModificarProveedorCommand;
 import presentacion.Controller.Command.CommandProveedor.MostrarProveedoresCommand;
+import presentacion.Controller.Command.CommandProveedor.ProveedorConMasUnidadesDeProductoVendidasCommand;
 import presentacion.Controller.Command.CommandProveedor.VerProvPorProductoCommand;
 import presentacion.Controller.Command.CommandProveedor.VincularProveedorProductoCommand;
 import presentacion.Controller.Command.CommandVenta.AbrirVentaCommand;
@@ -104,7 +106,10 @@ public class CommandFactoryImp extends CommandFactory {
 		case MOSTRAR_TODOS_EMPLEADOS:
 			command = new MostrarEmpleadosCommand();
 			break;
-
+		case CALCULAR_MAS_VENDIDO:
+			command = new CalcularMasVendidoCommand();
+			break;
+		
 		// ---- PRODUCTO ----
 		case ALTA_PRODUCTO:
 			command = new AltaProductoCommand();
@@ -152,6 +157,9 @@ public class CommandFactoryImp extends CommandFactory {
 			break;
 		case DESVINCULAR_PRODUCTO_PROVEEDOR:
 			command = new DesvincularProveedorProductoCommand();
+			break;
+		case PROVEEDOR_CON_MAS_UDS:
+			command = new ProveedorConMasUnidadesDeProductoVendidasCommand();
 			break;
 
 	// ---- VENTA ----
