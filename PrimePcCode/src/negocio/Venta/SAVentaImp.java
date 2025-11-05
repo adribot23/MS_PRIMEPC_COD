@@ -20,6 +20,12 @@ public class SAVentaImp implements SAVenta {
 
 	@Override
 	public TCarrito abrirVenta(int idEmpleado) {
+		
+		DAOEmpleado daoEmp = DAOAbstractFactory.getInstancia().generaDAOEmpleado();
+		
+		TEmpleado empleado = daoEmp.read(idEmpleado);
+		
+		if (empleado != null) {
 
 		TCarrito carrito = new TCarrito();
 
@@ -32,6 +38,12 @@ public class SAVentaImp implements SAVenta {
 		carrito.setVenta(venta);
 
 		return carrito;
+		
+		}
+		
+		else {
+			return null;
+		}
 
 	}
 	
