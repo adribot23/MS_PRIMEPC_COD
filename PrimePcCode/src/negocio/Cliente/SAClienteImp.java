@@ -75,36 +75,37 @@ public class SAClienteImp implements SACliente {
 
 	@Override
 	public int modificarCliente(TCliente cliente) {
-	    int res = -1;
+		int res = -1;
 
-	    TManager m = TManager.getInstance();
-	    Transaction tr = m.createTransaction();
+		TManager m = TManager.getInstance();
+		m.createTransaction();
+		Transaction tr = m.getTransaction();
 
-	    if (tr != null) {
-	        tr.start();
-
-	        DAOCliente daoCliente = DAOAbstractFactory.getInstancia().generaDAOCliente();
-	        TCliente existente = daoCliente.read(cliente.getId());
-
-	        if (existente != null && existente.getActivo() == 1) {
-
-	            TCliente clienteConMismoDni = daoCliente.read_by_DNI(cliente.getDni());
-	            if (clienteConMismoDni == null || clienteConMismoDni.getId() == cliente.getId()) {
-
-	                res = daoCliente.update(cliente);
-
-	                if (res != -1)
-	                    tr.commit();
-	                else
-	                    tr.rollback();
-
-	            } 
-
-	        }
-	    }
-
-	    return res;
+		if (tr != null) {
+			tr.start();
+			
+			DAOCliente daoCliente = DAOAbstractFactory.getInstancia().generaDAOCliente();
+			
+			TCliente existente = daoCliente.read(cliente.getId());
+			
+			if(existente == null || existente.getActivo() == 0 || !cliente.getClass().equals(existente.getClass())) {
+				if(existente != null && existente.getActivo() == 1) {
+					System.err.println("No se puede cambiar el tipo de cliente.");
+				}
+				tr.rollback();
+			} else {
+				res = daoCliente.update(cliente);
+				if (res != -1) {
+					tr.commit();
+				} else {
+					tr.rollback();
+				}
+			}
+		}
+			
+		return res;
 	}
+
 
 
 
