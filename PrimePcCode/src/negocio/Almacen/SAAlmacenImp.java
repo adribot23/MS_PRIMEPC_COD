@@ -84,15 +84,17 @@ public class SAAlmacenImp implements SAAlmacen {
 			if (almacen != null) {
 				DAOAlmacen daoAlmacen = DAOAbstractFactory.getInstancia().generaDAOAlmacen();
 				TAlmacen existente = daoAlmacen.read(almacen.getId());
-				almacen.setOcupacion(existente.getOcupacion());
-				if (existente != null && existente.getActivo() == 1
-						&& almacen.getCapacidadMaxima() >= existente.getOcupacion() && almacen.getCapacidadMaxima() > 0
-						&& (almacen.getNombre().equals(existente.getNombre())
-								|| daoAlmacen.read_by_name(almacen.getNombre()) == null)) {
-					res = daoAlmacen.update(almacen);
-					if (res > 0)
-						tr.commit();
-					else
+				if (existente != null) {
+
+					if (existente.getActivo() == 1 && almacen.getCapacidadMaxima() >= existente.getOcupacion()
+							&& almacen.getCapacidadMaxima() > 0 && (almacen.getNombre().equals(existente.getNombre())
+									|| daoAlmacen.read_by_name(almacen.getNombre()) == null)) {
+						res = daoAlmacen.update(almacen);
+						if (res > 0)
+							tr.commit();
+						else
+							tr.rollback();
+					} else
 						tr.rollback();
 				} else
 					tr.rollback();
