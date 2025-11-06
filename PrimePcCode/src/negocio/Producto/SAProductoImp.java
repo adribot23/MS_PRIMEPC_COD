@@ -29,7 +29,11 @@ public class SAProductoImp implements SAProducto {
 
 			DAOProducto daoProducto = DAOAbstractFactory.getInstancia().generaDAOProducto();
 			DAOAlmacen daoAlmacen = DAOAbstractFactory.getInstancia().generaDAOAlmacen();
-
+			
+			if(producto.getPrecio() < 0 || producto.getUnidades() <= 0) {
+				transaction.rollback();
+				return -1;
+			}
 			TProducto pr = daoProducto.read_by_modelo(producto.getModelo());
 
 			TAlmacen almacen = daoAlmacen.read(producto.getIdAlmacen());
