@@ -18,27 +18,15 @@ public class DAOClienteImp implements DAOCliente {
 
     @Override
     public int create(TCliente cliente) {
-        int id = -1;
+        int id = cliente.getId();
+        
+        TManager tManager = TManager.getInstance();
+        Transaction t = tManager.getTransaction();
+        Connection c = (Connection) t.getResource();
+        
         try {
-            TManager tManager = TManager.getInstance();
-            Transaction t = tManager.getTransaction();
-            Connection c = (Connection) t.getResource();
-            
-            PreparedStatement check = c.prepareStatement("SELECT ID FROM CLIENTE WHERE DNI = ? FOR UPDATE");
-            check.setString(1, cliente.getDni());
-            ResultSet rsCheck = check.executeQuery();
-            if (rsCheck.next()) {
-                System.err.println("Cliente con DNI " + cliente.getDni() + " ya existe.");
-                rsCheck.close();
-                check.close();
-                return -1;
-            }
-            rsCheck.close();
-            check.close();
-
-            PreparedStatement ps = c.prepareStatement(
-                    "INSERT INTO CLIENTE (DNI, NOMBRE, ACTIVO) VALUES (?, ?, 1)",
-                    Statement.RETURN_GENERATED_KEYS);
+        	String insertSql = "INSERT INTO CLIENTE (DNI, NOMBRE, ACTIVO) VALUES (?, ?, 1)";
+            PreparedStatement ps = c.prepareStatement(insertSql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, cliente.getDni());
             ps.setString(2, cliente.getNombre());
             ps.executeUpdate();
