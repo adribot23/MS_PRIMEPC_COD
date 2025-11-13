@@ -1,5 +1,5 @@
 package negocio.PaqueteJPA;
 
-public class TPaqueteExpress {
+public class TPaqueteExpress extends TPaquete{
 
 }

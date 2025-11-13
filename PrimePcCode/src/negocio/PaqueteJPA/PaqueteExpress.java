@@ -1,5 +1,5 @@
 package negocio.PaqueteJPA;
 
-public class PaqueteExpress {
+public class PaqueteExpress{
 
 }
