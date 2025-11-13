@@ -6,7 +6,6 @@ public class SAPaqueteImp implements SAPaquete{
 
 	@Override
 	public int altaPaquete(TPaquete paquete) {
-		// TODO Apéndice de método generado automáticamente
 		return 0;
 	}
 
