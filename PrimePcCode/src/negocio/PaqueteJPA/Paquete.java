@@ -8,6 +8,7 @@ public class Paquete {
 	private static final long serialVersionUID = 0;
 	
 	private int id;
+	String numSerie;
 	private String estado;
 	private double peso;
 	private double precio;
@@ -46,6 +47,10 @@ public class Paquete {
 		return this.id;
 	}
 	
+	public String getNumSerie() {
+		return this.numSerie;
+	}
+	
 	public String getEstado() {
 		return this.estado;
 	}
@@ -65,6 +70,10 @@ public class Paquete {
 	//setters
 	public void setId(int id) {
 		this.id = id;
+	}
+	
+	public void setNumSerie(String numSerie) {
+		this.numSerie = numSerie;
 	}
 	
 	public void setEstado(String estado) {
