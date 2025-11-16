@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd"
+             version="2.2">
+
+    <persistence-unit name="UnidadPersistencia" transaction-type="RESOURCE_LOCAL">
+
+        <!-- Proveedor JPA -->
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+
+        <!-- Entidades -->
+        <class>negocio.PaqueteJPA</class>
+        <class>negocio.TransporteJPA</class>
+        <class>negocio.FacturaJPA</class>
+        <class>negocio.RemitenteJPA</class>
+        <class>negocio.RutaJPA</class>
+        <class>negocio.TrabajadorJPA</class>
+
+        <shared-cache-mode>NONE</shared-cache-mode>
+  
+
+        <!-- Conexión a H2 -->
+        <properties>
+
+            <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
+            <!-- URL de la base de datos (archivo .mv.db) -->
+            <property name="javax.persistence.jdbc.url" value="jdbc:h2:./bd/IS2PrimePC"/>
+            <property name="javax.persistence.jdbc.user" value="sa"/>
+            <property name="javax.persistence.jdbc.password" value=""/>
+
+            <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
+            
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.format_sql" value="true"/>
+        </properties>
+
+    </persistence-unit>
+
+</persistence>
