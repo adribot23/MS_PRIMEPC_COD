@@ -2,10 +2,19 @@ package negocio.PaqueteJPA;
 
 import java.util.Set;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+
+import integracion.EMFSingleton.EMFSingleton;
+
 public class SAPaqueteImp implements SAPaquete{
 
 	@Override
 	public int altaPaquete(TPaquete paquete) {
+		int id = -1;
+		EntityManager em = EMFSingleton.getInstancia().getEntityManagerFactory().createEntityManager();
+		EntityTransaction tr = em.getTransaction();
+		
 		return 0;
 	}
 

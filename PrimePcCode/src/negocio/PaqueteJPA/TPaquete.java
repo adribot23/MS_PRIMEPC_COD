@@ -2,6 +2,7 @@ package negocio.PaqueteJPA;
 
 public class TPaquete {
 	int id;
+	String numSerie;
 	String estado;
 	double peso;
 	double precio;
@@ -10,6 +11,10 @@ public class TPaquete {
 	
 	public int getId() {
 		return this.id;
+	}
+	
+	public String getNumSerie() {
+		return this.numSerie;
 	}
 	
 	public String getEstado() {
@@ -29,6 +34,11 @@ public class TPaquete {
 	public void setId(int id) {
 		this.id = id;
 	}
+	
+	public void setNumSerie(String numSerie) {
+		this.numSerie = numSerie;
+	}
+	
 	public void setEstado(String estado) {
 		this.estado = estado;
 	}
