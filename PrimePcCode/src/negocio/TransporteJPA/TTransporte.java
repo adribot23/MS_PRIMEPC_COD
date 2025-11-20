@@ -10,6 +10,8 @@ public class TTransporte {
 	
 	private String matricula;
 	
+	private int activo;
+	
 	
 	
 	public int getId() {
@@ -42,5 +44,13 @@ public class TTransporte {
 	
 	public void setMatricula(String matricula) {
 		this.matricula = matricula;
+	}
+	
+	public int getActivo() {
+		return this.activo;
+	}
+	
+	public void setActivo(int a) {
+		this.activo = a;
 	}
 }
