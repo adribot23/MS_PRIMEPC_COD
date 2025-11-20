@@ -13,4 +13,10 @@ public interface SATransporte {
 	public TTransporte leerTransporte(int id);
 	
 	public Set<TTransporte> leerTodosTransportes();
+	
+	public int vincularTransporteTrabajador(TTransporteTrabajador t);
+	
+	public int desvincularTransporteTrabajador(TTransporteTrabajador t);
+	
+	public Set<TTransporte> leerTransportesPorTrabajador(TTrabajador t);
 }
