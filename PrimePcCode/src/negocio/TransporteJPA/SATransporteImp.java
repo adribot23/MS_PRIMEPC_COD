@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Set;
 
 import javax.persistence.EntityManager;
+import javax.persistence.LockModeType;
 
 import integracion.EMFSingleton.EMFSingleton;
 
@@ -57,13 +58,19 @@ public class SATransporteImp implements SATransporte {
 			Transporte t = em.find(Transporte.class, id);
 			
 			if(t == null && t.getActivo() == 1) {
+				Set<VinculacionTransporteTrabajador> vinculaciones = t.getVinculaciones();
+
 				
-				
-				
-			}else if(t.getActivo() == 0) {
+				if(vinculaciones.isEmpty()) {
+					t.setActivo(1);
+					em.getTransaction().commit();
+					res = t.getId();
+				}else {
+					em.getTransaction().rollback();
+				}
 				
 			}else {
-				
+				em.getTransaction().rollback();
 			}		
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -77,37 +84,92 @@ public class SATransporteImp implements SATransporte {
 
 	@Override
 	public int ModificarTransporte(TTransporte t) {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		int res = -1;
+		EntityManager em = EMFSingleton.getInstancia().getEntityManagerFactory().createEntityManager();
+		
+		try {
+			
+			em.getTransaction().begin();
+			Transporte tExistente = em.find(Transporte.class, t.getId());
+			
+			if(tExistente != null && tExistente.getActivo() == 1) {
+				
+				List<Transporte> tMatricula = em.createNamedQuery("Negocio.TransporteJPA.Transporte.finfByMatricula", Transporte.class).setParameter("matricula", t.getMatricula()).getResultList();
+				
+				if(tMatricula.isEmpty() || (tMatricula.size() == 1 && tMatricula.get(0).getId() == t.getId())) {
+					
+					tExistente.setNombre(t.getNombre());
+					tExistente.setMatricula(t.getMatricula());
+					tExistente.setCapacidad(t.getCapacidad());
+					
+					em.getTransaction().commit();
+					res = tExistente.getId();
+				}else {
+					em.getTransaction().rollback();
+				}
+				
+			}else {
+				em.getTransaction().rollback();
+			}			
+		}catch(Exception e) {
+			e.printStackTrace();
+			em.getTransaction().rollback();
+		}finally {
+			em.close();
+		}
+		
+		return res;
 	}
 
 	@Override
 	public TTransporte leerTransporte(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		TTransporte transporte = null;
+		EntityManager em = EMFSingleton.getInstancia().getEntityManagerFactory().createEntityManager();
+		
+		try {
+			
+			em.getTransaction().begin();
+			Transporte transporteById = em.find(Transporte.class, LockModeType.OPTIMISTIC);
+			
+			if(transporteById != null) {
+				transporte = transporteById.transfer();
+				em.getTransaction().commit();
+			}else {
+				em.getTransaction().rollback();
+			}			
+		}catch(Exception e) {
+			e.printStackTrace();
+			em.getTransaction().rollback();
+		}finally {
+			em.close();
+		}
+		
+		return transporte;
 	}
 
 	@Override
 	public Set<TTransporte> leerTodosTransportes() {
-		// TODO Auto-generated method stub
+
 		return null;
 	}
 
 	@Override
 	public int vincularTransporteTrabajador(TTransporteTrabajador t) {
-		// TODO Auto-generated method stub
+	
 		return 0;
 	}
 
 	@Override
 	public int desvincularTransporteTrabajador(TTransporteTrabajador t) {
-		// TODO Auto-generated method stub
+	
 		return 0;
 	}
 
 	@Override
 	public Set<TTransporte> leerTransportesPorTrabajador(TTrabajador t) {
-		// TODO Auto-generated method stub
+
 		return null;
 	}
 
