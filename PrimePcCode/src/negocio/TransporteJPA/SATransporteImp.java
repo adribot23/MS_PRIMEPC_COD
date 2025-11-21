@@ -1,10 +1,12 @@
 package negocio.TransporteJPA;
 
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.LockModeType;
+import javax.persistence.TypedQuery;
 
 import integracion.EMFSingleton.EMFSingleton;
 
@@ -151,8 +153,40 @@ public class SATransporteImp implements SATransporte {
 
 	@Override
 	public Set<TTransporte> leerTodosTransportes() {
-
-		return null;
+		
+		EntityManager em = EMFSingleton.getInstancia().getEntityManagerFactory().createEntityManager();
+		
+		Set<TTransporte> listaTransportes = null;
+		
+		try {
+			
+			em.getTransaction().begin();
+			
+			TypedQuery<Transporte> query = em.createNamedQuery("negocio.TransporteJPA.Transporte.finAll", Transporte.class);
+			
+			if(!query.getResultList().isEmpty()) {
+				
+				listaTransportes = new LinkedHashSet<TTransporte>();
+				
+				for(Transporte t: query.getResultList()) {
+					
+					em.lock(t, LockModeType.OPTIMISTIC);
+					listaTransportes.add(t.transfer());
+				}
+				em.getTransaction().commit();
+			}else {
+				em.getTransaction().rollback();
+			}
+			
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+			em.getTransaction().rollback();
+		}finally {
+			em.close();
+		}
+		
+		return listaTransportes;
 	}
 
 	@Override
