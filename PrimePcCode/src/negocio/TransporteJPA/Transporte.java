@@ -68,7 +68,7 @@ public class Transporte {
 		this.capacidad = capacidad;
 	}
 	
-	public TTransporte transfer() {
+	public TTransporte toTransfer() {
 		TTransporte transporte = new TTransporte();
 		transporte.setNombre(nombre);
 		transporte.setCapacidad(capacidad);

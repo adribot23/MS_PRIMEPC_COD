@@ -4,11 +4,11 @@ import java.util.Set;
 
 public interface SATransporte {
 	
-	public int AltaTransporte(TTransporte t);
+	public int altaTransporte(TTransporte t);
 	
-	public int BajaTransporte(int id);
+	public int bajaTransporte(int id);
 	
-	public int ModificarTransporte(TTransporte t);
+	public int modificarTransporte(TTransporte t);
 	
 	public TTransporte leerTransporte(int id);
 	
@@ -18,5 +18,6 @@ public interface SATransporte {
 	
 	public int desvincularTransporteTrabajador(TTransporteTrabajador t);
 	
-	public Set<TTransporte> leerTransportesPorTrabajador(TTrabajador t);
+	//public Set<TTransporte> leerTransportesPorTrabajador(TTrabajador t);
+	public Set<TTransporte> leerTransportesPorTrabajador(Object t);
 }

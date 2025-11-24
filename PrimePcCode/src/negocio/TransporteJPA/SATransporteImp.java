@@ -13,7 +13,7 @@ import integracion.EMFSingleton.EMFSingleton;
 public class SATransporteImp implements SATransporte {
 
 	@Override
-	public synchronized int AltaTransporte(TTransporte t) {
+	public synchronized int altaTransporte(TTransporte t) {
 		int res = -1;		
 		EntityManager em = EMFSingleton.getInstancia().getEntityManagerFactory().createEntityManager();
 		
@@ -49,7 +49,7 @@ public class SATransporteImp implements SATransporte {
 	}
 
 	@Override
-	public int BajaTransporte(int id) {
+	public int bajaTransporte(int id) {
 		
 		int res = -1;
 		EntityManager em = EMFSingleton.getInstancia().getEntityManagerFactory().createEntityManager();
@@ -85,7 +85,7 @@ public class SATransporteImp implements SATransporte {
 	}
 
 	@Override
-	public int ModificarTransporte(TTransporte t) {
+	public int modificarTransporte(TTransporte t) {
 		
 		int res = -1;
 		EntityManager em = EMFSingleton.getInstancia().getEntityManagerFactory().createEntityManager();
@@ -136,7 +136,7 @@ public class SATransporteImp implements SATransporte {
 			Transporte transporteById = em.find(Transporte.class, LockModeType.OPTIMISTIC);
 			
 			if(transporteById != null) {
-				transporte = transporteById.transfer();
+				transporte = transporteById.toTransfer();
 				em.getTransaction().commit();
 			}else {
 				em.getTransaction().rollback();
@@ -171,7 +171,7 @@ public class SATransporteImp implements SATransporte {
 				for(Transporte t: query.getResultList()) {
 					
 					em.lock(t, LockModeType.OPTIMISTIC);
-					listaTransportes.add(t.transfer());
+					listaTransportes.add(t.toTransfer());
 				}
 				em.getTransaction().commit();
 			}else {
@@ -201,9 +201,10 @@ public class SATransporteImp implements SATransporte {
 		return 0;
 	}
 
+	
 	@Override
-	public Set<TTransporte> leerTransportesPorTrabajador(TTrabajador t) {
-
+	public Set<TTransporte> leerTransportesPorTrabajador(Object t) {
+		// TODO Auto-generated method stub
 		return null;
 	}
 
