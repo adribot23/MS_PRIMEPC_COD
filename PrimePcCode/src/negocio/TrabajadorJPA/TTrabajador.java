@@ -16,8 +16,8 @@ public class TTrabajador {
 	}
 	
 	//setters
-	public void setDNI(int dNI) {
-		DNI = dNI;
+	public void setDNI(int DNI) {
+		this.DNI = DNI;
 	}
 	public String getNombre() {
 		return nombre;
@@ -26,5 +26,13 @@ public class TTrabajador {
 		this.nombre = nombre;
 	}
 	private String nombre;
+	private int activo;
+
+	public int isActivo() {
+		return activo;
+	}
+	public void setActivo(int activo) {
+		this.activo = activo;
+	}
 	
 }

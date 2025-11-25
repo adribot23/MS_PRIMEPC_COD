@@ -27,6 +27,13 @@ public class Trabajador {
 	
 	public Trabajador() {}
 	
+	public Trabajador(TTrabajador t) {
+		this.id = t.getId();
+		this.DNI = t.getDNI();
+		this.nombre = t.getNombre();
+		this.activo = t.isActivo();
+	}
+	
 	public TTrabajador entityToTransfer() {
 		TTrabajador tTrabajador = new TTrabajador();
 		tTrabajador.setId(this.id);
