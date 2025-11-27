@@ -13,6 +13,17 @@ public class TTransporte {
 	private int activo;
 	
 	
+	public TTransporte() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public TTransporte(String nombre2, int capacidad2, String matricula2) {
+		this.nombre = nombre2;
+		this.capacidad = capacidad2;
+		this.matricula = matricula2;
+		
+	}
+
 	
 	public int getId() {
 		return id_transporte;
@@ -52,5 +63,10 @@ public class TTransporte {
 	
 	public void setActivo(int a) {
 		this.activo = a;
+	}
+	
+	public String toString() {
+		return "Transporte [id=" + id_transporte + ", nombre=" + nombre + ", capacidad=" + capacidad + ", matricula="
+				+ matricula + ", activo=" + activo + "]";
 	}
 }

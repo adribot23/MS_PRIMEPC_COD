@@ -56,46 +56,106 @@ public class MainWindow extends JFrame implements IGUI {
 
 		mainPanel.add(header, BorderLayout.PAGE_START);
 
-		// === BOTONES ===
-		JPanel menuPanel = new JPanel(new GridLayout(2, 3, 30, 30));
-		menuPanel.setBorder(BorderFactory.createEmptyBorder(30, 60, 60, 60));
-		menuPanel.setBackground(Color.WHITE);
+		// === CONTENEDOR VERTICAL PARA LOS DOS BLOQUES DE BOTONES ===
+		JPanel centerContainer = new JPanel(new GridLayout(2, 1));
+		centerContainer.setBackground(Color.WHITE);
 
-		menuPanel.add(createStyledButton("Cliente", "resources/clientes.png", e -> {
+		// === BLOQUE 1: botones originales ===
+		JPanel menuPanel1 = new JPanel(new GridLayout(2, 3, 30, 30));
+		menuPanel1.setBorder(BorderFactory.createEmptyBorder(30, 60, 30, 60));
+		menuPanel1.setBackground(Color.WHITE);
+
+		// Panel 1 - DAO
+
+		menuPanel1.setBackground(Color.WHITE);
+		menuPanel1.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.WHITE, 30), "DAO",
+				javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP,
+				new Font("Segoe UI", Font.BOLD, 18), Color.DARK_GRAY));
+
+		menuPanel1.add(createStyledButton("Cliente", "resources/clientes.png", e -> {
 			Controlador.getInstancia().accion(new Context(Evento.CLIENTE, null));
 			this.dispose();
 		}));
 
-		menuPanel.add(createStyledButton("Venta", "resources/ventas.png", e -> {
+		menuPanel1.add(createStyledButton("Venta", "resources/ventas.png", e -> {
 			Controlador.getInstancia().accion(new Context(Evento.VENTA, null));
 			this.dispose();
 		}));
 
-		menuPanel.add(createStyledButton("Empleado", "resources/empleados.png", e -> {
+		menuPanel1.add(createStyledButton("Empleado", "resources/empleados.png", e -> {
 			Controlador.getInstancia().accion(new Context(Evento.EMPLEADO, null));
 			this.dispose();
 		}));
 
-		menuPanel.add(createStyledButton("Proveedor", "resources/proveedores.png", e -> {
+		menuPanel1.add(createStyledButton("Proveedor", "resources/proveedores.png", e -> {
 			Controlador.getInstancia().accion(new Context(Evento.PROVEEDOR, null));
 			this.dispose();
 		}));
 
-		menuPanel.add(createStyledButton("Producto", "resources/productos.png", e -> {
+		menuPanel1.add(createStyledButton("Producto", "resources/productos.png", e -> {
 			Controlador.getInstancia().accion(new Context(Evento.PRODUCTO, null));
 			this.dispose();
 		}));
 
-		menuPanel.add(createStyledButton("Almacén", "resources/almacenes.png", e -> {
+		menuPanel1.add(createStyledButton("Almacén", "resources/almacenes.png", e -> {
 			Controlador.getInstancia().accion(new Context(Evento.ALMACEN, null));
 			this.dispose();
 		}));
 
-		mainPanel.add(menuPanel, BorderLayout.CENTER);
+		mainPanel.add(menuPanel1, BorderLayout.NORTH);
+
+		// === BLOQUE 2: nuevas entidades ===
+		JPanel menuPanel2 = new JPanel(new GridLayout(2, 3, 30, 30));
+		menuPanel2.setBorder(BorderFactory.createEmptyBorder(30, 60, 30, 60));
+		menuPanel2.setBackground(Color.LIGHT_GRAY);
+
+		// Panel 2 - JPA
+
+		menuPanel2.setBackground(Color.WHITE);
+		menuPanel2.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.WHITE, 30), "JPA",
+				javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP,
+				new Font("Segoe UI", Font.BOLD, 18), Color.DARK_GRAY));
+
+		menuPanel2.add(createStyledButton("Paquete", "resources/paquete.png", e -> {
+			Controlador.getInstancia().accion(new Context(Evento.PAQUETE, null));
+			this.dispose();
+		}));
+
+		menuPanel2.add(createStyledButton("Remitente", "resources/remitente.png", e -> {
+			Controlador.getInstancia().accion(new Context(Evento.REMITENTE, null));
+			this.dispose();
+		}));
+
+		menuPanel2.add(createStyledButton("Factura", "resources/factura.png", e -> {
+			Controlador.getInstancia().accion(new Context(Evento.FACTURA, null));
+			this.dispose();
+		}));
+
+		menuPanel2.add(createStyledButton("Ruta", "resources/ruta.png", e -> {
+			Controlador.getInstancia().accion(new Context(Evento.RUTA, null));
+			this.dispose();
+		}));
+
+		menuPanel2.add(createStyledButton("Trabajador", "resources/trabajador.png", e -> {
+			Controlador.getInstancia().accion(new Context(Evento.TRABAJADOR, null));
+			this.dispose();
+		}));
+
+		menuPanel2.add(createStyledButton("Transporte", "resources/transporte.png", e -> {
+			Controlador.getInstancia().accion(new Context(Evento.TRANSPORTE, null));
+			this.dispose();
+		}));
+
+		// Añadir ambos al contenedor vertical
+		centerContainer.add(menuPanel1);
+		centerContainer.add(menuPanel2);
+
+		// Añadir al frame
+		mainPanel.add(centerContainer, BorderLayout.CENTER);
 
 		// === CIERRE ===
 		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		this.setMinimumSize(new Dimension(800, 700));
+		this.setMinimumSize(new Dimension(950, 900));
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
 
@@ -125,7 +185,6 @@ public class MainWindow extends JFrame implements IGUI {
 		button.setHorizontalTextPosition(SwingConstants.CENTER);
 		button.setVerticalTextPosition(SwingConstants.BOTTOM);
 
-		// Efecto hover
 		button.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseEntered(java.awt.event.MouseEvent evt) {
 				button.setBackground(new Color(200, 255, 200));
@@ -137,6 +196,10 @@ public class MainWindow extends JFrame implements IGUI {
 		});
 
 		button.addActionListener(listener);
+
+		// TAMAÑO FIJO
+		button.setPreferredSize(new Dimension(180, 180));
+
 		return button;
 	}
 

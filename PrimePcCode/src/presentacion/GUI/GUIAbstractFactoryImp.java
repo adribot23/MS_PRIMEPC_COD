@@ -38,13 +38,22 @@ import presentacion.Proveedor.VMostrarProveedor;
 import presentacion.Proveedor.VProveedorConMasUnidadesDeProductoVendidas;
 import presentacion.Proveedor.VVerPorProducto;
 import presentacion.Proveedor.VVincularProveedor;
+import presentacion.TransporteJPA.GUITransporte;
+import presentacion.TransporteJPA.VAltaTransporte;
+import presentacion.TransporteJPA.VBajaTransporte;
+import presentacion.TransporteJPA.VBuscarTransporte;
+import presentacion.TransporteJPA.VDesvincularTransporteTrabajador;
+import presentacion.TransporteJPA.VModificarTransporte;
+import presentacion.TransporteJPA.VMostrarTransporte;
+import presentacion.TransporteJPA.VVerTransportePorTrabajador;
+import presentacion.TransporteJPA.VVincularTransporteTrabajador;
 import presentacion.Venta.GUIVenta;
 import presentacion.Venta.VAbrirVenta;
+import presentacion.Venta.VAñadirProducto;
 import presentacion.Venta.VBajaVenta;
 import presentacion.Venta.VBuscarVenta;
 import presentacion.Venta.VCerrarVenta;
 import presentacion.Venta.VDevolverVenta;
-import presentacion.Venta.VAñadirProducto;
 import presentacion.Venta.VEliminarProducto;
 import presentacion.Venta.VListarVenta;
 import presentacion.Venta.VModificarVenta;
@@ -272,26 +281,26 @@ public class GUIAbstractFactoryImp extends GUIAbstractFactory {
 		case RES_ABRIR_VENTA_KO:
 			return new VAbrirVenta();
 
-	case VCERRAR_VENTA:
-	case RES_CERRAR_VENTA_OK:
-	case RES_CERRAR_VENTA_KO:
-	case RES_PASAR_CARRITO_A_CERRAR_OK:
-	case RES_PASAR_CARRITO_A_CERRAR_KO:
-		return new VCerrarVenta();
+		case VCERRAR_VENTA:
+		case RES_CERRAR_VENTA_OK:
+		case RES_CERRAR_VENTA_KO:
+		case RES_PASAR_CARRITO_A_CERRAR_OK:
+		case RES_PASAR_CARRITO_A_CERRAR_KO:
+			return new VCerrarVenta();
 
-	case VINSERTAR_PRODUCTO_VENTA:
-	case RES_INSERTAR_PRODUCTO_VENTA_OK:
-	case RES_INSERTAR_PRODUCTO_VENTA_KO:
-	case RES_PASAR_CARRITO_A_INSERTAR_OK:
-	case RES_PASAR_CARRITO_A_INSERTAR_KO:
-		return new VAñadirProducto();
+		case VINSERTAR_PRODUCTO_VENTA:
+		case RES_INSERTAR_PRODUCTO_VENTA_OK:
+		case RES_INSERTAR_PRODUCTO_VENTA_KO:
+		case RES_PASAR_CARRITO_A_INSERTAR_OK:
+		case RES_PASAR_CARRITO_A_INSERTAR_KO:
+			return new VAñadirProducto();
 
-	case VQUITAR_PRODUCTO_VENTA:
-	case RES_QUITAR_PRODUCTO_VENTA_OK:
-	case RES_QUITAR_PRODUCTO_VENTA_KO:
-	case RES_PASAR_CARRITO_A_ELIMINAR_OK:
-	case RES_PASAR_CARRITO_A_ELIMINAR_KO:
-		return new VEliminarProducto();
+		case VQUITAR_PRODUCTO_VENTA:
+		case RES_QUITAR_PRODUCTO_VENTA_OK:
+		case RES_QUITAR_PRODUCTO_VENTA_KO:
+		case RES_PASAR_CARRITO_A_ELIMINAR_OK:
+		case RES_PASAR_CARRITO_A_ELIMINAR_KO:
+			return new VEliminarProducto();
 
 		case VMODIFICAR_VENTA:
 		case RES_MODIFICAR_VENTA_OK:
@@ -318,18 +327,58 @@ public class GUIAbstractFactoryImp extends GUIAbstractFactory {
 		case RES_MOSTRAR_VENTAS_POR_CLIENTE_KO:
 			return new VMostrarPorCliente();
 
-	case VDEVOLVER_VENTA:
-	case RES_DEVOLVER_VENTA_OK:
-	case RES_DEVOLVER_VENTA_KO:
-		return new VDevolverVenta();
+		case VDEVOLVER_VENTA:
+		case RES_DEVOLVER_VENTA_OK:
+		case RES_DEVOLVER_VENTA_KO:
+			return new VDevolverVenta();
 
-	case VBAJA_VENTA:
-	case RES_BAJA_VENTA_OK:
-	case RES_BAJA_VENTA_KO:
-		return new VBajaVenta();
+		case VBAJA_VENTA:
+		case RES_BAJA_VENTA_OK:
+		case RES_BAJA_VENTA_KO:
+			return new VBajaVenta();
 
-	default:
-		return null;
+		/*
+		 * ============================== ======== TRANSPORTE ============
+		 * ==============================
+		 */
+		case TRANSPORTE:
+			return new GUITransporte();
+		case VALTA_TRANSPORTE:
+		case RES_ALTA_TRANSPORTE_OK:
+		case RES_ALTA_TRANSPORTE_KO:
+			return new VAltaTransporte();
+		case VBAJA_TRANSPORTE:
+		case RES_BAJA_TRANSPORTE_OK:
+		case RES_BAJA_TRANSPORTE_KO:
+			return new VBajaTransporte();
+		case VBUSCAR_TRANSPORTE:
+		case RES_BUSCAR_TRANSPORTE_OK:
+		case RES_BUSCAR_TRANSPORTE_KO:
+			return new VBuscarTransporte();
+		case VMODIFICAR_TRANSPORTE:
+		case RES_MODIFICAR_TRANSPORTE_OK:
+		case RES_MODIFICAR_TRANSPORTE_KO:
+			return new VModificarTransporte();
+		case VMOSTRAR_TODOS_TRANSPORTES:
+		case RES_MOSTRAR_TODOS_TRANSPORTES_OK:
+		case RES_MOSTRAR_TODOS_TRANSPORTES_KO:
+			return new VMostrarTransporte();
+		case VVER_TRANSPORTE_POR_TRABAJADOR:
+		case RES_VER_TRANSPORTE_POR_TRABAJADOR_OK:
+		case RES_VER_TRANSPORTE_POR_TRABAJADOR_KO:
+			return new VVerTransportePorTrabajador();
+		case VVINCULAR_TRANSPORTE_TRABAJADOR:
+		case RES_VINCULAR_TRANSPORTE_TRABAJADOR_OK:
+		case RES_VINCULAR_TRANSPORTE_TRABAJADOR_KO:
+			return new VVincularTransporteTrabajador();
+		case VDESVINCULAR_TRANSPORTE_TRABAJADOR:
+		case RES_DESVINCULAR_TRANSPORTE_TRABAJADOR_OK:
+		case RES_DESVINCULAR_TRANSPORTE_TRABAJADOR_KO:
+			return new VDesvincularTransporteTrabajador();
+
+		default:
+			return null;
+		}
+
 	}
-}
 }
