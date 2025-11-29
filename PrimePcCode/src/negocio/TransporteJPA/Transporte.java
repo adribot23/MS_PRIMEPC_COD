@@ -93,6 +93,14 @@ public class Transporte implements Serializable {
 		this.capacidad = capacidad;
 	}
 	
+	public Set<Trabajador> getTrabajadores(){
+		return this.trabajadores;
+	}
+	
+	public void setTrabajadores(Set<Trabajador> t) {
+		this.trabajadores = t;
+	}
+	
 	public TTransporte toTransfer() {
 		TTransporte transporte = new TTransporte();
 		transporte.setNombre(nombre);
