@@ -33,6 +33,11 @@ import presentacion.Controller.Command.CommandProveedor.MostrarProveedoresComman
 import presentacion.Controller.Command.CommandProveedor.ProveedorConMasUnidadesDeProductoVendidasCommand;
 import presentacion.Controller.Command.CommandProveedor.VerProvPorProductoCommand;
 import presentacion.Controller.Command.CommandProveedor.VincularProveedorProductoCommand;
+import presentacion.Controller.Command.CommandRutaJPA.AltaRutaCommand;
+import presentacion.Controller.Command.CommandRutaJPA.BajaRutaCommand;
+import presentacion.Controller.Command.CommandRutaJPA.BuscarRutaCommand;
+import presentacion.Controller.Command.CommandRutaJPA.ModificarRutaCommand;
+import presentacion.Controller.Command.CommandRutaJPA.MostrarRutasCommand;
 import presentacion.Controller.Command.CommandVenta.AbrirVentaCommand;
 import presentacion.Controller.Command.CommandVenta.BajaVentaCommand;
 import presentacion.Controller.Command.CommandVenta.BuscarVentaCommand;
@@ -160,6 +165,23 @@ public class CommandFactoryImp extends CommandFactory {
 			break;
 		case PROVEEDOR_CON_MAS_UDS:
 			command = new ProveedorConMasUnidadesDeProductoVendidasCommand();
+			break;
+
+		// ---- RUTA ----
+		case ALTA_RUTA:
+			command = new AltaRutaCommand();
+			break;
+		case BAJA_RUTA:
+			command = new BajaRutaCommand();
+			break;
+		case MODIFICAR_RUTA:
+			command = new ModificarRutaCommand();
+			break;
+		case BUSCAR_RUTA:
+			command = new BuscarRutaCommand();
+			break;
+		case MOSTRAR_TODAS_RUTAS:
+			command = new MostrarRutasCommand();
 			break;
 
 	// ---- VENTA ----

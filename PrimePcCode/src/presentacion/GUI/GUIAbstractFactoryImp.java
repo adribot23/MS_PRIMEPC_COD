@@ -47,6 +47,12 @@ import presentacion.TransporteJPA.VModificarTransporte;
 import presentacion.TransporteJPA.VMostrarTransporte;
 import presentacion.TransporteJPA.VVerTransportePorTrabajador;
 import presentacion.TransporteJPA.VVincularTransporteTrabajador;
+import presentacion.RutaJPA.GUIRuta;
+import presentacion.RutaJPA.VAltaRuta;
+import presentacion.RutaJPA.VBajaRuta;
+import presentacion.RutaJPA.VBuscarRuta;
+import presentacion.RutaJPA.VModificarRuta;
+import presentacion.RutaJPA.VMostrarRutas;
 import presentacion.Venta.GUIVenta;
 import presentacion.Venta.VAbrirVenta;
 import presentacion.Venta.VAñadirProducto;
@@ -336,6 +342,38 @@ public class GUIAbstractFactoryImp extends GUIAbstractFactory {
 		case RES_BAJA_VENTA_OK:
 		case RES_BAJA_VENTA_KO:
 			return new VBajaVenta();
+
+		/*
+		 * ============================== ======== RUTA ============
+		 * ==============================
+		 */
+		case RUTA:
+			return new GUIRuta();
+
+		case VALTA_RUTA:
+		case RES_ALTA_RUTA_OK:
+		case RES_ALTA_RUTA_KO:
+			return new VAltaRuta();
+
+		case VBAJA_RUTA:
+		case RES_BAJA_RUTA_OK:
+		case RES_BAJA_RUTA_KO:
+			return new VBajaRuta();
+
+		case VBUSCAR_RUTA:
+		case RES_BUSCAR_RUTA_OK:
+		case RES_BUSCAR_RUTA_KO:
+			return new VBuscarRuta();
+
+		case VMODIFICAR_RUTA:
+		case RES_MODIFICAR_RUTA_OK:
+		case RES_MODIFICAR_RUTA_KO:
+			return new VModificarRuta();
+
+		case VMOSTRAR_TODAS_RUTAS:
+		case RES_MOSTRAR_TODAS_RUTAS_OK:
+		case RES_MOSTRAR_TODAS_RUTAS_KO:
+			return new VMostrarRutas();
 
 		/*
 		 * ============================== ======== TRANSPORTE ============
