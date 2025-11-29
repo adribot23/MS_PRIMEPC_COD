@@ -72,10 +72,11 @@ public class VBuscarRemitente extends JFrame implements IGUI{
         case RES_BUSCAR_REMITENTE_OK:
             TRemitente t = (TRemitente) context.getDatos();
             JOptionPane.showMessageDialog(null,
-                    "ID: " + t.getId() +
-                    "\nNombre: " + t.getDireccion() +
-                    "\nMatrícula: " + t.getTelefono() +
-                    "\nActivo: " + t.getActivo());
+            		"ID: " + t.getId() +
+            		"\nNombre: " + t.getNombre() +
+            		"\nTeléfono: " + t.getTelefono() +
+            		"\nDirección: " + t.getDireccion() +
+            		"\nActivo: " + t.getActivo());
             break;
 
         case RES_BUSCAR_REMITENTE_KO:
