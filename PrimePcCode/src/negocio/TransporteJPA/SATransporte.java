@@ -2,21 +2,23 @@ package negocio.TransporteJPA;
 
 import java.util.Set;
 
+import negocio.TrabajadorJPA.TTrabajador;
+
 public interface SATransporte {
 	
-	public int AltaTransporte(TTransporte t);
+	public int altaTransporte(TTransporte t);
 	
-	public int BajaTransporte(int id);
+	public int bajaTransporte(int id);
 	
-	public int ModificarTransporte(TTransporte t);
+	public int modificarTransporte(TTransporte t);
 	
 	public TTransporte leerTransporte(int id);
 	
 	public Set<TTransporte> leerTodosTransportes();
 	
-	public int vincularTransporteTrabajador(TTransporteTrabajador t);
+	public int vincularTransporteTrabajador(int id_transporte, int id_trabajador);
 	
-	public int desvincularTransporteTrabajador(TTransporteTrabajador t);
+	public int desvincularTransporteTrabajador(int id_transporte, int id_trabajador);
 	
-	public Set<TTransporte> leerTransportesPorTrabajador(TTrabajador t);
+	public Set<TTransporte> leerTransportesPorTrabajador(int id_trabajador);
 }

@@ -1,20 +1,53 @@
 package negocio.TransporteJPA;
 
+import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
-public class Transporte {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.persistence.Version;
+import javax.persistence.JoinColumn;
+
+import negocio.TrabajadorJPA.Trabajador;
+
+@Table(uniqueConstraints = {@UniqueConstraint(columnNames = "matricula")})
+@Entity
+@NamedQueries({
+	@NamedQuery(name = "negocio.TransporteJPA.Transporte.findByMatricula", query = "select t from Transporte t where t.matricula = :matricula"),
+	@NamedQuery(name = "negocio.TransporteJPA.Transporte.findAll", query = "select t from Transporte t")
+})
+
+public class Transporte implements Serializable {
 	
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Id
 	private int id_transporte;
 	
-	private String nombre;
-	
-	private int capacidad;
-	
-	private String matricula;
-	
+	@Version
+	private Integer version;	
+	private String nombre;	
+	private int capacidad;	
+	private String matricula;	
 	private int activo;
 	
-	private Set<VinculacionTransporteTrabajador> vinculaciones;
+	// No tiene argumentos la relación por lo que no se necesita clase intermedia
+    @ManyToMany
+    @JoinTable(
+        name = "transporte_trabajador",           
+        joinColumns = @JoinColumn(name = "id_transporte"),      
+        inverseJoinColumns = @JoinColumn(name = "id_trabajador") 
+    )
+    private Set<Trabajador> trabajadores;
+
 
 	public Transporte(TTransporte t) {
 		this.id_transporte = t.getId();
@@ -34,14 +67,6 @@ public class Transporte {
 	
 	public void setActivo(int a) {
 		this.activo = a;
-	}
-
-	public Set<VinculacionTransporteTrabajador> getVinculaciones() {
-		return this.vinculaciones;
-	}
-	
-	public void setvinculaciones(Set<VinculacionTransporteTrabajador> vinculaciones) {
-		this.vinculaciones = vinculaciones;
 	}
 	
 	public String getNombre() {
@@ -68,7 +93,15 @@ public class Transporte {
 		this.capacidad = capacidad;
 	}
 	
-	public TTransporte transfer() {
+	public Set<Trabajador> getTrabajadores(){
+		return this.trabajadores;
+	}
+	
+	public void setTrabajadores(Set<Trabajador> t) {
+		this.trabajadores = t;
+	}
+	
+	public TTransporte toTransfer() {
 		TTransporte transporte = new TTransporte();
 		transporte.setNombre(nombre);
 		transporte.setCapacidad(capacidad);
