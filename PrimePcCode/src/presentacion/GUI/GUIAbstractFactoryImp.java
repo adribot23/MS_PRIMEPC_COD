@@ -39,6 +39,7 @@ import presentacion.Proveedor.VProveedorConMasUnidadesDeProductoVendidas;
 import presentacion.Proveedor.VVerPorProducto;
 import presentacion.Proveedor.VVincularProveedor;
 import presentacion.RemitenteJPA.GUIRemitente;
+import presentacion.RemitenteJPA.VAltaRemitente;
 import presentacion.RemitenteJPA.VBajaRemitente;
 import presentacion.RemitenteJPA.VBuscarRemitente;
 import presentacion.RemitenteJPA.VCalcularPrecioPaquete;

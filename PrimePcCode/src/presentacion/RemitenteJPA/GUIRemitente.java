@@ -18,7 +18,7 @@ import presentacion.Controller.Controlador;
 import presentacion.Controller.Command.Context;
 import presentacion.GUI.Evento;
 import presentacion.GUI.IGUI;
-import presentacion.TransporteJPA.GUITransporte;
+
 
 public class GUIRemitente extends JFrame implements IGUI {
 
@@ -49,14 +49,14 @@ public class GUIRemitente extends JFrame implements IGUI {
 		botonesPanel.setBackground(Color.WHITE);
 
 		// Fila 1
-		botonesPanel.add(crearBotonVerde("ALTA TRANSPORTE", Evento.VALTA_REMITENTE));
-		botonesPanel.add(crearBotonVerde("BAJA TRANSPORTE", Evento.VBAJA_REMITENTE));
-		botonesPanel.add(crearBotonVerde("MODIFICAR TRANSPORTE", Evento.VMODIFICAR_REMITENTE));
+		botonesPanel.add(crearBotonVerde("ALTA REMITENTE", Evento.VALTA_REMITENTE));
+		botonesPanel.add(crearBotonVerde("BAJA REMITENTE", Evento.VBAJA_REMITENTE));
+		botonesPanel.add(crearBotonVerde("MODIFICAR REMITENTE", Evento.VMODIFICAR_REMITENTE));
 
 		// Fila 2
-		botonesPanel.add(crearBotonVerde("BUSCAR TRANSPORTE", Evento.VBUSCAR_REMITENTE));
-		botonesPanel.add(crearBotonVerde("LISTAR TODOS LOS TRANSPORTES", Evento.VMOSTRAR_TODOS_REMITENTES));
-		botonesPanel.add(crearBotonVerde("LISTAR TRANSPORTE POR TRABAJADOR", Evento.VCALCULAR_PRECIO_PAQUETES));
+		botonesPanel.add(crearBotonVerde("BUSCAR REMITENTE", Evento.VBUSCAR_REMITENTE));
+		botonesPanel.add(crearBotonVerde("LISTAR TODOS LOS REMITENTES", Evento.VMOSTRAR_TODOS_REMITENTES));
+		botonesPanel.add(crearBotonVerde("CALCULAR PRECIO PAQUETES", Evento.VCALCULAR_PRECIO_PAQUETES));
 
 		mainPanel.add(botonesPanel, BorderLayout.CENTER);
 
