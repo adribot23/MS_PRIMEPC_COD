@@ -9,6 +9,7 @@ import javax.persistence.LockModeType;
 import javax.persistence.TypedQuery;
 
 import integracion.EMFSingleton.EMFSingleton;
+import negocio.TrabajadorJPA.TTrabajador;
 
 public class SATransporteImp implements SATransporte {
 
@@ -204,7 +205,7 @@ public class SATransporteImp implements SATransporte {
 
 	
 	@Override
-	public Set<TTransporte> leerTransportesPorTrabajador(Object t) {
+	public Set<TTransporte> leerTransportesPorTrabajador(TTrabajador t) {
 		// TODO Auto-generated method stub
 		return null;
 	}
