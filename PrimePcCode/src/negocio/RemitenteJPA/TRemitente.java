@@ -7,11 +7,13 @@ public class TRemitente {
 	private int activo;
 	private String direccion;
 	private String telefono;
+	private String nombre;
 	
-	public TRemitente(int id_remitente, int activo, String direccion, String telefono) {
+	public TRemitente(int id_remitente, int activo, String nombre, String direccion, String telefono) {
 		super();
 		this.id_remitente = id_remitente;
 		this.activo = activo;
+		this.nombre = nombre;
 		this.direccion = direccion;
 		this.telefono = telefono;
 	}
@@ -23,6 +25,7 @@ public class TRemitente {
 		this.telefono = remitente.getTelefono();
 	}
 	
+
 	public int getId() {
 		return id_remitente;
 	}
@@ -35,6 +38,14 @@ public class TRemitente {
 	public void setActivo(int activo) {
 		this.activo = activo;
 	}
+	
+	public String getNombre() {
+		return this.nombre;
+	}
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+	
 	public String getDireccion() {
 		return direccion;
 	}
