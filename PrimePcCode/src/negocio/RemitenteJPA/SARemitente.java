@@ -13,4 +13,6 @@ public interface SARemitente {
 	public TRemitente buscarRemitente(int id_remitente);
 	
 	public Set<TRemitente> listarTodosRemitentes();
+	
+	public double calcularPrecioPaquetesRemitente(int id_remitente);
 }
