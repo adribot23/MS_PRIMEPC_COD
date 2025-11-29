@@ -57,7 +57,7 @@ public class SATransporteImp implements SATransporte {
 		try {
 			em.getTransaction().begin();
 			
-			Transporte t = em.find(Transporte.class, id);
+			Transporte t = em.find(Transporte.class, id, LockModeType.OPTIMISTIC);
 			
 			if(t == null && t.getActivo() == 1) {
 				Set<VinculacionTransporteTrabajador> vinculaciones = t.getVinculaciones();
@@ -93,7 +93,7 @@ public class SATransporteImp implements SATransporte {
 		try {
 			
 			em.getTransaction().begin();
-			Transporte tExistente = em.find(Transporte.class, t.getId());
+			Transporte tExistente = em.find(Transporte.class, t.getId(), LockModeType.OPTIMISTIC);
 			
 			if(tExistente != null && tExistente.getActivo() == 1) {
 				
@@ -133,7 +133,7 @@ public class SATransporteImp implements SATransporte {
 		try {
 			
 			em.getTransaction().begin();
-			Transporte transporteById = em.find(Transporte.class, LockModeType.OPTIMISTIC);
+			Transporte transporteById = em.find(Transporte.class, id, LockModeType.OPTIMISTIC);
 			
 			if(transporteById != null) {
 				transporte = transporteById.toTransfer();
@@ -163,6 +163,7 @@ public class SATransporteImp implements SATransporte {
 			em.getTransaction().begin();
 			
 			TypedQuery<Transporte> query = em.createNamedQuery("negocio.TransporteJPA.Transporte.finAll", Transporte.class);
+			query.setLockMode(LockModeType.OPTIMISTIC);
 			
 			if(!query.getResultList().isEmpty()) {
 				
