@@ -1,17 +1,23 @@
 package negocio.TransporteJPA;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.persistence.Version;
+import javax.persistence.JoinColumn;
+
+import negocio.TrabajadorJPA.Trabajador;
 
 @Table(uniqueConstraints = {@UniqueConstraint(columnNames = "matricula")})
 @Entity
@@ -33,7 +39,15 @@ public class Transporte implements Serializable {
 	private String matricula;	
 	private int activo;
 	
-	private Set<VinculacionTransporteTrabajador> vinculaciones;
+	// No tiene argumentos la relación por lo que no se necesita clase intermedia
+    @ManyToMany
+    @JoinTable(
+        name = "transporte_trabajador",           
+        joinColumns = @JoinColumn(name = "id_transporte"),      
+        inverseJoinColumns = @JoinColumn(name = "id_trabajador") 
+    )
+    private Set<Trabajador> trabajadores;
+
 
 	public Transporte(TTransporte t) {
 		this.id_transporte = t.getId();
@@ -53,14 +67,6 @@ public class Transporte implements Serializable {
 	
 	public void setActivo(int a) {
 		this.activo = a;
-	}
-
-	public Set<VinculacionTransporteTrabajador> getVinculaciones() {
-		return this.vinculaciones;
-	}
-	
-	public void setvinculaciones(Set<VinculacionTransporteTrabajador> vinculaciones) {
-		this.vinculaciones = vinculaciones;
 	}
 	
 	public String getNombre() {

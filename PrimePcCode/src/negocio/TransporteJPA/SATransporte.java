@@ -16,9 +16,9 @@ public interface SATransporte {
 	
 	public Set<TTransporte> leerTodosTransportes();
 	
-	public int vincularTransporteTrabajador(TTransporteTrabajador t);
+	//public int vincularTransporteTrabajador(TTransporteTrabajador t);
 	
-	public int desvincularTransporteTrabajador(TTransporteTrabajador t);
+	//public int desvincularTransporteTrabajador(TTransporteTrabajador t);
 	
 	public Set<TTransporte> leerTransportesPorTrabajador(TTrabajador t);
 }

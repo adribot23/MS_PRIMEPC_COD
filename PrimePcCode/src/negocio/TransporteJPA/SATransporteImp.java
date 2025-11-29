@@ -61,7 +61,7 @@ public class SATransporteImp implements SATransporte {
 			Transporte t = em.find(Transporte.class, id, LockModeType.OPTIMISTIC);
 			
 			if(t == null && t.getActivo() == 1) {
-				Set<VinculacionTransporteTrabajador> vinculaciones = t.getVinculaciones();
+				/*Set<VinculacionTransporteTrabajador> vinculaciones = t.getVinculaciones();
 
 				
 				if(vinculaciones.isEmpty()) {
@@ -70,7 +70,7 @@ public class SATransporteImp implements SATransporte {
 					res = t.getId();
 				}else {
 					em.getTransaction().rollback();
-				}
+				}*/
 				
 			}else {
 				em.getTransaction().rollback();
@@ -190,7 +190,7 @@ public class SATransporteImp implements SATransporte {
 		
 		return listaTransportes;
 	}
-
+/*
 	@Override
 	public int vincularTransporteTrabajador(TTransporteTrabajador t) {
 	
@@ -202,7 +202,7 @@ public class SATransporteImp implements SATransporte {
 	
 		return 0;
 	}
-
+*/
 	
 	@Override
 	public Set<TTransporte> leerTransportesPorTrabajador(TTrabajador t) {
