@@ -17,7 +17,7 @@ public class TProducto {
 		this.id_almacen = id_almacen;
 	}
 
-	public TProducto(double precio, String modelo, int unidades, String marca,int id_almacen) {
+	public TProducto(double precio, String modelo, int unidades, String marca, int id_almacen) {
 		this.precio = precio;
 		this.modelo = modelo;
 		this.unidades = unidades;
@@ -25,7 +25,7 @@ public class TProducto {
 		this.id_almacen = id_almacen;
 	}
 
-	public TProducto(int id, double precio, String modelo, int unidades, String marca,int id_almacen) {
+	public TProducto(int id, double precio, String modelo, int unidades, String marca, int id_almacen) {
 		this.id = id;
 		this.precio = precio;
 		this.modelo = modelo;
@@ -81,8 +81,6 @@ public class TProducto {
 	public void setActivo(int activo) {
 		this.activo = activo;
 	}
-
-	
 
 	public int getIdAlmacen() {
 		return this.id_almacen;

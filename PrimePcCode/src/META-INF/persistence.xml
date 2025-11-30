@@ -4,7 +4,7 @@
              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd"
              version="2.2">
 
-    <persistence-unit name="UnidadPersistencia" transaction-type="RESOURCE_LOCAL">
+    <persistence-unit name="primePc" transaction-type="RESOURCE_LOCAL">
 
         <!-- Proveedor JPA -->
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>

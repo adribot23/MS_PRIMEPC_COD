@@ -6,7 +6,6 @@ package integracion.Almacen;
 import negocio.Almacen.TAlmacen;
 import java.util.Set;
 
-
 public interface DAOAlmacen {
 
 	public Integer create(TAlmacen almacen);

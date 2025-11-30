@@ -70,8 +70,8 @@ public class VBajaVenta extends JFrame implements IGUI {
 			idVentaField.setText("");
 
 		} catch (NumberFormatException ex) {
-			JOptionPane.showMessageDialog(this, "El Id venta debe ser un numero entero positivo.",
-					"Datos incorrectos", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(this, "El Id venta debe ser un numero entero positivo.", "Datos incorrectos",
+					JOptionPane.ERROR_MESSAGE);
 		}
 	}
 

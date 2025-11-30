@@ -36,27 +36,27 @@ public class Remitente implements Serializable {
 	private String nombre;
 
 	public Remitente() {
-		
+
 	}
-	
-	public Remitente (TRemitente remitente) {
+
+	public Remitente(TRemitente remitente) {
 		this.id_remitente = remitente.getId();
 		this.nombre = remitente.getNombre();
 		this.telefono = remitente.getTelefono();
 		this.activo = remitente.getActivo();
 		this.direccion = remitente.getDireccion();
 	}
-	
+
 	public TRemitente entityToTransfer() {
-		
+
 		TRemitente tremitente = new TRemitente();
 		tremitente.setId(this.id_remitente);
 		tremitente.setNombre(this.nombre);
 		tremitente.setActivo(this.activo);
-		tremitente.setDireccion(this.direccion);	
+		tremitente.setDireccion(this.direccion);
 
 		return tremitente;
-		
+
 	}
 
 	@Version

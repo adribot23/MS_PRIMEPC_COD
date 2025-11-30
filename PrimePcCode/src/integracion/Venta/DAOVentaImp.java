@@ -21,21 +21,21 @@ public class DAOVentaImp implements DAOVenta {
 			Transaction tr = tm.getTransaction();
 			Connection con = (Connection) tr.getResource();
 
-	PreparedStatement ps = con.prepareStatement(
-			"INSERT INTO VENTA (METODO_PAGO, PRECIO, ID_EMPLEADO, ID_CLIENTE, ACTIVO, DESCUENTO) VALUES (?, ?, ?, ?, ?, ?)",
-			Statement.RETURN_GENERATED_KEYS);
+			PreparedStatement ps = con.prepareStatement(
+					"INSERT INTO VENTA (METODO_PAGO, PRECIO, ID_EMPLEADO, ID_CLIENTE, ACTIVO, DESCUENTO) VALUES (?, ?, ?, ?, ?, ?)",
+					Statement.RETURN_GENERATED_KEYS);
 
-		ps.setString(1, venta.getMetodoPago() != null ? venta.getMetodoPago() : "Efectivo");
-		ps.setDouble(2, venta.getPrecio() != null ? venta.getPrecio() : 0.0);
-		ps.setInt(3, venta.getIdEmpleado());
-		if (venta.getIdCliente() != null && venta.getIdCliente() > 0) {
-			ps.setInt(4, venta.getIdCliente());
-		} else {
-			ps.setNull(4, java.sql.Types.INTEGER);
-		}
-		ps.setInt(5, 1);
-		ps.setDouble(6, venta.getDescuento() != null ? venta.getDescuento() : 0.0);
-	
+			ps.setString(1, venta.getMetodoPago() != null ? venta.getMetodoPago() : "Efectivo");
+			ps.setDouble(2, venta.getPrecio() != null ? venta.getPrecio() : 0.0);
+			ps.setInt(3, venta.getIdEmpleado());
+			if (venta.getIdCliente() != null && venta.getIdCliente() > 0) {
+				ps.setInt(4, venta.getIdCliente());
+			} else {
+				ps.setNull(4, java.sql.Types.INTEGER);
+			}
+			ps.setInt(5, 1);
+			ps.setDouble(6, venta.getDescuento() != null ? venta.getDescuento() : 0.0);
+
 			ps.executeUpdate();
 
 			ResultSet rs = ps.getGeneratedKeys();
@@ -71,18 +71,18 @@ public class DAOVentaImp implements DAOVenta {
 
 			ResultSet rs = ps.executeQuery();
 
-		while (rs.next()) {
-			TVenta venta = new TVenta();
-			venta.setId(rs.getInt("ID"));
-			venta.setMetodoPago(rs.getString("METODO_PAGO"));
-			venta.setPrecio(rs.getDouble("PRECIO"));
-			venta.setDescuento(rs.getDouble("DESCUENTO"));
-			venta.setIdEmpleado(rs.getInt("ID_EMPLEADO"));
-			venta.setIdCliente(idCliente);
-			venta.setActivo(rs.getInt("ACTIVO"));
+			while (rs.next()) {
+				TVenta venta = new TVenta();
+				venta.setId(rs.getInt("ID"));
+				venta.setMetodoPago(rs.getString("METODO_PAGO"));
+				venta.setPrecio(rs.getDouble("PRECIO"));
+				venta.setDescuento(rs.getDouble("DESCUENTO"));
+				venta.setIdEmpleado(rs.getInt("ID_EMPLEADO"));
+				venta.setIdCliente(idCliente);
+				venta.setActivo(rs.getInt("ACTIVO"));
 
-			ventas.add(venta);
-		}
+				ventas.add(venta);
+			}
 
 			rs.close();
 			ps.close();
@@ -109,19 +109,19 @@ public class DAOVentaImp implements DAOVenta {
 
 			ResultSet rs = ps.executeQuery();
 
-		while (rs.next()) {
-			TVenta venta = new TVenta();
-			venta.setId(rs.getInt("ID"));
-			venta.setMetodoPago(rs.getString("METODO_PAGO"));
-			venta.setPrecio(rs.getDouble("PRECIO"));
-			venta.setDescuento(rs.getDouble("DESCUENTO"));
-			venta.setIdEmpleado(idEmpleado);
-			Integer idCliente = (Integer) rs.getObject("ID_CLIENTE");
-			venta.setIdCliente(idCliente);
-			venta.setActivo(rs.getInt("ACTIVO"));
+			while (rs.next()) {
+				TVenta venta = new TVenta();
+				venta.setId(rs.getInt("ID"));
+				venta.setMetodoPago(rs.getString("METODO_PAGO"));
+				venta.setPrecio(rs.getDouble("PRECIO"));
+				venta.setDescuento(rs.getDouble("DESCUENTO"));
+				venta.setIdEmpleado(idEmpleado);
+				Integer idCliente = (Integer) rs.getObject("ID_CLIENTE");
+				venta.setIdCliente(idCliente);
+				venta.setActivo(rs.getInt("ACTIVO"));
 
-			ventas.add(venta);
-		}
+				ventas.add(venta);
+			}
 
 			rs.close();
 			ps.close();
@@ -151,21 +151,21 @@ public class DAOVentaImp implements DAOVenta {
 
 			TVenta venta = null;
 
-		if (rs.next()) {
-			venta = new TVenta();
-			venta.setId(id_venta);
-			venta.setMetodoPago(rs.getString("METODO_PAGO"));
-			venta.setPrecio(rs.getDouble("PRECIO"));
-			venta.setDescuento(rs.getDouble("DESCUENTO"));
-			venta.setIdEmpleado(rs.getInt("ID_EMPLEADO"));
-			Integer idCliente = (Integer) rs.getObject("ID_CLIENTE");
-			venta.setIdCliente(idCliente);
-			venta.setActivo(rs.getInt("ACTIVO"));
+			if (rs.next()) {
+				venta = new TVenta();
+				venta.setId(id_venta);
+				venta.setMetodoPago(rs.getString("METODO_PAGO"));
+				venta.setPrecio(rs.getDouble("PRECIO"));
+				venta.setDescuento(rs.getDouble("DESCUENTO"));
+				venta.setIdEmpleado(rs.getInt("ID_EMPLEADO"));
+				Integer idCliente = (Integer) rs.getObject("ID_CLIENTE");
+				venta.setIdCliente(idCliente);
+				venta.setActivo(rs.getInt("ACTIVO"));
 
-			rs.close();
-			ps.close();
+				rs.close();
+				ps.close();
 
-		}
+			}
 
 			rs.close();
 			ps.close();
@@ -186,21 +186,21 @@ public class DAOVentaImp implements DAOVenta {
 			Transaction tr = tm.getTransaction();
 			Connection con = (Connection) tr.getResource();
 
-		PreparedStatement ps = con.prepareStatement(
-				"UPDATE VENTA SET METODO_PAGO = ?, PRECIO = ?, ID_EMPLEADO = ?, ID_CLIENTE = ?, ACTIVO = ?, DESCUENTO = ? WHERE ID = ?");
+			PreparedStatement ps = con.prepareStatement(
+					"UPDATE VENTA SET METODO_PAGO = ?, PRECIO = ?, ID_EMPLEADO = ?, ID_CLIENTE = ?, ACTIVO = ?, DESCUENTO = ? WHERE ID = ?");
 
-		ps.setString(1, venta.getMetodoPago());
-		ps.setDouble(2, venta.getPrecio());
+			ps.setString(1, venta.getMetodoPago());
+			ps.setDouble(2, venta.getPrecio());
 
-		ps.setInt(3, venta.getIdEmpleado());
-		if (venta.getIdCliente() != null && venta.getIdCliente() > 0) {
-			ps.setInt(4, venta.getIdCliente());
-		} else {
-			ps.setNull(4, java.sql.Types.INTEGER);
-		}
-		ps.setInt(5, venta.getActivo());
-		ps.setDouble(6, venta.getDescuento());
-		ps.setInt(7, venta.getId());
+			ps.setInt(3, venta.getIdEmpleado());
+			if (venta.getIdCliente() != null && venta.getIdCliente() > 0) {
+				ps.setInt(4, venta.getIdCliente());
+			} else {
+				ps.setNull(4, java.sql.Types.INTEGER);
+			}
+			ps.setInt(5, venta.getActivo());
+			ps.setDouble(6, venta.getDescuento());
+			ps.setInt(7, venta.getId());
 
 			int filas = ps.executeUpdate();
 
@@ -223,8 +223,8 @@ public class DAOVentaImp implements DAOVenta {
 			Transaction tr = tm.getTransaction();
 			Connection con = (Connection) tr.getResource();
 
-		PreparedStatement ps = con.prepareStatement("UPDATE VENTA SET ACTIVO = 0 WHERE ID = ?");
-		ps.setInt(1, id_venta);
+			PreparedStatement ps = con.prepareStatement("UPDATE VENTA SET ACTIVO = 0 WHERE ID = ?");
+			ps.setInt(1, id_venta);
 
 			int filas = ps.executeUpdate();
 
@@ -255,19 +255,19 @@ public class DAOVentaImp implements DAOVenta {
 
 			ResultSet rs = ps.executeQuery();
 
-		while (rs.next()) {
-			TVenta venta = new TVenta();
-			venta.setId(rs.getInt("ID"));
-			venta.setMetodoPago(rs.getString("METODO_PAGO"));
-			venta.setPrecio(rs.getDouble("PRECIO"));
-			venta.setDescuento(rs.getDouble("DESCUENTO"));
-			venta.setIdEmpleado(rs.getInt("ID_EMPLEADO"));
-			Integer idCliente = (Integer) rs.getObject("ID_CLIENTE");
-			venta.setIdCliente(idCliente);
-			venta.setActivo(rs.getInt("ACTIVO"));
+			while (rs.next()) {
+				TVenta venta = new TVenta();
+				venta.setId(rs.getInt("ID"));
+				venta.setMetodoPago(rs.getString("METODO_PAGO"));
+				venta.setPrecio(rs.getDouble("PRECIO"));
+				venta.setDescuento(rs.getDouble("DESCUENTO"));
+				venta.setIdEmpleado(rs.getInt("ID_EMPLEADO"));
+				Integer idCliente = (Integer) rs.getObject("ID_CLIENTE");
+				venta.setIdCliente(idCliente);
+				venta.setActivo(rs.getInt("ACTIVO"));
 
-			ventas.add(venta);
-		}
+				ventas.add(venta);
+			}
 
 			rs.close();
 			ps.close();

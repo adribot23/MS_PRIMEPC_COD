@@ -86,7 +86,7 @@ public class VMostrarProducto extends JFrame implements IGUI {
 			return;
 		}
 
-		String[] columnNames = { "ID", "Marca", "Modelo", "Precio", "Unidades","ID Almacen", "Activo" };
+		String[] columnNames = { "ID", "Marca", "Modelo", "Precio", "Unidades", "ID Almacen", "Activo" };
 		Object[][] tableData = new Object[productos.size()][columnNames.length];
 
 		int i = 0;

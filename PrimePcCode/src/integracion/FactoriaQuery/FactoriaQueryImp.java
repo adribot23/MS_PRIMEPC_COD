@@ -2,19 +2,19 @@ package integracion.FactoriaQuery;
 
 public class FactoriaQueryImp extends FactoriaQuery {
 
-    @Override
-    public Query getNewQuery(String nombre) {
+	@Override
+	public Query getNewQuery(String nombre) {
 
-        switch (nombre) {
+		switch (nombre) {
 
-        case "CalcularImporteEmpleado":
-            return new CalcularElImporteTotalDelEmpleadoQueMasHaVendidoUnProducto();
+		case "CalcularImporteEmpleado":
+			return new CalcularElImporteTotalDelEmpleadoQueMasHaVendidoUnProducto();
 
-        case "CalcularProveedorMasUnidades":
-            return new ObtenerElProveedorQueMasUnidadesHaSuministradoDeCualquierProducto();
+		case "CalcularProveedorMasUnidades":
+			return new ObtenerElProveedorQueMasUnidadesHaSuministradoDeCualquierProducto();
 
-        default:
-            return null;
-        }
-    }
+		default:
+			return null;
+		}
+	}
 }

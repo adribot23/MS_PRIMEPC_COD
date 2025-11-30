@@ -11,7 +11,7 @@ public interface SATrabajador {
 	public int ModificarTrabajador(TTrabajador trabajador);
 
 	public TTrabajador leerTrabajador(int id_trabajador);
-	
+
 	public Set<TTrabajador> leerTodosTrabajadores();
-	
+
 }
