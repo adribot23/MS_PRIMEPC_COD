@@ -409,9 +409,9 @@ public class GUIAbstractFactoryImp extends GUIAbstractFactory {
 		case RES_MOSTRAR_TODOS_REMITENTES_OK:
 		case RES_MOSTRAR_TODOS_REMITENTES_KO:
 			return new VMostrarRemitente();
-		case CALCULAR_PRECIO_PAQUETES:
+		case VCALCULAR_PRECIO_PAQUETES:
 		case RES_CALCULAR_PRECIO_PAQUETES_OK:
-		case CALCULAR_PRECIO_PAQUETES_KO:
+		case RES_CALCULAR_PRECIO_PAQUETES_KO:
 			return new VCalcularPrecioPaquete();
 
 		default:

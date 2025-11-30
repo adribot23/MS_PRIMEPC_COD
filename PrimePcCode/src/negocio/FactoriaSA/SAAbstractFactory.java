@@ -6,6 +6,7 @@ import negocio.Cliente.SACliente;
 import negocio.Empleado.SAEmpleado;
 import negocio.Producto.SAProducto;
 import negocio.Proveedor.SAProveedor;
+import negocio.RemitenteJPA.SARemitente;
 import negocio.Venta.SAVenta;
 
 public abstract class SAAbstractFactory {
@@ -30,4 +31,6 @@ public abstract class SAAbstractFactory {
 	public abstract SAProducto generarSAProducto();
 
 	public abstract SAProveedor generarSAProveedor();
+	
+	public abstract SARemitente generarSARemitente();
 }

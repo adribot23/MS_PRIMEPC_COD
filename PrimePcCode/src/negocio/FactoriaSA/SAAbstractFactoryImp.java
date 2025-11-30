@@ -11,6 +11,8 @@ import negocio.Producto.SAProducto;
 import negocio.Producto.SAProductoImp;
 import negocio.Proveedor.SAProveedor;
 import negocio.Proveedor.SAProveedorImp;
+import negocio.RemitenteJPA.SARemitente;
+import negocio.RemitenteJPA.SARemitenteImp;
 import negocio.Venta.SAVenta;
 import negocio.Venta.SAVentaImp;
 
@@ -37,5 +39,9 @@ public class SAAbstractFactoryImp extends SAAbstractFactory {
 
 	public SAProveedor generarSAProveedor() {
 		return new SAProveedorImp();
+	}
+	
+	public SARemitente generarSARemitente() {
+		return new SARemitenteImp();
 	}
 }

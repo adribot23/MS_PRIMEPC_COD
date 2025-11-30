@@ -29,4 +29,8 @@ public class SARemitenteImp implements SARemitente {
 		return null;
 	}
 
+	@Override
+	public double calcularPrecioPaquetesRemitente(int id_remitente) {
+		return 0;
+	}
 }
