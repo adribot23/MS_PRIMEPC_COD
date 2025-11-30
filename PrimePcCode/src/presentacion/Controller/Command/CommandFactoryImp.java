@@ -33,6 +33,12 @@ import presentacion.Controller.Command.CommandProveedor.MostrarProveedoresComman
 import presentacion.Controller.Command.CommandProveedor.ProveedorConMasUnidadesDeProductoVendidasCommand;
 import presentacion.Controller.Command.CommandProveedor.VerProvPorProductoCommand;
 import presentacion.Controller.Command.CommandProveedor.VincularProveedorProductoCommand;
+import presentacion.Controller.Command.CommandRemitenteJPA.AltaRemitenteCommand;
+import presentacion.Controller.Command.CommandRemitenteJPA.BajaRemitenteCommand;
+import presentacion.Controller.Command.CommandRemitenteJPA.BuscarRemitenteCommand;
+import presentacion.Controller.Command.CommandRemitenteJPA.CalcularPrecioPaquetesRemitenteCommand;
+import presentacion.Controller.Command.CommandRemitenteJPA.ModificarRemitenteCommand;
+import presentacion.Controller.Command.CommandRemitenteJPA.MostrarRemitentesCommand;
 import presentacion.Controller.Command.CommandVenta.AbrirVentaCommand;
 import presentacion.Controller.Command.CommandVenta.BajaVentaCommand;
 import presentacion.Controller.Command.CommandVenta.BuscarVentaCommand;
@@ -205,10 +211,33 @@ public class CommandFactoryImp extends CommandFactory {
 	case DEVOLVER_VENTA:
 		command = new DevolverVentaCommand();
 		break;
-		default:
-			break;
-		}
-
+		
+		
+	// --- REMITENTE ---
+	case ALTA_REMITENTE:
+		command = new AltaRemitenteCommand();
+		break;
+	case BAJA_REMITENTE:
+		command = new BajaRemitenteCommand();
+		break;
+	case MODIFICAR_REMITENTE:
+		command = new ModificarRemitenteCommand();
+		break;
+	case BUSCAR_REMITENTE:
+		command = new BuscarRemitenteCommand();
+		break;
+	case MOSTRAR_TODOS_REMITENTES:
+		command = new MostrarRemitentesCommand();
+		break;
+	case CALCULAR_PRECIO_PAQUETES:
+		command = new CalcularPrecioPaquetesRemitenteCommand();
+		break;
+		
+		
+		
+	default:
+		break;
+	}
 		return command;
 	}
 }
