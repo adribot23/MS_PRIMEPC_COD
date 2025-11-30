@@ -12,7 +12,8 @@ public class CalcularImporteMasVendidoCommand implements Command {
 
 	@Override
 	public Context execute(Object data) {
-		AbstractMap.SimpleEntry<Integer, Integer> res = SAAbstractFactory.getInstancia().generarSAEmpleado().calcularImporteMasVendido((int) data);
+		AbstractMap.SimpleEntry<Integer, Integer> res = SAAbstractFactory.getInstancia().generarSAEmpleado()
+				.calcularImporteMasVendido((int) data);
 		if (res != null)
 			return new Context(Evento.RES_CALCULAR_MAS_VENDIDO_OK, res);
 		else

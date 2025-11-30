@@ -10,10 +10,10 @@ public class AltaRemitenteCommand implements Command {
 
 	@Override
 	public Context execute(Object data) {
-		
+
 		int res = SAAbstractFactory.getInstancia().generarSARemitente().altaRemitente((TRemitente) data);
-		
-		if(res > 0) {
+
+		if (res > 0) {
 			return new Context(Evento.RES_ALTA_REMITENTE_OK, res);
 		} else {
 			return new Context(Evento.RES_ALTA_REMITENTE_KO, res);

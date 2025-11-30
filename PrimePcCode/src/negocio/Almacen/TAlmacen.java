@@ -2,75 +2,76 @@
  * 
  */
 package negocio.Almacen;
- public class TAlmacen {
 
-	 private static final long serialVersionUID = 1L;
+public class TAlmacen {
 
-		protected int id;
-		protected String nombre;
-		protected int capacidadMaxima;
-		protected int ocupacion;
-		protected int activo;
+	private static final long serialVersionUID = 1L;
 
-		public TAlmacen() {
-		};
+	protected int id;
+	protected String nombre;
+	protected int capacidadMaxima;
+	protected int ocupacion;
+	protected int activo;
 
-		public TAlmacen(String nombre, int capacidadMaxima, int ocupacion) {
-			this.nombre = nombre;
-			this.capacidadMaxima = capacidadMaxima;
-			this.ocupacion = ocupacion;
-		}
+	public TAlmacen() {
+	};
 
-		public TAlmacen(int id, String nombre, int capacidadMaxima, int ocupacion) {
-			this.id = id;
-			this.nombre = nombre;
-			this.capacidadMaxima = capacidadMaxima;
-			this.ocupacion = ocupacion;
-		}
+	public TAlmacen(String nombre, int capacidadMaxima, int ocupacion) {
+		this.nombre = nombre;
+		this.capacidadMaxima = capacidadMaxima;
+		this.ocupacion = ocupacion;
+	}
 
-		public int getId() {
-			return this.id;
-		}
+	public TAlmacen(int id, String nombre, int capacidadMaxima, int ocupacion) {
+		this.id = id;
+		this.nombre = nombre;
+		this.capacidadMaxima = capacidadMaxima;
+		this.ocupacion = ocupacion;
+	}
 
-		public void setId(int id) {
-			this.id = id;
-		}
+	public int getId() {
+		return this.id;
+	}
 
-		public String getNombre() {
-			return this.nombre;
-		}
+	public void setId(int id) {
+		this.id = id;
+	}
 
-		public void setNombre(String nombre) {
-			this.nombre = nombre;
-		}
+	public String getNombre() {
+		return this.nombre;
+	}
 
-		public int getCapacidadMaxima() {
-			return this.capacidadMaxima;
-		}
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
 
-		public void setCapacidadMaxima(int capacidadMaxima) {
-			this.capacidadMaxima = capacidadMaxima;
-		}
+	public int getCapacidadMaxima() {
+		return this.capacidadMaxima;
+	}
 
-		public int getOcupacion() {
-			return this.ocupacion;
-		}
+	public void setCapacidadMaxima(int capacidadMaxima) {
+		this.capacidadMaxima = capacidadMaxima;
+	}
 
-		public void setOcupacion(int ocupacion) {
-			this.ocupacion = ocupacion;
-		}
+	public int getOcupacion() {
+		return this.ocupacion;
+	}
 
-		public int getActivo() {
-			return this.activo;
-		}
+	public void setOcupacion(int ocupacion) {
+		this.ocupacion = ocupacion;
+	}
 
-		public void setActivo(int activo) {
-			this.activo = activo;
-		}
+	public int getActivo() {
+		return this.activo;
+	}
 
-		@Override
-		public String toString() {
-			return "Almacen [ID: " + id + ", Nombre: " + nombre + ", Capacidad Maxima : " + capacidadMaxima
-					+ ", Ocupacion: " + ocupacion + ", Activo: " + activo+"]";
-		}
+	public void setActivo(int activo) {
+		this.activo = activo;
+	}
+
+	@Override
+	public String toString() {
+		return "Almacen [ID: " + id + ", Nombre: " + nombre + ", Capacidad Maxima : " + capacidadMaxima
+				+ ", Ocupacion: " + ocupacion + ", Activo: " + activo + "]";
+	}
 }

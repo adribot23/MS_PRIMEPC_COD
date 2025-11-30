@@ -25,7 +25,7 @@ public class VModificarProducto extends JFrame implements IGUI {
 	private JTextField modModelo;
 	private JTextField modPrecio;
 	private JTextField modUnidades;
-	private JTextField modAlmacen ;
+	private JTextField modAlmacen;
 	private JButton btnModificar, btnVolver;
 
 	public VModificarProducto() {
@@ -44,7 +44,7 @@ public class VModificarProducto extends JFrame implements IGUI {
 		modPrecio = new JTextField();
 		modUnidades = new JTextField();
 		modAlmacen = new JTextField();
-		
+
 		add(new JLabel("ID:"));
 		add(modId);
 		add(new JLabel("Marca:"));
@@ -58,8 +58,6 @@ public class VModificarProducto extends JFrame implements IGUI {
 		add(new JLabel("ID Almacen:"));
 		add(modAlmacen);
 
-	
-	
 		btnModificar = new JButton("Modificar");
 		btnModificar.setBackground(new Color(200, 255, 200));
 		btnModificar.addActionListener(e -> {

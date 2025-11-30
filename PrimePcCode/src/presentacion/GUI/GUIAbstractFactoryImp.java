@@ -382,11 +382,11 @@ public class GUIAbstractFactoryImp extends GUIAbstractFactory {
 		case RES_DESVINCULAR_TRANSPORTE_TRABAJADOR_OK:
 		case RES_DESVINCULAR_TRANSPORTE_TRABAJADOR_KO:
 			return new VDesvincularTransporteTrabajador();
-			
+
 		/*
 		 * ============================== ======== REMITENTE ============
 		 * ==============================
-		 */	
+		 */
 		case REMITENTE:
 			return new GUIRemitente();
 		case VALTA_REMITENTE:

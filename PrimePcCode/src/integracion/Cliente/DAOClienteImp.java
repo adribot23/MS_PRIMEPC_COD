@@ -16,295 +16,300 @@ import negocio.Cliente.TClienteSocio;
 
 public class DAOClienteImp implements DAOCliente {
 
-    @Override
-    public int create(TCliente cliente) {
-        int id = cliente.getId();
-        
-        TManager tManager = TManager.getInstance();
-        Transaction t = tManager.getTransaction();
-        Connection c = (Connection) t.getResource();
-        
-        try {
-        	String insertSql = "INSERT INTO CLIENTE (DNI, NOMBRE, ACTIVO) VALUES (?, ?, 1)";
-            PreparedStatement ps = c.prepareStatement(insertSql, Statement.RETURN_GENERATED_KEYS);
-            ps.setString(1, cliente.getDni());
-            ps.setString(2, cliente.getNombre());
-            ps.executeUpdate();
+	@Override
+	public int create(TCliente cliente) {
+		int id = cliente.getId();
 
-            ResultSet rs = ps.getGeneratedKeys();
-            if (rs.next()) {
-                id = rs.getInt(1);
+		TManager tManager = TManager.getInstance();
+		Transaction t = tManager.getTransaction();
+		Connection c = (Connection) t.getResource();
 
-                if (cliente instanceof TClienteSocio) {
-                    TClienteSocio socio = (TClienteSocio) cliente;
-                    PreparedStatement psSocio = c.prepareStatement(
-                            "INSERT INTO SOCIO (ID, PUNTOS, NUM_SOCIO) VALUES (?, ?, ?)");
-                    psSocio.setInt(1, id);
-                    psSocio.setInt(2, socio.getPuntos());
-                    psSocio.setInt(3, generarNumSocio(c));
-                    psSocio.executeUpdate();
-                    psSocio.close();
+		try {
+			String insertSql = "INSERT INTO CLIENTE (DNI, NOMBRE, ACTIVO) VALUES (?, ?, 1)";
+			PreparedStatement ps = c.prepareStatement(insertSql, Statement.RETURN_GENERATED_KEYS);
+			ps.setString(1, cliente.getDni());
+			ps.setString(2, cliente.getNombre());
+			ps.executeUpdate();
 
-                } else if (cliente instanceof TClienteNoSocio) {
-                    TClienteNoSocio noSocio = (TClienteNoSocio) cliente;
-                    PreparedStatement psNoSocio = c.prepareStatement(
-                            "INSERT INTO NOSOCIO (ID, NUM_VISITAS) VALUES (?, ?)");
-                    psNoSocio.setInt(1, id);
-                    psNoSocio.setInt(2, noSocio.getNumVisitas());
-                    psNoSocio.executeUpdate();
-                    psNoSocio.close();
-                }
-            }
+			ResultSet rs = ps.getGeneratedKeys();
+			if (rs.next()) {
+				id = rs.getInt(1);
 
-            ps.close();
-            rs.close();
+				if (cliente instanceof TClienteSocio) {
+					TClienteSocio socio = (TClienteSocio) cliente;
+					PreparedStatement psSocio = c
+							.prepareStatement("INSERT INTO SOCIO (ID, PUNTOS, NUM_SOCIO) VALUES (?, ?, ?)");
+					psSocio.setInt(1, id);
+					psSocio.setInt(2, socio.getPuntos());
+					psSocio.setInt(3, generarNumSocio(c));
+					psSocio.executeUpdate();
+					psSocio.close();
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+				} else if (cliente instanceof TClienteNoSocio) {
+					TClienteNoSocio noSocio = (TClienteNoSocio) cliente;
+					PreparedStatement psNoSocio = c
+							.prepareStatement("INSERT INTO NOSOCIO (ID, NUM_VISITAS) VALUES (?, ?)");
+					psNoSocio.setInt(1, id);
+					psNoSocio.setInt(2, noSocio.getNumVisitas());
+					psNoSocio.executeUpdate();
+					psNoSocio.close();
+				}
+			}
 
-        return id;
-    }
+			ps.close();
+			rs.close();
 
-    @Override
-    public TCliente read(int id) {
-        TCliente cliente = null;
-        try {
-            TManager tManager = TManager.getInstance();
-            Transaction t = tManager.getTransaction();
-            Connection c = (Connection) t.getResource();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 
-            PreparedStatement ps = c.prepareStatement("SELECT DNI, NOMBRE, ACTIVO FROM CLIENTE WHERE ID = ? FOR UPDATE");
-            ps.setInt(1, id);
-            ResultSet rs = ps.executeQuery();
+		return id;
+	}
 
-            if (rs.next()) {
-                String dni = rs.getString("DNI");
-                String nombre = rs.getString("NOMBRE");
-                int activo = rs.getInt("ACTIVO");
+	@Override
+	public TCliente read(int id) {
+		TCliente cliente = null;
+		try {
+			TManager tManager = TManager.getInstance();
+			Transaction t = tManager.getTransaction();
+			Connection c = (Connection) t.getResource();
 
-                PreparedStatement psSocio = c.prepareStatement("SELECT PUNTOS, NUM_SOCIO FROM SOCIO WHERE ID = ? FOR UPDATE");
-                psSocio.setInt(1, id);
-                ResultSet rsSocio = psSocio.executeQuery();
+			PreparedStatement ps = c
+					.prepareStatement("SELECT DNI, NOMBRE, ACTIVO FROM CLIENTE WHERE ID = ? FOR UPDATE");
+			ps.setInt(1, id);
+			ResultSet rs = ps.executeQuery();
 
-                if (rsSocio.next()) {
-                    int puntos = rsSocio.getInt("PUNTOS");
-                    int numSocio = rsSocio.getInt("NUM_SOCIO");
-                    cliente = new TClienteSocio(id, nombre, dni, activo, numSocio, puntos);
-                } else {
-                    PreparedStatement psNoSocio = c.prepareStatement("SELECT NUM_VISITAS FROM NOSOCIO WHERE ID = ? FOR UPDATE");
-                    psNoSocio.setInt(1, id);
-                    ResultSet rsNoSocio = psNoSocio.executeQuery();
+			if (rs.next()) {
+				String dni = rs.getString("DNI");
+				String nombre = rs.getString("NOMBRE");
+				int activo = rs.getInt("ACTIVO");
 
-                    if (rsNoSocio.next()) {
-                        int numVisitas = rsNoSocio.getInt("NUM_VISITAS");
-                        cliente = new TClienteNoSocio(id, nombre, dni, activo, numVisitas);
-                    }
+				PreparedStatement psSocio = c
+						.prepareStatement("SELECT PUNTOS, NUM_SOCIO FROM SOCIO WHERE ID = ? FOR UPDATE");
+				psSocio.setInt(1, id);
+				ResultSet rsSocio = psSocio.executeQuery();
 
-                    rsNoSocio.close();
-                    psNoSocio.close();
-                }
+				if (rsSocio.next()) {
+					int puntos = rsSocio.getInt("PUNTOS");
+					int numSocio = rsSocio.getInt("NUM_SOCIO");
+					cliente = new TClienteSocio(id, nombre, dni, activo, numSocio, puntos);
+				} else {
+					PreparedStatement psNoSocio = c
+							.prepareStatement("SELECT NUM_VISITAS FROM NOSOCIO WHERE ID = ? FOR UPDATE");
+					psNoSocio.setInt(1, id);
+					ResultSet rsNoSocio = psNoSocio.executeQuery();
 
-                rsSocio.close();
-                psSocio.close();
-            }
+					if (rsNoSocio.next()) {
+						int numVisitas = rsNoSocio.getInt("NUM_VISITAS");
+						cliente = new TClienteNoSocio(id, nombre, dni, activo, numVisitas);
+					}
 
-            rs.close();
-            ps.close();
+					rsNoSocio.close();
+					psNoSocio.close();
+				}
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+				rsSocio.close();
+				psSocio.close();
+			}
 
-        return cliente;
-    }
+			rs.close();
+			ps.close();
 
-    @Override
-    public int update(TCliente cliente) {
-        int exito = -1;
-        TManager tManager = TManager.getInstance();
-        Transaction t = tManager.getTransaction();
-        Connection c = (Connection) t.getResource();
-        
-        try {
-            TCliente existente = read(cliente.getId());
-            if (existente == null) {
-                return -1;
-            }
-            
-            if(existente == null || existente.getActivo() == 0 || !cliente.getClass().equals(existente.getClass())) {
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return cliente;
+	}
+
+	@Override
+	public int update(TCliente cliente) {
+		int exito = -1;
+		TManager tManager = TManager.getInstance();
+		Transaction t = tManager.getTransaction();
+		Connection c = (Connection) t.getResource();
+
+		try {
+			TCliente existente = read(cliente.getId());
+			if (existente == null) {
 				return -1;
 			}
-            
-            String updateSql = "UPDATE CLIENTE SET DNI = ?, NOMBRE = ?, ACTIVO = 1 WHERE ID = ? ";
-            PreparedStatement s = c.prepareStatement(updateSql);
-            s.setString(1, cliente.getDni());
-            s.setString(2, cliente.getNombre());
-            s.setInt(3, cliente.getId());
-            exito = s.executeUpdate();
-            s.close();
 
-            if (cliente instanceof TClienteSocio) {
-                TClienteSocio socio = (TClienteSocio) cliente;
-                PreparedStatement psSocio = c.prepareStatement(
-                        "UPDATE SOCIO SET PUNTOS = ? WHERE ID = ?");
-                psSocio.setInt(1, socio.getPuntos());
-                psSocio.setInt(2, socio.getId());
-                psSocio.executeUpdate();
-                psSocio.close();
-                exito = socio.getId();
+			if (existente == null || existente.getActivo() == 0 || !cliente.getClass().equals(existente.getClass())) {
+				return -1;
+			}
 
-            } else if (cliente instanceof TClienteNoSocio) {
-                TClienteNoSocio noSocio = (TClienteNoSocio) cliente;
-                PreparedStatement psNoSocio = c.prepareStatement(
-                        "UPDATE NOSOCIO SET NUM_VISITAS = ? WHERE ID = ?");
-                psNoSocio.setInt(1, noSocio.getNumVisitas());
-                psNoSocio.setInt(2, noSocio.getId());
-                psNoSocio.executeUpdate();
-                psNoSocio.close();
-                exito = noSocio.getId();
-            }
+			String updateSql = "UPDATE CLIENTE SET DNI = ?, NOMBRE = ?, ACTIVO = 1 WHERE ID = ? ";
+			PreparedStatement s = c.prepareStatement(updateSql);
+			s.setString(1, cliente.getDni());
+			s.setString(2, cliente.getNombre());
+			s.setInt(3, cliente.getId());
+			exito = s.executeUpdate();
+			s.close();
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return -1;
-        }
-        return exito;
-    }
+			if (cliente instanceof TClienteSocio) {
+				TClienteSocio socio = (TClienteSocio) cliente;
+				PreparedStatement psSocio = c.prepareStatement("UPDATE SOCIO SET PUNTOS = ? WHERE ID = ?");
+				psSocio.setInt(1, socio.getPuntos());
+				psSocio.setInt(2, socio.getId());
+				psSocio.executeUpdate();
+				psSocio.close();
+				exito = socio.getId();
 
-    @Override
-    public int delete(int id) {
-        int exito = -1;
-        try {
-            TManager tManager = TManager.getInstance();
-            Transaction t = tManager.getTransaction();
-            Connection c = (Connection) t.getResource();
-            PreparedStatement s = c.prepareStatement("UPDATE CLIENTE SET ACTIVO = 0 WHERE ID = ?");
-            s.setInt(1, id);
-            exito = s.executeUpdate();
-            s.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return -1;
-        }
-        return (exito > 0) ? exito : -1;
-    }
+			} else if (cliente instanceof TClienteNoSocio) {
+				TClienteNoSocio noSocio = (TClienteNoSocio) cliente;
+				PreparedStatement psNoSocio = c.prepareStatement("UPDATE NOSOCIO SET NUM_VISITAS = ? WHERE ID = ?");
+				psNoSocio.setInt(1, noSocio.getNumVisitas());
+				psNoSocio.setInt(2, noSocio.getId());
+				psNoSocio.executeUpdate();
+				psNoSocio.close();
+				exito = noSocio.getId();
+			}
 
-    @Override
-    public TCliente read_by_DNI(String dni) {
-        if (dni == null || dni.isEmpty()) return null;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return -1;
+		}
+		return exito;
+	}
 
-        TCliente cliente = null;
-        try {
-            TManager tManager = TManager.getInstance();
-            Transaction t = tManager.getTransaction();
-            Connection c = (Connection) t.getResource();
+	@Override
+	public int delete(int id) {
+		int exito = -1;
+		try {
+			TManager tManager = TManager.getInstance();
+			Transaction t = tManager.getTransaction();
+			Connection c = (Connection) t.getResource();
+			PreparedStatement s = c.prepareStatement("UPDATE CLIENTE SET ACTIVO = 0 WHERE ID = ?");
+			s.setInt(1, id);
+			exito = s.executeUpdate();
+			s.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return -1;
+		}
+		return (exito > 0) ? exito : -1;
+	}
 
-            PreparedStatement psCliente = c.prepareStatement(
-                    "SELECT ID, NOMBRE, ACTIVO FROM CLIENTE WHERE DNI = ? FOR UPDATE");
-            psCliente.setString(1, dni);
-            ResultSet rsCliente = psCliente.executeQuery();
+	@Override
+	public TCliente read_by_DNI(String dni) {
+		if (dni == null || dni.isEmpty())
+			return null;
 
-            if (rsCliente.next()) {
-                int id = rsCliente.getInt("ID");
-                String nombre = rsCliente.getString("NOMBRE");
-                int activo = rsCliente.getInt("ACTIVO");
+		TCliente cliente = null;
+		try {
+			TManager tManager = TManager.getInstance();
+			Transaction t = tManager.getTransaction();
+			Connection c = (Connection) t.getResource();
 
-                PreparedStatement psSocio = c.prepareStatement("SELECT PUNTOS, NUM_SOCIO FROM SOCIO WHERE ID = ? FOR UPDATE");
-                psSocio.setInt(1, id);
-                ResultSet rsSocio = psSocio.executeQuery();
+			PreparedStatement psCliente = c
+					.prepareStatement("SELECT ID, NOMBRE, ACTIVO FROM CLIENTE WHERE DNI = ? FOR UPDATE");
+			psCliente.setString(1, dni);
+			ResultSet rsCliente = psCliente.executeQuery();
 
-                if (rsSocio.next()) {
-                    int puntos = rsSocio.getInt("PUNTOS");
-                    int numSocio = rsSocio.getInt("NUM_SOCIO");
-                    cliente = new TClienteSocio(id, nombre, dni, activo, numSocio, puntos);
-                } else {
-                    PreparedStatement psNoSocio = c.prepareStatement("SELECT NUM_VISITAS FROM NOSOCIO WHERE ID = ? FOR UPDATE");
-                    psNoSocio.setInt(1, id);
-                    ResultSet rsNoSocio = psNoSocio.executeQuery();
-                    if (rsNoSocio.next()) {
-                        int numVisitas = rsNoSocio.getInt("NUM_VISITAS");
-                        cliente = new TClienteNoSocio(id, nombre, dni, activo, numVisitas);
-                    }
-                    rsNoSocio.close();
-                    psNoSocio.close();
-                }
+			if (rsCliente.next()) {
+				int id = rsCliente.getInt("ID");
+				String nombre = rsCliente.getString("NOMBRE");
+				int activo = rsCliente.getInt("ACTIVO");
 
-                rsSocio.close();
-                psSocio.close();
-            }
+				PreparedStatement psSocio = c
+						.prepareStatement("SELECT PUNTOS, NUM_SOCIO FROM SOCIO WHERE ID = ? FOR UPDATE");
+				psSocio.setInt(1, id);
+				ResultSet rsSocio = psSocio.executeQuery();
 
-            rsCliente.close();
-            psCliente.close();
+				if (rsSocio.next()) {
+					int puntos = rsSocio.getInt("PUNTOS");
+					int numSocio = rsSocio.getInt("NUM_SOCIO");
+					cliente = new TClienteSocio(id, nombre, dni, activo, numSocio, puntos);
+				} else {
+					PreparedStatement psNoSocio = c
+							.prepareStatement("SELECT NUM_VISITAS FROM NOSOCIO WHERE ID = ? FOR UPDATE");
+					psNoSocio.setInt(1, id);
+					ResultSet rsNoSocio = psNoSocio.executeQuery();
+					if (rsNoSocio.next()) {
+						int numVisitas = rsNoSocio.getInt("NUM_VISITAS");
+						cliente = new TClienteNoSocio(id, nombre, dni, activo, numVisitas);
+					}
+					rsNoSocio.close();
+					psNoSocio.close();
+				}
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+				rsSocio.close();
+				psSocio.close();
+			}
 
-        return cliente;
-    }
+			rsCliente.close();
+			psCliente.close();
 
-    @Override
-    public Set<TCliente> read_all() {
-        Set<TCliente> clientes = new LinkedHashSet<>();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 
-        try {
-            TManager tManager = TManager.getInstance();
-            Transaction t = tManager.getTransaction();
-            Connection c = (Connection) t.getResource();
+		return cliente;
+	}
 
-            PreparedStatement s = c.prepareStatement("SELECT ID, DNI, NOMBRE, ACTIVO FROM CLIENTE FOR UPDATE");
-            ResultSet r = s.executeQuery();
+	@Override
+	public Set<TCliente> read_all() {
+		Set<TCliente> clientes = new LinkedHashSet<>();
 
-            while (r.next()) {
-                int id = r.getInt("ID");
-                String dni = r.getString("DNI");
-                String nombre = r.getString("NOMBRE");
-                int activo = r.getInt("ACTIVO");
+		try {
+			TManager tManager = TManager.getInstance();
+			Transaction t = tManager.getTransaction();
+			Connection c = (Connection) t.getResource();
 
-                PreparedStatement psSocio = c.prepareStatement("SELECT PUNTOS, NUM_SOCIO FROM SOCIO WHERE ID = ? FOR UPDATE");
-                psSocio.setInt(1, id);
-                ResultSet rsSocio = psSocio.executeQuery();
+			PreparedStatement s = c.prepareStatement("SELECT ID, DNI, NOMBRE, ACTIVO FROM CLIENTE FOR UPDATE");
+			ResultSet r = s.executeQuery();
 
-                if (rsSocio.next()) {
-                    int puntos = rsSocio.getInt("PUNTOS");
-                    int numSocio = rsSocio.getInt("NUM_SOCIO");
-                    clientes.add(new TClienteSocio(id, nombre, dni, activo, numSocio, puntos));
-                } else {
-                    PreparedStatement psNoSocio = c.prepareStatement("SELECT NUM_VISITAS FROM NOSOCIO WHERE ID = ? FOR UPDATE");
-                    psNoSocio.setInt(1, id);
-                    ResultSet rsNoSocio = psNoSocio.executeQuery();
-                    if (rsNoSocio.next()) {
-                        int numVisitas = rsNoSocio.getInt("NUM_VISITAS");
-                        clientes.add(new TClienteNoSocio(id, nombre, dni, activo, numVisitas));
-                    }
-                    rsNoSocio.close();
-                    psNoSocio.close();
-                }
+			while (r.next()) {
+				int id = r.getInt("ID");
+				String dni = r.getString("DNI");
+				String nombre = r.getString("NOMBRE");
+				int activo = r.getInt("ACTIVO");
 
-                rsSocio.close();
-                psSocio.close();
-            }
+				PreparedStatement psSocio = c
+						.prepareStatement("SELECT PUNTOS, NUM_SOCIO FROM SOCIO WHERE ID = ? FOR UPDATE");
+				psSocio.setInt(1, id);
+				ResultSet rsSocio = psSocio.executeQuery();
 
-            r.close();
-            s.close();
+				if (rsSocio.next()) {
+					int puntos = rsSocio.getInt("PUNTOS");
+					int numSocio = rsSocio.getInt("NUM_SOCIO");
+					clientes.add(new TClienteSocio(id, nombre, dni, activo, numSocio, puntos));
+				} else {
+					PreparedStatement psNoSocio = c
+							.prepareStatement("SELECT NUM_VISITAS FROM NOSOCIO WHERE ID = ? FOR UPDATE");
+					psNoSocio.setInt(1, id);
+					ResultSet rsNoSocio = psNoSocio.executeQuery();
+					if (rsNoSocio.next()) {
+						int numVisitas = rsNoSocio.getInt("NUM_VISITAS");
+						clientes.add(new TClienteNoSocio(id, nombre, dni, activo, numVisitas));
+					}
+					rsNoSocio.close();
+					psNoSocio.close();
+				}
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return null;
-        }
+				rsSocio.close();
+				psSocio.close();
+			}
 
-        return clientes;
-    }
+			r.close();
+			s.close();
 
-    private int generarNumSocio(Connection c) throws SQLException {
-        int nuevoID = 1;
-        try (Statement s = c.createStatement();
-             ResultSet rs = s.executeQuery("SELECT MAX(NUM_SOCIO) FROM SOCIO")) {
-            if (rs.next()) {
-                nuevoID = rs.getInt(1) + 1;
-            }
-        }
-        return nuevoID;
-    }
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+
+		return clientes;
+	}
+
+	private int generarNumSocio(Connection c) throws SQLException {
+		int nuevoID = 1;
+		try (Statement s = c.createStatement(); ResultSet rs = s.executeQuery("SELECT MAX(NUM_SOCIO) FROM SOCIO")) {
+			if (rs.next()) {
+				nuevoID = rs.getInt(1) + 1;
+			}
+		}
+		return nuevoID;
+	}
 }

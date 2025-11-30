@@ -45,84 +45,74 @@ public class VCalcularImporteMasVendido extends JFrame implements IGUI {
 	 * @generated "UML a Java
 	 *            (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	 */
-	 private void initGUI() {
-	       
-	        setLayout(new GridLayout(2, 2, 10, 10));
-	        getRootPane().setBorder(BorderFactory.createTitledBorder("Calcular Importe Más Vendido"));
+	private void initGUI() {
 
-	       
-	        JLabel lblID = new JLabel("ID del Producto:");
-	        JTextField txtID = new JTextField();
+		setLayout(new GridLayout(2, 2, 10, 10));
+		getRootPane().setBorder(BorderFactory.createTitledBorder("Calcular Importe Más Vendido"));
 
-	        
-	        JButton btnCalcular = new JButton("Calcular");
-	        btnCalcular.setBackground(new Color(200, 255, 200));
-	        btnCalcular.addActionListener(e -> {
-	            try {
-	                int id = Integer.parseInt(txtID.getText().trim());
-	                if (id <= 0) {
-	                    JOptionPane.showMessageDialog(this, "El ID debe ser un número positivo.");
-	                    return;
-	                }
+		JLabel lblID = new JLabel("ID del Producto:");
+		JTextField txtID = new JTextField();
 
-	                Controlador.getInstancia().accion(new Context(Evento.CALCULAR_MAS_VENDIDO, id));
-	                txtID.setText("");
-	            } catch (NumberFormatException ex) {
-	                JOptionPane.showMessageDialog(this, "El ID debe ser un número válido.");
-	            }
-	        });
+		JButton btnCalcular = new JButton("Calcular");
+		btnCalcular.setBackground(new Color(200, 255, 200));
+		btnCalcular.addActionListener(e -> {
+			try {
+				int id = Integer.parseInt(txtID.getText().trim());
+				if (id <= 0) {
+					JOptionPane.showMessageDialog(this, "El ID debe ser un número positivo.");
+					return;
+				}
 
-	        
-	        JButton btnVolver = new JButton("Volver");
-	        btnVolver.setBackground(new Color(255, 220, 220));
-	        btnVolver.addActionListener(e -> {
-	            Controlador.getInstancia().accion(new Context(Evento.EMPLEADO, null));
-	            this.dispose();
-	        });
+				Controlador.getInstancia().accion(new Context(Evento.CALCULAR_MAS_VENDIDO, id));
+				txtID.setText("");
+			} catch (NumberFormatException ex) {
+				JOptionPane.showMessageDialog(this, "El ID debe ser un número válido.");
+			}
+		});
 
-	       
-	        add(lblID);
-	        add(txtID);
-	       
-	        add(btnCalcular);
-	        add(btnVolver);
+		JButton btnVolver = new JButton("Volver");
+		btnVolver.setBackground(new Color(255, 220, 220));
+		btnVolver.addActionListener(e -> {
+			Controlador.getInstancia().accion(new Context(Evento.EMPLEADO, null));
+			this.dispose();
+		});
 
-	       
-	        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-	        setSize(350, 150);
-	        setLocationRelativeTo(null);
-	    }
+		add(lblID);
+		add(txtID);
 
-	    @Override
-	    public void actualizar(Context context) {
-	        Evento evento = context.getEvento();
-	        AbstractMap.SimpleEntry<Integer, Integer> datos = (AbstractMap.SimpleEntry<Integer, Integer>)context.getDatos();
+		add(btnCalcular);
+		add(btnVolver);
 
-	        switch (evento) {
-	            case VCALCULAR_MAS_VENDIDO:
-	                this.setVisible(true);
-	                break;
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setSize(350, 150);
+		setLocationRelativeTo(null);
+	}
 
-	            case RES_CALCULAR_MAS_VENDIDO_OK:
-	                JOptionPane.showMessageDialog(this, 
-	                    "Empleado que más ha vendido es el id " + datos.getKey()+" con importe total de " + datos.getValue(),
-	                    "Resultado",
-	                    JOptionPane.INFORMATION_MESSAGE);
-	                break;
+	@Override
+	public void actualizar(Context context) {
+		Evento evento = context.getEvento();
+		AbstractMap.SimpleEntry<Integer, Integer> datos = (AbstractMap.SimpleEntry<Integer, Integer>) context
+				.getDatos();
 
-	            case RES_CALCULAR_MAS_VENDIDO_KO:
-	                JOptionPane.showMessageDialog(this, 
-	                    "Error al calcular el empleado que más ha vendido.", 
-	                    "Error", 
-	                    JOptionPane.ERROR_MESSAGE);
-	                break;
+		switch (evento) {
+		case VCALCULAR_MAS_VENDIDO:
+			this.setVisible(true);
+			break;
 
-	            default:
-	                JOptionPane.showMessageDialog(this, 
-	                    "Evento no reconocido: " + evento, 
-	                    "Aviso", 
-	                    JOptionPane.WARNING_MESSAGE);
-	                break;
-	        }
-	    }
+		case RES_CALCULAR_MAS_VENDIDO_OK:
+			JOptionPane.showMessageDialog(this, "Empleado que más ha vendido es el id " + datos.getKey()
+					+ " con importe total de " + datos.getValue(), "Resultado", JOptionPane.INFORMATION_MESSAGE);
+			break;
+
+		case RES_CALCULAR_MAS_VENDIDO_KO:
+			JOptionPane.showMessageDialog(this, "Error al calcular el empleado que más ha vendido.", "Error",
+					JOptionPane.ERROR_MESSAGE);
+			break;
+
+		default:
+			JOptionPane.showMessageDialog(this, "Evento no reconocido: " + evento, "Aviso",
+					JOptionPane.WARNING_MESSAGE);
+			break;
+		}
+	}
 }

@@ -25,118 +25,122 @@ import presentacion.GUI.IGUI;
 
 public class VAltaRemitente extends JFrame implements IGUI {
 
-    public VAltaRemitente() {
-        super("Alta de Remitente");
-        initGUI();
-    }
-    private void initGUI() {
+	public VAltaRemitente() {
+		super("Alta de Remitente");
+		initGUI();
+	}
 
-        setLayout(new GridLayout(6, 2, 10, 10));
-        getRootPane().setBorder(BorderFactory.createTitledBorder("Alta Remitente "));
+	private void initGUI() {
 
-        JLabel lblNombre = new JLabel("Nombre:");
-        JTextField txtNombre = new JTextField();
+		setLayout(new GridLayout(6, 2, 10, 10));
+		getRootPane().setBorder(BorderFactory.createTitledBorder("Alta Remitente "));
 
-        JLabel lblDireccion = new JLabel("Dirección:");
-        JTextField txtDireccion = new JTextField();
+		JLabel lblNombre = new JLabel("Nombre:");
+		JTextField txtNombre = new JTextField();
 
-        JLabel lblTelefono = new JLabel("Teléfono:");
-        JTextField txtTelefono = new JTextField();
+		JLabel lblDireccion = new JLabel("Dirección:");
+		JTextField txtDireccion = new JTextField();
 
-        JLabel lblVisitas = new JLabel("Número de Registro Fiscal:");
-        JTextField altaNum = new JTextField();
+		JLabel lblTelefono = new JLabel("Teléfono:");
+		JTextField txtTelefono = new JTextField();
 
-        JRadioButton rdbEmpresa = new JRadioButton("Empresa");
-        JRadioButton rdbParticular = new JRadioButton("Particular");
-        ButtonGroup grupoTipo = new ButtonGroup();
-        grupoTipo.add(rdbEmpresa);
-        grupoTipo.add(rdbParticular);
-        rdbEmpresa.setSelected(true);
+		JLabel lblVisitas = new JLabel("Número de Registro Fiscal:");
+		JTextField altaNum = new JTextField();
 
-        rdbEmpresa.addActionListener(e -> lblVisitas.setText("Número de Registro Fiscal:"));
-        rdbParticular.addActionListener(e -> lblVisitas.setText("Fecha de nacimiento:"));
+		JRadioButton rdbEmpresa = new JRadioButton("Empresa");
+		JRadioButton rdbParticular = new JRadioButton("Particular");
+		ButtonGroup grupoTipo = new ButtonGroup();
+		grupoTipo.add(rdbEmpresa);
+		grupoTipo.add(rdbParticular);
+		rdbEmpresa.setSelected(true);
 
-        JPanel altaTipoPanel = new JPanel(new GridLayout(1, 2));
-        altaTipoPanel.add(rdbEmpresa);
-        altaTipoPanel.add(rdbParticular);
+		rdbEmpresa.addActionListener(e -> lblVisitas.setText("Número de Registro Fiscal:"));
+		rdbParticular.addActionListener(e -> lblVisitas.setText("Fecha de nacimiento:"));
 
-        JButton btnAlta = new JButton("Dar de Alta");
-        btnAlta.setBackground(new Color(200, 255, 200));
-        btnAlta.addActionListener(e -> {
-            try {
+		JPanel altaTipoPanel = new JPanel(new GridLayout(1, 2));
+		altaTipoPanel.add(rdbEmpresa);
+		altaTipoPanel.add(rdbParticular);
 
-                String nombre = txtNombre.getText().trim();
-                String direccion = txtDireccion.getText().trim();
-                String telefono = txtTelefono.getText().trim();
-                String extra = altaNum.getText().trim();
+		JButton btnAlta = new JButton("Dar de Alta");
+		btnAlta.setBackground(new Color(200, 255, 200));
+		btnAlta.addActionListener(e -> {
+			try {
 
-                if (nombre.isEmpty() || direccion.isEmpty() || telefono.isEmpty() || extra.isEmpty()) {
-                    JOptionPane.showMessageDialog(null, "Rellena todos los campos.");
-                    return;
-                }
+				String nombre = txtNombre.getText().trim();
+				String direccion = txtDireccion.getText().trim();
+				String telefono = txtTelefono.getText().trim();
+				String extra = altaNum.getText().trim();
 
-                TRemitente t;
+				if (nombre.isEmpty() || direccion.isEmpty() || telefono.isEmpty() || extra.isEmpty()) {
+					JOptionPane.showMessageDialog(null, "Rellena todos los campos.");
+					return;
+				}
 
-                if (rdbEmpresa.isSelected()) {
-                    int registro = Integer.parseInt(extra);
-                    t = new TEmpresa(-1, 0, nombre, direccion, telefono, registro);
-                } else {
-                    t = new TParticular(-1, 0, nombre, direccion, telefono, extra);
-                }
+				TRemitente t;
 
-                Controlador.getInstancia().accion(new Context(Evento.ALTA_REMITENTE, t));
+				if (rdbEmpresa.isSelected()) {
+					int registro = Integer.parseInt(extra);
+					t = new TEmpresa(-1, 0, nombre, direccion, telefono, registro);
+				} else {
+					t = new TParticular(-1, 0, nombre, direccion, telefono, extra);
+				}
 
-                txtNombre.setText("");
-                txtDireccion.setText("");
-                txtTelefono.setText("");
-                altaNum.setText("");
+				Controlador.getInstancia().accion(new Context(Evento.ALTA_REMITENTE, t));
 
-            } catch (Exception ex) {
-                JOptionPane.showMessageDialog(null, "Datos inválidos.");
-            }
-        });
+				txtNombre.setText("");
+				txtDireccion.setText("");
+				txtTelefono.setText("");
+				altaNum.setText("");
 
-        JButton btnVolver = new JButton("Volver");
-        btnVolver.setBackground(new Color(255, 220, 220));
-        btnVolver.addActionListener(e -> {
-            Controlador.getInstancia().accion(new Context(Evento.REMITENTE, null));
-            this.dispose();
-        });
+			} catch (Exception ex) {
+				JOptionPane.showMessageDialog(null, "Datos inválidos.");
+			}
+		});
 
-        add(lblNombre);    add(txtNombre);
-        add(lblDireccion); add(txtDireccion);
-        add(lblTelefono);  add(txtTelefono);
+		JButton btnVolver = new JButton("Volver");
+		btnVolver.setBackground(new Color(255, 220, 220));
+		btnVolver.addActionListener(e -> {
+			Controlador.getInstancia().accion(new Context(Evento.REMITENTE, null));
+			this.dispose();
+		});
 
-        add(new JLabel("Tipo de Remitente:"));
-        add(altaTipoPanel);
+		add(lblNombre);
+		add(txtNombre);
+		add(lblDireccion);
+		add(txtDireccion);
+		add(lblTelefono);
+		add(txtTelefono);
 
-        add(lblVisitas);   add(altaNum);
+		add(new JLabel("Tipo de Remitente:"));
+		add(altaTipoPanel);
 
-        add(btnAlta);      
-        add(btnVolver);
+		add(lblVisitas);
+		add(altaNum);
 
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setSize(450, 300);
-        setLocationRelativeTo(null);
-    }
+		add(btnAlta);
+		add(btnVolver);
 
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		setSize(450, 300);
+		setLocationRelativeTo(null);
+	}
 
-    @Override
-    public void actualizar(Context context) {
-        switch (context.getEvento()) {
+	@Override
+	public void actualizar(Context context) {
+		switch (context.getEvento()) {
 
-        case VALTA_REMITENTE:
-            setVisible(true);
-            break;
+		case VALTA_REMITENTE:
+			setVisible(true);
+			break;
 
-        case RES_ALTA_REMITENTE_OK:
-            JOptionPane.showMessageDialog(null, "Remitente dado de alta con ID: " + context.getDatos());
-            break;
+		case RES_ALTA_REMITENTE_OK:
+			JOptionPane.showMessageDialog(null, "Remitente dado de alta con ID: " + context.getDatos());
+			break;
 
-        case RES_ALTA_REMITENTE_KO:
-            JOptionPane.showMessageDialog(null, "Error al dar de alta el Remitente.");
-            break;
-        }
-    }
-	
+		case RES_ALTA_REMITENTE_KO:
+			JOptionPane.showMessageDialog(null, "Error al dar de alta el Remitente.");
+			break;
+		}
+	}
+
 }

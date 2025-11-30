@@ -18,12 +18,13 @@ import presentacion.Controller.Command.Context;
 import presentacion.GUI.Evento;
 import presentacion.GUI.IGUI;
 
-/** 
-* <!-- begin-UML-doc -->
-* <!-- end-UML-doc -->
-* @author adria
-* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-*/
+/**
+ * <!-- begin-UML-doc --> <!-- end-UML-doc -->
+ * 
+ * @author adria
+ * @generated "UML a Java
+ *            (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+ */
 public class VBuscarAlmacen extends JFrame implements IGUI {
 	public VBuscarAlmacen() {
 		super("Buscar Almacén");
@@ -51,20 +52,20 @@ public class VBuscarAlmacen extends JFrame implements IGUI {
 				JOptionPane.showMessageDialog(this, "El ID debe ser un numero.");
 			}
 		});
-		
+
 		JButton btnVolver = new JButton("Volver");
 		btnVolver.setBackground(new Color(255, 220, 220));
 		btnVolver.addActionListener(e -> {
 			Controlador.getInstancia().accion(new Context(Evento.ALMACEN, null));
 			this.dispose();
 		});
-		
+
 		add(btnVolver);
-		
+
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(350, 150);
 		setLocationRelativeTo(null);
-		
+
 	}
 
 	public void actualizar(Context context) {

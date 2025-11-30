@@ -123,7 +123,7 @@ public class VAltaEmpleado extends JFrame implements IGUI {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(450, 250);
 		setLocationRelativeTo(null);
-		
+
 	}
 
 	@Override

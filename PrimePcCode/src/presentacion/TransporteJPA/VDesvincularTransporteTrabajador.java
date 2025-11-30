@@ -10,6 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
+import negocio.TransporteJPA.TTransporteTrabajador;
 import presentacion.Controller.Controlador;
 import presentacion.Controller.Command.Context;
 import presentacion.GUI.Evento;
@@ -38,12 +39,13 @@ public class VDesvincularTransporteTrabajador extends JFrame implements IGUI {
 
 		btnDesv.addActionListener(e -> {
 			try {
-				int[] datos = { Integer.parseInt(txtIdT.getText().trim()),
-						Integer.parseInt(txtIdTrab.getText().trim()) };
+				TTransporteTrabajador t = new TTransporteTrabajador();
+				t.setId_transporte(Integer.parseInt(txtIdT.getText().trim()));
+				t.setId_trabajador(Integer.parseInt(txtIdTrab.getText().trim()));
 
-				Controlador.getInstancia().accion(new Context(Evento.DESVINCULAR_TRANSPORTE_TRABAJADOR, datos));
+				Controlador.getInstancia().accion(new Context(Evento.DESVINCULAR_TRANSPORTE_TRABAJADOR, t));
 
-			} catch (Exception ex) {
+			} catch (NumberFormatException ex) {
 				JOptionPane.showMessageDialog(null, "Datos inválidos.");
 			}
 		});
@@ -83,6 +85,8 @@ public class VDesvincularTransporteTrabajador extends JFrame implements IGUI {
 		case RES_DESVINCULAR_TRANSPORTE_TRABAJADOR_KO:
 			JOptionPane.showMessageDialog(null, "Error al desvincular transporte.");
 			break;
+		default:
+			JOptionPane.showMessageDialog(null, "Evento no reconocido: " + context.getEvento());
 		}
 	}
 }

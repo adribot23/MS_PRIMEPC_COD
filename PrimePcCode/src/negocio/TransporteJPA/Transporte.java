@@ -19,35 +19,29 @@ import javax.persistence.JoinColumn;
 
 import negocio.TrabajadorJPA.Trabajador;
 
-@Table(uniqueConstraints = {@UniqueConstraint(columnNames = "matricula")})
+@Table(uniqueConstraints = { @UniqueConstraint(columnNames = "matricula") })
 @Entity
 @NamedQueries({
-	@NamedQuery(name = "negocio.TransporteJPA.Transporte.findByMatricula", query = "select t from Transporte t where t.matricula = :matricula"),
-	@NamedQuery(name = "negocio.TransporteJPA.Transporte.findAll", query = "select t from Transporte t")
-})
+		@NamedQuery(name = "negocio.TransporteJPA.Transporte.findByMatricula", query = "select t from Transporte t where t.matricula = :matricula"),
+		@NamedQuery(name = "negocio.TransporteJPA.Transporte.findAll", query = "select t from Transporte t") })
 
 public class Transporte implements Serializable {
-	
+
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id
 	private int id_transporte;
-	
-	@Version
-	private Integer version;	
-	private String nombre;	
-	private int capacidad;	
-	private String matricula;	
-	private int activo;
-	
-	// No tiene argumentos la relación por lo que no se necesita clase intermedia
-    @ManyToMany
-    @JoinTable(
-        name = "transporte_trabajador",           
-        joinColumns = @JoinColumn(name = "id_transporte"),      
-        inverseJoinColumns = @JoinColumn(name = "id_trabajador") 
-    )
-    private Set<Trabajador> trabajadores;
 
+	@Version
+	private Integer version;
+	private String nombre;
+	private int capacidad;
+	private String matricula;
+	private int activo;
+
+	// No tiene argumentos la relación por lo que no se necesita clase intermedia
+	@ManyToMany
+	@JoinTable(name = "transporte_trabajador", joinColumns = @JoinColumn(name = "id_transporte"), inverseJoinColumns = @JoinColumn(name = "id_trabajador"))
+	private Set<Trabajador> trabajadores;
 
 	public Transporte(TTransporte t) {
 		this.id_transporte = t.getId();
@@ -60,47 +54,47 @@ public class Transporte implements Serializable {
 	public int getId() {
 		return id_transporte;
 	}
-	
+
 	public int getActivo() {
 		return this.activo;
 	}
-	
+
 	public void setActivo(int a) {
 		this.activo = a;
 	}
-	
+
 	public String getNombre() {
 		return this.nombre;
 	}
-	
+
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	
+
 	public String getMatricula() {
 		return this.matricula;
 	}
-	
+
 	public void setMatricula(String matricula) {
 		this.matricula = matricula;
 	}
-	
+
 	public int getCapacidad() {
 		return this.capacidad;
 	}
-	
+
 	public void setCapacidad(int capacidad) {
 		this.capacidad = capacidad;
 	}
-	
-	public Set<Trabajador> getTrabajadores(){
+
+	public Set<Trabajador> getTrabajadores() {
 		return this.trabajadores;
 	}
-	
+
 	public void setTrabajadores(Set<Trabajador> t) {
 		this.trabajadores = t;
 	}
-	
+
 	public TTransporte toTransfer() {
 		TTransporte transporte = new TTransporte();
 		transporte.setNombre(nombre);
@@ -108,7 +102,7 @@ public class Transporte implements Serializable {
 		transporte.setMatricula(matricula);
 		transporte.setId(id_transporte);
 		transporte.setActivo(activo);
-		return transporte;	
+		return transporte;
 	}
 
 }

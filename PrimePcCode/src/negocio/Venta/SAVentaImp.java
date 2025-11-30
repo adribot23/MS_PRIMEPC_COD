@@ -20,52 +20,48 @@ public class SAVentaImp implements SAVenta {
 
 	@Override
 	public TCarrito abrirVenta(int idEmpleado) {
-		
+
 		TManager tm = TManager.getInstance();
 		Transaction tr = tm.createTransaction();
-		
+
 		TCarrito carrito = new TCarrito();
 
 		if (tr != null) {
-		
-		tr.start();
-		
-		DAOEmpleado daoEmp = DAOAbstractFactory.getInstancia().generaDAOEmpleado();
-		
-		TEmpleado empleado = daoEmp.read(idEmpleado);
-		
-		if (empleado != null && empleado.getActivo() == 1) {
 
-		
-		carrito.setLineasVenta(new HashSet<TLineaVenta>());
+			tr.start();
 
-		TVenta venta = new TVenta();
+			DAOEmpleado daoEmp = DAOAbstractFactory.getInstancia().generaDAOEmpleado();
 
-		venta.setIdEmpleado(idEmpleado);
+			TEmpleado empleado = daoEmp.read(idEmpleado);
 
-		carrito.setVenta(venta);
-		tr.commit();
+			if (empleado != null && empleado.getActivo() == 1) {
 
-		
+				carrito.setLineasVenta(new HashSet<TLineaVenta>());
+
+				TVenta venta = new TVenta();
+
+				venta.setIdEmpleado(idEmpleado);
+
+				carrito.setVenta(venta);
+				tr.commit();
+
+			}
+
+			else {
+				tr.rollback();
+				carrito = null;
+
+			}
+
 		}
-		
-		else {
-			tr.rollback();
-			carrito = null;
-			
-		}
-		
-		
-		}
-		
+
 		return carrito;
 
 	}
-	
+
 	public int pasar_carrito(TCarrito carrito) {
 		return carrito == null ? -1 : 1;
 	}
-
 
 	@Override
 	public int procesarCarrito(TCarrito carrito) {
@@ -82,52 +78,52 @@ public class SAVentaImp implements SAVenta {
 
 	@Override
 	public int insertarProductoCarrito(TCarrito carrito) {
-		
+
 		TManager tm = TManager.getInstance();
 		Transaction tr = tm.createTransaction();
-		
+
 		if (tr != null) {
-			
-		tr.start();
-			
-		DAOProducto daoProd = DAOAbstractFactory.getInstancia().generaDAOProducto();
-		
-		int idProducto = carrito.getidProducto();
-		
-		TProducto producto = daoProd.read(idProducto);
-		
-		if (producto != null && producto.getActivo() == 1) {
 
-		int cantidad = carrito.getcantidadProducto();
+			tr.start();
 
-		Set<TLineaVenta> lineasVenta = carrito.getLineasVenta();
+			DAOProducto daoProd = DAOAbstractFactory.getInstancia().generaDAOProducto();
 
-		TLineaVenta lineaVenta = new TLineaVenta();
+			int idProducto = carrito.getidProducto();
 
-		lineaVenta = buscarLineaVentaPorIdProducto(lineasVenta, idProducto);
+			TProducto producto = daoProd.read(idProducto);
 
-		if (lineaVenta != null) {
+			if (producto != null && producto.getActivo() == 1) {
 
-			lineaVenta.set_num_unidades(lineaVenta.get_num_unidades() + cantidad);
+				int cantidad = carrito.getcantidadProducto();
 
-		} else {
+				Set<TLineaVenta> lineasVenta = carrito.getLineasVenta();
 
-			lineaVenta = new TLineaVenta();
+				TLineaVenta lineaVenta = new TLineaVenta();
 
-			lineaVenta.set_producto(idProducto);
+				lineaVenta = buscarLineaVentaPorIdProducto(lineasVenta, idProducto);
 
-			lineaVenta.set_num_unidades(cantidad);
+				if (lineaVenta != null) {
 
-			lineasVenta.add(lineaVenta);
+					lineaVenta.set_num_unidades(lineaVenta.get_num_unidades() + cantidad);
 
-		}
-		tr.commit();
-		}
-		
-		else {
-			tr.rollback();
-		}
-		
+				} else {
+
+					lineaVenta = new TLineaVenta();
+
+					lineaVenta.set_producto(idProducto);
+
+					lineaVenta.set_num_unidades(cantidad);
+
+					lineasVenta.add(lineaVenta);
+
+				}
+				tr.commit();
+			}
+
+			else {
+				tr.rollback();
+			}
+
 		}
 
 		return 1;
@@ -185,12 +181,12 @@ public class SAVentaImp implements SAVenta {
 		if (tr != null) {
 			tr.start();
 
-		TVenta venta = carrito.getVenta();
+			TVenta venta = carrito.getVenta();
 
-		DAOEmpleado daoEmp = DAOAbstractFactory.getInstancia().generaDAOEmpleado();
-		TEmpleado empleado = daoEmp.read(venta.getIdEmpleado());
+			DAOEmpleado daoEmp = DAOAbstractFactory.getInstancia().generaDAOEmpleado();
+			TEmpleado empleado = daoEmp.read(venta.getIdEmpleado());
 
-		if (empleado != null && empleado.getActivo() == 1) {
+			if (empleado != null && empleado.getActivo() == 1) {
 
 				Iterator<TLineaVenta> it = carrito.recorrerLineasVenta();
 
@@ -232,19 +228,19 @@ public class SAVentaImp implements SAVenta {
 					}
 				}
 
-			if (lineasVenta.size() > 0 && !exito) {
+				if (lineasVenta.size() > 0 && !exito) {
 
-				DAOVenta daoVenta = DAOAbstractFactory.getInstancia().generaDAOVenta();
+					DAOVenta daoVenta = DAOAbstractFactory.getInstancia().generaDAOVenta();
 
-			venta.setPrecio(totalproducto);
-			if (venta.getDescuento() == null) {
-				venta.setDescuento(0.0);
-			}
-			if (venta.getMetodoPago() == null || venta.getMetodoPago().isEmpty()) {
-				venta.setMetodoPago("Efectivo");
-			}
+					venta.setPrecio(totalproducto);
+					if (venta.getDescuento() == null) {
+						venta.setDescuento(0.0);
+					}
+					if (venta.getMetodoPago() == null || venta.getMetodoPago().isEmpty()) {
+						venta.setMetodoPago("Efectivo");
+					}
 
-			idVenta = daoVenta.create(venta);
+					idVenta = daoVenta.create(venta);
 
 					if (idVenta != -1) {
 
@@ -441,7 +437,6 @@ public class SAVentaImp implements SAVenta {
 		return ventas;
 	}
 
-
 	@Override
 	public int modificarVenta(TVenta venta) {
 
@@ -458,16 +453,16 @@ public class SAVentaImp implements SAVenta {
 
 			if (ventaExistente != null && ventaExistente.getActivo() == 1) {
 
-			TEmpleado empleado = DAOAbstractFactory.getInstancia().generaDAOEmpleado().read(venta.getIdEmpleado());
+				TEmpleado empleado = DAOAbstractFactory.getInstancia().generaDAOEmpleado().read(venta.getIdEmpleado());
 
-			if (empleado != null && empleado.getActivo() == 1) {
+				if (empleado != null && empleado.getActivo() == 1) {
 
-				ventaExistente.setIdEmpleado(venta.getIdEmpleado());
-				ventaExistente.setIdCliente(venta.getIdCliente());
-				ventaExistente.setMetodoPago(venta.getMetodoPago());
-				ventaExistente.setPrecio(venta.getPrecio());
-				ventaExistente.setDescuento(venta.getDescuento());
-				res = daoVenta.update(ventaExistente);
+					ventaExistente.setIdEmpleado(venta.getIdEmpleado());
+					ventaExistente.setIdCliente(venta.getIdCliente());
+					ventaExistente.setMetodoPago(venta.getMetodoPago());
+					ventaExistente.setPrecio(venta.getPrecio());
+					ventaExistente.setDescuento(venta.getDescuento());
+					res = daoVenta.update(ventaExistente);
 
 					if (res != -1) {
 						tr.commit();
@@ -579,7 +574,7 @@ public class SAVentaImp implements SAVenta {
 
 		return ventas;
 	}
-	
+
 	public int eliminar_venta(int idVenta) {
 
 		TManager tm = TManager.getInstance();
@@ -598,14 +593,14 @@ public class SAVentaImp implements SAVenta {
 				DAOLineaVenta daoLineaVenta = DAOAbstractFactory.getInstancia().generaDAOLineaVenta();
 				Set<TLineaVenta> setLineaVenta = daoLineaVenta.read_all(venta.getId());
 				if (setLineaVenta == null) {
-				    error = true;
+					error = true;
 				} else {
-				    for (TLineaVenta lineaVenta : setLineaVenta) {
-				        if (daoLineaVenta.delete(lineaVenta) == -1) {
-				            error = true;
-				            break;
-				        }
-				    }
+					for (TLineaVenta lineaVenta : setLineaVenta) {
+						if (daoLineaVenta.delete(lineaVenta) == -1) {
+							error = true;
+							break;
+						}
+					}
 				}
 
 				if (!error) {

@@ -20,23 +20,22 @@ import presentacion.GUI.Evento;
 import presentacion.GUI.IGUI;
 
 public class VBuscarCliente extends JFrame implements IGUI {
-	
+
 	private static final long serialVersionUID = 1L;
-	
+
 	public VBuscarCliente() {
 		super("Buscar Cliente");
 		initGUI();
 	}
-	
+
 	public void initGUI() {
 		setLayout(new GridLayout(2, 2, 10, 10));
 		getRootPane().setBorder(BorderFactory.createTitledBorder("Buscar Cliente"));
 
-
 		JTextField txtBuscarID = new JTextField();
 		JButton btnBuscar = new JButton("Buscar");
 		btnBuscar.setBackground(new Color(200, 255, 200));
-		
+
 		JButton btnVolver = new JButton("Volver");
 		btnVolver.setBackground(new Color(255, 220, 220));
 		btnVolver.addActionListener(e -> {
@@ -52,12 +51,12 @@ public class VBuscarCliente extends JFrame implements IGUI {
 				JOptionPane.showMessageDialog(this, "ID inválido.");
 			}
 		});
-		
+
 		add(new JLabel("ID del Cliente:"));
 		add(txtBuscarID);
 		add(btnBuscar);
 		add(btnVolver);
-		
+
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(350, 150);
 		setLocationRelativeTo(null);
@@ -67,7 +66,7 @@ public class VBuscarCliente extends JFrame implements IGUI {
 	public void actualizar(Context context) {
 		Evento evento = context.getEvento();
 		Object datos = context.getDatos();
-		
+
 		switch (evento) {
 		case VBUSCAR_CLIENTE:
 			this.setVisible(true);
@@ -80,7 +79,7 @@ public class VBuscarCliente extends JFrame implements IGUI {
 			break;
 		default:
 			JOptionPane.showMessageDialog(this, "Evento no reconocido: " + evento);
-			
+
 		}
 	}
 }

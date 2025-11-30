@@ -62,7 +62,6 @@ public class VModificarProveedor extends JFrame implements IGUI {
 
 				TProveedor p = new TProveedor(id, nombre);
 				Controlador.getInstancia().accion(new Context(Evento.MODIFICAR_PROVEEDOR, p));
-				
 
 			} catch (NumberFormatException ex) {
 				JOptionPane.showMessageDialog(this, "ID inválido. Debe ser un número entero.");
