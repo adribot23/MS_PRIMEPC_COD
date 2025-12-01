@@ -29,8 +29,8 @@ public class SAProductoImp implements SAProducto {
 
 			DAOProducto daoProducto = DAOAbstractFactory.getInstancia().generaDAOProducto();
 			DAOAlmacen daoAlmacen = DAOAbstractFactory.getInstancia().generaDAOAlmacen();
-			
-			if(producto.getPrecio() < 0 || producto.getUnidades() <= 0) {
+
+			if (producto.getPrecio() < 0 || producto.getUnidades() <= 0) {
 				transaction.rollback();
 				return -1;
 			}
@@ -181,7 +181,7 @@ public class SAProductoImp implements SAProducto {
 					int actualizado = daoAlmacen.update(almacen);
 
 					if (actualizado != -1) {
-						
+
 						exito = daoProducto.delete(id);
 						if (exito > 0)
 							transaction.commit();
@@ -200,124 +200,122 @@ public class SAProductoImp implements SAProducto {
 
 	@Override
 	public int modificarProducto(TProducto producto) {
-	    int exito = -1;
+		int exito = -1;
 
-	    TManager tManager = TManager.getInstance();
-	    tManager.createTransaction();
-	    Transaction transaction = tManager.getTransaction();
+		TManager tManager = TManager.getInstance();
+		tManager.createTransaction();
+		Transaction transaction = tManager.getTransaction();
 
-	    if (transaction == null) return -1;
+		if (transaction == null)
+			return -1;
 
-	    transaction.start();
-	    try {
-	        DAOProducto daoProducto = DAOAbstractFactory.getInstancia().generaDAOProducto();
-	        DAOAlmacen daoAlmacen = DAOAbstractFactory.getInstancia().generaDAOAlmacen();
+		transaction.start();
+		try {
+			DAOProducto daoProducto = DAOAbstractFactory.getInstancia().generaDAOProducto();
+			DAOAlmacen daoAlmacen = DAOAbstractFactory.getInstancia().generaDAOAlmacen();
 
-	        if (producto == null || producto.getModelo() == null || producto.getModelo().isEmpty()
-	                || producto.getMarca() == null || producto.getMarca().isEmpty()
-	                || producto.getUnidades() < 0 || producto.getIdAlmacen() <= 0) {
-	            transaction.rollback();
-	            return -1;
-	        }
+			if (producto == null || producto.getModelo() == null || producto.getModelo().isEmpty()
+					|| producto.getMarca() == null || producto.getMarca().isEmpty() || producto.getUnidades() < 0
+					|| producto.getIdAlmacen() <= 0) {
+				transaction.rollback();
+				return -1;
+			}
 
-	        TProducto productoAntiguo = daoProducto.read(producto.getId());
-	        if (productoAntiguo == null || productoAntiguo.getActivo() == 0) {
-	            transaction.rollback();
-	            return -1;
-	        }
+			TProducto productoAntiguo = daoProducto.read(producto.getId());
+			if (productoAntiguo == null || productoAntiguo.getActivo() == 0) {
+				transaction.rollback();
+				return -1;
+			}
 
-	        TProducto tpByModelo = daoProducto.read_by_modelo(producto.getModelo());
-	        if (tpByModelo != null && tpByModelo.getId() != producto.getId()) {
-	            transaction.rollback();
-	            return -1;
-	        }
+			TProducto tpByModelo = daoProducto.read_by_modelo(producto.getModelo());
+			if (tpByModelo != null && tpByModelo.getId() != producto.getId()) {
+				transaction.rollback();
+				return -1;
+			}
 
-	        //Cambiar almacen
-	        if (productoAntiguo.getIdAlmacen() != producto.getIdAlmacen()) {
-	            TAlmacen almacenAntiguo = daoAlmacen.read(productoAntiguo.getIdAlmacen());
-	            TAlmacen almacenNuevo = daoAlmacen.read(producto.getIdAlmacen());
+			// Cambiar almacen
+			if (productoAntiguo.getIdAlmacen() != producto.getIdAlmacen()) {
+				TAlmacen almacenAntiguo = daoAlmacen.read(productoAntiguo.getIdAlmacen());
+				TAlmacen almacenNuevo = daoAlmacen.read(producto.getIdAlmacen());
 
-	            if (almacenNuevo == null || almacenNuevo.getActivo() == 0 || almacenAntiguo == null) {
-	                transaction.rollback();
-	                return -1;
-	            }
+				if (almacenNuevo == null || almacenNuevo.getActivo() == 0 || almacenAntiguo == null) {
+					transaction.rollback();
+					return -1;
+				}
 
-	            int capacidadDisponible = almacenNuevo.getCapacidadMaxima() - almacenNuevo.getOcupacion();
-	            if (capacidadDisponible < producto.getUnidades()) {
-	                transaction.rollback();
-	                return -1;
-	            }
+				int capacidadDisponible = almacenNuevo.getCapacidadMaxima() - almacenNuevo.getOcupacion();
+				if (capacidadDisponible < producto.getUnidades()) {
+					transaction.rollback();
+					return -1;
+				}
 
-	            almacenAntiguo.setOcupacion(Math.max(0, almacenAntiguo.getOcupacion() - productoAntiguo.getUnidades()));
-	            daoAlmacen.update(almacenAntiguo);
+				almacenAntiguo.setOcupacion(Math.max(0, almacenAntiguo.getOcupacion() - productoAntiguo.getUnidades()));
+				daoAlmacen.update(almacenAntiguo);
 
-	            almacenNuevo.setOcupacion(almacenNuevo.getOcupacion() + producto.getUnidades());
-	            daoAlmacen.update(almacenNuevo);
-	        }
+				almacenNuevo.setOcupacion(almacenNuevo.getOcupacion() + producto.getUnidades());
+				daoAlmacen.update(almacenNuevo);
+			}
 
-	        //Cambiar cantidad en el mismo almacen
-	        else if (productoAntiguo.getUnidades() != producto.getUnidades()) {
-	            TAlmacen almacen = daoAlmacen.read(producto.getIdAlmacen());
-	            if (almacen == null || almacen.getActivo() == 0) {
-	                transaction.rollback();
-	                return -1;
-	            }
+			// Cambiar cantidad en el mismo almacen
+			else if (productoAntiguo.getUnidades() != producto.getUnidades()) {
+				TAlmacen almacen = daoAlmacen.read(producto.getIdAlmacen());
+				if (almacen == null || almacen.getActivo() == 0) {
+					transaction.rollback();
+					return -1;
+				}
 
-	            int diferencia = producto.getUnidades() - productoAntiguo.getUnidades();
-	            int nuevaOcupacion = almacen.getOcupacion() + diferencia;
+				int diferencia = producto.getUnidades() - productoAntiguo.getUnidades();
+				int nuevaOcupacion = almacen.getOcupacion() + diferencia;
 
-	            if (nuevaOcupacion > almacen.getCapacidadMaxima()) {
-	                transaction.rollback();
-	                return -1;
-	            }
+				if (nuevaOcupacion > almacen.getCapacidadMaxima()) {
+					transaction.rollback();
+					return -1;
+				}
 
-	            almacen.setOcupacion(Math.max(0, nuevaOcupacion));
-	            daoAlmacen.update(almacen);
-	        }
+				almacen.setOcupacion(Math.max(0, nuevaOcupacion));
+				daoAlmacen.update(almacen);
+			}
 
-	        exito = daoProducto.update(producto);
-	        if (exito != -1)
-	            transaction.commit();
-	        else
-	            transaction.rollback();
+			exito = daoProducto.update(producto);
+			if (exito != -1)
+				transaction.commit();
+			else
+				transaction.rollback();
 
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	        transaction.rollback();
-	        exito = -1;
-	    }
+		} catch (Exception e) {
+			e.printStackTrace();
+			transaction.rollback();
+			exito = -1;
+		}
 
-	    return exito;
+		return exito;
 	}
-
-
 
 	@Override
 	public TProducto leerProducto(int id) {
 
-	    TProducto tpr = null;
+		TProducto tpr = null;
 
-	    TManager tManager = TManager.getInstance();
-	    tManager.createTransaction();
-	    Transaction transaction = tManager.getTransaction();
+		TManager tManager = TManager.getInstance();
+		tManager.createTransaction();
+		Transaction transaction = tManager.getTransaction();
 
-	    if (transaction != null) {
-	        transaction.start();
+		if (transaction != null) {
+			transaction.start();
 
-	        DAOProducto daoProducto = DAOAbstractFactory.getInstancia().generaDAOProducto();
-	        TProducto productoLeido = daoProducto.read(id);
+			DAOProducto daoProducto = DAOAbstractFactory.getInstancia().generaDAOProducto();
+			TProducto productoLeido = daoProducto.read(id);
 
-	        if (productoLeido != null) {
-	            tpr = productoLeido;
-	            transaction.commit();
-	        } else {
-	            transaction.rollback();
-	        }
-	    }
+			if (productoLeido != null) {
+				tpr = productoLeido;
+				transaction.commit();
+			} else {
+				transaction.rollback();
+			}
+		}
 
-	    return tpr;
+		return tpr;
 	}
-
 
 	@Override
 	public Set<TProducto> leerTodosProductos() {

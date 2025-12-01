@@ -47,7 +47,8 @@ public class DAOLineaVentaImp implements DAOLineaVenta {
 			Transaction tr = tm.getTransaction();
 			Connection con = (Connection) tr.getResource();
 
-			PreparedStatement ps = con.prepareStatement("DELETE FROM LINEAVENTA WHERE ID_PRODUCTO = ? AND ID_VENTA = ?");
+			PreparedStatement ps = con
+					.prepareStatement("DELETE FROM LINEAVENTA WHERE ID_PRODUCTO = ? AND ID_VENTA = ?");
 			ps.setInt(1, tlineaVenta.get_producto());
 			ps.setInt(2, tlineaVenta.get_venta());
 
@@ -115,22 +116,22 @@ public class DAOLineaVentaImp implements DAOLineaVenta {
 			Transaction tr = tm.getTransaction();
 			Connection con = (Connection) tr.getResource();
 
-		PreparedStatement ps = con.prepareStatement(
-				"SELECT ID_PRODUCTO, ID_VENTA, NUM_UNIDADES, PRECIO_UNIDADES FROM LINEAVENTA WHERE ID_VENTA = ? FOR UPDATE");
-		ps.setInt(1, id_venta);
+			PreparedStatement ps = con.prepareStatement(
+					"SELECT ID_PRODUCTO, ID_VENTA, NUM_UNIDADES, PRECIO_UNIDADES FROM LINEAVENTA WHERE ID_VENTA = ? FOR UPDATE");
+			ps.setInt(1, id_venta);
 
-		java.sql.ResultSet rs = ps.executeQuery();
+			java.sql.ResultSet rs = ps.executeQuery();
 
-		while (rs.next()) {
+			while (rs.next()) {
 
-			TLineaVenta tlineaventa = new TLineaVenta();
-			tlineaventa.set_producto(rs.getInt("ID_PRODUCTO"));
-			tlineaventa.set_venta(rs.getInt("ID_VENTA"));
-			tlineaventa.set_num_unidades(rs.getInt("NUM_UNIDADES"));
-			tlineaventa.set_precio_unidades(rs.getDouble("PRECIO_UNIDADES"));
+				TLineaVenta tlineaventa = new TLineaVenta();
+				tlineaventa.set_producto(rs.getInt("ID_PRODUCTO"));
+				tlineaventa.set_venta(rs.getInt("ID_VENTA"));
+				tlineaventa.set_num_unidades(rs.getInt("NUM_UNIDADES"));
+				tlineaventa.set_precio_unidades(rs.getDouble("PRECIO_UNIDADES"));
 
-			lineasVenta.add(tlineaventa);
-		}
+				lineasVenta.add(tlineaventa);
+			}
 
 			rs.close();
 			ps.close();

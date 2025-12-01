@@ -19,7 +19,6 @@ import presentacion.Controller.Command.Context;
 import presentacion.GUI.Evento;
 import presentacion.GUI.IGUI;
 
-
 public class GUIRemitente extends JFrame implements IGUI {
 
 	private static final long serialVersionUID = 1L;
@@ -28,7 +27,7 @@ public class GUIRemitente extends JFrame implements IGUI {
 		super("[REMITENTE]");
 		initGUI();
 	}
-	
+
 	private void initGUI() {
 
 		// === PANEL PRINCIPAL ===
@@ -112,8 +111,7 @@ public class GUIRemitente extends JFrame implements IGUI {
 
 		return boton;
 	}
-	
-	
+
 	@Override
 	public void actualizar(Context context) {
 		setVisible(true);

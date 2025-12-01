@@ -11,7 +11,7 @@ public class TransactionMySQL implements Transaction {
 	@Override
 	public void start() {
 		try {
-			
+
 			this.connection = DriverManager.getConnection("jdbc:h2:./bd/IS2PrimePC", "sa", "");
 			this.connection.setAutoCommit(false);
 		} catch (SQLException e) {

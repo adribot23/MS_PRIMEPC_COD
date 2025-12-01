@@ -24,32 +24,32 @@ import presentacion.Controller.Command.Context;
 import presentacion.GUI.Evento;
 import presentacion.GUI.IGUI;
 
-/** 
-* <!-- begin-UML-doc -->
-* <!-- end-UML-doc -->
-* @author adria
-* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-*/
+/**
+ * <!-- begin-UML-doc --> <!-- end-UML-doc -->
+ * 
+ * @author adria
+ * @generated "UML a Java
+ *            (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+ */
 public class VMostrarCliente extends JFrame implements IGUI {
-	
+
 	private static final long serialVersionUID = 1L;
 
 	private JButton btnMostrar, btnVolver;
-	
+
 	public VMostrarCliente() {
 		super("Mostrar Clientes");
 		initGUI();
 	}
-	
+
 	public void initGUI() {
 		JPanel panel = new JPanel(new GridLayout(2, 1, 10, 10));
 		getRootPane().setBorder(BorderFactory.createTitledBorder("Mostrar Clientes"));
-		
+
 		btnMostrar = new JButton("Mostrar todos los clientes");
 		btnMostrar.setBackground(new Color(200, 255, 200));
-		btnMostrar.addActionListener(e ->
-			Controlador.getInstancia().accion(new Context(Evento.MOSTRAR_TODOS_CLIENTES, null))
-		);
+		btnMostrar.addActionListener(
+				e -> Controlador.getInstancia().accion(new Context(Evento.MOSTRAR_TODOS_CLIENTES, null)));
 
 		btnVolver = new JButton("Volver");
 		btnVolver.setBackground(new Color(255, 220, 220));
@@ -78,19 +78,20 @@ public class VMostrarCliente extends JFrame implements IGUI {
 			this.setVisible(true);
 			break;
 		case RES_MOSTRAR_TODOS_CLIENTES_OK:
-			mostrarTabla((Set<TCliente> )datos);
+			mostrarTabla((Set<TCliente>) datos);
 			break;
 		case RES_MOSTRAR_TODOS_CLIENTES_KO:
 			JOptionPane.showMessageDialog(this, "No se pudieron mostrar los clientes.");
 			break;
 		default:
 			JOptionPane.showMessageDialog(null, "Evento no reconocido: " + evento);
-			
+
 		}
 	}
-	
+
 	private void mostrarTabla(Set<TCliente> clientes) {
-		String[] columnNames = { "ID", "Nombre", "DNI", "Tipo", "Numero Socio", "Puntos de Socio", "Numero Visitas", "Activo" };
+		String[] columnNames = { "ID", "Nombre", "DNI", "Tipo", "Numero Socio", "Puntos de Socio", "Numero Visitas",
+				"Activo" };
 
 		Object[][] data = new Object[clientes.size()][columnNames.length];
 		int i = 0;

@@ -35,12 +35,12 @@ public class VAltaCliente extends JFrame implements IGUI {
 		super("Alta de Cliente");
 		initGUI();
 	}
-	
+
 	public void initGUI() {
 		setLayout(new GridLayout(5, 2, 10, 10));
 		getRootPane().setBorder(BorderFactory.createTitledBorder("Alta Cliente"));
 
-		//setBorder(BorderFactory.createTitledBorder("Alta Cliente"));
+		// setBorder(BorderFactory.createTitledBorder("Alta Cliente"));
 
 		JTextField altaNombre = new JTextField();
 		JTextField altaDNI = new JTextField();
@@ -54,7 +54,7 @@ public class VAltaCliente extends JFrame implements IGUI {
 		grupoTipo.add(rdbSocio);
 		grupoTipo.add(rdbNoSocio);
 		rdbSocio.setSelected(true);
-		
+
 		rdbSocio.addActionListener(e -> lblVisitas.setText("Puntos:"));
 		rdbNoSocio.addActionListener(e -> lblVisitas.setText("Numero de visitas:"));
 
@@ -69,7 +69,7 @@ public class VAltaCliente extends JFrame implements IGUI {
 				String nombre = altaNombre.getText().trim();
 				String dni = altaDNI.getText().trim();
 
-				if(!nombre.isEmpty() && !dni.isEmpty()) {
+				if (!nombre.isEmpty() && !dni.isEmpty()) {
 					TCliente cliente;
 					if (rdbSocio.isSelected()) {
 						int puntos = Integer.parseInt(altaVisitas.getText().trim());
@@ -91,7 +91,7 @@ public class VAltaCliente extends JFrame implements IGUI {
 				JOptionPane.showMessageDialog(this, "Los campos numéricos deben ser válidos.");
 			}
 		});
-		
+
 		JButton btnVolver = new JButton("Volver");
 		btnVolver.setBackground(new Color(255, 220, 220));
 		btnVolver.addActionListener(e -> {
@@ -109,11 +109,10 @@ public class VAltaCliente extends JFrame implements IGUI {
 		add(altaTipoPanel);
 		add(btnAlta);
 		add(btnVolver);
-		
 
-	    setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(350, 250);
-	    setLocationRelativeTo(null);
+		setLocationRelativeTo(null);
 	}
 
 	public void actualizar(Context context) {

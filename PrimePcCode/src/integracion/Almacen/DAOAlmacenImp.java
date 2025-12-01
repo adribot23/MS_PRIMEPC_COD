@@ -23,14 +23,13 @@ public class DAOAlmacenImp implements DAOAlmacen {
 
 	private Connection conexion;
 
-
 	public Integer create(TAlmacen almacen) {
 		int id = -1;
 		try {
 			TManager tManager = TManager.getInstance();
 			Transaction t = tManager.getTransaction();
 			conexion = (Connection) t.getResource();
-			
+
 			String sql = "INSERT INTO ALMACEN (CAPACIDAD_MAX, OCUPACION, NOMBRE, ACTIVO) VALUES (?, ?, ?, 1)";
 			PreparedStatement ps = conexion.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
@@ -60,7 +59,7 @@ public class DAOAlmacenImp implements DAOAlmacen {
 			TManager tManager = TManager.getInstance();
 			Transaction t = tManager.getTransaction();
 			conexion = (Connection) t.getResource();
-			
+
 			String sql = "SELECT * FROM almacen WHERE id = ? FOR UPDATE";
 			PreparedStatement ps = conexion.prepareStatement(sql);
 			ps.setInt(1, id);
@@ -118,7 +117,7 @@ public class DAOAlmacenImp implements DAOAlmacen {
 			ps.setInt(1, id);
 			filasAfectadas = ps.executeUpdate();
 			ps.close();
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

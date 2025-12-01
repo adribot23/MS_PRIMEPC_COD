@@ -90,8 +90,8 @@ public class VBuscarVenta extends JFrame implements IGUI {
 			}
 			Controlador.getInstancia().accion(new Context(Evento.BUSCAR_VENTA, idVenta));
 		} catch (NumberFormatException ex) {
-			JOptionPane.showMessageDialog(this, "El Id venta debe ser un numero entero positivo.",
-					"Datos incorrectos", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(this, "El Id venta debe ser un numero entero positivo.", "Datos incorrectos",
+					JOptionPane.ERROR_MESSAGE);
 		}
 	}
 
@@ -180,8 +180,7 @@ public class VBuscarVenta extends JFrame implements IGUI {
 		sb.append("Venta encontrada con id: ").append(venta.getId()).append("\n");
 		sb.append("Empleado: ").append(venta.getIdEmpleado()).append("\n");
 		sb.append("Cliente: ").append(venta.getIdCliente()).append("\n");
-		sb.append("Método de pago: ").append(venta.getMetodoPago() != null ? venta.getMetodoPago() : "-")
-				.append("\n");
+		sb.append("Método de pago: ").append(venta.getMetodoPago() != null ? venta.getMetodoPago() : "-").append("\n");
 		sb.append("Precio total: ").append(venta.getPrecio()).append(" EUR\n");
 		sb.append("Descuento: ").append(venta.getDescuento()).append(" EUR\n");
 		sb.append("Activa: ").append(venta.getActivo() == 1 ? "Si" : "No");
@@ -218,8 +217,7 @@ public class VBuscarVenta extends JFrame implements IGUI {
 
 		if (venta != null) {
 			builder.append("Total factura: ").append(venta.getPrecio()).append(" EUR\n");
-			builder.append(
-					"-------------------------------------------------------------------------------------\n");
+			builder.append("-------------------------------------------------------------------------------------\n");
 		}
 
 		return builder.toString();
@@ -253,8 +251,7 @@ public class VBuscarVenta extends JFrame implements IGUI {
 				builder.append(", activo: ").append(producto.getActivo()).append("\n");
 			}
 
-			builder.append(
-					"-------------------------------------------------------------------------------------\n");
+			builder.append("-------------------------------------------------------------------------------------\n");
 		}
 
 		return builder.toString();

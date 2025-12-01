@@ -11,7 +11,7 @@ public class BuscarRemitenteCommand implements Command {
 	@Override
 	public Context execute(Object data) {
 		TRemitente remitente = SAAbstractFactory.getInstancia().generarSARemitente().buscarRemitente((int) data);
-		
+
 		if (remitente != null)
 			return new Context(Evento.RES_BUSCAR_REMITENTE_OK, remitente);
 		else

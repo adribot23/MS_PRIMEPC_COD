@@ -11,7 +11,7 @@ public class ProveedorConMasUnidadesDeProductoVendidasCommand implements Command
 	@Override
 	public Context execute(Object data) {
 		Integer idProducto = (Integer) data;
-		
+
 		int id_proveedor = SAAbstractFactory.getInstancia().generarSAProveedor()
 				.proveedorConMasUnidadesDeProductoVendidas(idProducto);
 		if (id_proveedor > 0)
