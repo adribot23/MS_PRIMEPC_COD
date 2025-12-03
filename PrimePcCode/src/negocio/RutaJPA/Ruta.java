@@ -1,13 +1,19 @@
 package negocio.RutaJPA;
 
+import java.io.Serializable;
+import java.util.Set;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Version;
 
+import negocio.PaqueteJPA.Paquete;
+
 @Entity
-public class Ruta {
+public class Ruta implements Serializable {
 	private static final long serialVersionUID = 0;
 	
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,11 +28,8 @@ public class Ruta {
 	private double distancia;
 	private int activo;
 	
-	
-	
-	
-
-	
+	@OneToMany(mappedBy = "ruta")
+	private Set<Paquete> paquetes;
 	
 	public Ruta() {}
 	
@@ -92,4 +95,11 @@ public class Ruta {
 		this.activo = activo;
 	}
 	
+	public Set<Paquete> get_lista_paquetes() {
+		return this.paquetes;
+	}
+	
+	public void set_lista_paquetes(Set<Paquete> paquetes) {
+		this.paquetes = paquetes;
+	}
 }
