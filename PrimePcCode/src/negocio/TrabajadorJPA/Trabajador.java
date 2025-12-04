@@ -39,9 +39,6 @@ public class Trabajador {
 	@ManyToMany
 	@JoinTable(name = "transporte_trabajador", joinColumns = @JoinColumn(name = "id_trabajador"), inverseJoinColumns = @JoinColumn(name = "id_transporte"))
 	private Set<Transporte> transportes;
-	@ManyToMany
-	@JoinTable(name = "ruta_trabajador", joinColumns = @JoinColumn(name = "id_trabajador"), inverseJoinColumns = @JoinColumn(name = "id_ruta"))
-	private Set<Ruta> rutas;
 	@Version
 	private Integer version;
 
@@ -107,10 +104,6 @@ public class Trabajador {
 
 	public Set<Transporte> getTransportes() {
 		return transportes;
-	}
-	
-	public Set<Ruta> getRutas() {
-		return rutas;
 	}
 
 

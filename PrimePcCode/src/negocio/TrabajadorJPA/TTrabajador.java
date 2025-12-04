@@ -11,6 +11,11 @@ public class TTrabajador {
 	public TTrabajador() {
 	}
 	
+	public TTrabajador(String nombre, String DNI) {
+		this.nombre = nombre;
+		this.DNI = DNI;
+	}
+	
 	public TTrabajador(int id_trabajador, int activo, String nombre, String DNI) {
 		super();
 		this.id_trabajador = id_trabajador;
