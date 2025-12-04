@@ -23,76 +23,46 @@ public class TFactura {
 		this.activo = f.get_activo();
 		this.precioBruto = f.get_precioBruto();
 		this.precioNeto = f.get_precioNeto();
-		this.lineaFactura = f.get_lineaFactura();
+		this.idRemitente= f.get_Remitente().getId();
 	}
 
 	public void set_idRemitente(Integer idR) {
-		// begin-user-code
-		// TODO Ap�ndice de m�todo generado autom�ticamente
-
-		// end-user-code
+		this.idRemitente=idR;
 	}
 
 	public Integer get_idRemitente() {
-		// begin-user-code
-		// TODO Ap�ndice de m�todo generado autom�ticamente
-		return null;
-		// end-user-code
+		return this.idRemitente;
 	}
 
 	public void set_activo(Integer activo) {
-		// begin-user-code
-		// TODO Ap�ndice de m�todo generado autom�ticamente
-
-		// end-user-code
+		this.activo=activo;
 	}
 
 	public Integer get_activo() {
-		// begin-user-code
-		// TODO Ap�ndice de m�todo generado autom�ticamente
-		return null;
-		// end-user-code
+		return activo;
 	}
 
 	public void set_precioNeto(double precioN) {
-		// begin-user-code
-		// TODO Ap�ndice de m�todo generado autom�ticamente
-
-		// end-user-code
+		this.precioNeto=precioN;
 	}
 
 	public double get_precioNeto() {
-		// begin-user-code
-		// TODO Ap�ndice de m�todo generado autom�ticamente
-		return 0;
-		// end-user-code
+		return this.precioNeto;
 	}
 
 	public void set_precioBruto(double precioB) {
-		// begin-user-code
-		// TODO Ap�ndice de m�todo generado autom�ticamente
-
-		// end-user-code
+		this.precioBruto=precioB;
 	}
 
 	public double get_precioBruto() {
-		// begin-user-code
-		// TODO Ap�ndice de m�todo generado autom�ticamente
-		return 0;
-		// end-user-code
+		return precioBruto;
 	}
 
 	public Integer get_idFactura() {
-		// begin-user-code
-		// TODO Ap�ndice de m�todo generado autom�ticamente
-		return null;
-		// end-user-code
+		return idFactura;
 	}
 
 	public void set_idFactura(Integer idF) {
-		// begin-user-code
-		// TODO Ap�ndice de m�todo generado autom�ticamente
-
-		// end-user-code
+		this.idFactura=idF;
 	}
 }

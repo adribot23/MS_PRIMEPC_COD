@@ -7,6 +7,9 @@ import javax.persistence.Entity;
 import java.io.Serializable;
 import javax.persistence.EmbeddedId;
 import javax.persistence.NamedQuery;
+
+import negocio.RemitenteJPA.Remitente;
+
 import javax.persistence.NamedQueries;
 import javax.persistence.ManyToOne;
 
@@ -40,11 +43,14 @@ public class LineaFactura implements Serializable {
 	}
 
 	public LineaFactura(TLineaFactura tLineaFactura) {
-		// begin-user-code
-		// TODO Ap�ndice de constructor generado autom�ticamente
-		// end-user-code
+		this.devuelto=tLineaFactura.get_devuelto();
+		this.precioNeto=tLineaFactura.get
 	}
 
+	public LineaFactura(Factura factura, Remitente remitente) {
+		
+	}
+	
 	public Integer get_devuelto() {
 		// begin-user-code
 		// TODO Ap�ndice de m�todo generado autom�ticamente
