@@ -36,8 +36,11 @@ import presentacion.Controller.Command.CommandProveedor.VincularProveedorProduct
 import presentacion.Controller.Command.CommandRutaJPA.AltaRutaCommand;
 import presentacion.Controller.Command.CommandRutaJPA.BajaRutaCommand;
 import presentacion.Controller.Command.CommandRutaJPA.BuscarRutaCommand;
+import presentacion.Controller.Command.CommandRutaJPA.DesvincularRutaTrabajadorCommand;
 import presentacion.Controller.Command.CommandRutaJPA.ModificarRutaCommand;
 import presentacion.Controller.Command.CommandRutaJPA.MostrarRutasCommand;
+import presentacion.Controller.Command.CommandRutaJPA.VerRutasPorTrabajadorCommand;
+import presentacion.Controller.Command.CommandRutaJPA.VincularRutaTrabajadorCommand;
 import presentacion.Controller.Command.CommandVenta.AbrirVentaCommand;
 import presentacion.Controller.Command.CommandVenta.BajaVentaCommand;
 import presentacion.Controller.Command.CommandVenta.BuscarVentaCommand;
@@ -182,6 +185,15 @@ public class CommandFactoryImp extends CommandFactory {
 			break;
 		case MOSTRAR_TODAS_RUTAS:
 			command = new MostrarRutasCommand();
+			break;
+		case VINCULAR_RUTA_TRABAJADOR:
+			command = new VincularRutaTrabajadorCommand();
+			break;
+		case DESVINCULAR_RUTA_TRABAJADOR:
+			command = new DesvincularRutaTrabajadorCommand();
+			break;
+		case VER_RUTA_POR_TRABAJADOR:
+			command = new VerRutasPorTrabajadorCommand();
 			break;
 
 	// ---- VENTA ----
