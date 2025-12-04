@@ -4,10 +4,10 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
-import javax.persistence.LockModeType;
-import javax.persistence.TypedQuery;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.LockModeType;
+import jakarta.persistence.TypedQuery;
 
 import integracion.EMFSingleton.EMFSingleton;
 import negocio.RemitenteJPA.Remitente;
@@ -201,5 +201,42 @@ public class SATrabajadorImp implements SATrabajador {
 
 		return trabajadores;
 	}
+
+	@Override
+	public Set<TTrabajador> leerTrabajadorPorTransporte(int id_transporte) {
+
+		Set<TTrabajador> trabajadores = new LinkedHashSet<>();
+		EntityManager em = EMFSingleton.getInstancia().getEntityManagerFactory().createEntityManager();
+
+		try {
+
+			em.getTransaction().begin();
+
+			Transporte transporte = em.find(Transporte.class, id_transporte, LockModeType.OPTIMISTIC);
+
+			if (transporte != null && transporte.getActivo() == 1) {
+
+				for (Trabajador trabajador : transporte.getTrabajadores()) {
+					em.lock(trabajador, LockModeType.OPTIMISTIC);
+
+					if (trabajador.getActivo() == 1)
+						trabajadores.add(trabajador.entityToTransfer());
+				}
+
+				em.getTransaction().commit();
+			} else {
+				em.getTransaction().rollback();
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			em.getTransaction().rollback();
+		} finally {
+			em.close();
+		}
+
+		return trabajadores;
+	}
+
 
 }
