@@ -202,4 +202,41 @@ public class SATrabajadorImp implements SATrabajador {
 		return trabajadores;
 	}
 
+	@Override
+	public Set<TTrabajador> leerTrabajadorPorTransporte(int id_transporte) {
+
+		Set<TTrabajador> trabajadores = new LinkedHashSet<>();
+		EntityManager em = EMFSingleton.getInstancia().getEntityManagerFactory().createEntityManager();
+
+		try {
+
+			em.getTransaction().begin();
+
+			Transporte transporte = em.find(Transporte.class, id_transporte, LockModeType.OPTIMISTIC);
+
+			if (transporte != null && transporte.getActivo() == 1) {
+
+				for (Trabajador trabajador : transporte.getTrabajadores()) {
+					em.lock(trabajador, LockModeType.OPTIMISTIC);
+
+					if (trabajador.getActivo() == 1)
+						trabajadores.add(trabajador.entityToTransfer());
+				}
+
+				em.getTransaction().commit();
+			} else {
+				em.getTransaction().rollback();
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			em.getTransaction().rollback();
+		} finally {
+			em.close();
+		}
+
+		return trabajadores;
+	}
+
+
 }
