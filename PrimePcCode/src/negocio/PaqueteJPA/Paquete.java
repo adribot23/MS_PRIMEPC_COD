@@ -1,12 +1,17 @@
 package negocio.PaqueteJPA;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Version;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.SequenceGenerator;
 
 @Entity
 public class Paquete {
 	private static final long serialVersionUID = 0;
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
+	@SequenceGenerator(name = "seq", sequenceName = "SEQ_ID", allocationSize = 1)
 	@Id
 	private int id;
 	String numSerie;

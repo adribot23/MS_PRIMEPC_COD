@@ -8,6 +8,7 @@ import jakarta.persistence.Inheritance;
 
 import java.io.Serializable;
 import jakarta.persistence.NamedQuery;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Version;
 import jakarta.persistence.InheritanceType;
 
@@ -26,7 +27,8 @@ public class Remitente implements Serializable {
 
 	private static final long serialVersionUID = 0;
 
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
+	@SequenceGenerator(name = "seq", sequenceName = "SEQ_ID", allocationSize = 1)
 	@Id
 	private int id_remitente;
 
