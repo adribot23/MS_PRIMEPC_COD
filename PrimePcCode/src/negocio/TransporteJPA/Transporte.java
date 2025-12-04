@@ -30,7 +30,7 @@ import negocio.TrabajadorJPA.Trabajador;
 public class Transporte implements Serializable {
 
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
-	@SequenceGenerator(name = "seq", sequenceName = "SEQ_ID", allocationSize = 1)
+	@SequenceGenerator(name = "seq", sequenceName = "TRANSPORTE_SEQ", allocationSize = 1)
 
 	@Id
 	@Column(name = "ID")

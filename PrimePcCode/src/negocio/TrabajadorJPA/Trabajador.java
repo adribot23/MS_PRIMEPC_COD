@@ -1,11 +1,16 @@
 package negocio.TrabajadorJPA;
 
+import java.util.Set;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.SequenceGenerator;
@@ -27,7 +32,7 @@ public class Trabajador {
 	private static final long serialVersionUID = 0;
 	
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
-	@SequenceGenerator(name = "seq", sequenceName = "SEQ_ID", allocationSize = 1)
+	@SequenceGenerator(name = "seq", sequenceName = "TRABAJADOR_SEQ", allocationSize = 1)
 	@Id
 	private int id_trabajador;
 	private String DNI;
