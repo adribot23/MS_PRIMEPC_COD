@@ -1,7 +1,7 @@
 package integracion.EMFSingleton;
 
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
 
 public class EMFSingletonImp extends EMFSingleton {
 	private EntityManagerFactory EMF;
