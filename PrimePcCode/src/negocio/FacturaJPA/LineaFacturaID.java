@@ -7,69 +7,29 @@ import java.io.Serializable;
 import javax.persistence.Embeddable;
 import java.util.UUID;
 
-/** 
-* <!-- begin-UML-doc -->
-* <!-- end-UML-doc -->
-* @author usuario_local
-* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-*/
 @Embeddable
 public class LineaFacturaID implements Serializable {
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-	*/
+	
 	private static final long serialVersionUID = 0;
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-	*/
+
 	private Integer idFactura;
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-	*/
+
 	private Object devuelto;
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-	*/
+
 	private Integer paquete;
 
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-	*/
 	public LineaFacturaID() {
 		// begin-user-code
 		// TODO Ap�ndice de constructor generado autom�ticamente
 		// end-user-code
 	}
 
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @param factura
-	* @param paquete
-	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-	*/
 	public LineaFacturaID(Integer factura, Integer paquete) {
 		// begin-user-code
 		// TODO Ap�ndice de constructor generado autom�ticamente
 		// end-user-code
 	}
 
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @return
-	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-	*/
 	public Integer get_idFactura() {
 		// begin-user-code
 		// TODO Ap�ndice de m�todo generado autom�ticamente
@@ -77,12 +37,6 @@ public class LineaFacturaID implements Serializable {
 		// end-user-code
 	}
 
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @param idFactura
-	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-	*/
 	public void set_idFactura(Integer idFactura) {
 		// begin-user-code
 		// TODO Ap�ndice de m�todo generado autom�ticamente
@@ -90,12 +44,6 @@ public class LineaFacturaID implements Serializable {
 		// end-user-code
 	}
 
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @return
-	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-	*/
 	public Integer get_idPaquete() {
 		// begin-user-code
 		// TODO Ap�ndice de m�todo generado autom�ticamente
@@ -103,12 +51,6 @@ public class LineaFacturaID implements Serializable {
 		// end-user-code
 	}
 
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @param idPaquete
-	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-	*/
 	public void set_idPaquete(Integer idPaquete) {
 		// begin-user-code
 		// TODO Ap�ndice de m�todo generado autom�ticamente
@@ -116,11 +58,6 @@ public class LineaFacturaID implements Serializable {
 		// end-user-code
 	}
 
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-	*/
 	public boolean equals(Object obj) {
 		if (obj == this)
 			return true;
@@ -138,11 +75,6 @@ public class LineaFacturaID implements Serializable {
 
 	private UUID uuid;
 
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-	*/
 	public int hashCode() {
 		final int prime = 31;
 		int hash = 17;
