@@ -9,49 +9,41 @@ public class TCarritoFactura {
 
 	private TFactura tFactura;
 
+	private Integer idRemitente;
+
 	private Set<TLineaFactura> tLineasFactura;
 
 	private double precioTotal;
 
 	public void set_tFactura(TFactura tFactura) {
-		// begin-user-code
-		// TODO Ap�ndice de m�todo generado autom�ticamente
-
-		// end-user-code
+		this.tFactura = tFactura;
 	}
 
 	public TFactura get_tFactura() {
-		// begin-user-code
-		// TODO Ap�ndice de m�todo generado autom�ticamente
-		return null;
-		// end-user-code
+		return this.tFactura;
 	}
 
-	public void set_tLineasFactura(TLineaFactura... tLineasFactura) {
-		// begin-user-code
-		// TODO Ap�ndice de m�todo generado autom�ticamente
-
-		// end-user-code
+	public void set_tLineasFactura(Set<TLineaFactura> tLineasFactura) {
+		this.tLineasFactura = tLineasFactura;
 	}
 
 	public Set<TLineaFactura> get_tLineasFactura() {
-		// begin-user-code
-		// TODO Ap�ndice de m�todo generado autom�ticamente
-		return null;
-		// end-user-code
+		return this.tLineasFactura;
 	}
 
 	public void set_precioTotal(double precioTotal) {
-		// begin-user-code
-		// TODO Ap�ndice de m�todo generado autom�ticamente
-
-		// end-user-code
+		this.precioTotal = precioTotal;
 	}
 
 	public double get_precioTotal() {
-		// begin-user-code
-		// TODO Ap�ndice de m�todo generado autom�ticamente
-		return 0;
-		// end-user-code
+		return this.precioTotal;
+	}
+
+	public void set_idRemitente(Integer idRemitente) {
+		this.idRemitente = idRemitente;
+	}
+
+	public Integer get_idRemitente() { // supongo q esto hace falta
+		return this.idRemitente;
 	}
 }

@@ -9,53 +9,35 @@ import java.util.UUID;
 
 @Embeddable
 public class LineaFacturaID implements Serializable {
-	
+
 	private static final long serialVersionUID = 0;
 
 	private Integer idFactura;
 
-	private Object devuelto;
-
-	private Integer paquete;
+	private Integer idPaquete;
 
 	public LineaFacturaID() {
-		// begin-user-code
-		// TODO Ap�ndice de constructor generado autom�ticamente
-		// end-user-code
 	}
 
 	public LineaFacturaID(Integer factura, Integer paquete) {
-		// begin-user-code
-		// TODO Ap�ndice de constructor generado autom�ticamente
-		// end-user-code
+		this.idFactura = factura;
+		this.idPaquete = paquete;
 	}
 
 	public Integer get_idFactura() {
-		// begin-user-code
-		// TODO Ap�ndice de m�todo generado autom�ticamente
-		return null;
-		// end-user-code
+		return idFactura;
 	}
 
 	public void set_idFactura(Integer idFactura) {
-		// begin-user-code
-		// TODO Ap�ndice de m�todo generado autom�ticamente
-
-		// end-user-code
+		this.idFactura = idFactura;
 	}
 
 	public Integer get_idPaquete() {
-		// begin-user-code
-		// TODO Ap�ndice de m�todo generado autom�ticamente
-		return null;
-		// end-user-code
+		return idPaquete;
 	}
 
 	public void set_idPaquete(Integer idPaquete) {
-		// begin-user-code
-		// TODO Ap�ndice de m�todo generado autom�ticamente
-
-		// end-user-code
+		this.idPaquete = idPaquete;
 	}
 
 	public boolean equals(Object obj) {
@@ -66,9 +48,7 @@ public class LineaFacturaID implements Serializable {
 		LineaFacturaID pk = (LineaFacturaID) obj;
 		if ((idFactura == null && pk.idFactura != null) || (idFactura != null && !idFactura.equals(pk.idFactura)))
 			return false;
-		if ((devuelto == null && pk.devuelto != null) || (devuelto != null && !devuelto.equals(pk.devuelto)))
-			return false;
-		if ((paquete == null && pk.paquete != null) || (paquete != null && !paquete.equals(pk.paquete)))
+		if ((idPaquete == null && pk.idPaquete != null) || (idPaquete != null && !idPaquete.equals(pk.idPaquete)))
 			return false;
 		return true;
 	}
@@ -81,11 +61,8 @@ public class LineaFacturaID implements Serializable {
 		if (idFactura != null) {
 			hash = hash * prime + idFactura.hashCode();
 		}
-		if (devuelto != null) {
-			hash = hash * prime + devuelto.hashCode();
-		}
-		if (paquete != null) {
-			hash = hash * prime + paquete.hashCode();
+		if (idPaquete != null) {
+			hash = hash * prime + idPaquete.hashCode();
 		}
 		if (hash == 17) {
 			if (uuid == null) {

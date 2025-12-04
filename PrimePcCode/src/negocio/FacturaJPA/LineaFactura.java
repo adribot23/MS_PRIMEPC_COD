@@ -8,8 +8,8 @@ import java.io.Serializable;
 import javax.persistence.EmbeddedId;
 import javax.persistence.NamedQuery;
 
-import negocio.RemitenteJPA.Remitente;
-
+import jakarta.persistence.OneToOne;
+import negocio.PaqueteJPA.Paquete;
 import javax.persistence.NamedQueries;
 import javax.persistence.ManyToOne;
 
@@ -27,76 +27,86 @@ public class LineaFactura implements Serializable {
 
 	@EmbeddedId
 	private LineaFacturaID id;
-	
+
 	private Integer devuelto;
-	
+
 	private double precioNeto;
-	
+
 	private double precioBruto;
 
 	private Integer version;
-	
+
 	@ManyToOne
 	private Factura factura;
+
+	@OneToOne
+	private Paquete paquete;
 
 	public LineaFactura() {
 	}
 
 	public LineaFactura(TLineaFactura tLineaFactura) {
-		this.devuelto=tLineaFactura.get_devuelto();
-		this.precioNeto=tLineaFactura.get
+		this.devuelto = tLineaFactura.get_devuelto();
+		this.precioNeto = tLineaFactura.get_precioNeto();
+		this.precioBruto = tLineaFactura.get_precioBruto();
+		this.id = new LineaFacturaID(tLineaFactura.get_idFactura(), tLineaFactura.get_idPaquete());
 	}
 
-	public LineaFactura(Factura factura, Remitente remitente) {
-		
+	public LineaFactura(Factura factura, Paquete paquete) {
+		this.id = new LineaFacturaID(factura.get_idFactura(), paquete.getId());
+		this.paquete = paquete;
+		this.factura = factura;
 	}
-	
+
 	public Integer get_devuelto() {
-		// begin-user-code
-		// TODO Ap�ndice de m�todo generado autom�ticamente
-		return null;
-		// end-user-code
+		return this.devuelto;
 	}
 
 	public void set_devuelto(Integer devuelto) {
-		// begin-user-code
-		// TODO Ap�ndice de m�todo generado autom�ticamente
-
-		// end-user-code
+		this.devuelto = devuelto;
 	}
-	
+
 	public double get_precioNeto() {
-		// begin-user-code
-		// TODO Ap�ndice de m�todo generado autom�ticamente
-		return 0;
-		// end-user-code
+		return this.precioNeto;
 	}
 
 	public void set_precioNeto(double precioNeto) {
-		// begin-user-code
-		// TODO Ap�ndice de m�todo generado autom�ticamente
-
-		// end-user-code
+		this.precioNeto = precioNeto;
 	}
 
 	public double get_precioBruto() {
-		// begin-user-code
-		// TODO Ap�ndice de m�todo generado autom�ticamente
-		return 0;
-		// end-user-code
+		return this.precioBruto;
 	}
 
 	public void set_precioBruto(double precioBruto) {
-		// begin-user-code
-		// TODO Ap�ndice de m�todo generado autom�ticamente
-
-		// end-user-code
+		this.precioBruto = precioBruto;
 	}
 
-	public TFactura get_tFactura() {
-		// begin-user-code
-		// TODO Ap�ndice de m�todo generado autom�ticamente
-		return null;
-		// end-user-code
+	public Factura get_factura() {
+		return this.factura;
+	}
+
+	public void set_factura(Factura factura) {
+		this.factura = factura;
+	}
+
+	public Paquete get_Paquete() {
+		return this.paquete;
+	}
+
+	public void set_Paquete(Paquete paquete) {
+		this.paquete = paquete;
+	}
+
+	public LineaFacturaID get_LineaFacturaID() {
+		return this.id;
+	}
+
+	public void set_lineaFacturaID(LineaFacturaID id) {
+		this.id = id;
+	}
+
+	public Integer get_version() {
+		return this.version;
 	}
 }

@@ -11,45 +11,47 @@ public class TLineaFactura {
 
 	private Integer devuelto;
 
-	public void set_idFactura(Integer idFactura) {
-		// begin-user-code
-		// TODO Ap�ndice de m�todo generado autom�ticamente
+	private double precioBruto;
 
-		// end-user-code
+	private double precioNeto;
+
+	public void set_idFactura(Integer idFactura) {
+		this.idFactura = idFactura;
 	}
 
 	public void set_devuelto(Integer devuelto) {
-		// begin-user-code
-		// TODO Ap�ndice de m�todo generado autom�ticamente
-
-		// end-user-code
+		this.devuelto = devuelto;
 	}
 
 	public Integer get_devuelto() {
-		// begin-user-code
-		// TODO Ap�ndice de m�todo generado autom�ticamente
-		return null;
-		// end-user-code
+		return devuelto;
 	}
 
 	public Integer get_idFactura() {
-		// begin-user-code
-		// TODO Ap�ndice de m�todo generado autom�ticamente
-		return null;
-		// end-user-code
+		return this.idFactura;
 	}
 
 	public void set_idPaquete(Integer idP) {
-		// begin-user-code
-		// TODO Ap�ndice de m�todo generado autom�ticamente
-
-		// end-user-code
+		this.idPaquete = idP;
 	}
 
 	public Integer get_idPaquete() {
-		// begin-user-code
-		// TODO Ap�ndice de m�todo generado autom�ticamente
-		return null;
-		// end-user-code
+		return this.idPaquete;
+	}
+
+	public void set_precioBruto(double precioBruto) {
+		this.precioBruto = precioBruto;
+	}
+
+	public double get_precioBruto() {
+		return this.precioBruto;
+	}
+
+	public void set_precioNeto(double precioNeto) {
+		this.precioNeto = precioNeto;
+	}
+
+	public double get_precioNeto() {
+		return this.precioNeto;
 	}
 }
