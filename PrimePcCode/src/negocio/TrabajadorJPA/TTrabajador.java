@@ -9,7 +9,6 @@ public class TTrabajador {
 	private int activo;
 	
 	public TTrabajador() {
-
 	}
 	
 	public TTrabajador(int id_trabajador, int activo, String nombre, String DNI) {

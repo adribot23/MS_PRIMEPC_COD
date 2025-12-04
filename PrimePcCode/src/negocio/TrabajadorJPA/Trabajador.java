@@ -1,11 +1,16 @@
 package negocio.TrabajadorJPA;
 
+import java.util.Set;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Version;
@@ -21,6 +26,7 @@ import negocio.TransporteJPA.Transporte;
 		@NamedQuery(name = "Negocio.TrabajadorJPA.Trabajador.findByactivo", query = "select t from Trabajador t where :activo = t.activo"),
 		@NamedQuery(name = "Negocio.TrabajadorJPA.Trabajador.findByversion", query = "select t from Trabajador t where :version = t.version") })
 public class Trabajador {
+	
 	private static final long serialVersionUID = 0;
 	
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,7 +35,13 @@ public class Trabajador {
 	private String DNI;
 	private String nombre;
 	private int activo;
-
+	
+	@ManyToMany
+	@JoinTable(name = "transporte_trabajador", joinColumns = @JoinColumn(name = "id_trabajador"), inverseJoinColumns = @JoinColumn(name = "id_transporte"))
+	private Set<Transporte> transportes;
+	@ManyToMany
+	@JoinTable(name = "ruta_trabajador", joinColumns = @JoinColumn(name = "id_trabajador"), inverseJoinColumns = @JoinColumn(name = "id_ruta"))
+	private Set<Ruta> rutas;
 	@Version
 	private Integer version;
 
@@ -93,9 +105,13 @@ public class Trabajador {
 		this.activo = activo;
 	}
 
-	public static Transporte[] getTransportes() {
-		// TODO Auto-generated method stub
-		return null;
+	public Set<Transporte> getTransportes() {
+		return transportes;
 	}
+	
+	public Set<Ruta> getRutas() {
+		return rutas;
+	}
+
 
 }

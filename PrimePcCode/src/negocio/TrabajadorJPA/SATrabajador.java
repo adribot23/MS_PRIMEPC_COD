@@ -13,5 +13,9 @@ public interface SATrabajador {
 	public TTrabajador leerTrabajador(int id_trabajador);
 
 	public Set<TTrabajador> leerTodosTrabajadores();
+	
+	public Set<TTrabajador> leerTrabajadorPorTransporte(int id_transporte);
+	
+	public Set<TTrabajador> leerTrabajadorPorRuta(int id_ruta);
 
 }
