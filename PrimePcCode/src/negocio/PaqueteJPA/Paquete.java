@@ -1,12 +1,13 @@
 package negocio.PaqueteJPA;
 
-import javax.persistence.Entity;
-import javax.persistence.Version;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Version;
 
 @Entity
 public class Paquete {
 	private static final long serialVersionUID = 0;
-
+	@Id
 	private int id;
 	String numSerie;
 	private String estado;

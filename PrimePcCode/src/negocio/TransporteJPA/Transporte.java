@@ -4,18 +4,19 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
-import javax.persistence.Version;
-import javax.persistence.JoinColumn;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.NamedQueries;
+import jakarta.persistence.NamedQuery;
+import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
+import jakarta.persistence.Version;
+import jakarta.persistence.JoinColumn;
 
 import negocio.TrabajadorJPA.Trabajador;
 
@@ -29,6 +30,7 @@ public class Transporte implements Serializable {
 
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id
+	@Column(name = "ID")
 	private int id_transporte;
 
 	@Version
@@ -36,13 +38,17 @@ public class Transporte implements Serializable {
 	private String nombre;
 	private int capacidad;
 	private String matricula;
+	@Column(name = "ACTIVO")
 	private int activo;
 
 	// No tiene argumentos la relación por lo que no se necesita clase intermedia
 	@ManyToMany
 	@JoinTable(name = "transporte_trabajador", joinColumns = @JoinColumn(name = "id_transporte"), inverseJoinColumns = @JoinColumn(name = "id_trabajador"))
 	private Set<Trabajador> trabajadores;
-
+	
+	public Transporte() {
+    }
+	
 	public Transporte(TTransporte t) {
 		this.id_transporte = t.getId();
 		this.nombre = t.getNombre();
