@@ -11,7 +11,7 @@ import jakarta.persistence.SequenceGenerator;
 public class Paquete {
 	private static final long serialVersionUID = 0;
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
-	@SequenceGenerator(name = "seq", sequenceName = "SEQ_ID", allocationSize = 1)
+	@SequenceGenerator(name = "seq", sequenceName = "PAQUETE_SEQ", allocationSize = 1)
 	@Id
 	private int id;
 	String numSerie;

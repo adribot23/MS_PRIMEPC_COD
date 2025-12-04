@@ -28,7 +28,7 @@ public class Remitente implements Serializable {
 	private static final long serialVersionUID = 0;
 
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
-	@SequenceGenerator(name = "seq", sequenceName = "SEQ_ID", allocationSize = 1)
+	@SequenceGenerator(name = "seq", sequenceName = "REMITENTE_SEQ", allocationSize = 1)
 	@Id
 	private int id_remitente;
 
