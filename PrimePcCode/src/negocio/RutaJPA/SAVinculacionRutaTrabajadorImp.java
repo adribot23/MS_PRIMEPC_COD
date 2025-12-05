@@ -1,5 +1,6 @@
 package negocio.RutaJPA;
 
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import integracion.EMFSingleton.EMFSingleton;
@@ -83,14 +84,62 @@ public class SAVinculacionRutaTrabajadorImp implements SAVinculacionRutaTrabajad
 
 	@Override
 	public Set<TVinculacionRutaTrabajador> listar_vinculaciones_por_trabajador(int id_trabajador) {
-		// TODO Auto-generated method stub
-		return null;
+		Set<TVinculacionRutaTrabajador> res = null;
+		EntityManager em = EMFSingleton.getInstancia().getEntityManagerFactory().createEntityManager();
+
+		try {
+			em.getTransaction().begin();
+
+			Trabajador trabajador = em.find(Trabajador.class, id_trabajador, LockModeType.OPTIMISTIC);
+			res = new LinkedHashSet<TVinculacionRutaTrabajador>();
+
+			if (trabajador != null) {
+
+				for (VinculacionRutaTrabajador vinculacion : trabajador.get_vinculaciones()) {
+					res.add(vinculacion.toTransfer());
+				}
+
+				em.getTransaction().commit();
+			} else {
+				em.getTransaction().rollback();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			em.close();
+		}
+
+		return res;
 	}
 
 	@Override
 	public Set<TVinculacionRutaTrabajador> listar_vinculaciones_por_ruta(int id_ruta) {
-		// TODO Auto-generated method stub
-		return null;
+		Set<TVinculacionRutaTrabajador> res = null;
+		EntityManager em = EMFSingleton.getInstancia().getEntityManagerFactory().createEntityManager();
+
+		try {
+			em.getTransaction().begin();
+
+			Ruta ruta = em.find(Ruta.class, id_ruta, LockModeType.OPTIMISTIC);
+			res = new LinkedHashSet<TVinculacionRutaTrabajador>();
+
+			if (ruta != null) {
+
+				for (VinculacionRutaTrabajador vinculacion : ruta.get_vinculaciones()) {
+					res.add(vinculacion.toTransfer());
+				}
+
+				em.getTransaction().commit();
+			} else {
+				em.getTransaction().rollback();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			em.close();
+		}
+
+		return res;
 	}
 
 	
