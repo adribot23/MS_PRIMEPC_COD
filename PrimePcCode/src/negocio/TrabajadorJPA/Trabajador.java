@@ -31,8 +31,8 @@ public class Trabajador {
 	
 	private static final long serialVersionUID = 0;
 	
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
-	@SequenceGenerator(name = "seq", sequenceName = "TRABAJADOR_SEQ", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_trabajador")
+	@SequenceGenerator(name = "seq_trabajador", sequenceName = "TRABAJADOR_SEQ", allocationSize = 1)
 	@Id
 	private int id_trabajador;
 	private String DNI;

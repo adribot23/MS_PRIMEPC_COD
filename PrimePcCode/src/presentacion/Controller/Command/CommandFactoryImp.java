@@ -238,8 +238,10 @@ public class CommandFactoryImp extends CommandFactory {
 			break;
 		case VER_TRANSPORTE_POR_TRABAJADOR:
 			command = new VerTransportesPorTrabajador();
+			break;
 		case VINCULAR_TRANSPORTE_TRABAJADOR:
 			command = new VincularTransporteTrabajadorCommand();
+			break;
 		case DESVINCULAR_TRANSPORTE_TRABAJADOR:
 			command = new DesvincularTransporteTrabajdorCommand();
 			break;
@@ -264,6 +266,9 @@ public class CommandFactoryImp extends CommandFactory {
 			command = new CalcularPrecioPaquetesRemitenteCommand();
 			break;
 
+			
+		
+			
 		default:
 			break;
 		}
