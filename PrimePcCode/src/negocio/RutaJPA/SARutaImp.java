@@ -1,9 +1,11 @@
 package negocio.RutaJPA;
 
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.LockModeType;
 import jakarta.persistence.TypedQuery;
 import negocio.PaqueteJPA.Paquete;
 import integracion.EMFSingleton.EMFSingleton;
@@ -132,14 +134,65 @@ public class SARutaImp implements SARuta {
 	}
 	@Override
 	public TRuta buscar_ruta(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		TRuta res = null;
+		EntityManager em = EMFSingleton.getInstancia().getEntityManagerFactory().createEntityManager();
+
+		try {
+			em.getTransaction().begin();
+
+			// Bloqueamos optimista la ruta para evitar que la modifiquen mientras lo
+			// leemos
+			Ruta ruta = em.find(Ruta.class, id, LockModeType.OPTIMISTIC);
+
+			if (ruta != null) {
+				res = ruta.entityToTransfer();
+				em.getTransaction().commit();
+			} else {
+				em.getTransaction().rollback();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			em.close();
+		}
+
+		return res;
 	}
 
 	@Override
 	public Set<TRuta> listar_rutas() {
-		// TODO Auto-generated method stub
-		return null;
+		Set<TRuta> res = null;
+		EntityManager em = EMFSingleton.getInstancia().getEntityManagerFactory().createEntityManager();
+
+		try {
+			em.getTransaction().begin();
+
+		
+			TypedQuery<Ruta> query = em.createQuery("SELECT r FROM Modelo r", Ruta.class);
+			query.setLockMode(LockModeType.OPTIMISTIC);
+
+			List<Ruta> result = query.getResultList();
+
+			if (result != null) {
+
+				res = new LinkedHashSet<TRuta>();
+
+				for (Ruta ruta : result) {
+					em.lock(ruta, LockModeType.OPTIMISTIC);
+					res.add(ruta.entityToTransfer());
+				}
+
+				em.getTransaction().commit();
+			} else {
+				em.getTransaction().rollback();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			em.close();
+		}
+
+		return res;
 	}
 
 }
