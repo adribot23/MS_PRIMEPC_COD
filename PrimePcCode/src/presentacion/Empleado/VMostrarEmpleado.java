@@ -109,7 +109,7 @@ public class VMostrarEmpleado extends JFrame implements IGUI {
 				tableData[i][5] = "-";
 			}
 
-			tableData[i][6] = e.getActivo(); 
+			tableData[i][6] = e.getActivo();
 			i++;
 		}
 

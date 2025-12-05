@@ -38,6 +38,13 @@ import presentacion.Proveedor.VMostrarProveedor;
 import presentacion.Proveedor.VProveedorConMasUnidadesDeProductoVendidas;
 import presentacion.Proveedor.VVerPorProducto;
 import presentacion.Proveedor.VVincularProveedor;
+import presentacion.RemitenteJPA.GUIRemitente;
+import presentacion.RemitenteJPA.VAltaRemitente;
+import presentacion.RemitenteJPA.VBajaRemitente;
+import presentacion.RemitenteJPA.VBuscarRemitente;
+import presentacion.RemitenteJPA.VCalcularPrecioPaquete;
+import presentacion.RemitenteJPA.VModificarRemitente;
+import presentacion.RemitenteJPA.VMostrarRemitente;
 import presentacion.TransporteJPA.GUITransporte;
 import presentacion.TransporteJPA.VAltaTransporte;
 import presentacion.TransporteJPA.VBajaTransporte;
@@ -428,6 +435,37 @@ public class GUIAbstractFactoryImp extends GUIAbstractFactory {
 		case RES_DESVINCULAR_TRANSPORTE_TRABAJADOR_OK:
 		case RES_DESVINCULAR_TRANSPORTE_TRABAJADOR_KO:
 			return new VDesvincularTransporteTrabajador();
+
+		/*
+		 * ============================== ======== REMITENTE ============
+		 * ==============================
+		 */
+		case REMITENTE:
+			return new GUIRemitente();
+		case VALTA_REMITENTE:
+		case RES_ALTA_REMITENTE_OK:
+		case RES_ALTA_REMITENTE_KO:
+			return new VAltaRemitente();
+		case VBAJA_REMITENTE:
+		case RES_BAJA_REMITENTE_OK:
+		case RES_BAJA_REMITENTE_KO:
+			return new VBajaRemitente();
+		case VBUSCAR_REMITENTE:
+		case RES_BUSCAR_REMITENTE_OK:
+		case RES_BUSCAR_REMITENTE_KO:
+			return new VBuscarRemitente();
+		case VMODIFICAR_REMITENTE:
+		case RES_MODIFICAR_REMITENTE_OK:
+		case RES_MODIFICAR_REMITENTE_KO:
+			return new VModificarRemitente();
+		case VMOSTRAR_TODOS_REMITENTES:
+		case RES_MOSTRAR_TODOS_REMITENTES_OK:
+		case RES_MOSTRAR_TODOS_REMITENTES_KO:
+			return new VMostrarRemitente();
+		case VCALCULAR_PRECIO_PAQUETES:
+		case RES_CALCULAR_PRECIO_PAQUETES_OK:
+		case RES_CALCULAR_PRECIO_PAQUETES_KO:
+			return new VCalcularPrecioPaquete();
 
 		default:
 			return null;

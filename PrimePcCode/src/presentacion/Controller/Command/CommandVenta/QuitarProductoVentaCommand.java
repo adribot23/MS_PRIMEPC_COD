@@ -16,16 +16,14 @@ public class QuitarProductoVentaCommand implements Command {
 		}
 
 		if (!(data instanceof TCarrito)) {
-			return new Context(Evento.RES_QUITAR_PRODUCTO_VENTA_KO,
-					"Los datos del carrito no son validos.");
+			return new Context(Evento.RES_QUITAR_PRODUCTO_VENTA_KO, "Los datos del carrito no son validos.");
 		}
 
-	TCarrito carrito = (TCarrito) data;
+		TCarrito carrito = (TCarrito) data;
 
-	if (carrito.getidProducto() <= 0 || carrito.getcantidadProducto() <= 0) {
-		return new Context(Evento.RES_QUITAR_PRODUCTO_VENTA_KO,
-				"Debe indicar identificadores y unidades validas.");
-	}
+		if (carrito.getidProducto() <= 0 || carrito.getcantidadProducto() <= 0) {
+			return new Context(Evento.RES_QUITAR_PRODUCTO_VENTA_KO, "Debe indicar identificadores y unidades validas.");
+		}
 
 		try {
 			SAVenta saVenta = SAAbstractFactory.getInstancia().generarSAVenta();

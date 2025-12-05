@@ -7,10 +7,18 @@ import negocio.Cliente.SACliente;
 import negocio.Cliente.SAClienteImp;
 import negocio.Empleado.SAEmpleado;
 import negocio.Empleado.SAEmpleadoImp;
+import negocio.PaqueteJPA.SAPaquete;
+import negocio.PaqueteJPA.SAPaqueteImp;
 import negocio.Producto.SAProducto;
 import negocio.Producto.SAProductoImp;
 import negocio.Proveedor.SAProveedor;
 import negocio.Proveedor.SAProveedorImp;
+import negocio.RemitenteJPA.SARemitente;
+import negocio.RemitenteJPA.SARemitenteImp;
+import negocio.TrabajadorJPA.SATrabajador;
+import negocio.TrabajadorJPA.SATrabajadorImp;
+import negocio.TransporteJPA.SATransporte;
+import negocio.TransporteJPA.SATransporteImp;
 import negocio.Venta.SAVenta;
 import negocio.Venta.SAVentaImp;
 
@@ -37,5 +45,26 @@ public class SAAbstractFactoryImp extends SAAbstractFactory {
 
 	public SAProveedor generarSAProveedor() {
 		return new SAProveedorImp();
+	}
+
+	// JPA
+	public SARemitente generarSARemitente() {
+		return new SARemitenteImp();
+	}
+
+	@Override
+	public SAPaquete generarSAPaquete() {
+		return new SAPaqueteImp();
+	}
+
+	@Override
+	public SATransporte generarSATransporte() {
+		return new SATransporteImp();
+	}
+
+	@Override
+	public SATrabajador generarSATrabajador() {
+
+		return new SATrabajadorImp();
 	}
 }

@@ -27,7 +27,7 @@ public class DAOProductoImp implements DAOProducto {
 			s.setString(2, producto.getModelo());
 			s.setInt(3, producto.getUnidades());
 			s.setString(4, producto.getMarca());
-			s.setInt(5,producto.getIdAlmacen());
+			s.setInt(5, producto.getIdAlmacen());
 			s.executeUpdate();
 
 			ResultSet r = s.getGeneratedKeys();
@@ -95,25 +95,23 @@ public class DAOProductoImp implements DAOProducto {
 
 	@Override
 	public int delete(int id) {
-	    int exito = -1;
-	    try {
-	        TManager tManager = TManager.getInstance();
-	        Transaction t = tManager.getTransaction();
-	        Connection c = (Connection) t.getResource();
+		int exito = -1;
+		try {
+			TManager tManager = TManager.getInstance();
+			Transaction t = tManager.getTransaction();
+			Connection c = (Connection) t.getResource();
 
-	        // Desvincular el producto del almacén y marcarlo como inactivo
-	        PreparedStatement s = c.prepareStatement(
-	            "UPDATE PRODUCTO SET ACTIVO = 0, ID_ALMACEN = NULL WHERE ID = ?"
-	        );
-	        s.setInt(1, id);
+			// Desvincular el producto del almacén y marcarlo como inactivo
+			PreparedStatement s = c.prepareStatement("UPDATE PRODUCTO SET ACTIVO = 0, ID_ALMACEN = NULL WHERE ID = ?");
+			s.setInt(1, id);
 
-	        exito = s.executeUpdate();
-	        s.close();
+			exito = s.executeUpdate();
+			s.close();
 
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	        return -1;
-	    }
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return -1;
+		}
 		if (exito == 0)
 			return -1;
 		else

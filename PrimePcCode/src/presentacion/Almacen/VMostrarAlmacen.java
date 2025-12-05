@@ -21,64 +21,67 @@ import presentacion.Controller.Command.Context;
 import presentacion.GUI.Evento;
 import presentacion.GUI.IGUI;
 
-/** 
-* <!-- begin-UML-doc -->
-* <!-- end-UML-doc -->
-* @author adria
-* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-*/
+/**
+ * <!-- begin-UML-doc --> <!-- end-UML-doc -->
+ * 
+ * @author adria
+ * @generated "UML a Java
+ *            (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+ */
 public class VMostrarAlmacen extends JFrame implements IGUI {
 
 	public VMostrarAlmacen() {
 		super("Listar Almacenes");
 		initGUI();
 	}
+
 	public void initGUI() {
 		getRootPane().setBorder(BorderFactory.createTitledBorder("Listar Almacenes"));
 		setLayout(new GridLayout(2, 1, 10, 10));
 
 		JButton btnMostrarTodos = new JButton("Listar todos");
 		btnMostrarTodos.setBackground(new Color(200, 255, 200)); // Verde
-		btnMostrarTodos.addActionListener(e -> Controlador.getInstancia().accion(new Context(Evento.MOSTRAR_TODOS_ALMACENES, null)));
+		btnMostrarTodos.addActionListener(
+				e -> Controlador.getInstancia().accion(new Context(Evento.MOSTRAR_TODOS_ALMACENES, null)));
 
 		add(btnMostrarTodos, BorderLayout.NORTH);
-		
+
 		JButton btnVolver = new JButton("Volver");
 		btnVolver.setBackground(new Color(255, 220, 220));
 		btnVolver.addActionListener(e -> {
 			Controlador.getInstancia().accion(new Context(Evento.ALMACEN, null));
 			this.dispose();
 		});
-		
+
 		add(btnVolver, BorderLayout.SOUTH);
-		
+
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(350, 150);
 		setLocationRelativeTo(null);
-		
+
 	}
 
 	public void actualizar(Context context) {
 		Evento evento = context.getEvento();
 		Object datos = context.getDatos();
 		switch (evento) {
-			case VMOSTRAR_TODOS_ALMACENES:
-				setVisible(true);
-				break;
+		case VMOSTRAR_TODOS_ALMACENES:
+			setVisible(true);
+			break;
 
-			case RES_MOSTRAR_TODOS_ALMACENES_OK:
-				mostrarTabla((Set<TAlmacen>) datos);
-				break;
+		case RES_MOSTRAR_TODOS_ALMACENES_OK:
+			mostrarTabla((Set<TAlmacen>) datos);
+			break;
 
-			case RES_MOSTRAR_TODOS_ALMACENES_KO:
-				JOptionPane.showMessageDialog(this, "No se pudieron mostrar los almacenes.");
-				break;
+		case RES_MOSTRAR_TODOS_ALMACENES_KO:
+			JOptionPane.showMessageDialog(this, "No se pudieron mostrar los almacenes.");
+			break;
 
-			default:
-				break;
+		default:
+			break;
 		}
 	}
-	
+
 	private void mostrarTabla(Set<TAlmacen> almacenes) {
 
 		String[] columnNames = { "ID", "Nombre", "Capacidad", "Ocupación", "Activo" };

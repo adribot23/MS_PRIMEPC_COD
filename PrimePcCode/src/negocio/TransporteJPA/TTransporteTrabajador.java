@@ -1,10 +1,16 @@
 package negocio.TransporteJPA;
 
 public class TTransporteTrabajador {
-	
 	private int id_transporte;
-	
 	private int id_trabajador;
+
+	public TTransporteTrabajador() {
+	}
+
+	public TTransporteTrabajador(int id_transporte, int id_trabajador) {
+		this.id_transporte = id_transporte;
+		this.id_trabajador = id_trabajador;
+	}
 
 	public int getId_transporte() {
 		return id_transporte;
@@ -21,7 +27,5 @@ public class TTransporteTrabajador {
 	public void setId_trabajador(int id_trabajador) {
 		this.id_trabajador = id_trabajador;
 	}
-	
-	
 
 }

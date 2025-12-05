@@ -1,4 +1,5 @@
 package presentacion.Proveedor;
+
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.util.Set;

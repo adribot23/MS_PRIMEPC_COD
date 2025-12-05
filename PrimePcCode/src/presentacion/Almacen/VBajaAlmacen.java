@@ -18,21 +18,22 @@ import presentacion.Controller.Command.Context;
 import presentacion.GUI.Evento;
 import presentacion.GUI.IGUI;
 
-/** 
-* <!-- begin-UML-doc -->
-* <!-- end-UML-doc -->
-* @author adria
-* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-*/
+/**
+ * <!-- begin-UML-doc --> <!-- end-UML-doc -->
+ * 
+ * @author adria
+ * @generated "UML a Java
+ *            (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+ */
 public class VBajaAlmacen extends JFrame implements IGUI {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	public VBajaAlmacen() {
 		super("Baja de Almacén");
 		initGUI();
 	}
-	
+
 	public void initGUI() {
 		setLayout(new GridLayout(2, 1, 10, 10));
 		getRootPane().setBorder(BorderFactory.createTitledBorder("Baja Almacén"));
@@ -53,7 +54,7 @@ public class VBajaAlmacen extends JFrame implements IGUI {
 				JOptionPane.showMessageDialog(this, "ID invalido.");
 			}
 		});
-		
+
 		JButton btnVolver = new JButton("Volver");
 		btnVolver.setBackground(new Color(255, 220, 220));
 		btnVolver.addActionListener(e -> {
@@ -65,7 +66,7 @@ public class VBajaAlmacen extends JFrame implements IGUI {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(350, 150);
 		setLocationRelativeTo(null);
-	
+
 	}
 
 	public void actualizar(Context context) {

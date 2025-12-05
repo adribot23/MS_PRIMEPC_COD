@@ -50,127 +50,126 @@ public class VModificarEmpleado extends JFrame implements IGUI {
 	 * @generated "UML a Java
 	 *            (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	 */
-	   private void initGUI() {
-	      
-	        setLayout(new GridLayout(7, 2, 10, 10));
-	        getRootPane().setBorder(BorderFactory.createTitledBorder("Modificar Empleado"));
+	private void initGUI() {
 
-	      
-	        JLabel lblID = new JLabel("ID Empleado:");
-	        JTextField txtID = new JTextField();
+		setLayout(new GridLayout(7, 2, 10, 10));
+		getRootPane().setBorder(BorderFactory.createTitledBorder("Modificar Empleado"));
 
-	        JLabel lblNombre = new JLabel("Nombre:");
-	        JTextField txtNombre = new JTextField();
+		JLabel lblID = new JLabel("ID Empleado:");
+		JTextField txtID = new JTextField();
 
-	        JLabel lblDNI = new JLabel("DNI:");
-	        JTextField txtDNI = new JTextField();
+		JLabel lblNombre = new JLabel("Nombre:");
+		JTextField txtNombre = new JTextField();
 
-	        JLabel lblTlf = new JLabel("Teléfono:");
-	        JTextField txtTlf = new JTextField();
+		JLabel lblDNI = new JLabel("DNI:");
+		JTextField txtDNI = new JTextField();
 
-	        JLabel lblHoras = new JLabel("Horas Extra:");
-	        JTextField txtHoras = new JTextField();
+		JLabel lblTlf = new JLabel("Teléfono:");
+		JTextField txtTlf = new JTextField();
 
-	     
-	        JRadioButton rdbCompleto = new JRadioButton("Completo");
-	        JRadioButton rdbParcial = new JRadioButton("Parcial");
-	        ButtonGroup grupoTipo = new ButtonGroup();
-	        grupoTipo.add(rdbCompleto);
-	        grupoTipo.add(rdbParcial);
-	        rdbCompleto.setSelected(true);
+		JLabel lblHoras = new JLabel("Horas Extra:");
+		JTextField txtHoras = new JTextField();
 
-	        JPanel tipoPanel = new JPanel(new GridLayout(1, 2));
-	        tipoPanel.add(rdbCompleto);
-	        tipoPanel.add(rdbParcial);
+		JRadioButton rdbCompleto = new JRadioButton("Completo");
+		JRadioButton rdbParcial = new JRadioButton("Parcial");
+		ButtonGroup grupoTipo = new ButtonGroup();
+		grupoTipo.add(rdbCompleto);
+		grupoTipo.add(rdbParcial);
+		rdbCompleto.setSelected(true);
 
-	        
-	        rdbCompleto.addActionListener(e -> lblHoras.setText("Horas Extra:"));
-	        rdbParcial.addActionListener(e -> lblHoras.setText("Horas Semanales:"));
+		JPanel tipoPanel = new JPanel(new GridLayout(1, 2));
+		tipoPanel.add(rdbCompleto);
+		tipoPanel.add(rdbParcial);
 
-	       
-	        JButton btnModificar = new JButton("Modificar");
-	        btnModificar.setBackground(new Color(200, 255, 200));
-	        btnModificar.addActionListener(e -> {
-	            try {
-	                int id = Integer.parseInt(txtID.getText().trim());
-	                String nombre = txtNombre.getText().trim();
-	                String dni = txtDNI.getText().trim();
-	                String tlf = txtTlf.getText().trim();
-	                int horas = Integer.parseInt(txtHoras.getText().trim());
+		rdbCompleto.addActionListener(e -> lblHoras.setText("Horas Extra:"));
+		rdbParcial.addActionListener(e -> lblHoras.setText("Horas Semanales:"));
 
-	                if (nombre.isEmpty() || dni.isEmpty() || tlf.isEmpty()) {
-	                    JOptionPane.showMessageDialog(this, "Todos los campos deben estar rellenados.");
-	                    return;
-	                }
+		JButton btnModificar = new JButton("Modificar");
+		btnModificar.setBackground(new Color(200, 255, 200));
+		btnModificar.addActionListener(e -> {
+			try {
+				int id = Integer.parseInt(txtID.getText().trim());
+				String nombre = txtNombre.getText().trim();
+				String dni = txtDNI.getText().trim();
+				String tlf = txtTlf.getText().trim();
+				int horas = Integer.parseInt(txtHoras.getText().trim());
 
-	                TEmpleado empleado;
-	                if (rdbCompleto.isSelected()) {
-	                    empleado = new TEmpleadoCompleto(id, nombre, dni, tlf, horas);
-	                } else {
-	                    empleado = new TEmpleadoParcial(id, nombre, dni, tlf, horas);
-	                }
+				if (nombre.isEmpty() || dni.isEmpty() || tlf.isEmpty()) {
+					JOptionPane.showMessageDialog(this, "Todos los campos deben estar rellenados.");
+					return;
+				}
 
-	                Controlador.getInstancia().accion(new Context(Evento.MODIFICAR_EMPLEADO, empleado));
+				TEmpleado empleado;
+				if (rdbCompleto.isSelected()) {
+					empleado = new TEmpleadoCompleto(id, nombre, dni, tlf, horas);
+				} else {
+					empleado = new TEmpleadoParcial(id, nombre, dni, tlf, horas);
+				}
 
-	                // Limpiar campos tras modificar
-	                txtID.setText("");
-	                txtNombre.setText("");
-	                txtDNI.setText("");
-	                txtTlf.setText("");
-	                txtHoras.setText("");
-	                rdbCompleto.setSelected(true);
-	                lblHoras.setText("Horas Extra:");
-	            } 
-	            catch (NumberFormatException ex) {
-	                JOptionPane.showMessageDialog(this, "ID y Horas deben ser números válidos.");
-	            }
-	        });
+				Controlador.getInstancia().accion(new Context(Evento.MODIFICAR_EMPLEADO, empleado));
 
-	     
-	        JButton btnVolver = new JButton("Volver");
-	        btnVolver.setBackground(new Color(255, 220, 220));
-	        btnVolver.addActionListener(e -> {
-	            Controlador.getInstancia().accion(new Context(Evento.EMPLEADO, null));
-	            this.dispose();
-	        });
+				// Limpiar campos tras modificar
+				txtID.setText("");
+				txtNombre.setText("");
+				txtDNI.setText("");
+				txtTlf.setText("");
+				txtHoras.setText("");
+				rdbCompleto.setSelected(true);
+				lblHoras.setText("Horas Extra:");
+			} catch (NumberFormatException ex) {
+				JOptionPane.showMessageDialog(this, "ID y Horas deben ser números válidos.");
+			}
+		});
 
-	        
-	        add(lblID); add(txtID);
-	        add(lblNombre); add(txtNombre);
-	        add(lblDNI); add(txtDNI);
-	        add(lblTlf); add(txtTlf);
-	    
-	        add(lblHoras); add(txtHoras);
-	        add(new JLabel("Tipo de Empleado:")); add(tipoPanel);
-	        add(btnModificar); add(btnVolver);
+		JButton btnVolver = new JButton("Volver");
+		btnVolver.setBackground(new Color(255, 220, 220));
+		btnVolver.addActionListener(e -> {
+			Controlador.getInstancia().accion(new Context(Evento.EMPLEADO, null));
+			this.dispose();
+		});
 
-	        
-	        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-	        setSize(450, 300);
-	        setLocationRelativeTo(null);
-	    }
+		add(lblID);
+		add(txtID);
+		add(lblNombre);
+		add(txtNombre);
+		add(lblDNI);
+		add(txtDNI);
+		add(lblTlf);
+		add(txtTlf);
 
-	    @Override
-	    public void actualizar(Context context) {
-	        Evento evento = context.getEvento();
-	        Object datos = context.getDatos();
+		add(lblHoras);
+		add(txtHoras);
+		add(new JLabel("Tipo de Empleado:"));
+		add(tipoPanel);
+		add(btnModificar);
+		add(btnVolver);
 
-	        switch (evento) {
-	            case VMODIFICAR_EMPLEADO:
-	                this.setVisible(true);
-	                break;
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setSize(450, 300);
+		setLocationRelativeTo(null);
+	}
 
-	            case RES_MODIFICAR_EMPLEADO_OK:
-	                JOptionPane.showMessageDialog(this, "Empleado modificado con ID: " + datos);
-	                break;
+	@Override
+	public void actualizar(Context context) {
+		Evento evento = context.getEvento();
+		Object datos = context.getDatos();
 
-	            case RES_MODIFICAR_EMPLEADO_KO:
-	                JOptionPane.showMessageDialog(this, "Error al modificar el empleado.");
-	                break;
+		switch (evento) {
+		case VMODIFICAR_EMPLEADO:
+			this.setVisible(true);
+			break;
 
-	            default:
-	                JOptionPane.showMessageDialog(this, "Evento no reconocido: " + evento);
-	                break;
-	        }
-	    }
+		case RES_MODIFICAR_EMPLEADO_OK:
+			JOptionPane.showMessageDialog(this, "Empleado modificado con ID: " + datos);
+			break;
+
+		case RES_MODIFICAR_EMPLEADO_KO:
+			JOptionPane.showMessageDialog(this, "Error al modificar el empleado.");
+			break;
+
+		default:
+			JOptionPane.showMessageDialog(this, "Evento no reconocido: " + evento);
+			break;
+		}
+	}
 }
