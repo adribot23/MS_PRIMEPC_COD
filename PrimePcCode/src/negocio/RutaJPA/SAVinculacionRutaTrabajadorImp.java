@@ -44,9 +44,41 @@ public class SAVinculacionRutaTrabajadorImp implements SAVinculacionRutaTrabajad
 	}
 
 	@Override
-	public int desvincular_ruta_trabajador(TVinculacionRutaTrabajador vinculacion) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int desvincular_ruta_trabajador(TVinculacionRutaTrabajador tvinculacion) {
+		int res = -1;
+		EntityManager em = EMFSingleton.getInstancia().getEntityManagerFactory().createEntityManager();
+
+		try {
+			em.getTransaction().begin();
+
+			
+			Trabajador trabajador = em.find(Trabajador.class, tvinculacion.get_id_trabajador(),
+					LockModeType.OPTIMISTIC_FORCE_INCREMENT);
+			Ruta ruta = em.find(Ruta.class, tvinculacion.get_id_ruta(), LockModeType.OPTIMISTIC_FORCE_INCREMENT);
+
+			if (trabajador != null && ruta != null && trabajador.getActivo() == 1 && ruta.getActivo() == 1) {
+
+				VinculacionRutaTrabajadorID id = new VinculacionRutaTrabajadorID(ruta.getId(),
+						trabajador.getId());
+				VinculacionRutaTrabajador vinculacion = em.find(VinculacionRutaTrabajador.class, id);
+
+				if (vinculacion != null) {
+					em.remove(vinculacion);
+					res = 1;
+					em.getTransaction().commit();
+				} else {
+					em.getTransaction().rollback();
+				}
+			} else {
+				em.getTransaction().rollback();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			em.close();
+		}
+
+		return res;
 	}
 
 	@Override
