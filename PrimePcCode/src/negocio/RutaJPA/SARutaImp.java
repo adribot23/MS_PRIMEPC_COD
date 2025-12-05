@@ -101,12 +101,35 @@ public class SARutaImp implements SARuta {
 
 		return res;
 	}
+	
 	@Override
-	public int modificar_ruta(TRuta ruta) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+	public int modificar_ruta(TRuta truta) {
+		int res = -1;
+		EntityManager em = EMFSingleton.getInstancia().getEntityManagerFactory().createEntityManager();
 
+		try {
+			em.getTransaction().begin();
+
+			Ruta ruta = em.find(Ruta.class, truta.get_id());
+
+			if (ruta != null && ruta.getActivo() == 1) {
+				ruta.setOrigen(truta.get_origen());
+				ruta.setDestino(truta.get_destino());
+				ruta.setDistancia(truta.get_distancia());
+
+				res = 1;
+				em.getTransaction().commit();
+			} else {
+				em.getTransaction().rollback();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			em.close();
+		}
+
+		return res;
+	}
 	@Override
 	public TRuta buscar_ruta(int id) {
 		// TODO Auto-generated method stub
