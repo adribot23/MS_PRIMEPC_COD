@@ -38,9 +38,10 @@ public class Transporte implements Serializable {
 
 	@Version
 	private Integer version;
+	@Column(unique = true)
+	private String matricula;
 	private String nombre;
 	private int capacidad;
-	private String matricula;
 	@Column(name = "ACTIVO")
 	private int activo;
 
