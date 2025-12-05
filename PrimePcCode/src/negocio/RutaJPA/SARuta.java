@@ -9,8 +9,5 @@ public interface SARuta {
 	public int modificar_ruta(TRuta ruta);
 	public TRuta buscar_ruta(int id);
 	public Set<TRuta> listar_rutas();
-	public Set<TRuta> listar_rutas_por_trabajador();
-	public int vincular_ruta_trabajador(TVinculacionRutaTrabajador vinculacion);
-	public int desvincular_ruta_trabajador(TVinculacionRutaTrabajador vinculacion);
 	
 }

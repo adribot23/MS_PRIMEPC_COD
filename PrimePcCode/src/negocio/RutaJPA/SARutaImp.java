@@ -79,22 +79,4 @@ public class SARutaImp implements SARuta {
 		return null;
 	}
 
-	@Override
-	public Set<TRuta> listar_rutas_por_trabajador() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public int vincular_ruta_trabajador(TVinculacionRutaTrabajador vinculacion) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int desvincular_ruta_trabajador(TVinculacionRutaTrabajador vinculacion) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
 }
