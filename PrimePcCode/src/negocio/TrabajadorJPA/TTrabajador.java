@@ -1,24 +1,51 @@
 package negocio.TrabajadorJPA;
 
+import negocio.RemitenteJPA.Remitente;
+
 public class TTrabajador {
-	private int id;
-	private int DNI;
+	private int id_trabajador;
+	private String DNI;
+	private String nombre;
+	private int activo;
+	
+	public TTrabajador() {
+	}
+	
+	public TTrabajador(String nombre, String DNI) {
+		this.nombre = nombre;
+		this.DNI = DNI;
+	}
+	
+	public TTrabajador(int id_trabajador, int activo, String nombre, String DNI) {
+		super();
+		this.id_trabajador = id_trabajador;
+		this.activo = activo;
+		this.nombre = nombre;
+		this.DNI = DNI;
+	}
+
+	public TTrabajador(Trabajador trabajador) {
+		this.id_trabajador = trabajador.getId();
+		this.nombre = trabajador.getNombre();
+		this.activo = trabajador.getActivo();
+		this.DNI = trabajador.getDNI();
+	}
 
 	// getters
 	public int getId() {
-		return id;
+		return id_trabajador;
 	}
 
 	public void setId(int id) {
-		this.id = id;
+		this.id_trabajador = id;
 	}
 
-	public int getDNI() {
+	public String getDNI() {
 		return DNI;
 	}
 
 	// setters
-	public void setDNI(int DNI) {
+	public void setDNI(String DNI) {
 		this.DNI = DNI;
 	}
 
@@ -30,8 +57,7 @@ public class TTrabajador {
 		this.nombre = nombre;
 	}
 
-	private String nombre;
-	private int activo;
+
 
 	public int isActivo() {
 		return activo;

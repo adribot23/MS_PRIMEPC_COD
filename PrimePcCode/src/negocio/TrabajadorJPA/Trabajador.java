@@ -1,19 +1,47 @@
 package negocio.TrabajadorJPA;
 
-import javax.persistence.Entity;
-import javax.persistence.Version;
+import java.util.Set;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.NamedQueries;
+import jakarta.persistence.NamedQuery;
+import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.Version;
+
 
 import negocio.TransporteJPA.Transporte;
 
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
+@NamedQueries({
+		@NamedQuery(name = "Negocio.TrabajadorJPA.Trabajador.findByid", query = "select t from Trabajador t where :id_trabajador = t.id_trabajador"),
+		@NamedQuery(name = "Negocio.TrabajadorJPA.Trabajador.findByDNI", query = "select t from Trabajador t where :DNI = t.DNI"),
+		@NamedQuery(name = "Negocio.TrabajadorJPA.Trabajador.findBynombre", query = "select t from Trabajador t where :nombre = t.nombre"),
+		@NamedQuery(name = "Negocio.TrabajadorJPA.Trabajador.findByactivo", query = "select t from Trabajador t where :activo = t.activo"),
+		@NamedQuery(name = "Negocio.TrabajadorJPA.Trabajador.findByversion", query = "select t from Trabajador t where :version = t.version") })
 public class Trabajador {
+	
 	private static final long serialVersionUID = 0;
-
-	private int id;
-	private int DNI;
+	
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
+	@SequenceGenerator(name = "seq", sequenceName = "TRABAJADOR_SEQ", allocationSize = 1)
+	@Id
+	private int id_trabajador;
+	private String DNI;
 	private String nombre;
 	private int activo;
-
+	
+	@ManyToMany
+	@JoinTable(name = "transporte_trabajador", joinColumns = @JoinColumn(name = "id_trabajador"), inverseJoinColumns = @JoinColumn(name = "id_transporte"))
+	private Set<Transporte> transportes;
 	@Version
 	private Integer version;
 
@@ -29,7 +57,7 @@ public class Trabajador {
 	}
 
 	public Trabajador(TTrabajador t) {
-		this.id = t.getId();
+		this.id_trabajador = t.getId();
 		this.DNI = t.getDNI();
 		this.nombre = t.getNombre();
 		this.activo = t.isActivo();
@@ -37,7 +65,7 @@ public class Trabajador {
 
 	public TTrabajador entityToTransfer() {
 		TTrabajador tTrabajador = new TTrabajador();
-		tTrabajador.setId(this.id);
+		tTrabajador.setId(this.id_trabajador);
 		tTrabajador.setDNI(DNI);
 		tTrabajador.setNombre(nombre);
 		return tTrabajador;
@@ -45,14 +73,14 @@ public class Trabajador {
 
 	// getters
 	public int getId() {
-		return id;
+		return id_trabajador;
 	}
 
 	public void setId(int id) {
-		this.id = id;
+		this.id_trabajador = id;
 	}
 
-	public int getDNI() {
+	public String getDNI() {
 		return DNI;
 	}
 
@@ -61,7 +89,7 @@ public class Trabajador {
 	}
 
 	// setters
-	public void setDNI(int dNI) {
+	public void setDNI(String dNI) {
 		DNI = dNI;
 	}
 
@@ -77,9 +105,9 @@ public class Trabajador {
 		this.activo = activo;
 	}
 
-	public static Transporte[] getTransportes() {
-		// TODO Auto-generated method stub
-		return null;
+	public Set<Transporte> getTransportes() {
+		return transportes;
 	}
+
 
 }
