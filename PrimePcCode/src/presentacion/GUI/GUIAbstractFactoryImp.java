@@ -51,8 +51,11 @@ import presentacion.RutaJPA.GUIRuta;
 import presentacion.RutaJPA.VAltaRuta;
 import presentacion.RutaJPA.VBajaRuta;
 import presentacion.RutaJPA.VBuscarRuta;
+import presentacion.RutaJPA.VDesvincularRutaTrabajador;
 import presentacion.RutaJPA.VModificarRuta;
 import presentacion.RutaJPA.VMostrarRutas;
+import presentacion.RutaJPA.VVincularRutaTrabajador;
+import presentacion.RutaJPA.VVerRutasPorTrabajador;
 import presentacion.Venta.GUIVenta;
 import presentacion.Venta.VAbrirVenta;
 import presentacion.Venta.VAñadirProducto;
@@ -374,6 +377,18 @@ public class GUIAbstractFactoryImp extends GUIAbstractFactory {
 		case RES_MOSTRAR_TODAS_RUTAS_OK:
 		case RES_MOSTRAR_TODAS_RUTAS_KO:
 			return new VMostrarRutas();
+		case VAVINCULAR_RUTA_TRABAJADOR:
+		case RES_VINCULAR_RUTA_TRABAJADOR_OK:
+		case RES_VINCULAR_RUTA_TRABAJADOR_KO:
+			return new VVincularRutaTrabajador();
+		case VDESVINCULAR_RUTA_TRABAJADOR:
+		case RES_DESVINCULAR_RUTA_TRABAJADOR_OK:
+		case RES_DESVINCULAR_RUTA_TRABAJADOR_KO:
+			return new VDesvincularRutaTrabajador();
+		case VVER_RUTA_POR_TRABAJADOR:
+		case RES_VER_RUTA_POR_TRABAJADOR_OK:
+		case RES_VER_RUTA_POR_TRABAJADOR_KO:
+			return new VVerRutasPorTrabajador();
 
 		/*
 		 * ============================== ======== TRANSPORTE ============

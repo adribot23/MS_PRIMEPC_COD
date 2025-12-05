@@ -40,13 +40,17 @@ public class GUIRuta extends JFrame implements IGUI {
 		titulo.setBorder(BorderFactory.createEmptyBorder(10, 0, 20, 0));
 		mainPanel.add(titulo, BorderLayout.NORTH);
 
-		JPanel botonesPanel = new JPanel(new GridLayout(2, 3, 20, 20));
+		JPanel botonesPanel = new JPanel(new GridLayout(3, 3, 20, 20));
 		botonesPanel.setBackground(Color.WHITE);
 		botonesPanel.add(crearBoton("ALTA RUTA", Evento.VALTA_RUTA));
 		botonesPanel.add(crearBoton("BAJA RUTA", Evento.VBAJA_RUTA));
 		botonesPanel.add(crearBoton("MODIFICAR RUTA", Evento.VMODIFICAR_RUTA));
 		botonesPanel.add(crearBoton("BUSCAR RUTA", Evento.VBUSCAR_RUTA));
 		botonesPanel.add(crearBoton("MOSTRAR TODAS LAS RUTAS", Evento.VMOSTRAR_TODAS_RUTAS));
+		botonesPanel.add(crearBoton("VINCULAR RUTA Y TRABAJADOR", Evento.VAVINCULAR_RUTA_TRABAJADOR));
+		botonesPanel.add(crearBoton("DESVINCULAR RUTA Y TRABAJADOR", Evento.VDESVINCULAR_RUTA_TRABAJADOR));
+		botonesPanel.add(crearBoton("VER RUTAS POR TRABAJADOR", Evento.VVER_RUTA_POR_TRABAJADOR));
+		botonesPanel.add(new JLabel());
 		mainPanel.add(botonesPanel, BorderLayout.CENTER);
 
 		JButton volver = new JButton("VOLVER A VISTA PRINCIPAL");
