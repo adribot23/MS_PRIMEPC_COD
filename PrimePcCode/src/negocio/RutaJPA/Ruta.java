@@ -111,4 +111,12 @@ public class Ruta implements Serializable {
 	public void set_lista_paquetes(Set<Paquete> paquetes) {
 		this.paquetes = paquetes;
 	}
+	
+	public Set<VinculacionRutaTrabajador> get_vinculaciones() {
+		return this.vinculaciones;
+	}
+	
+	public void set_vinculaciones(Set<VinculacionRutaTrabajador> vinculaciones) {
+		this.vinculaciones = vinculaciones;
+	}
 }

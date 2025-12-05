@@ -5,7 +5,7 @@ import java.util.Set;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
-
+import negocio.PaqueteJPA.Paquete;
 import integracion.EMFSingleton.EMFSingleton;
 
 public class SARutaImp implements SARuta {
@@ -57,10 +57,50 @@ public class SARutaImp implements SARuta {
 
 	@Override
 	public int baja_ruta(int id) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+		int res = -1;
+		EntityManager em = EMFSingleton.getInstancia().getEntityManagerFactory().createEntityManager();
 
+		try {
+			em.getTransaction().begin();
+
+			Ruta ruta = em.find(Ruta.class, id);
+
+			if (ruta != null) {
+				boolean existeActivo = false;
+
+				for (Paquete paquete : ruta.get_lista_paquetes()) {
+					if (paquete.getActivo() == 1) {
+						res = -2;
+						existeActivo = true;
+						break;
+					}
+				}
+				
+				
+
+				if (!existeActivo && !ruta.get_vinculaciones().isEmpty()) {
+					res = -3;
+					existeActivo = true;
+				}
+
+				if (!existeActivo) {
+					res = ruta.getId();
+					ruta.setActivo(0);
+					em.getTransaction().commit();
+				} else {
+					em.getTransaction().rollback();
+				}
+			} else {
+				em.getTransaction().rollback();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			em.close();
+		}
+
+		return res;
+	}
 	@Override
 	public int modificar_ruta(TRuta ruta) {
 		// TODO Auto-generated method stub
