@@ -12,6 +12,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.SwingUtilities;
+import javax.swing.table.DefaultTableModel;
 
 import negocio.TransporteJPA.TTransporte;
 import presentacion.Controller.Controlador;
@@ -23,7 +25,6 @@ public class VMostrarTransporte extends JFrame implements IGUI {
 
 	private static final long serialVersionUID = 1L;
 	private JButton btnMostrar, btnVolver;
-	private JTable tabla;
 
 	public VMostrarTransporte() {
 		super("Mostrar Transportes");
@@ -32,12 +33,11 @@ public class VMostrarTransporte extends JFrame implements IGUI {
 
 	private void initGUI() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setSize(600, 400);
+		setSize(400, 200);
 		setLocationRelativeTo(null);
 
-		// Panel superior con botones
-		JPanel panelBotones = new JPanel(new GridLayout(1, 2, 10, 10));
-		panelBotones.setBorder(BorderFactory.createTitledBorder("Transportes"));
+		JPanel panel = new JPanel(new GridLayout(2, 1, 10, 10));
+		panel.setBorder(BorderFactory.createTitledBorder("Mostrar Transportes"));
 
 		btnMostrar = new JButton("Mostrar todos los transportes");
 		btnMostrar.setBackground(new Color(200, 255, 200));
@@ -51,20 +51,13 @@ public class VMostrarTransporte extends JFrame implements IGUI {
 			dispose();
 		});
 
-		panelBotones.add(btnMostrar);
-		panelBotones.add(btnVolver);
+		panel.add(btnMostrar);
+		panel.add(btnVolver);
+		add(panel);
 
-		// Tabla con scroll
-		tabla = new JTable();
-		tabla.setFillsViewportHeight(true);
-		tabla.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
-		tabla.setEnabled(false);
-		JScrollPane scroll = new JScrollPane(tabla);
-
-		// Layout principal
-		setLayout(new BorderLayout(10, 10));
-		add(panelBotones, BorderLayout.NORTH);
-		add(scroll, BorderLayout.CENTER);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setSize(300, 150);
+		setLocationRelativeTo(null);
 	}
 
 	@Override
@@ -76,34 +69,37 @@ public class VMostrarTransporte extends JFrame implements IGUI {
 		case VMOSTRAR_TODOS_TRANSPORTES:
 			setVisible(true);
 			break;
-
 		case RES_MOSTRAR_TODOS_TRANSPORTES_OK:
 			mostrarTabla((Set<TTransporte>) datos);
 			break;
-
 		case RES_MOSTRAR_TODOS_TRANSPORTES_KO:
 			JOptionPane.showMessageDialog(this, "No se pudieron mostrar los transportes.");
 			break;
-
 		default:
-			JOptionPane.showMessageDialog(null, "Evento no reconocido: " + context.getEvento());
+			break;
 		}
 	}
 
 	private void mostrarTabla(Set<TTransporte> transportes) {
-		String[] columnas = { "ID", "Nombre", "Capacidad", "Matrícula", "Activo" };
-		Object[][] datos = new Object[transportes.size()][columnas.length];
+		String[] columnNames = { "ID", "Nombre", "Capacidad", "Matrícula", "Activo" };
+		Object[][] tableData = new Object[transportes.size()][columnNames.length];
 
 		int i = 0;
 		for (TTransporte t : transportes) {
-			datos[i][0] = t.getId();
-			datos[i][1] = t.getNombre();
-			datos[i][2] = t.getCapacidad();
-			datos[i][3] = t.getMatricula();
-			datos[i][4] = t.getActivo();
+			tableData[i][0] = t.getId();
+			tableData[i][1] = t.getNombre();
+			tableData[i][2] = t.getCapacidad();
+			tableData[i][3] = t.getMatricula();
+			tableData[i][4] = t.getActivo();
 			i++;
 		}
 
-		tabla.setModel(new javax.swing.table.DefaultTableModel(datos, columnas));
+		JTable table = new JTable(tableData, columnNames);
+		table.setFillsViewportHeight(true);
+		table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+		table.setEnabled(false);
+
+		JScrollPane scrollPane = new JScrollPane(table);
+		JOptionPane.showMessageDialog(null, scrollPane, "Transportes", JOptionPane.PLAIN_MESSAGE);
 	}
 }

@@ -29,8 +29,8 @@ import negocio.TrabajadorJPA.Trabajador;
 
 public class Transporte implements Serializable {
 
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
-	@SequenceGenerator(name = "seq", sequenceName = "TRANSPORTE_SEQ", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_transporte")
+	@SequenceGenerator(name = "seq_transporte", sequenceName = "TRANSPORTE_SEQ", allocationSize = 1)
 
 	@Id
 	@Column(name = "ID")

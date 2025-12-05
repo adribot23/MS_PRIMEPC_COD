@@ -16,10 +16,11 @@ public class TTransporte {
 		// TODO Auto-generated constructor stub
 	}
 
-	public TTransporte(String nombre2, int capacidad2, String matricula2) {
+	public TTransporte(String nombre2, int capacidad2, String matricula2,int activo) {
 		this.nombre = nombre2;
 		this.capacidad = capacidad2;
 		this.matricula = matricula2;
+		this.activo = activo;
 
 	}
 

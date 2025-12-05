@@ -10,8 +10,8 @@ import jakarta.persistence.SequenceGenerator;
 @Entity
 public class Paquete {
 	private static final long serialVersionUID = 0;
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
-	@SequenceGenerator(name = "seq", sequenceName = "PAQUETE_SEQ", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_paquete")
+	@SequenceGenerator(name = "seq_paquete", sequenceName = "PAQUETE_SEQ", allocationSize = 1)
 	@Id
 	private int id;
 	String numSerie;
