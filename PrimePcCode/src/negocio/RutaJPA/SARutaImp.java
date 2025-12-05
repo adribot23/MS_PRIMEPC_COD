@@ -3,8 +3,8 @@ package negocio.RutaJPA;
 import java.util.List;
 import java.util.Set;
 
-import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.TypedQuery;
 
 import integracion.EMFSingleton.EMFSingleton;
 
