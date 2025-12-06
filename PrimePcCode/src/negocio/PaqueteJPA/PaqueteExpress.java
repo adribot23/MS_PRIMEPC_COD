@@ -1,47 +1,48 @@
 package negocio.PaqueteJPA;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
+
+import java.io.Serializable;
 
 @Entity
 @Table(name = "EXPRESS")
-public class PaqueteExpress extends Paquete {
+@PrimaryKeyJoinColumn(name="ID")
+public class PaqueteExpress extends Paquete implements Serializable {
 
-    @Column
-    private int prioridad;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -8311998917298328752L;
+	private int prioridad;
 
-    public PaqueteExpress() {
-        super();
+    public PaqueteExpress() { }
+
+    public PaqueteExpress(TPaqueteExpress t) {
+        this.setId(t.getId());
+        this.setNumSerie(t.getNumSerie());
+        this.setEstado(t.getEstado());
+        this.setPeso(t.getPeso());
+        this.setPrecio(t.getPrecio());
+        this.setActivo(t.getActivo());
+
+        //this.setRuta(null);
+        //this.setFactura(null);
+
+        this.prioridad = t.getPrioridad();
     }
 
-    public PaqueteExpress(TPaqueteExpress tPe) {
-        super();
-        this.setNumSerie(tPe.getNumSerie());
-        this.setEstado(tPe.getEstado());
-        this.setPeso(tPe.getPeso());
-        this.setPrecio(tPe.getPrecio());
-        this.prioridad = tPe.getPrioridad();
-    }
+    public int getPrioridad() { return prioridad; }
+    public void setPrioridad(int prioridad) { this.prioridad = prioridad; }
 
     @Override
-    public TPaqueteExpress entityToTransfer() {
-        TPaqueteExpress tPe = new TPaqueteExpress();
-        tPe.setId(this.getId());
-        tPe.setNumSerie(this.getNumSerie());
-        tPe.setEstado(this.getEstado());
-        tPe.setPeso(this.getPeso());
-        tPe.setPrecio(this.getPrecio());
-        tPe.setPrioridad(this.prioridad);
-        return tPe;
-    }
-
-    public int getPrioridad() {
-        return prioridad;
-    }
-
-    public void setPrioridad(int prioridad) {
-        this.prioridad = prioridad;
+    public TPaqueteExpress toTransfer() {
+        TPaqueteExpress t = new TPaqueteExpress();
+        t.setPrioridad(this.prioridad);
+        return t;
     }
 }
+
+
 

@@ -13,7 +13,7 @@ public class Particular extends Remitente implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private String fechaNacimiento;
-
+	public Particular() {}
 	public Particular(TParticular particular) {
 		super(particular);
 		this.fechaNacimiento = particular.getFechaNacimiento();

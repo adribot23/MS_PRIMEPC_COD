@@ -1,46 +1,46 @@
 package negocio.PaqueteJPA;
 
-import jakarta.persistence.Column;
+import java.io.Serializable;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "NORMAL")
-public class PaqueteNormal extends Paquete {
+@PrimaryKeyJoinColumn(name="ID")
+public class PaqueteNormal extends Paquete implements Serializable {
 
-    @Column
-    private double descuento;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 7796398680435888103L;
+	private double descuento;
 
-    public PaqueteNormal() {
-        super();
+    public PaqueteNormal() { }
+
+    public PaqueteNormal(TPaqueteNormal t) {
+        this.setId(t.getId());
+        this.setNumSerie(t.getNumSerie());
+        this.setEstado(t.getEstado());
+        this.setPeso(t.getPeso());
+        this.setPrecio(t.getPrecio());
+        this.setActivo(t.getActivo());
+
+        //this.setRuta(null);
+        //this.setFactura(null);
+        this.descuento = t.getDescuento();
     }
 
-    public PaqueteNormal(TPaqueteNormal tPn) {
-        super();
-        this.setNumSerie(tPn.getNumSerie());
-        this.setEstado(tPn.getEstado());
-        this.setPeso(tPn.getPeso());
-        this.setPrecio(tPn.getPrecio());
-        this.descuento = tPn.getDescuento();
-    }
+    public double getDescuento() { return descuento; }
+    public void setDescuento(double descuento) { this.descuento = descuento; }
 
     @Override
-    public TPaqueteNormal entityToTransfer() {
-        TPaqueteNormal tPn = new TPaqueteNormal();
-        tPn.setId(this.getId());
-        tPn.setNumSerie(this.getNumSerie());
-        tPn.setEstado(this.getEstado());
-        tPn.setPeso(this.getPeso());
-        tPn.setPrecio(this.getPrecio());
-        tPn.setDescuento(this.descuento);
-        return tPn;
-    }
-
-    public double getDescuento() {
-        return descuento;
-    }
-
-    public void setDescuento(double descuento) {
-        this.descuento = descuento;
+    public TPaqueteNormal toTransfer() {
+        TPaqueteNormal t = new TPaqueteNormal();
+        t.setDescuento(this.descuento);
+        return t;
     }
 }
+
+
