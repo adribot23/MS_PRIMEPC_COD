@@ -76,7 +76,7 @@ public class VVerPaquetesPorRuta extends JFrame implements IGUI {
         Object datos = context.getDatos();
 
         switch (evento) {
-            case VER_PAQUETES_POR_RUTA:
+            case VMOSTRAR_PAQUETES_POR_RUTA:
                 setVisible(true);
                 break;
             case RES_VER_PAQUETES_POR_RUTA_OK:

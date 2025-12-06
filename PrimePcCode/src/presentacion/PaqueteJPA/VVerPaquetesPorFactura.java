@@ -76,7 +76,7 @@ public class VVerPaquetesPorFactura extends JFrame implements IGUI {
         Object datos = context.getDatos();
 
         switch (evento) {
-            case VER_PAQUETES_POR_FACTURA:
+            case VMOSTRAR_PAQUETES_POR_FACTURA:
                 setVisible(true);
                 break;
             case RES_VER_PAQUETES_POR_FACTURA_OK:

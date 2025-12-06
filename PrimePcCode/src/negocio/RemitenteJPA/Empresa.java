@@ -13,7 +13,7 @@ public class Empresa extends Remitente implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private int numRegistroFiscal;
-
+	public Empresa() {}
 	public Empresa(TEmpresa empresa) {
 		super(empresa);
 		this.numRegistroFiscal = empresa.getNumRegistroFiscal();

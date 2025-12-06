@@ -20,7 +20,7 @@ public class VModificarPaquete extends JFrame implements IGUI {
 
     private void initGUI() {
 
-        setLayout(new GridLayout(8, 2, 10, 10));
+        setLayout(new GridLayout(9, 2, 10, 10));
         getRootPane().setBorder(BorderFactory.createTitledBorder("Modificar Paquete"));
 
         JLabel lblId = new JLabel("ID:");
@@ -28,6 +28,10 @@ public class VModificarPaquete extends JFrame implements IGUI {
 
         JLabel lblNumSerie = new JLabel("Número de serie:");
         JTextField txtNumSerie = new JTextField();
+
+        JLabel lblEstado = new JLabel("Estado:");
+        String[] estados = { "No enviado", "Enviado", "Entregado" };
+        JComboBox<String> cbEstado = new JComboBox<>(estados);
 
         JLabel lblPeso = new JLabel("Peso:");
         JTextField txtPeso = new JTextField();
@@ -63,6 +67,7 @@ public class VModificarPaquete extends JFrame implements IGUI {
             try {
                 int id = Integer.parseInt(txtId.getText().trim());
                 String numSerie = txtNumSerie.getText().trim();
+                String estado = (String) cbEstado.getSelectedItem();
                 double peso = Double.parseDouble(txtPeso.getText().trim());
                 double precio = Double.parseDouble(txtPrecio.getText().trim());
                 int idRuta = Integer.parseInt(txtIdRuta.getText().trim());
@@ -74,12 +79,12 @@ public class VModificarPaquete extends JFrame implements IGUI {
                 }
 
                 TPaquete paquete;
-
                 if (rdbNormal.isSelected()) {
                     double descuento = Double.parseDouble(extraTxt);
                     TPaqueteNormal tPn = new TPaqueteNormal();
                     tPn.setId(id);
                     tPn.setNumSerie(numSerie);
+                    tPn.setEstado(estado);
                     tPn.setPeso(peso);
                     tPn.setPrecio(precio);
                     tPn.setIdRuta(idRuta);
@@ -90,6 +95,7 @@ public class VModificarPaquete extends JFrame implements IGUI {
                     TPaqueteExpress tPe = new TPaqueteExpress();
                     tPe.setId(id);
                     tPe.setNumSerie(numSerie);
+                    tPe.setEstado(estado);
                     tPe.setPeso(peso);
                     tPe.setPrecio(precio);
                     tPe.setIdRuta(idRuta);
@@ -98,9 +104,8 @@ public class VModificarPaquete extends JFrame implements IGUI {
                 }
 
                 Controlador.getInstancia().accion(new Context(Evento.MODIFICAR_PAQUETE, paquete));
-
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(null, "Datos inválidos.");
+                JOptionPane.showMessageDialog(null, "Datos inválidos: " + ex.getMessage());
             }
         });
 
@@ -112,29 +117,16 @@ public class VModificarPaquete extends JFrame implements IGUI {
             this.dispose();
         });
 
-        add(lblId);
-        add(txtId);
-
-        add(lblNumSerie);
-        add(txtNumSerie);
-
-        add(lblPeso);
-        add(txtPeso);
-
-        add(lblPrecio);
-        add(txtPrecio);
-
-        add(lblIdRuta);
-        add(txtIdRuta);
-
-        add(new JLabel("Tipo de Paquete:"));
-        add(tipoPanel);
-
-        add(lblExtra);
-        add(txtExtra);
-
-        add(btnModificar);
-        add(btnVolver);
+        // Agregar componentes en orden
+        add(lblId); add(txtId);
+        add(lblNumSerie); add(txtNumSerie);
+        add(lblEstado); add(cbEstado);
+        add(lblPeso); add(txtPeso);
+        add(lblPrecio); add(txtPrecio);
+        add(lblIdRuta); add(txtIdRuta);
+        add(new JLabel("Tipo de Paquete:")); add(tipoPanel);
+        add(lblExtra); add(txtExtra);
+        add(btnModificar); add(btnVolver);
 
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setSize(450, 400);
