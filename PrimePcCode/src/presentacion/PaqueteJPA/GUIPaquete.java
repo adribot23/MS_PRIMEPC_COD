@@ -43,17 +43,18 @@ public class GUIPaquete extends JFrame implements IGUI {
         mainPanel.add(titulo, BorderLayout.NORTH);
 
         // === PANEL DE BOTONES ===
-        JPanel botonesPanel = new JPanel(new GridLayout(2, 3, 20, 20));
+        JPanel botonesPanel = new JPanel(new GridLayout(3, 3, 20, 20));
         botonesPanel.setBackground(Color.WHITE);
 
         // Fila 1
         botonesPanel.add(crearBotonVerde("ALTA PAQUETE", Evento.VALTA_PAQUETE));
         botonesPanel.add(crearBotonVerde("BAJA PAQUETE", Evento.VBAJA_PAQUETE));
-        botonesPanel.add(crearBotonVerde("MODIFICAR PAQUETE", Evento.VMODIFICAR_PAQUETE));
-
+        botonesPanel.add(crearBotonVerde("BUSCAR PAQUETE", Evento.VBUSCAR_PAQUETE));
         // Fila 2
+        botonesPanel.add(crearBotonVerde("MODIFICAR PAQUETE", Evento.VMODIFICAR_PAQUETE));
         botonesPanel.add(crearBotonVerde("MOSTRAR TODOS LOS PAQUETES", Evento.VMOSTRAR_TODOS_PAQUETES));
         botonesPanel.add(crearBotonVerde("VER PAQUETES POR FACTURA", Evento.VMOSTRAR_PAQUETES_POR_FACTURA));
+        //Fila 3
         botonesPanel.add(crearBotonVerde("VER PAQUETES POR RUTA", Evento.VMOSTRAR_PAQUETES_POR_RUTA));
 
         mainPanel.add(botonesPanel, BorderLayout.CENTER);
