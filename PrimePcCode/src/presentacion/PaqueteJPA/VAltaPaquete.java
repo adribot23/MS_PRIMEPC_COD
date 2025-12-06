@@ -1,22 +1,7 @@
 package presentacion.PaqueteJPA;
 
-import javax.swing.JFrame;
-
-import presentacion.Controller.Command.Context;
-import presentacion.GUI.IGUI;
-
-import java.awt.Color;
-import java.awt.GridLayout;
-
-import javax.swing.BorderFactory;
-import javax.swing.ButtonGroup;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.JTextField;
+import javax.swing.*;
+import java.awt.*;
 
 import negocio.PaqueteJPA.TPaquete;
 import negocio.PaqueteJPA.TPaqueteExpress;
@@ -35,7 +20,7 @@ public class VAltaPaquete extends JFrame implements IGUI {
 
     private void initGUI() {
 
-        setLayout(new GridLayout(7, 2, 10, 10));
+        setLayout(new GridLayout(8, 2, 10, 10));
         getRootPane().setBorder(BorderFactory.createTitledBorder("Alta Paquete"));
 
         JLabel lblNumSerie = new JLabel("Número de serie:");
@@ -49,6 +34,9 @@ public class VAltaPaquete extends JFrame implements IGUI {
 
         JLabel lblPrecio = new JLabel("Precio:");
         JTextField txtPrecio = new JTextField();
+
+        JLabel lblIdRuta = new JLabel("ID Ruta:");
+        JTextField txtIdRuta = new JTextField();
 
         JLabel lblExtra = new JLabel("Descuento:");
         JTextField txtExtra = new JTextField();
@@ -78,16 +66,18 @@ public class VAltaPaquete extends JFrame implements IGUI {
                 String estado = txtEstado.getText().trim();
                 String pesoTxt = txtPeso.getText().trim();
                 String precioTxt = txtPrecio.getText().trim();
+                String idRutaTxt = txtIdRuta.getText().trim();
                 String extraTxt = txtExtra.getText().trim();
 
                 if (numSerie.isEmpty() || estado.isEmpty() || pesoTxt.isEmpty()
-                        || precioTxt.isEmpty() || extraTxt.isEmpty()) {
+                        || precioTxt.isEmpty() || idRutaTxt.isEmpty() || extraTxt.isEmpty()) {
                     JOptionPane.showMessageDialog(null, "Rellena todos los campos.");
                     return;
                 }
 
                 double peso = Double.parseDouble(pesoTxt);
                 double precio = Double.parseDouble(precioTxt);
+                int idRuta = Integer.parseInt(idRutaTxt);
 
                 TPaquete t;
 
@@ -100,6 +90,7 @@ public class VAltaPaquete extends JFrame implements IGUI {
                     tPn.setEstado(estado);
                     tPn.setPeso(peso);
                     tPn.setPrecio(precio);
+                    tPn.setIdRuta(idRuta);
                     tPn.setDescuento(descuento);
                     t = tPn;
 
@@ -112,6 +103,7 @@ public class VAltaPaquete extends JFrame implements IGUI {
                     tPe.setEstado(estado);
                     tPe.setPeso(peso);
                     tPe.setPrecio(precio);
+                    tPe.setIdRuta(idRuta);
                     tPe.setPrioridad(prioridad);
                     t = tPe;
                 }
@@ -122,6 +114,7 @@ public class VAltaPaquete extends JFrame implements IGUI {
                 txtEstado.setText("");
                 txtPeso.setText("");
                 txtPrecio.setText("");
+                txtIdRuta.setText("");
                 txtExtra.setText("");
 
             } catch (Exception ex) {
@@ -149,6 +142,9 @@ public class VAltaPaquete extends JFrame implements IGUI {
         add(lblPrecio);
         add(txtPrecio);
 
+        add(lblIdRuta);
+        add(txtIdRuta);
+
         add(new JLabel("Tipo de Paquete:"));
         add(tipoPanel);
 
@@ -159,7 +155,7 @@ public class VAltaPaquete extends JFrame implements IGUI {
         add(btnVolver);
 
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setSize(450, 350);
+        setSize(450, 400);
         setLocationRelativeTo(null);
     }
 
@@ -182,4 +178,5 @@ public class VAltaPaquete extends JFrame implements IGUI {
         }
     }
 }
+
 
