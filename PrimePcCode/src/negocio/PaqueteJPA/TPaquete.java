@@ -6,6 +6,7 @@ public class TPaquete {
 	String estado;
 	double peso;
 	double precio;
+	int activo;
 
 	// getters
 
@@ -28,6 +29,10 @@ public class TPaquete {
 	public double getPrecio() {
 		return this.precio;
 	}
+	
+	public int getActivo() {
+		return this.activo;
+	}
 
 	// setters
 
@@ -49,6 +54,10 @@ public class TPaquete {
 
 	public void setPrecio(double precio) {
 		this.precio = precio;
+	}
+	
+	public void setActivo(int activo) {
+		this.activo = activo;
 	}
 
 }
