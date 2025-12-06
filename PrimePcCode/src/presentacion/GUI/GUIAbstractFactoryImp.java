@@ -20,6 +20,7 @@ import presentacion.Empleado.VBuscarEmpleado;
 import presentacion.Empleado.VCalcularImporteMasVendido;
 import presentacion.Empleado.VModificarEmpleado;
 import presentacion.Empleado.VMostrarEmpleado;
+import presentacion.PaqueteJPA.GUIPaquete;
 import presentacion.Producto.GUIProducto;
 import presentacion.Producto.VAltaProducto;
 import presentacion.Producto.VBajaProducto;
@@ -439,11 +440,11 @@ public class GUIAbstractFactoryImp extends GUIAbstractFactory {
 		case RES_MOSTRAR_TODOS_PAQUETES_OK:
 		case RES_MOSTRAR_TODOS_PAQUETES_KO:
 			return new VMostrarPaquetes();
-		case VVER_PAQUETES_POR_FACTURA:
+		case VMOSTRAR_PAQUETES_POR_FACTURA:
 		case RES_VER_PAQUETES_POR_FACTURA_OK:
 		case RES_VER_PAQUETES_POR_FACTURA_KO:
 			return new VVerPaquetesPorFactura();
-		case VVER_PAQUETES_POR_RUTA:
+		case VMOSTRAR_PAQUETES_POR_RUTA:
 		case RES_VER_PAQUETES_POR_RUTA_OK:
 		case RES_VER_PAQUETES_POR_RUTA_KO:
 			return new VVerPaquetesPorRuta();
