@@ -20,6 +20,14 @@ import presentacion.Empleado.VBuscarEmpleado;
 import presentacion.Empleado.VCalcularImporteMasVendido;
 import presentacion.Empleado.VModificarEmpleado;
 import presentacion.Empleado.VMostrarEmpleado;
+import presentacion.PaqueteJPA.GUIPaquete;
+import presentacion.PaqueteJPA.VAltaPaquete;
+import presentacion.PaqueteJPA.VBajaPaquete;
+import presentacion.PaqueteJPA.VBuscarPaquete;
+import presentacion.PaqueteJPA.VModificarPaquete;
+import presentacion.PaqueteJPA.VMostrarPaquetes;
+import presentacion.PaqueteJPA.VVerPaquetesPorFactura;
+import presentacion.PaqueteJPA.VVerPaquetesPorRuta;
 import presentacion.Producto.GUIProducto;
 import presentacion.Producto.VAltaProducto;
 import presentacion.Producto.VBajaProducto;
@@ -413,6 +421,40 @@ public class GUIAbstractFactoryImp extends GUIAbstractFactory {
 		case RES_CALCULAR_PRECIO_PAQUETES_OK:
 		case RES_CALCULAR_PRECIO_PAQUETES_KO:
 			return new VCalcularPrecioPaquete();
+		
+			/*
+			 * ============================== ======== PAQUETE ==============================
+			 */
+		case PAQUETE:
+			return new GUIPaquete();
+		case VALTA_PAQUETE:
+		case RES_ALTA_PAQUETE_OK:
+		case RES_ALTA_PAQUETE_KO:
+			return new VAltaPaquete();
+		case VBAJA_PAQUETE:
+		case RES_BAJA_PAQUETE_OK:
+		case RES_BAJA_PAQUETE_KO:
+			return new VBajaPaquete();
+		case VBUSCAR_PAQUETE:
+		case RES_BUSCAR_PAQUETE_OK:
+		case RES_BUSCAR_PAQUETE_KO:
+			return new VBuscarPaquete();
+		case VMODIFICAR_PAQUETE:
+		case RES_MODIFICAR_PAQUETE_OK:
+		case RES_MODIFICAR_PAQUETE_KO:
+			return new VModificarPaquete();
+		case VMOSTRAR_TODOS_PAQUETES:
+		case RES_MOSTRAR_TODOS_PAQUETES_OK:
+		case RES_MOSTRAR_TODOS_PAQUETES_KO:
+			return new VMostrarPaquetes();
+		case VMOSTRAR_PAQUETES_POR_FACTURA:
+		case RES_VER_PAQUETES_POR_FACTURA_OK:
+		case RES_VER_PAQUETES_POR_FACTURA_KO:
+			return new VVerPaquetesPorFactura();
+		case VMOSTRAR_PAQUETES_POR_RUTA:
+		case RES_VER_PAQUETES_POR_RUTA_OK:
+		case RES_VER_PAQUETES_POR_RUTA_KO:
+			return new VVerPaquetesPorRuta();
 
 		default:
 			return null;
