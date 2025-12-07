@@ -11,7 +11,7 @@ public interface SAFactura {
 
 	public Integer cerrarFactura(TCarritoFactura tCarritoFactura);
 
-	public void modificarFactura();
+	public Integer modificarFactura(TFactura factura);
 
 	public TFacturaTOA buscarFactura(Integer idFactura);
 
@@ -22,4 +22,6 @@ public interface SAFactura {
 	public Integer anyadirPaquete(TCarritoFactura tCarritoFactura);
 
 	public Integer eliminarPaquete(TCarritoFactura tCarritoFactura);
+	
+	public Set<TFactura> listarFacturasPorRemitente(Integer idRemitente);
 }

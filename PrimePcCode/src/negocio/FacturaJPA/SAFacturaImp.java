@@ -88,7 +88,7 @@ public class SAFacturaImp implements SAFactura {
 		// end-user-code
 	}
 
-	public Set<TFactura> listar_facturas_por_remitente(int idRemitente) {
+	public Set<TFactura> listarFacturasPorRemitente(Integer idRemitente) {
 		EntityManager em = EMFSingleton.getInstancia().getEntityManagerFactory().createEntityManager();
 		Set<TFactura> listaFactura = new HashSet<>();
 		try {

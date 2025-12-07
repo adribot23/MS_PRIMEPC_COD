@@ -4,6 +4,7 @@ package negocio.FactoriaSA;
 import negocio.Almacen.SAAlmacen;
 import negocio.Cliente.SACliente;
 import negocio.Empleado.SAEmpleado;
+import negocio.FacturaJPA.SAFactura;
 import negocio.PaqueteJPA.SAPaquete;
 import negocio.Producto.SAProducto;
 import negocio.Proveedor.SAProveedor;
@@ -44,5 +45,7 @@ public abstract class SAAbstractFactory {
 	public abstract SATransporte generarSATransporte();
 
 	public abstract SATrabajador generarSATrabajador();
+
+	public abstract SAFactura generarSAFactura();
 
 }

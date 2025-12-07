@@ -17,6 +17,15 @@ import presentacion.Controller.Command.CommandEmpleado.BuscarEmpleadoCommand;
 import presentacion.Controller.Command.CommandEmpleado.CalcularMasVendidoCommand;
 import presentacion.Controller.Command.CommandEmpleado.ModificarEmpleadoCommand;
 import presentacion.Controller.Command.CommandEmpleado.MostrarEmpleadosCommand;
+import presentacion.Controller.Command.CommandFacturaJPA.AbrirFacturaCommand;
+import presentacion.Controller.Command.CommandFacturaJPA.AnyadirPaqueteCommand;
+import presentacion.Controller.Command.CommandFacturaJPA.BuscarFacturaCommand;
+import presentacion.Controller.Command.CommandFacturaJPA.CerrarFacturaCommand;
+import presentacion.Controller.Command.CommandFacturaJPA.DevolucionCommand;
+import presentacion.Controller.Command.CommandFacturaJPA.EliminarPaqueteCommand;
+import presentacion.Controller.Command.CommandFacturaJPA.ListarFacturasPorRemitenteCommand;
+import presentacion.Controller.Command.CommandFacturaJPA.ModificarFacturaCommand;
+import presentacion.Controller.Command.CommandFacturaJPA.MostrarFacturasCommand;
 import presentacion.Controller.Command.CommandPaqueteJPA.AltaPaqueteCommand;
 import presentacion.Controller.Command.CommandPaqueteJPA.BajaPaqueteCommand;
 import presentacion.Controller.Command.CommandPaqueteJPA.BuscarPaqueteCommand;
@@ -295,6 +304,35 @@ public class CommandFactoryImp extends CommandFactory {
 		case VER_PAQUETES_POR_RUTA:
 		    command = new VerPaquetesPorRutaCommand();
 		    break;
+		    
+		 // --- FACTURA ---
+ 		case ABRIR_FACTURA:
+ 		    command = new AbrirFacturaCommand();
+ 		    break;
+ 		case CERRAR_FACTURA:
+ 		    command = new CerrarFacturaCommand();
+ 		    break;
+ 		case INSERTAR_PAQUETE_FACTURA:
+ 		    command = new AnyadirPaqueteCommand();
+ 		    break;
+ 		case QUITAR_PAQUETE_FACTURA:
+ 		    command = new EliminarPaqueteCommand();
+ 		    break;
+ 		case MOSTRAR_TODAS_FACTURAS:
+ 		    command = new MostrarFacturasCommand();
+ 		    break;
+ 		case VER_FACTURAS_POR_REMITENTE:
+ 		    command = new ListarFacturasPorRemitenteCommand();
+ 		    break;
+ 		case BUSCAR_FACTURA:
+ 		    command = new BuscarFacturaCommand();
+ 		    break;
+ 		case MODIFICAR_FACTURA:
+ 			command = new ModificarFacturaCommand();
+ 			break;
+ 		case DEVOLUCION:
+ 			command = new DevolucionCommand();
+ 			break;
 
 		
 			
