@@ -123,7 +123,7 @@ public class VAltaPaquete extends JFrame implements IGUI {
                         return;
                     }
                     TPaqueteNormal tPn = new TPaqueteNormal();
-                    tPn.setId(-1);
+                    //tPn.setId(-1);
                     tPn.setActivo(1);
                     tPn.setNumSerie(numSerie);
                     tPn.setEstado(estado);
