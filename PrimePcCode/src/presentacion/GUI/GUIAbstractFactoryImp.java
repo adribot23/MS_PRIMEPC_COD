@@ -63,6 +63,7 @@ import presentacion.RutaJPA.VModificarRuta;
 import presentacion.RutaJPA.VMostrarRutas;
 import presentacion.RutaJPA.VVincularRutaTrabajador;
 import presentacion.RutaJPA.VVerRutasPorTrabajador;
+import presentacion.RutaJPA.VVerTrabajadoresPorRuta;
 import presentacion.Venta.GUIVenta;
 import presentacion.Venta.VAbrirVenta;
 import presentacion.Venta.VAñadirProducto;
@@ -396,6 +397,10 @@ public class GUIAbstractFactoryImp extends GUIAbstractFactory {
 		case RES_VER_RUTA_POR_TRABAJADOR_OK:
 		case RES_VER_RUTA_POR_TRABAJADOR_KO:
 			return new VVerRutasPorTrabajador();
+		case VVER_TRABAJADOR_POR_RUTA:
+		case RES_VER_TRABAJADOR_POR_RUTA_OK:
+		case RES_VER_TRABAJADOR_POR_RUTA_KO:
+			return new VVerTrabajadoresPorRuta();
 
 		/*
 		 * ============================== ======== TRANSPORTE ============

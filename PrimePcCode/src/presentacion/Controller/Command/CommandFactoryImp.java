@@ -40,6 +40,7 @@ import presentacion.Controller.Command.CommandRutaJPA.DesvincularRutaTrabajadorC
 import presentacion.Controller.Command.CommandRutaJPA.ModificarRutaCommand;
 import presentacion.Controller.Command.CommandRutaJPA.MostrarRutasCommand;
 import presentacion.Controller.Command.CommandRutaJPA.VerRutasPorTrabajadorCommand;
+import presentacion.Controller.Command.CommandRutaJPA.VerTrabajadoresPorRutaCommand;
 import presentacion.Controller.Command.CommandRutaJPA.VincularRutaTrabajadorCommand;
 import presentacion.Controller.Command.CommandRemitenteJPA.AltaRemitenteCommand;
 import presentacion.Controller.Command.CommandRemitenteJPA.BajaRemitenteCommand;
@@ -208,6 +209,9 @@ public class CommandFactoryImp extends CommandFactory {
 			break;
 		case VER_RUTA_POR_TRABAJADOR:
 			command = new VerRutasPorTrabajadorCommand();
+			break;
+		case VER_TRABAJADOR_POR_RUTA:
+			command = new VerTrabajadoresPorRutaCommand();
 			break;
 			
 		// ---- VENTA ----

@@ -24,44 +24,57 @@ public class GUIRuta extends JFrame implements IGUI {
 	private static final long serialVersionUID = 1L;
 
 	public GUIRuta() {
-		super("Gestión de Rutas");
+		super("[RUTA]");
 		initGUI();
 	}
 
 	private void initGUI() {
+
+		// === PANEL PRINCIPAL ===
 		JPanel mainPanel = new JPanel(new BorderLayout(20, 20));
 		mainPanel.setBorder(BorderFactory.createEmptyBorder(20, 40, 20, 40));
 		mainPanel.setBackground(Color.WHITE);
-		setContentPane(mainPanel);
+		this.setContentPane(mainPanel);
 
-		JLabel titulo = new JLabel("GESTIÓN DE RUTAS", SwingConstants.CENTER);
+		// === CABECERA ===
+		JLabel titulo = new JLabel("GESTIÓN DE RUTA", SwingConstants.CENTER);
 		titulo.setFont(new Font("Cambria", Font.BOLD, 28));
 		titulo.setForeground(new Color(0, 100, 0));
 		titulo.setBorder(BorderFactory.createEmptyBorder(10, 0, 20, 0));
 		mainPanel.add(titulo, BorderLayout.NORTH);
 
+		// === PANEL DE BOTONES ===
 		JPanel botonesPanel = new JPanel(new GridLayout(3, 3, 20, 20));
 		botonesPanel.setBackground(Color.WHITE);
-		botonesPanel.add(crearBoton("ALTA RUTA", Evento.VALTA_RUTA));
-		botonesPanel.add(crearBoton("BAJA RUTA", Evento.VBAJA_RUTA));
-		botonesPanel.add(crearBoton("MODIFICAR RUTA", Evento.VMODIFICAR_RUTA));
-		botonesPanel.add(crearBoton("BUSCAR RUTA", Evento.VBUSCAR_RUTA));
-		botonesPanel.add(crearBoton("MOSTRAR TODAS LAS RUTAS", Evento.VMOSTRAR_TODAS_RUTAS));
-		botonesPanel.add(crearBoton("VINCULAR RUTA Y TRABAJADOR", Evento.VAVINCULAR_RUTA_TRABAJADOR));
-		botonesPanel.add(crearBoton("DESVINCULAR RUTA Y TRABAJADOR", Evento.VDESVINCULAR_RUTA_TRABAJADOR));
-		botonesPanel.add(crearBoton("VER RUTAS POR TRABAJADOR", Evento.VVER_RUTA_POR_TRABAJADOR));
-		botonesPanel.add(new JLabel());
+
+		// Fila 1
+		botonesPanel.add(crearBotonVerde("ALTA RUTA", Evento.VALTA_RUTA));
+		botonesPanel.add(crearBotonVerde("BAJA RUTA", Evento.VBAJA_RUTA));
+		botonesPanel.add(crearBotonVerde("MODIFICAR RUTA", Evento.VMODIFICAR_RUTA));
+
+		// Fila 2
+		botonesPanel.add(crearBotonVerde("BUSCAR RUTA", Evento.VBUSCAR_RUTA));
+		botonesPanel.add(crearBotonVerde("LISTAR TODAS LAS RUTAS", Evento.VMOSTRAR_TODAS_RUTAS));
+		botonesPanel.add(crearBotonVerde("LISTAR RUTAS POR TRABAJADOR", Evento.VVER_RUTA_POR_TRABAJADOR));
+
+		// Fila 3
+		botonesPanel.add(crearBotonVerde("VINCULAR RUTA A TRABAJADOR", Evento.VAVINCULAR_RUTA_TRABAJADOR));
+		botonesPanel.add(crearBotonVerde("DESVINCULAR RUTA DE TRABAJADOR", Evento.VDESVINCULAR_RUTA_TRABAJADOR));
+		botonesPanel.add(crearBotonVerde("LISTAR TRABAJADORES POR RUTA", Evento.VVER_TRABAJADOR_POR_RUTA));
+
 		mainPanel.add(botonesPanel, BorderLayout.CENTER);
 
+		// === PANEL INFERIOR (VOLVER) ===
 		JButton volver = new JButton("VOLVER A VISTA PRINCIPAL");
 		volver.setFont(new Font("Segoe UI", Font.BOLD, 16));
 		volver.setBackground(Color.WHITE);
 		volver.setBorder(BorderFactory.createLineBorder(new Color(0, 100, 0), 2));
 		volver.setFocusPainted(false);
 		volver.setPreferredSize(new Dimension(300, 40));
-		volver.addActionListener(e -> {
+
+		volver.addActionListener((e) -> {
 			Controlador.getInstancia().accion(new Context(Evento.VISTA_PRINCIPAL, null));
-			dispose();
+			this.dispose();
 		});
 
 		JPanel volverPanel = new JPanel();
@@ -69,13 +82,14 @@ public class GUIRuta extends JFrame implements IGUI {
 		volverPanel.add(volver);
 		mainPanel.add(volverPanel, BorderLayout.SOUTH);
 
+		// CONFIG FRAME
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setMinimumSize(new Dimension(900, 600));
 		setLocationRelativeTo(null);
 		setVisible(true);
 	}
 
-	private JButton crearBoton(String texto, Evento evento) {
+	private JButton crearBotonVerde(String texto, Evento evento) {
 		JButton boton = new JButton("<html><center>" + texto + "</center></html>");
 		boton.setFont(new Font("Segoe UI", Font.BOLD, 14));
 		boton.setFocusPainted(false);
@@ -97,8 +111,9 @@ public class GUIRuta extends JFrame implements IGUI {
 
 		boton.addActionListener(e -> {
 			Controlador.getInstancia().accion(new Context(evento, null));
-			dispose();
+			GUIRuta.this.dispose();
 		});
+
 		return boton;
 	}
 
