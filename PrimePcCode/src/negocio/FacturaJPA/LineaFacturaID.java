@@ -4,7 +4,7 @@
 package negocio.FacturaJPA;
 
 import java.io.Serializable;
-import javax.persistence.Embeddable;
+import jakarta.persistence.Embeddable;
 import java.util.UUID;
 
 @Embeddable

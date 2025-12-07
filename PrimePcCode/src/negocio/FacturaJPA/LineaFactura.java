@@ -3,15 +3,15 @@
  */
 package negocio.FacturaJPA;
 
-import javax.persistence.Entity;
+import jakarta.persistence.Entity;
 import java.io.Serializable;
-import javax.persistence.EmbeddedId;
-import javax.persistence.NamedQuery;
+import jakarta.persistence.EmbeddedId;
+import jakarta.persistence.NamedQuery;
 
 import jakarta.persistence.OneToOne;
 import negocio.PaqueteJPA.Paquete;
-import javax.persistence.NamedQueries;
-import javax.persistence.ManyToOne;
+import jakarta.persistence.NamedQueries;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 @NamedQueries({

@@ -1,14 +1,21 @@
 package negocio.TrabajadorJPA;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Version;
+import java.util.Set;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.NamedQueries;
+import jakarta.persistence.NamedQuery;
+import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.Version;
+
 
 import negocio.TransporteJPA.Transporte;
 
@@ -21,15 +28,20 @@ import negocio.TransporteJPA.Transporte;
 		@NamedQuery(name = "Negocio.TrabajadorJPA.Trabajador.findByactivo", query = "select t from Trabajador t where :activo = t.activo"),
 		@NamedQuery(name = "Negocio.TrabajadorJPA.Trabajador.findByversion", query = "select t from Trabajador t where :version = t.version") })
 public class Trabajador {
+	
 	private static final long serialVersionUID = 0;
 	
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_trabajador")
+	@SequenceGenerator(name = "seq_trabajador", sequenceName = "TRABAJADOR_SEQ", allocationSize = 1)
 	@Id
 	private int id_trabajador;
 	private String DNI;
 	private String nombre;
 	private int activo;
-
+	
+	@ManyToMany
+	@JoinTable(name = "transporte_trabajador", joinColumns = @JoinColumn(name = "id_trabajador"), inverseJoinColumns = @JoinColumn(name = "id_transporte"))
+	private Set<Transporte> transportes;
 	@Version
 	private Integer version;
 
@@ -93,9 +105,9 @@ public class Trabajador {
 		this.activo = activo;
 	}
 
-	public static Transporte[] getTransportes() {
-		// TODO Auto-generated method stub
-		return null;
+	public Set<Transporte> getTransportes() {
+		return transportes;
 	}
+
 
 }

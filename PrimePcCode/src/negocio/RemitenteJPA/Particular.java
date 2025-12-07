@@ -1,9 +1,9 @@
 package negocio.RemitenteJPA;
 
-import javax.persistence.Entity;
+import jakarta.persistence.Entity;
 import java.io.Serializable;
-import javax.persistence.NamedQuery;
-import javax.persistence.NamedQueries;
+import jakarta.persistence.NamedQuery;
+import jakarta.persistence.NamedQueries;
 
 @Entity
 @NamedQueries({
@@ -13,7 +13,7 @@ public class Particular extends Remitente implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private String fechaNacimiento;
-
+	public Particular() {}
 	public Particular(TParticular particular) {
 		super(particular);
 		this.fechaNacimiento = particular.getFechaNacimiento();

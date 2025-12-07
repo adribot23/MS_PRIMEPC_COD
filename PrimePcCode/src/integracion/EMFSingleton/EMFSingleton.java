@@ -1,6 +1,6 @@
 package integracion.EMFSingleton;
 
-import javax.persistence.EntityManagerFactory;
+import jakarta.persistence.EntityManagerFactory;
 
 public abstract class EMFSingleton {
 	private static EMFSingleton instancia;

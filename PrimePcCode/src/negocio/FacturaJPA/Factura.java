@@ -3,16 +3,16 @@
  */
 package negocio.FacturaJPA;
 
-import javax.persistence.Entity;
+import jakarta.persistence.Entity;
 import java.io.Serializable;
-import javax.persistence.Id;
-import javax.persistence.GeneratedValue;
-import javax.persistence.NamedQuery;
-import javax.persistence.NamedQueries;
+import jakarta.persistence.Id;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.NamedQuery;
+import jakarta.persistence.NamedQueries;
 import negocio.RemitenteJPA.Remitente;
 import java.util.Set;
-import javax.persistence.OneToMany;
-import javax.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 @NamedQueries({

@@ -17,6 +17,13 @@ import presentacion.Controller.Command.CommandEmpleado.BuscarEmpleadoCommand;
 import presentacion.Controller.Command.CommandEmpleado.CalcularMasVendidoCommand;
 import presentacion.Controller.Command.CommandEmpleado.ModificarEmpleadoCommand;
 import presentacion.Controller.Command.CommandEmpleado.MostrarEmpleadosCommand;
+import presentacion.Controller.Command.CommandPaqueteJPA.AltaPaqueteCommand;
+import presentacion.Controller.Command.CommandPaqueteJPA.BajaPaqueteCommand;
+import presentacion.Controller.Command.CommandPaqueteJPA.BuscarPaqueteCommand;
+import presentacion.Controller.Command.CommandPaqueteJPA.ModificarPaqueteCommand;
+import presentacion.Controller.Command.CommandPaqueteJPA.MostrarPaquetesCommand;
+import presentacion.Controller.Command.CommandPaqueteJPA.VerPaquetesPorFacturaCommand;
+import presentacion.Controller.Command.CommandPaqueteJPA.VerPaquetesPorRutaCommand;
 import presentacion.Controller.Command.CommandProducto.AltaProductoCommand;
 import presentacion.Controller.Command.CommandProducto.BajaProductoCommand;
 import presentacion.Controller.Command.CommandProducto.BuscarProductoCommand;
@@ -238,8 +245,10 @@ public class CommandFactoryImp extends CommandFactory {
 			break;
 		case VER_TRANSPORTE_POR_TRABAJADOR:
 			command = new VerTransportesPorTrabajador();
+			break;
 		case VINCULAR_TRANSPORTE_TRABAJADOR:
 			command = new VincularTransporteTrabajadorCommand();
+			break;
 		case DESVINCULAR_TRANSPORTE_TRABAJADOR:
 			command = new DesvincularTransporteTrabajdorCommand();
 			break;
@@ -264,6 +273,31 @@ public class CommandFactoryImp extends CommandFactory {
 			command = new CalcularPrecioPaquetesRemitenteCommand();
 			break;
 
+			// --- PAQUETE ---
+		case ALTA_PAQUETE:
+		    command = new AltaPaqueteCommand();
+		    break;
+		case BAJA_PAQUETE:
+		    command = new BajaPaqueteCommand();
+		    break;
+		case MODIFICAR_PAQUETE:
+		    command = new ModificarPaqueteCommand();
+		    break;
+		case BUSCAR_PAQUETE:
+		    command = new BuscarPaqueteCommand();
+		    break;
+		case MOSTRAR_TODOS_PAQUETES:
+		    command = new MostrarPaquetesCommand();
+		    break;
+		case VER_PAQUETES_POR_FACTURA:
+		    command = new VerPaquetesPorFacturaCommand();
+		    break;
+		case VER_PAQUETES_POR_RUTA:
+		    command = new VerPaquetesPorRutaCommand();
+		    break;
+
+		
+			
 		default:
 			break;
 		}

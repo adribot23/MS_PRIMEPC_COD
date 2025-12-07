@@ -42,25 +42,25 @@ public class VAltaTransporte extends JFrame implements IGUI {
 
 		btnAlta.addActionListener(e -> {
 
-			 try {
-			String nombre = txtNombre.getText().trim();
-			int capacidad = Integer.parseInt(txtCapacidad.getText().trim());
-			String matricula = txtMatricula.getText().trim();
+			try {
+				String nombre = txtNombre.getText().trim();
+				int capacidad = Integer.parseInt(txtCapacidad.getText().trim());
+				String matricula = txtMatricula.getText().trim();
 
-			if (nombre.isEmpty() || matricula.isEmpty()) {
-				JOptionPane.showMessageDialog(null, "Rellena todos los campos.");
-				return;
-			}
+				if (nombre.isEmpty() || matricula.isEmpty()) {
+					JOptionPane.showMessageDialog(null, "Rellena todos los campos.");
+					return;
+				}
 
-			TTransporte t = new TTransporte(nombre, capacidad, matricula);
-			Controlador.getInstancia().accion(new Context(Evento.ALTA_TRANSPORTE, t));
+				TTransporte t = new TTransporte(nombre, capacidad, matricula, 1);
+				Controlador.getInstancia().accion(new Context(Evento.ALTA_TRANSPORTE, t));
 
-			txtNombre.setText("");
-			txtCapacidad.setText("");
-			txtMatricula.setText("");
+				txtNombre.setText("");
+				txtCapacidad.setText("");
+				txtMatricula.setText("");
 
-			 } catch (NumberFormatException ex) {
-			JOptionPane.showMessageDialog(null, "Datos inválidos.");
+			} catch (NumberFormatException ex) {
+				JOptionPane.showMessageDialog(null, "Datos inválidos.");
 			}
 		});
 
