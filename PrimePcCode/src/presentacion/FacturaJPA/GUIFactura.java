@@ -50,12 +50,16 @@ public class GUIFactura extends JFrame implements IGUI {
         // Fila 1
         botonesPanel.add(crearBotonVerde("ABRIR FACTURA", Evento.VABRIR_FACTURA));
         botonesPanel.add(crearBotonVerde("CERRAR FACTURA", Evento.VCERRAR_FACTURA));
+        botonesPanel.add(crearBotonVerde("DEVOLUCION", Evento.VDEVOLUCION));
+        
+        //Fila 2
         botonesPanel.add(crearBotonVerde("INSERTAR PAQUETE", Evento.VINSERTAR_PAQUETE_FACTURA));
-        // Fila 2
+        botonesPanel.add(crearBotonVerde("QUITAR PAQUETE", Evento.VQUITAR_PAQUETE_FACTURA));
         botonesPanel.add(crearBotonVerde("MODIFICAR FACTURA", Evento.VMODIFICAR_FACTURA));
+        
+        // Fila 3
         botonesPanel.add(crearBotonVerde("BUSCAR FACTURA", Evento.VBUSCAR_FACTURA));
         botonesPanel.add(crearBotonVerde("MOSTRAR FACTURAS", Evento.VMOSTRAR_TODAS_FACTURAS));
-        //Fila 3
         botonesPanel.add(crearBotonVerde("VER FACTURAS POR REMITENTE", Evento.VVER_FACTURAS_POR_REMITENTE));
 
         mainPanel.add(botonesPanel, BorderLayout.CENTER);

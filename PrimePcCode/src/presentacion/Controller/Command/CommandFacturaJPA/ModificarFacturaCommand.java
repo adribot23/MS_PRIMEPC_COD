@@ -8,7 +8,7 @@ import presentacion.GUI.Evento;
 
 public class ModificarFacturaCommand implements Command{
 	public Context execute(Object data) {
-		int res = SAAbstractFactory.getInstancia().generarSAFactura().modificarFactura((TFactura) transfer);
+		int res = SAAbstractFactory.getInstancia().generarSAFactura().modificarFactura((TFactura) data);
 		if (res > 0)
 			return new Context(Evento.RES_MODIFICAR_FACTURA_OK, res);
 		else

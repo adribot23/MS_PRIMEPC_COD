@@ -8,7 +8,7 @@ import javax.swing.JFrame;
 import presentacion.Controller.Command.Context;
 import presentacion.GUI.IGUI;
 
-public class vAnyadirPaquete extends JFrame implements IGUI {
+public class VAnyadirPaquete extends JFrame implements IGUI {
 	public void actualizar(Context context) {
 		// begin-user-code
 		// TODO Ap�ndice de m�todo generado autom�ticamente

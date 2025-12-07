@@ -29,11 +29,9 @@ public class SAFacturaImp implements SAFactura {
 		// end-user-code
 	}
 
-	public void modificarFactura() {
+	public Integer modificarFactura(TFactura tFactura) {
 		// begin-user-code
-		// TODO Ap�ndice de m�todo generado autom�ticamente
-
-		// end-user-code
+		return -1;
 	}
 
 	public TFacturaTOA buscarFactura(Integer idFactura) {
@@ -44,14 +42,11 @@ public class SAFacturaImp implements SAFactura {
 	}
 
 	public Set<TFactura> mostrarFacturas() {
-		EntityManager em = EMFSingleton.getInstancia().getEntityManagerFactory().createEntityManager(); // no se cuales
-																										// hay q coger
+		EntityManager em = EMFSingleton.getInstancia().getEntityManagerFactory().createEntityManager(); 
 		Set<TFactura> listaFacturas = new HashSet<TFactura>();
 		try {
 			em.getTransaction().begin();
-			TypedQuery<Factura> query = em.createQuery("SELECT a FROM Factura f", Factura.class); // nose como va
-																									// exactamente la
-																									// query
+			TypedQuery<Factura> query = em.createQuery("SELECT a FROM Factura f", Factura.class); 
 
 			List<Factura> facturas = query.getResultList();
 			for (Factura f : facturas) {
@@ -78,6 +73,7 @@ public class SAFacturaImp implements SAFactura {
 	}
 
 	public Integer anyadirPaquete(TCarritoFactura tCarritoFactura) {
+		return -1;
 
 	}
 
@@ -96,7 +92,7 @@ public class SAFacturaImp implements SAFactura {
 
 			Remitente remitente = em.find(Remitente.class, idRemitente, LockModeType.OPTIMISTIC);
 			TypedQuery<Factura> queryf = em.createNamedQuery("negocio.FacturaJPA.Factura.findByremitente",
-					Remitente.class); // no sé la verdad habrá
+					Factura.class); // no sé la verdad habrá
 			// q meter el remitente
 			// en alfun lao
 			if (remitente != null && remitente.getActivo() == 1) {
