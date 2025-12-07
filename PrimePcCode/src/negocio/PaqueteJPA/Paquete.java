@@ -12,6 +12,8 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
+import jakarta.persistence.NamedQueries;
+import jakarta.persistence.NamedQuery;
 import java.io.Serializable;
 
 //import negocio.RutaJPA.Ruta;
@@ -19,6 +21,26 @@ import java.io.Serializable;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
+@NamedQueries({
+    @NamedQuery(
+        name = "negocio.PaqueteJPA.Paquete.findAll",
+        query = "SELECT p FROM Paquete p"
+    ),
+    /*
+    @NamedQuery(
+        name = "negocio.PaqueteJPA.Paquete.findByFactura",
+        query = "SELECT p FROM Paquete p WHERE p.id_factura = :idFactura"
+    ),
+    @NamedQuery(
+        name = "negocio.PaqueteJPA.Paquete.findByRuta",
+        query = "SELECT p FROM Paquete p WHERE p.id_ruta = :idRuta"
+    ),
+    */
+    @NamedQuery(
+            name = "Paquete.findByNumSerie",
+            query = "SELECT p FROM Paquete p WHERE p.numero_serie = :numSerie"
+        )
+})
 public abstract class Paquete implements Serializable{
 
     /**
@@ -29,7 +51,7 @@ public abstract class Paquete implements Serializable{
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_paquete")
     @SequenceGenerator(name = "seq_paquete", sequenceName = "PAQUETE_SEQ", allocationSize = 1)
     @Id
-    private int id;
+    private Integer id;
 	@Column(unique = true)
     private String numero_serie;
     private String estado;
@@ -51,7 +73,7 @@ public abstract class Paquete implements Serializable{
     public Paquete() {}
 
     // GETTERS
-    public int getId() { return id; }
+    public Integer getId() { return id; }
     public String getNumSerie() { return numero_serie; }
     public String getEstado() { return estado; }
     public double getPeso() { return peso; }
@@ -61,7 +83,7 @@ public abstract class Paquete implements Serializable{
     //public Factura getFactura() { return factura; }
 
 
-    public void setId(int id) { this.id = id; }
+    public void setId(Integer id) { this.id = id; }
     public void setNumSerie(String numSerie) { this.numero_serie = numSerie; }
     public void setEstado(String estado) { this.estado = estado; }
     public void setPeso(double peso) { this.peso = peso; }
