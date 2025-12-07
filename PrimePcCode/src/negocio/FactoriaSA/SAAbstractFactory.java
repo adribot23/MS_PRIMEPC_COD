@@ -8,6 +8,8 @@ import negocio.PaqueteJPA.SAPaquete;
 import negocio.Producto.SAProducto;
 import negocio.Proveedor.SAProveedor;
 import negocio.RemitenteJPA.SARemitente;
+import negocio.RutaJPA.SARuta;
+import negocio.RutaJPA.SAVinculacionRutaTrabajador;
 import negocio.TrabajadorJPA.SATrabajador;
 import negocio.TransporteJPA.SATransporte;
 import negocio.Venta.SAVenta;
@@ -44,5 +46,9 @@ public abstract class SAAbstractFactory {
 	public abstract SATransporte generarSATransporte();
 
 	public abstract SATrabajador generarSATrabajador();
+
+	public abstract SARuta generarSARuta();
+
+	public abstract SAVinculacionRutaTrabajador generarSAVinculacionRutaTrabajador();
 
 }
