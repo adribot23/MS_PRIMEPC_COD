@@ -18,46 +18,35 @@ import presentacion.GUI.IGUI;
 
 public class VDesvincularRutaTrabajador extends JFrame implements IGUI {
 
-	private static final long serialVersionUID = 1L;
-
 	public VDesvincularRutaTrabajador() {
-		super("Desvincular Ruta y Trabajador");
+		super("Desvincular Ruta de Trabajador");
 		initGUI();
 	}
 
 	private void initGUI() {
+
 		setLayout(new GridLayout(3, 2, 10, 10));
-		getRootPane().setBorder(BorderFactory.createTitledBorder("Desvincular Ruta - Trabajador"));
+		getRootPane().setBorder(BorderFactory.createTitledBorder("Desvincular Ruta"));
 
-		JLabel lblRuta = new JLabel("ID Ruta:");
-		JTextField txtRuta = new JTextField();
+		JLabel lblIdR = new JLabel("ID Ruta:");
+		JTextField txtIdR = new JTextField();
 
-		JLabel lblTrabajador = new JLabel("ID Trabajador:");
-		JTextField txtTrabajador = new JTextField();
+		JLabel lblIdTrab = new JLabel("ID Trabajador:");
+		JTextField txtIdTrab = new JTextField();
 
-		JButton btnDesvincular = new JButton("Desvincular");
-		btnDesvincular.setBackground(new Color(200, 255, 200));
-		btnDesvincular.addActionListener(e -> {
+		JButton btnDesv = new JButton("Desvincular");
+		btnDesv.setBackground(new Color(200, 255, 200));
+
+		btnDesv.addActionListener(e -> {
 			try {
-				int idRuta = Integer.parseInt(txtRuta.getText().trim());
-				int idTrabajador = Integer.parseInt(txtTrabajador.getText().trim());
+				TVinculacionRutaTrabajador t = new TVinculacionRutaTrabajador();
+				t.set_id_ruta(Integer.parseInt(txtIdR.getText().trim()));
+				t.set_id_trabajador(Integer.parseInt(txtIdTrab.getText().trim()));
 
-				if (idRuta <= 0 || idTrabajador <= 0) {
-					JOptionPane.showMessageDialog(this, "Los identificadores deben ser positivos.");
-					return;
-				}
+				Controlador.getInstancia().accion(new Context(Evento.DESVINCULAR_RUTA_TRABAJADOR, t));
 
-				TVinculacionRutaTrabajador vinculacion = new TVinculacionRutaTrabajador();
-				vinculacion.setIdRuta(idRuta);
-				vinculacion.setIdTrabajador(idTrabajador);
-
-				Controlador.getInstancia().accion(
-						new Context(Evento.DESVINCULAR_RUTA_TRABAJADOR, vinculacion));
-
-				txtRuta.setText("");
-				txtTrabajador.setText("");
 			} catch (NumberFormatException ex) {
-				JOptionPane.showMessageDialog(this, "Los IDs deben ser números enteros.");
+				JOptionPane.showMessageDialog(null, "Datos inválidos.");
 			}
 		});
 
@@ -65,35 +54,39 @@ public class VDesvincularRutaTrabajador extends JFrame implements IGUI {
 		btnVolver.setBackground(new Color(255, 220, 220));
 		btnVolver.addActionListener(e -> {
 			Controlador.getInstancia().accion(new Context(Evento.RUTA, null));
-			dispose();
+			this.dispose();
 		});
 
-		add(lblRuta);
-		add(txtRuta);
-		add(lblTrabajador);
-		add(txtTrabajador);
-		add(btnDesvincular);
+		add(lblIdR);
+		add(txtIdR);
+		add(lblIdTrab);
+		add(txtIdTrab);
+		add(btnDesv);
 		add(btnVolver);
 
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		setSize(360, 180);
+		setSize(350, 200);
 		setLocationRelativeTo(null);
 	}
 
 	@Override
 	public void actualizar(Context context) {
+
 		switch (context.getEvento()) {
+
 		case VDESVINCULAR_RUTA_TRABAJADOR:
 			setVisible(true);
 			break;
+
 		case RES_DESVINCULAR_RUTA_TRABAJADOR_OK:
-			JOptionPane.showMessageDialog(this, "Desvinculación realizada correctamente.");
+			JOptionPane.showMessageDialog(null, "Desvinculación realizada correctamente.");
 			break;
+
 		case RES_DESVINCULAR_RUTA_TRABAJADOR_KO:
-			JOptionPane.showMessageDialog(this, "No se pudo realizar la desvinculación.");
+			JOptionPane.showMessageDialog(null, "Error al desvincular ruta.");
 			break;
 		default:
-			break;
+			JOptionPane.showMessageDialog(null, "Evento no reconocido: " + context.getEvento());
 		}
 	}
 }

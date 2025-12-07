@@ -18,22 +18,21 @@ import presentacion.GUI.IGUI;
 
 public class VVincularRutaTrabajador extends JFrame implements IGUI {
 
-	private static final long serialVersionUID = 1L;
-
 	public VVincularRutaTrabajador() {
-		super("Vincular Ruta con Trabajador");
+		super("Vincular Ruta a Trabajador");
 		initGUI();
 	}
 
 	private void initGUI() {
+
 		setLayout(new GridLayout(6, 2, 10, 10));
-		getRootPane().setBorder(BorderFactory.createTitledBorder("Vincular Ruta - Trabajador"));
+		getRootPane().setBorder(BorderFactory.createTitledBorder("Vincular Ruta"));
 
-		JLabel lblRuta = new JLabel("ID Ruta:");
-		JTextField txtRuta = new JTextField();
+		JLabel lblIdR = new JLabel("ID Ruta:");
+		JTextField txtIdR = new JTextField();
 
-		JLabel lblTrabajador = new JLabel("ID Trabajador:");
-		JTextField txtTrabajador = new JTextField();
+		JLabel lblIdTrab = new JLabel("ID Trabajador:");
+		JTextField txtIdTrab = new JTextField();
 
 		JLabel lblHora = new JLabel("Hora de salida:");
 		JTextField txtHora = new JTextField();
@@ -46,42 +45,20 @@ public class VVincularRutaTrabajador extends JFrame implements IGUI {
 
 		JButton btnVincular = new JButton("Vincular");
 		btnVincular.setBackground(new Color(200, 255, 200));
+
 		btnVincular.addActionListener(e -> {
 			try {
-				int idRuta = Integer.parseInt(txtRuta.getText().trim());
-				int idTrabajador = Integer.parseInt(txtTrabajador.getText().trim());
-				String hora = txtHora.getText().trim();
-				String estado = txtEstado.getText().trim();
-				String fecha = txtFecha.getText().trim();
+				TVinculacionRutaTrabajador t = new TVinculacionRutaTrabajador();
+				t.set_id_ruta(Integer.parseInt(txtIdR.getText().trim()));
+				t.set_id_trabajador(Integer.parseInt(txtIdTrab.getText().trim()));
+				t.set_hora_salida(txtHora.getText().trim());
+				t.set_estado(txtEstado.getText().trim());
+				t.set_fecha_asignacion(txtFecha.getText().trim());
 
-				if (idRuta <= 0 || idTrabajador <= 0) {
-					JOptionPane.showMessageDialog(this, "Los identificadores deben ser positivos.");
-					return;
-				}
-
-				if (hora.isEmpty() || estado.isEmpty() || fecha.isEmpty()) {
-					JOptionPane.showMessageDialog(this, "Rellena todos los campos.");
-					return;
-				}
-
-				TVinculacionRutaTrabajador vinculacion = new TVinculacionRutaTrabajador();
-				vinculacion.setIdRuta(idRuta);
-				vinculacion.setIdTrabajador(idTrabajador);
-				vinculacion.setHoraSalida(hora);
-				vinculacion.setEstado(estado);
-				vinculacion.setFechaAsignacion(fecha);
-
-				Controlador.getInstancia().accion(
-						new Context(Evento.VINCULAR_RUTA_TRABAJADOR, vinculacion));
-
-				txtRuta.setText("");
-				txtTrabajador.setText("");
-				txtHora.setText("");
-				txtEstado.setText("");
-				txtFecha.setText("");
+				Controlador.getInstancia().accion(new Context(Evento.VINCULAR_RUTA_TRABAJADOR, t));
 
 			} catch (NumberFormatException ex) {
-				JOptionPane.showMessageDialog(this, "Los IDs deben ser números enteros.");
+				JOptionPane.showMessageDialog(null, "Datos inválidos.");
 			}
 		});
 
@@ -89,13 +66,13 @@ public class VVincularRutaTrabajador extends JFrame implements IGUI {
 		btnVolver.setBackground(new Color(255, 220, 220));
 		btnVolver.addActionListener(e -> {
 			Controlador.getInstancia().accion(new Context(Evento.RUTA, null));
-			dispose();
+			this.dispose();
 		});
 
-		add(lblRuta);
-		add(txtRuta);
-		add(lblTrabajador);
-		add(txtTrabajador);
+		add(lblIdR);
+		add(txtIdR);
+		add(lblIdTrab);
+		add(txtIdTrab);
 		add(lblHora);
 		add(txtHora);
 		add(lblEstado);
@@ -106,24 +83,28 @@ public class VVincularRutaTrabajador extends JFrame implements IGUI {
 		add(btnVolver);
 
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		setSize(420, 280);
+		setSize(350, 280);
 		setLocationRelativeTo(null);
 	}
 
 	@Override
 	public void actualizar(Context context) {
+
 		switch (context.getEvento()) {
+
 		case VAVINCULAR_RUTA_TRABAJADOR:
 			setVisible(true);
 			break;
+
 		case RES_VINCULAR_RUTA_TRABAJADOR_OK:
-			JOptionPane.showMessageDialog(this, "Vinculación realizada correctamente.");
+			JOptionPane.showMessageDialog(null, "Vinculación realizada correctamente.");
 			break;
+
 		case RES_VINCULAR_RUTA_TRABAJADOR_KO:
-			JOptionPane.showMessageDialog(this, "No se pudo realizar la vinculación.");
+			JOptionPane.showMessageDialog(null, "Error al vincular ruta.");
 			break;
 		default:
-			break;
+			JOptionPane.showMessageDialog(null, "Evento no reconocido: " + context.getEvento());
 		}
 	}
 }

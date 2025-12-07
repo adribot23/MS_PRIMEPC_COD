@@ -20,15 +20,14 @@ import presentacion.GUI.IGUI;
 
 public class VModificarRuta extends JFrame implements IGUI {
 
-	private static final long serialVersionUID = 1L;
-
 	public VModificarRuta() {
 		super("Modificar Ruta");
 		initGUI();
 	}
 
 	private void initGUI() {
-		setLayout(new GridLayout(4, 2, 10, 10));
+
+		setLayout(new GridLayout(5, 2, 10, 10));
 		getRootPane().setBorder(BorderFactory.createTitledBorder("Modificar Ruta"));
 
 		JLabel lblId = new JLabel("ID:");
@@ -46,37 +45,25 @@ public class VModificarRuta extends JFrame implements IGUI {
 
 		JButton btnModificar = new JButton("Modificar");
 		btnModificar.setBackground(new Color(200, 255, 200));
+
 		btnModificar.addActionListener(e -> {
+
 			try {
 				int id = Integer.parseInt(txtId.getText().trim());
 				String origen = txtOrigen.getText().trim();
 				String destino = txtDestino.getText().trim();
-
-				if (origen.isEmpty() || destino.isEmpty()) {
-					JOptionPane.showMessageDialog(this, "Rellena todos los campos.");
-					return;
-				}
-
 				double distancia = ((Number) spDistancia.getValue()).doubleValue();
-				if (distancia <= 0) {
-					JOptionPane.showMessageDialog(this, "La distancia debe ser positiva.");
-					return;
-				}
 
 				TRuta ruta = new TRuta();
-				ruta.setId(id);
-				ruta.setOrigen(origen);
-				ruta.setDestino(destino);
-				ruta.setDistancia(distancia);
+				ruta.set_id(id);
+				ruta.set_origen(origen);
+				ruta.set_destino(destino);
+				ruta.set_distancia(distancia);
 
 				Controlador.getInstancia().accion(new Context(Evento.MODIFICAR_RUTA, ruta));
 
-				txtId.setText("");
-				txtOrigen.setText("");
-				txtDestino.setText("");
-				spDistancia.setValue(1.0);
 			} catch (NumberFormatException ex) {
-				JOptionPane.showMessageDialog(this, "ID inválido.");
+				JOptionPane.showMessageDialog(null, "Datos inválidos.");
 			}
 		});
 
@@ -84,7 +71,7 @@ public class VModificarRuta extends JFrame implements IGUI {
 		btnVolver.setBackground(new Color(255, 220, 220));
 		btnVolver.addActionListener(e -> {
 			Controlador.getInstancia().accion(new Context(Evento.RUTA, null));
-			dispose();
+			this.dispose();
 		});
 
 		add(lblId);
@@ -99,24 +86,28 @@ public class VModificarRuta extends JFrame implements IGUI {
 		add(btnVolver);
 
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		setSize(420, 240);
+		setSize(400, 260);
 		setLocationRelativeTo(null);
 	}
 
 	@Override
 	public void actualizar(Context context) {
+
 		switch (context.getEvento()) {
+
 		case VMODIFICAR_RUTA:
 			setVisible(true);
 			break;
+
 		case RES_MODIFICAR_RUTA_OK:
-			JOptionPane.showMessageDialog(this, "Ruta modificada correctamente.");
+			JOptionPane.showMessageDialog(null, "Ruta modificada correctamente.");
 			break;
+
 		case RES_MODIFICAR_RUTA_KO:
-			JOptionPane.showMessageDialog(this, "Error al modificar la ruta.");
+			JOptionPane.showMessageDialog(null, "Error al modificar ruta.");
 			break;
 		default:
-			break;
+			JOptionPane.showMessageDialog(null, "Evento no reconocido: " + context.getEvento());
 		}
 	}
 }

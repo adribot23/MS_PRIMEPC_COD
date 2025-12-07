@@ -20,14 +20,13 @@ import presentacion.GUI.IGUI;
 
 public class VAltaRuta extends JFrame implements IGUI {
 
-	private static final long serialVersionUID = 1L;
-
 	public VAltaRuta() {
 		super("Alta de Ruta");
 		initGUI();
 	}
 
 	private void initGUI() {
+
 		setLayout(new GridLayout(4, 2, 10, 10));
 		getRootPane().setBorder(BorderFactory.createTitledBorder("Alta Ruta"));
 
@@ -43,37 +42,45 @@ public class VAltaRuta extends JFrame implements IGUI {
 
 		JButton btnAlta = new JButton("Dar de Alta");
 		btnAlta.setBackground(new Color(200, 255, 200));
+
 		btnAlta.addActionListener(e -> {
-			String origen = txtOrigen.getText().trim();
-			String destino = txtDestino.getText().trim();
-			if (origen.isEmpty() || destino.isEmpty()) {
-				JOptionPane.showMessageDialog(this, "Rellena todos los campos.");
-				return;
+
+			try {
+				String origen = txtOrigen.getText().trim();
+				String destino = txtDestino.getText().trim();
+
+				if (origen.isEmpty() || destino.isEmpty()) {
+					JOptionPane.showMessageDialog(null, "Rellena todos los campos.");
+					return;
+				}
+
+				double distancia = ((Number) spDistancia.getValue()).doubleValue();
+				if (distancia <= 0) {
+					JOptionPane.showMessageDialog(null, "La distancia debe ser positiva.");
+					return;
+				}
+
+				TRuta ruta = new TRuta();
+				ruta.set_origen(origen);
+				ruta.set_destino(destino);
+				ruta.set_distancia(distancia);
+
+				Controlador.getInstancia().accion(new Context(Evento.ALTA_RUTA, ruta));
+
+				txtOrigen.setText("");
+				txtDestino.setText("");
+				spDistancia.setValue(1.0);
+
+			} catch (NumberFormatException ex) {
+				JOptionPane.showMessageDialog(null, "Datos inválidos.");
 			}
-
-			double distancia = ((Number) spDistancia.getValue()).doubleValue();
-			if (distancia <= 0) {
-				JOptionPane.showMessageDialog(this, "La distancia debe ser positiva.");
-				return;
-			}
-
-			TRuta ruta = new TRuta();
-			ruta.setOrigen(origen);
-			ruta.setDestino(destino);
-			ruta.setDistancia(distancia);
-
-			Controlador.getInstancia().accion(new Context(Evento.ALTA_RUTA, ruta));
-
-			txtOrigen.setText("");
-			txtDestino.setText("");
-			spDistancia.setValue(1.0);
 		});
 
 		JButton btnVolver = new JButton("Volver");
 		btnVolver.setBackground(new Color(255, 220, 220));
 		btnVolver.addActionListener(e -> {
 			Controlador.getInstancia().accion(new Context(Evento.RUTA, null));
-			dispose();
+			this.dispose();
 		});
 
 		add(lblOrigen);
@@ -86,24 +93,27 @@ public class VAltaRuta extends JFrame implements IGUI {
 		add(btnVolver);
 
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		setSize(400, 220);
+		setSize(400, 250);
 		setLocationRelativeTo(null);
 	}
 
 	@Override
 	public void actualizar(Context context) {
 		switch (context.getEvento()) {
+
 		case VALTA_RUTA:
 			setVisible(true);
 			break;
+
 		case RES_ALTA_RUTA_OK:
-			JOptionPane.showMessageDialog(this, "Ruta dada de alta con ID: " + context.getDatos());
+			JOptionPane.showMessageDialog(null, "Ruta dada de alta con ID: " + context.getDatos());
 			break;
+
 		case RES_ALTA_RUTA_KO:
-			JOptionPane.showMessageDialog(this, "Error al dar de alta la ruta.");
+			JOptionPane.showMessageDialog(null, "Error al dar de alta la ruta.");
 			break;
 		default:
-			break;
+			JOptionPane.showMessageDialog(null, "Evento no reconocido: " + context.getEvento());
 		}
 	}
 }
