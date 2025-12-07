@@ -1,11 +1,16 @@
 package negocio.RemitenteJPA;
 
-public class TParticular extends TRemitente{
+public class TParticular extends TRemitente {
 
 	public String fechaNacimiento;
-	
-	public TParticular(int id_remitente, int activo, String direccion, String telefono, String fechaNacimiento) {
-		super(id_remitente, activo, direccion, telefono);
+
+	public TParticular() {
+		super();
+	}
+
+	public TParticular(int id_remitente, int activo, String nombre, String direccion, String telefono,
+			String fechaNacimiento) {
+		super(id_remitente, activo, nombre, direccion, telefono);
 		this.fechaNacimiento = fechaNacimiento;
 	}
 

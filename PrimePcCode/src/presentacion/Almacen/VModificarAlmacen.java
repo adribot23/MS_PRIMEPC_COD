@@ -20,19 +20,20 @@ import presentacion.Controller.Command.Context;
 import presentacion.GUI.IGUI;
 import presentacion.GUI.Evento;
 
-/** 
-* <!-- begin-UML-doc -->
-* <!-- end-UML-doc -->
-* @author adria
-* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-*/
+/**
+ * <!-- begin-UML-doc --> <!-- end-UML-doc -->
+ * 
+ * @author adria
+ * @generated "UML a Java
+ *            (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+ */
 public class VModificarAlmacen extends JFrame implements IGUI {
-	
+
 	public VModificarAlmacen() {
 		super("Modificar Almacén");
 		initGUI();
 	}
-	
+
 	public void initGUI() {
 		setLayout(new GridLayout(4, 1, 10, 10));
 		getRootPane().setBorder(BorderFactory.createTitledBorder("Modificar Almacen"));
@@ -62,12 +63,12 @@ public class VModificarAlmacen extends JFrame implements IGUI {
 				idField.setText("");
 				nombreField.setText("");
 				capacidadField.setText("");
-				
+
 			} catch (NumberFormatException ex) {
 				JOptionPane.showMessageDialog(this, "Campos numericos inválidos.");
 			}
 		});
-		
+
 		JButton btnVolver = new JButton("Volver");
 		btnVolver.setBackground(new Color(255, 220, 220));
 		btnVolver.addActionListener(e -> {
@@ -75,11 +76,11 @@ public class VModificarAlmacen extends JFrame implements IGUI {
 			this.dispose();
 		});
 		add(btnVolver);
-		
+
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(350, 200);
 		setLocationRelativeTo(null);
-		
+
 	}
 
 	public void actualizar(Context context) {
@@ -89,8 +90,7 @@ public class VModificarAlmacen extends JFrame implements IGUI {
 			break;
 
 		case RES_MODIFICAR_ALMACEN_OK:
-			JOptionPane.showMessageDialog(this, 
-					"Almacén modificado correctamente.\n");
+			JOptionPane.showMessageDialog(this, "Almacén modificado correctamente.\n");
 			break;
 
 		case RES_MODIFICAR_ALMACEN_KO:

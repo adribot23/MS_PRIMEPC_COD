@@ -1,104 +1,68 @@
+/**
+ * 
+ */
 package negocio.FacturaJPA;
 
-import java.util.Set;
+public class TFactura {
+	
+	private Integer idFactura;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Version;
+	private Integer idRemitente;
 
-import negocio.PaqueteJPA.Paquete;
-import negocio.RemitenteJPA.Remitente;
+	private Integer activo;
 
-public class TFactura {  
-    private Integer id;
-	private int activo;
-	private double precioBruto;
 	private double precioNeto;
-	private Set<TLineaFactura> lineasFactura;
-	
-	
-	/*
-	@ManyToOne
-	private TRemitente remitente;
-	*/
-	
-	/*@OneToMany
-	private Set<TPaquete> paquetes;
-	*/
+
+	private Double precioBruto;
+
+	public TFactura() {
+	}
 	
 	public TFactura(Factura f) {
-		this.id = f.getId();
-		this.activo = f.getActivo();
-		this.precioBruto = f.getPrecioBruto();
-		this.precioNeto = f.getPrecioNeto();
-		this.lineasFactura = f.getLineasFactura();
+		this.idFactura = f.get_idFactura();
+		this.activo = f.get_activo();
+		this.precioBruto = f.get_precioBruto();
+		this.precioNeto = f.get_precioNeto();
+		this.idRemitente= f.get_Remitente().getId();
 	}
-	
-	public int getId() {
-		
-		return id;
+
+	public void set_idRemitente(Integer idR) {
+		this.idRemitente=idR;
 	}
-	
-	public int getActivo() {
-		
+
+	public Integer get_idRemitente() {
+		return this.idRemitente;
+	}
+
+	public void set_activo(Integer activo) {
+		this.activo=activo;
+	}
+
+	public Integer get_activo() {
 		return activo;
 	}
-	
-	public double getPrecioBruto() {
-		
+
+	public void set_precioNeto(double precioN) {
+		this.precioNeto=precioN;
+	}
+
+	public double get_precioNeto() {
+		return this.precioNeto;
+	}
+
+	public void set_precioBruto(double precioB) {
+		this.precioBruto=precioB;
+	}
+
+	public double get_precioBruto() {
 		return precioBruto;
 	}
-	
-	public double getPrecioNeto() {
-		
-		return precioNeto;
+
+	public Integer get_idFactura() {
+		return idFactura;
 	}
-	
-	
-	//hace falta?
-	public Set<TPaquete> getPaquetes(){
-		
-		return paquetes;
-	}
-	
-	public TRemitente getRemitente() {
-		
-		return remitente;
-	}
-	
-	public Set<TLineaFactura> getLineasFactura(){
-	
-		return this.lineasFactura;
-	}
-	
-	public void setId(int id) {
-		this.id = id;
-	}
-	
-	public void setActivo(int activo) {
-		this.activo = activo;
-	}
-	
-	public void setPrecioNeto(double precioNeto) {
-		this.precioNeto = precioNeto;
-	}
-	
-	public void setPrecioBruto(double precioBruto) {
-		this.precioBruto = precioBruto;
-	}
-	
-	
-	//Hace falta tener como atributops paquete y remitente en el transfer?
-	public void setRemitente(Remitente remitente) {
-		this.remitente = remitente;
-	}
-	
-	public void setPaquetes(Set<Paquete> paquetes) {
-		this.paquetes = paquetes;
-	}
-	
-	public void setLineasFactura(Set<LineaFactura> lineas) {
-		this.lineasFactura = lineas;
+
+	public void set_idFactura(Integer idF) {
+		this.idFactura=idF;
 	}
 }

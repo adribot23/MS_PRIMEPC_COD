@@ -1,125 +1,119 @@
+/**
+ * 
+ */
 package negocio.FacturaJPA;
 
-import java.util.Set;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Version;
-
-import negocio.PaqueteJPA.Paquete;
+import jakarta.persistence.Entity;
+import java.io.Serializable;
+import jakarta.persistence.Id;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.NamedQuery;
+import jakarta.persistence.NamedQueries;
 import negocio.RemitenteJPA.Remitente;
+import java.util.Set;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.ManyToOne;
 
 @Entity
-public class Factura {
-	
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Id    
-    private Integer id;
-	
-	@Version
-	private Version version;
-	
-	private int activo;
-	private double precioBruto;
+@NamedQueries({
+		@NamedQuery(name = "negocio.FacturaJPA.Factura.findByid", query = "select obj from Factura obj where :id = obj.id "),
+		@NamedQuery(name = "negocio.FacturaJPA.Factura.findByactivo", query = "select obj from Factura obj where :activo = obj.activo "),
+		@NamedQuery(name = "negocio.FacturaJPA.Factura.findByversion", query = "select obj from Factura obj where :version = obj.version "),
+		@NamedQuery(name = "negocio.FacturaJPA.Factura.findByprecioNeto", query = "select obj from Factura obj where :precioNeto = obj.precioNeto "),
+		@NamedQuery(name = "negocio.FacturaJPA.Factura.findByprecioBruto", query = "select obj from Factura obj where :precioBruto = obj.precioBruto "),
+		@NamedQuery(name = "negocio.FacturaJPA.Factura.findByremitente", query = "select obj from Factura obj where :remitente = obj.remitente "),
+		@NamedQuery(name = "negocio.FacturaJPA.Factura.findBylineaFactura", query = "select obj from Factura obj where :lineaFactura MEMBER OF obj.lineaFactura "),
+		@NamedQuery(name = "negocio.FacturaJPA.Factura.findBypaquete", query = "select obj from Factura obj where :paquete = obj.paquete ") })
+public class Factura implements Serializable {
+
+	private static final long serialVersionUID = 0;
+
+	@GeneratedValue
+	@Id
+	private Integer id;
+
+	private Integer activo;
+
+	private Integer version;
+
 	private double precioNeto;
-	private Set<LineaFactura> lineasFactura;
-	
-	
-	/*
+
+	private double precioBruto;
+
+	@OneToMany(mappedBy = "factura")
+	private Set<LineaFactura> lineaFactura;
+
 	@ManyToOne
 	private Remitente remitente;
-	*/
-	
-	/*@OneToMany
-	private Set<Paquete> paquetes;
-	*/
-	
-	public Factura(TFactura f) {
-		this.id = f.getId();
-		this.activo = f.getActivo();
-		this.precioBruto = f.getPrecioBruto();
-		this.precioNeto = f.getPrecioNeto();
-		this.lineasFactura = f.getLineasFactura();
+
+	public Factura() {
 	}
-	
-	public TFactura entityToTransfer() {
+
+	public Factura(TFactura tFactura) {
+		this.id = tFactura.get_idFactura();
+		this.activo = tFactura.get_activo();
+		this.precioBruto = tFactura.get_precioBruto();
+		this.precioNeto = tFactura.get_precioNeto();
+	}
+
+	public TFactura toTransfer() {
 		TFactura tFactura = new TFactura();
-		tFactura.setID(id);
-		tFactura.setActivo(activo);
-		tFactura.setPrecioBruto(precioBruto);
-		tFactura.setPrecioNeto(precioNeto);
-		tFactura.setLineasFactura(lineasFactura);
-		
+		tFactura.set_idFactura(id);
+		tFactura.set_activo(activo);
+		tFactura.set_precioBruto(precioBruto);
+		tFactura.set_precioNeto(precioNeto);
 		return tFactura;
 	}
-	
-	public int getId() {
-		
-		return id;
+
+	public void set_precioNeto(double precioN) {
+		this.precioNeto = precioN;
 	}
-	
-	public int getActivo() {
-		
-		return activo;
+
+	public double get_precioNeto() {
+		return this.precioNeto;
 	}
-	
-	public double getPrecioBruto() {
-		
-		return precioBruto;
+
+	public void set_precioBruto(double precioB) {
+		this.precioBruto = precioB;
 	}
-	
-	public double getPrecioNeto() {
-		
-		return precioNeto;
+
+	public double get_precioBruto() {
+		return this.precioBruto;
 	}
-	
-	public Set<Paquete> getPaquetes(){
-		
-		return paquetes;
+
+	public Integer get_version() {
+		return this.version;
 	}
-	
-	public Remitente getRemitente() {
-		
-		return remitente;
-	}
-	
-	public Version getVersion() {
-		
-		return version;
-	}
-	
-	public Set<LineaFactura> getLineasFactura(){
-	
-		return this.lineasFactura;
-	}
-	
-	public void setId(int id) {
-		this.id = id;
-	}
-	
-	public void setActivo(int activo) {
+
+	public void set_activo(Integer activo) {
 		this.activo = activo;
 	}
-	
-	public void setPrecioNeto(double precioNeto) {
-		this.precioNeto = precioNeto;
+
+	public Integer get_activo() {
+		return this.activo;
 	}
-	
-	public void setPrecioBruto(double precioBruto) {
-		this.precioBruto = precioBruto;
-	}
-	
-	public void setRemitente(Remitente remitente) {
+
+	public void set_Remitente(Remitente remitente) {
 		this.remitente = remitente;
 	}
-	
-	public void setPaquetes(Set<Paquete> paquetes) {
-		this.paquetes = paquetes;
+
+	public Remitente get_Remitente() {
+		return this.remitente;
 	}
-	
-	public void setLineasFactura(Set<LineaFactura> lineas) {
-		this.lineasFactura = lineas;
+
+	public void set_lineaFactura(Set<LineaFactura> lineaFactura) {
+		this.lineaFactura = lineaFactura;
+	}
+
+	public Set<LineaFactura> get_lineaFactura() {
+		return this.lineaFactura;
+	}
+
+	public Integer get_idFactura() {
+		return this.id;
+	}
+
+	public void set_idFactura(Integer idFactura) {
+		this.id = idFactura;
 	}
 }

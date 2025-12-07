@@ -59,9 +59,8 @@ public class GUITransporte extends JFrame implements IGUI {
 
 		// Fila 3
 		botonesPanel.add(crearBotonVerde("VINCULAR TRANSPORTE A TRABAJADOR", Evento.VVINCULAR_TRANSPORTE_TRABAJADOR));
-		botonesPanel.add(crearBotonVerde("DESVINCULAR TRANSPORTE DE TRABAJADOR",
-				Evento.VDESVINCULAR_TRANSPORTE_TRABAJADOR));
-	
+		botonesPanel.add(
+				crearBotonVerde("DESVINCULAR TRANSPORTE DE TRABAJADOR", Evento.VDESVINCULAR_TRANSPORTE_TRABAJADOR));
 
 		mainPanel.add(botonesPanel, BorderLayout.CENTER);
 

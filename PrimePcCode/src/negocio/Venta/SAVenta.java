@@ -6,10 +6,9 @@ import java.util.Set;
 public interface SAVenta {
 
 	public TCarrito abrirVenta(int idEmpleado);
-	
 
 	public int procesarCarrito(TCarrito carrito);
-	
+
 	public int pasar_carrito(TCarrito carrito);
 
 	public int insertarProductoCarrito(TCarrito carrito);
@@ -29,6 +28,6 @@ public interface SAVenta {
 	public Set<TVenta> leerTodasVentas();
 
 	public Set<TVenta> leerVentasPorCliente(int idCliente);
-	
+
 	public int eliminar_venta(int idVenta);
 }

@@ -17,6 +17,13 @@ import presentacion.Controller.Command.CommandEmpleado.BuscarEmpleadoCommand;
 import presentacion.Controller.Command.CommandEmpleado.CalcularMasVendidoCommand;
 import presentacion.Controller.Command.CommandEmpleado.ModificarEmpleadoCommand;
 import presentacion.Controller.Command.CommandEmpleado.MostrarEmpleadosCommand;
+import presentacion.Controller.Command.CommandPaqueteJPA.AltaPaqueteCommand;
+import presentacion.Controller.Command.CommandPaqueteJPA.BajaPaqueteCommand;
+import presentacion.Controller.Command.CommandPaqueteJPA.BuscarPaqueteCommand;
+import presentacion.Controller.Command.CommandPaqueteJPA.ModificarPaqueteCommand;
+import presentacion.Controller.Command.CommandPaqueteJPA.MostrarPaquetesCommand;
+import presentacion.Controller.Command.CommandPaqueteJPA.VerPaquetesPorFacturaCommand;
+import presentacion.Controller.Command.CommandPaqueteJPA.VerPaquetesPorRutaCommand;
 import presentacion.Controller.Command.CommandProducto.AltaProductoCommand;
 import presentacion.Controller.Command.CommandProducto.BajaProductoCommand;
 import presentacion.Controller.Command.CommandProducto.BuscarProductoCommand;
@@ -33,6 +40,20 @@ import presentacion.Controller.Command.CommandProveedor.MostrarProveedoresComman
 import presentacion.Controller.Command.CommandProveedor.ProveedorConMasUnidadesDeProductoVendidasCommand;
 import presentacion.Controller.Command.CommandProveedor.VerProvPorProductoCommand;
 import presentacion.Controller.Command.CommandProveedor.VincularProveedorProductoCommand;
+import presentacion.Controller.Command.CommandRemitenteJPA.AltaRemitenteCommand;
+import presentacion.Controller.Command.CommandRemitenteJPA.BajaRemitenteCommand;
+import presentacion.Controller.Command.CommandRemitenteJPA.BuscarRemitenteCommand;
+import presentacion.Controller.Command.CommandRemitenteJPA.CalcularPrecioPaquetesRemitenteCommand;
+import presentacion.Controller.Command.CommandRemitenteJPA.ModificarRemitenteCommand;
+import presentacion.Controller.Command.CommandRemitenteJPA.MostrarRemitentesCommand;
+import presentacion.Controller.Command.CommandTransporteJPA.AltaTransporteCommand;
+import presentacion.Controller.Command.CommandTransporteJPA.BajaTransporteCommand;
+import presentacion.Controller.Command.CommandTransporteJPA.BuscarTransporteCommand;
+import presentacion.Controller.Command.CommandTransporteJPA.DesvincularTransporteTrabajdorCommand;
+import presentacion.Controller.Command.CommandTransporteJPA.ModificarTransporteCommand;
+import presentacion.Controller.Command.CommandTransporteJPA.MostrarTransportesCommand;
+import presentacion.Controller.Command.CommandTransporteJPA.VerTransportesPorTrabajador;
+import presentacion.Controller.Command.CommandTransporteJPA.VincularTransporteTrabajadorCommand;
 import presentacion.Controller.Command.CommandVenta.AbrirVentaCommand;
 import presentacion.Controller.Command.CommandVenta.BajaVentaCommand;
 import presentacion.Controller.Command.CommandVenta.BuscarVentaCommand;
@@ -109,7 +130,7 @@ public class CommandFactoryImp extends CommandFactory {
 		case CALCULAR_MAS_VENDIDO:
 			command = new CalcularMasVendidoCommand();
 			break;
-		
+
 		// ---- PRODUCTO ----
 		case ALTA_PRODUCTO:
 			command = new AltaProductoCommand();
@@ -162,53 +183,124 @@ public class CommandFactoryImp extends CommandFactory {
 			command = new ProveedorConMasUnidadesDeProductoVendidasCommand();
 			break;
 
-	// ---- VENTA ----
-	case ABRIR_VENTA:
-		command = new AbrirVentaCommand();
-		break;
-	case CERRAR_VENTA:
-		command = new CerrarVentaCommand();
-		break;
-	case INSERTAR_PRODUCTO_VENTA:
-		command = new InsertarProductoVentaCommand();
-		break;
-	case QUITAR_PRODUCTO_VENTA:
-		command = new QuitarProductoVentaCommand();
-		break;
-	case PASAR_CARRITO_A_INSERTAR:
-		command = new PasarCarritoAInsertarCommand();
-		break;
-	case PASAR_CARRITO_A_ELIMINAR:
-		command = new PasarCarritoAEliminarCommand();
-		break;
-	case PASAR_CARRITO_A_CERRAR:
-		command = new PasarCarritoACerrarCommand();
-		break;
-	case BAJA_VENTA:
-		command = new BajaVentaCommand();
-		break;
-	case MODIFICAR_VENTA:
-		command = new ModificarVentaCommand();
-		break;
-	case BUSCAR_VENTA:
-		command = new BuscarVentaCommand();
-		break;
-	case MOSTRAR_TODAS_VENTAS:
-		command = new MostrarVentasCommand();
-		break;
-	case MOSTRAR_VENTAS_POR_CLIENTE:
-		command = new VerVentasPorClienteCommand();
-		break;
-	case MOSTRAR_VENTAS_POR_EMPLEADO:
-		command = new VerVentasPorEmpleadoCommand();
-		break;
-	case DEVOLVER_VENTA:
-		command = new DevolverVentaCommand();
-		break;
+		// ---- VENTA ----
+		case ABRIR_VENTA:
+			command = new AbrirVentaCommand();
+			break;
+		case CERRAR_VENTA:
+			command = new CerrarVentaCommand();
+			break;
+		case INSERTAR_PRODUCTO_VENTA:
+			command = new InsertarProductoVentaCommand();
+			break;
+		case QUITAR_PRODUCTO_VENTA:
+			command = new QuitarProductoVentaCommand();
+			break;
+		case PASAR_CARRITO_A_INSERTAR:
+			command = new PasarCarritoAInsertarCommand();
+			break;
+		case PASAR_CARRITO_A_ELIMINAR:
+			command = new PasarCarritoAEliminarCommand();
+			break;
+		case PASAR_CARRITO_A_CERRAR:
+			command = new PasarCarritoACerrarCommand();
+			break;
+		case BAJA_VENTA:
+			command = new BajaVentaCommand();
+			break;
+		case MODIFICAR_VENTA:
+			command = new ModificarVentaCommand();
+			break;
+		case BUSCAR_VENTA:
+			command = new BuscarVentaCommand();
+			break;
+		case MOSTRAR_TODAS_VENTAS:
+			command = new MostrarVentasCommand();
+			break;
+		case MOSTRAR_VENTAS_POR_CLIENTE:
+			command = new VerVentasPorClienteCommand();
+			break;
+		case MOSTRAR_VENTAS_POR_EMPLEADO:
+			command = new VerVentasPorEmpleadoCommand();
+			break;
+		case DEVOLVER_VENTA:
+			command = new DevolverVentaCommand();
+			break;
+
+		// --- TRANSPORTE ---
+		case ALTA_TRANSPORTE:
+			command = new AltaTransporteCommand();
+			break;
+		case BAJA_TRANSPORTE:
+			command = new BajaTransporteCommand();
+			break;
+		case MODIFICAR_TRANSPORTE:
+			command = new ModificarTransporteCommand();
+			break;
+		case BUSCAR_TRANSPORTE:
+			command = new BuscarTransporteCommand();
+			break;
+		case MOSTRAR_TODOS_TRANSPORTES:
+			command = new MostrarTransportesCommand();
+			break;
+		case VER_TRANSPORTE_POR_TRABAJADOR:
+			command = new VerTransportesPorTrabajador();
+			break;
+		case VINCULAR_TRANSPORTE_TRABAJADOR:
+			command = new VincularTransporteTrabajadorCommand();
+			break;
+		case DESVINCULAR_TRANSPORTE_TRABAJADOR:
+			command = new DesvincularTransporteTrabajdorCommand();
+			break;
+
+		// --- REMITENTE ---
+		case ALTA_REMITENTE:
+			command = new AltaRemitenteCommand();
+			break;
+		case BAJA_REMITENTE:
+			command = new BajaRemitenteCommand();
+			break;
+		case MODIFICAR_REMITENTE:
+			command = new ModificarRemitenteCommand();
+			break;
+		case BUSCAR_REMITENTE:
+			command = new BuscarRemitenteCommand();
+			break;
+		case MOSTRAR_TODOS_REMITENTES:
+			command = new MostrarRemitentesCommand();
+			break;
+		case CALCULAR_PRECIO_PAQUETES:
+			command = new CalcularPrecioPaquetesRemitenteCommand();
+			break;
+
+			// --- PAQUETE ---
+		case ALTA_PAQUETE:
+		    command = new AltaPaqueteCommand();
+		    break;
+		case BAJA_PAQUETE:
+		    command = new BajaPaqueteCommand();
+		    break;
+		case MODIFICAR_PAQUETE:
+		    command = new ModificarPaqueteCommand();
+		    break;
+		case BUSCAR_PAQUETE:
+		    command = new BuscarPaqueteCommand();
+		    break;
+		case MOSTRAR_TODOS_PAQUETES:
+		    command = new MostrarPaquetesCommand();
+		    break;
+		case VER_PAQUETES_POR_FACTURA:
+		    command = new VerPaquetesPorFacturaCommand();
+		    break;
+		case VER_PAQUETES_POR_RUTA:
+		    command = new VerPaquetesPorRutaCommand();
+		    break;
+
+		
+			
 		default:
 			break;
 		}
-
 		return command;
 	}
 }

@@ -19,39 +19,33 @@ import integracion.Transaction.Transaction;
  */
 public class ObtenerElProveedorQueMasUnidadesHaSuministradoDeCualquierProducto implements Query {
 	public Object execute(Object param) {
-        int idProveedor = -1;
+		int idProveedor = -1;
 
-        try {
-            TManager tManager = TManager.getInstance();
-            Transaction t = tManager.getTransaction();
-            Connection c = (Connection) t.getResource();
+		try {
+			TManager tManager = TManager.getInstance();
+			Transaction t = tManager.getTransaction();
+			Connection c = (Connection) t.getResource();
 
-            // No se puede hacer FOR UPDATE con filas agregadas
-            String query =
-            		"SELECT pr.ID, pr.NOMBRE, SUM(p.NUM_UNIDADES) AS total_unidades " +
-            		"FROM PROVEEDOR pr " +
-            		"JOIN PRODUCTO_PROVEEDOR pp ON pr.ID = pp.ID_PROVEEDOR " +
-            		"JOIN PRODUCTO p ON pp.ID_PRODUCTO = p.ID " +
-            		"WHERE pr.ACTIVO = 1 " +
-            		"GROUP BY pr.ID, pr.NOMBRE " +
-            		"ORDER BY total_unidades DESC " +
-            		"LIMIT 1;";
+			// No se puede hacer FOR UPDATE con filas agregadas
+			String query = "SELECT pr.ID, pr.NOMBRE, SUM(p.NUM_UNIDADES) AS total_unidades " + "FROM PROVEEDOR pr "
+					+ "JOIN PRODUCTO_PROVEEDOR pp ON pr.ID = pp.ID_PROVEEDOR "
+					+ "JOIN PRODUCTO p ON pp.ID_PRODUCTO = p.ID " + "WHERE pr.ACTIVO = 1 "
+					+ "GROUP BY pr.ID, pr.NOMBRE " + "ORDER BY total_unidades DESC " + "LIMIT 1;";
 
+			PreparedStatement statement = c.prepareStatement(query);
+			ResultSet rs = statement.executeQuery();
 
-            PreparedStatement statement = c.prepareStatement(query);
-            ResultSet rs = statement.executeQuery();
+			if (rs.next()) {
+				idProveedor = rs.getInt("ID");
+			}
 
-            if (rs.next()) {
-                idProveedor = rs.getInt("ID");
-            }
+			rs.close();
+			statement.close();
 
-            rs.close();
-            statement.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return idProveedor;
+		return idProveedor;
 	}
 }

@@ -19,12 +19,13 @@ import presentacion.Controller.Command.Context;
 import presentacion.GUI.Evento;
 import presentacion.GUI.IGUI;
 
-/** 
-* <!-- begin-UML-doc -->
-* <!-- end-UML-doc -->
-* @author adria
-* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-*/
+/**
+ * <!-- begin-UML-doc --> <!-- end-UML-doc -->
+ * 
+ * @author adria
+ * @generated "UML a Java
+ *            (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+ */
 public class VAltaAlmacen extends JFrame implements IGUI {
 
 	private static final long serialVersionUID = 1L;
@@ -33,9 +34,9 @@ public class VAltaAlmacen extends JFrame implements IGUI {
 		super("Alta de Almacen");
 		initGUI();
 	}
-	
+
 	public void initGUI() {
-		
+
 		setLayout(new GridLayout(3, 1, 10, 10));
 		getRootPane().setBorder(BorderFactory.createTitledBorder("Alta Almacen"));
 
@@ -68,12 +69,12 @@ public class VAltaAlmacen extends JFrame implements IGUI {
 				JOptionPane.showMessageDialog(this, "Capacidad debe ser un número.");
 			}
 		});
-		
+
 		// Configuración final de la ventana
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(350, 200);
 		setLocationRelativeTo(null);
-		
+
 	}
 
 	public void actualizar(Context context) {
@@ -92,7 +93,7 @@ public class VAltaAlmacen extends JFrame implements IGUI {
 			break;
 		default:
 			JOptionPane.showMessageDialog(null, "Evento no reconocido: " + evento);
-			
+
 		}
 	}
 }

@@ -1,20 +1,15 @@
 package presentacion.TransporteJPA;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
-import java.util.List;
 import java.util.Set;
-
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JTextField;
 
 import negocio.TransporteJPA.TTransporte;
 import presentacion.Controller.Controlador;
@@ -26,7 +21,6 @@ public class VVerTransportePorTrabajador extends JFrame implements IGUI {
 
     private static final long serialVersionUID = 1L;
     private JButton btnBuscar, btnVolver;
-    private JTable tabla;
 
     public VVerTransportePorTrabajador() {
         super("Transportes por Trabajador");
@@ -34,36 +28,13 @@ public class VVerTransportePorTrabajador extends JFrame implements IGUI {
     }
 
     private void initGUI() {
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setSize(600, 400);
-        setLocationRelativeTo(null);
+       
 
-        // Panel superior con botones
-        JPanel panelBotones = new JPanel();
-        panelBotones.setBorder(BorderFactory.createTitledBorder("Buscar Transportes por Trabajador"));
+        JPanel panel = new JPanel(new GridLayout(2, 1, 10, 10));
+        panel.setBorder(BorderFactory.createTitledBorder("Buscar Transportes por Trabajador"));
 
         btnBuscar = new JButton("Buscar transporte del trabajador");
         btnBuscar.setBackground(new Color(200, 255, 200));
-
-        btnVolver = new JButton("Volver");
-        btnVolver.setBackground(new Color(255, 220, 220));
-
-        panelBotones.add(btnBuscar);
-        panelBotones.add(btnVolver);
-
-        // Tabla con scroll
-        tabla = new JTable();
-        tabla.setFillsViewportHeight(true);
-        tabla.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
-        tabla.setEnabled(false);
-        JScrollPane scroll = new JScrollPane(tabla);
-
-        // Layout principal
-        setLayout(new BorderLayout(10, 10));
-        add(panelBotones, BorderLayout.NORTH);
-        add(scroll, BorderLayout.CENTER);
-
-        // Eventos
         btnBuscar.addActionListener(e -> {
             String input = JOptionPane.showInputDialog(this, "Introduce ID del trabajador:");
             if (input != null) {
@@ -76,10 +47,20 @@ public class VVerTransportePorTrabajador extends JFrame implements IGUI {
             }
         });
 
+        btnVolver = new JButton("Volver");
+        btnVolver.setBackground(new Color(255, 220, 220));
         btnVolver.addActionListener(e -> {
             Controlador.getInstancia().accion(new Context(Evento.TRANSPORTE, null));
             dispose();
         });
+
+        panel.add(btnBuscar);
+        panel.add(btnVolver);
+        add(panel);
+        
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setSize(300, 150);
+        setLocationRelativeTo(null);
     }
 
     @Override
@@ -101,7 +82,7 @@ public class VVerTransportePorTrabajador extends JFrame implements IGUI {
                 break;
 
             default:
-                break;
+                JOptionPane.showMessageDialog(null, "Evento no reconocido: " + context.getEvento());
         }
     }
 
@@ -119,6 +100,12 @@ public class VVerTransportePorTrabajador extends JFrame implements IGUI {
             i++;
         }
 
-        tabla.setModel(new javax.swing.table.DefaultTableModel(datos, columnas));
+        JTable table = new JTable(datos, columnas);
+        table.setFillsViewportHeight(true);
+        table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+        table.setEnabled(false);
+
+        JScrollPane scrollPane = new JScrollPane(table);
+        JOptionPane.showMessageDialog(null, scrollPane, "Transportes del Trabajador", JOptionPane.PLAIN_MESSAGE);
     }
 }

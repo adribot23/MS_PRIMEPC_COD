@@ -20,6 +20,14 @@ import presentacion.Empleado.VBuscarEmpleado;
 import presentacion.Empleado.VCalcularImporteMasVendido;
 import presentacion.Empleado.VModificarEmpleado;
 import presentacion.Empleado.VMostrarEmpleado;
+import presentacion.PaqueteJPA.GUIPaquete;
+import presentacion.PaqueteJPA.VAltaPaquete;
+import presentacion.PaqueteJPA.VBajaPaquete;
+import presentacion.PaqueteJPA.VBuscarPaquete;
+import presentacion.PaqueteJPA.VModificarPaquete;
+import presentacion.PaqueteJPA.VMostrarPaquetes;
+import presentacion.PaqueteJPA.VVerPaquetesPorFactura;
+import presentacion.PaqueteJPA.VVerPaquetesPorRuta;
 import presentacion.Producto.GUIProducto;
 import presentacion.Producto.VAltaProducto;
 import presentacion.Producto.VBajaProducto;
@@ -38,6 +46,13 @@ import presentacion.Proveedor.VMostrarProveedor;
 import presentacion.Proveedor.VProveedorConMasUnidadesDeProductoVendidas;
 import presentacion.Proveedor.VVerPorProducto;
 import presentacion.Proveedor.VVincularProveedor;
+import presentacion.RemitenteJPA.GUIRemitente;
+import presentacion.RemitenteJPA.VAltaRemitente;
+import presentacion.RemitenteJPA.VBajaRemitente;
+import presentacion.RemitenteJPA.VBuscarRemitente;
+import presentacion.RemitenteJPA.VCalcularPrecioPaquete;
+import presentacion.RemitenteJPA.VModificarRemitente;
+import presentacion.RemitenteJPA.VMostrarRemitente;
 import presentacion.TransporteJPA.GUITransporte;
 import presentacion.TransporteJPA.VAltaTransporte;
 import presentacion.TransporteJPA.VBajaTransporte;
@@ -375,6 +390,71 @@ public class GUIAbstractFactoryImp extends GUIAbstractFactory {
 		case RES_DESVINCULAR_TRANSPORTE_TRABAJADOR_OK:
 		case RES_DESVINCULAR_TRANSPORTE_TRABAJADOR_KO:
 			return new VDesvincularTransporteTrabajador();
+
+		/*
+		 * ============================== ======== REMITENTE ============
+		 * ==============================
+		 */
+		case REMITENTE:
+			return new GUIRemitente();
+		case VALTA_REMITENTE:
+		case RES_ALTA_REMITENTE_OK:
+		case RES_ALTA_REMITENTE_KO:
+			return new VAltaRemitente();
+		case VBAJA_REMITENTE:
+		case RES_BAJA_REMITENTE_OK:
+		case RES_BAJA_REMITENTE_KO:
+			return new VBajaRemitente();
+		case VBUSCAR_REMITENTE:
+		case RES_BUSCAR_REMITENTE_OK:
+		case RES_BUSCAR_REMITENTE_KO:
+			return new VBuscarRemitente();
+		case VMODIFICAR_REMITENTE:
+		case RES_MODIFICAR_REMITENTE_OK:
+		case RES_MODIFICAR_REMITENTE_KO:
+			return new VModificarRemitente();
+		case VMOSTRAR_TODOS_REMITENTES:
+		case RES_MOSTRAR_TODOS_REMITENTES_OK:
+		case RES_MOSTRAR_TODOS_REMITENTES_KO:
+			return new VMostrarRemitente();
+		case VCALCULAR_PRECIO_PAQUETES:
+		case RES_CALCULAR_PRECIO_PAQUETES_OK:
+		case RES_CALCULAR_PRECIO_PAQUETES_KO:
+			return new VCalcularPrecioPaquete();
+		
+			/*
+			 * ============================== ======== PAQUETE ==============================
+			 */
+		case PAQUETE:
+			return new GUIPaquete();
+		case VALTA_PAQUETE:
+		case RES_ALTA_PAQUETE_OK:
+		case RES_ALTA_PAQUETE_KO:
+			return new VAltaPaquete();
+		case VBAJA_PAQUETE:
+		case RES_BAJA_PAQUETE_OK:
+		case RES_BAJA_PAQUETE_KO:
+			return new VBajaPaquete();
+		case VBUSCAR_PAQUETE:
+		case RES_BUSCAR_PAQUETE_OK:
+		case RES_BUSCAR_PAQUETE_KO:
+			return new VBuscarPaquete();
+		case VMODIFICAR_PAQUETE:
+		case RES_MODIFICAR_PAQUETE_OK:
+		case RES_MODIFICAR_PAQUETE_KO:
+			return new VModificarPaquete();
+		case VMOSTRAR_TODOS_PAQUETES:
+		case RES_MOSTRAR_TODOS_PAQUETES_OK:
+		case RES_MOSTRAR_TODOS_PAQUETES_KO:
+			return new VMostrarPaquetes();
+		case VMOSTRAR_PAQUETES_POR_FACTURA:
+		case RES_VER_PAQUETES_POR_FACTURA_OK:
+		case RES_VER_PAQUETES_POR_FACTURA_KO:
+			return new VVerPaquetesPorFactura();
+		case VMOSTRAR_PAQUETES_POR_RUTA:
+		case RES_VER_PAQUETES_POR_RUTA_OK:
+		case RES_VER_PAQUETES_POR_RUTA_KO:
+			return new VVerPaquetesPorRuta();
 
 		default:
 			return null;

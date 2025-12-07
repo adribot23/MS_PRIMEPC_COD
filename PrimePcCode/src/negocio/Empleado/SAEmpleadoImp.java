@@ -91,7 +91,7 @@ public class SAEmpleadoImp implements SAEmpleado {
 			TEmpleado existente = daoEmpleado.read(tEmpleado.getId());
 			System.err.println();
 
-			if(existente == null || existente.getActivo() == 0 || !tEmpleado.getClass().equals(existente.getClass())) {
+			if (existente == null || existente.getActivo() == 0 || !tEmpleado.getClass().equals(existente.getClass())) {
 				transaction.rollback();
 			} else {
 				exito = daoEmpleado.update(tEmpleado);
@@ -108,29 +108,28 @@ public class SAEmpleadoImp implements SAEmpleado {
 
 	@Override
 	public TEmpleado leerEmpleado(int id) {
-	    TEmpleado empleado = null;
+		TEmpleado empleado = null;
 
-	    TManager tManager = TManager.getInstance();
-	    tManager.createTransaction();
-	    Transaction transaction = tManager.getTransaction();
+		TManager tManager = TManager.getInstance();
+		tManager.createTransaction();
+		Transaction transaction = tManager.getTransaction();
 
-	    if (transaction != null) {
-	        transaction.start();
+		if (transaction != null) {
+			transaction.start();
 
-	        DAOEmpleado daoEmpleado = DAOAbstractFactory.getInstancia().generaDAOEmpleado();
-	        TEmpleado temp = daoEmpleado.read(id);
+			DAOEmpleado daoEmpleado = DAOAbstractFactory.getInstancia().generaDAOEmpleado();
+			TEmpleado temp = daoEmpleado.read(id);
 
-	        if (temp != null && temp.getActivo() == 1) {
-	            empleado = temp; 
-	            transaction.commit();
-	        } else {
-	            transaction.rollback();
-	        }
-	    }
+			if (temp != null && temp.getActivo() == 1) {
+				empleado = temp;
+				transaction.commit();
+			} else {
+				transaction.rollback();
+			}
+		}
 
-	    return empleado;
+		return empleado;
 	}
-
 
 	@Override
 	public Set<TEmpleado> leerTodosEmpleados() {
@@ -154,33 +153,33 @@ public class SAEmpleadoImp implements SAEmpleado {
 
 	@Override
 	public AbstractMap.SimpleEntry<Integer, Integer> calcularImporteMasVendido(int idProducto) {
-	    AbstractMap.SimpleEntry<Integer, Integer> resultadoFinal = null;
+		AbstractMap.SimpleEntry<Integer, Integer> resultadoFinal = null;
 
-	    TManager tm = TManager.getInstance();
-	    Transaction tr = tm.createTransaction();
+		TManager tm = TManager.getInstance();
+		Transaction tr = tm.createTransaction();
 
-	    if (tr != null) {
-	        tr.start();
+		if (tr != null) {
+			tr.start();
 
-	        FactoriaQuery fq = FactoriaQuery.getInstance();
-	        Query q = fq.getNewQuery("CalcularImporteEmpleado");
+			FactoriaQuery fq = FactoriaQuery.getInstance();
+			Query q = fq.getNewQuery("CalcularImporteEmpleado");
 
-	        Object resultado = q.execute(idProducto);
+			Object resultado = q.execute(idProducto);
 
-	        if (resultado == null) {
-	            tr.rollback();
-	            return null;
-	        }
+			if (resultado == null) {
+				tr.rollback();
+				return null;
+			}
 
-	        if (resultado instanceof AbstractMap.SimpleEntry) {
-	            resultadoFinal = (AbstractMap.SimpleEntry<Integer, Integer>) resultado;
-	            tr.commit();
-	        } else {
-	            tr.rollback();
-	        }
-	    }
+			if (resultado instanceof AbstractMap.SimpleEntry) {
+				resultadoFinal = (AbstractMap.SimpleEntry<Integer, Integer>) resultado;
+				tr.commit();
+			} else {
+				tr.rollback();
+			}
+		}
 
-	    return resultadoFinal;
+		return resultadoFinal;
 	}
 
 }
