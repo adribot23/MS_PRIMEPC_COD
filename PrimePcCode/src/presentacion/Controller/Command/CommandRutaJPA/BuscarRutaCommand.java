@@ -10,10 +10,12 @@ public class BuscarRutaCommand implements Command {
 
 	@Override
 	public Context execute(Object data) {
-		TRuta ruta = SAAbstractFactory.getInstancia().generarSARuta().buscarRuta((int) data);
-		if (ruta != null)
+		TRuta ruta = SAAbstractFactory.getInstancia().generarSARuta().buscar_ruta((int) data);
+		if (ruta != null) {
 			return new Context(Evento.RES_BUSCAR_RUTA_OK, ruta);
-		else
+		} else {
 			return new Context(Evento.RES_BUSCAR_RUTA_KO, null);
+		}
 	}
+
 }

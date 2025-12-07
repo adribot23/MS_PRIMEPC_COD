@@ -12,10 +12,13 @@ public class MostrarRutasCommand implements Command {
 
 	@Override
 	public Context execute(Object data) {
-		Set<TRuta> rutas = SAAbstractFactory.getInstancia().generarSARuta().mostrarRutas();
-		if (rutas != null && !rutas.isEmpty())
+		Set<TRuta> rutas = SAAbstractFactory.getInstancia().generarSARuta().listar_rutas();
+		if (rutas != null && !rutas.isEmpty()) {
 			return new Context(Evento.RES_MOSTRAR_TODAS_RUTAS_OK, rutas);
-		else
+		} else {
 			return new Context(Evento.RES_MOSTRAR_TODAS_RUTAS_KO, null);
+		}
+
 	}
+
 }

@@ -10,10 +10,13 @@ public class AltaRutaCommand implements Command {
 
 	@Override
 	public Context execute(Object data) {
-		int res = SAAbstractFactory.getInstancia().generarSARuta().altaRuta((TRuta) data);
-		if (res > 0)
+		int res = SAAbstractFactory.getInstancia().generarSARuta().alta_ruta((TRuta) data);
+		if (res > 0) {
 			return new Context(Evento.RES_ALTA_RUTA_OK, res);
-		else
-			return new Context(Evento.RES_ALTA_RUTA_KO, null);
+		} else {
+			return new Context(Evento.RES_ALTA_RUTA_KO, res);
+		}
+
 	}
+
 }
