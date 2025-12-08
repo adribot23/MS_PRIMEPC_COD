@@ -42,11 +42,11 @@ public class TPaquete {
 	}
 	
 	public int getIdRuta() {
-		return this.activo;
+		return this.idRuta;
 	}
 	
 	public int getIdFactura() {
-		return this.activo;
+		return this.idFactura;
 	}
 	
 	public int getActivo() {
