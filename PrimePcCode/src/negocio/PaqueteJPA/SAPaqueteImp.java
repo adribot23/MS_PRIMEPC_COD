@@ -260,6 +260,7 @@ public class SAPaqueteImp implements SAPaquete {
                                        .createEntityManager();
 
         try {
+        	em.getTransaction().begin();
             TypedQuery<Paquete> query = em.createNamedQuery(
                     "negocio.PaqueteJPA.Paquete.findByRuta",
                     Paquete.class
@@ -275,6 +276,7 @@ public class SAPaqueteImp implements SAPaquete {
             }
         } catch (Exception e) {
             e.printStackTrace();
+            em.getTransaction().rollback();
         } finally {
             em.close();
         }
