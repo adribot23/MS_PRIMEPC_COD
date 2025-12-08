@@ -29,7 +29,8 @@ import negocio.TransporteJPA.Transporte;
 		@NamedQuery(name = "Negocio.TrabajadorJPA.Trabajador.findByDNI", query = "select t from Trabajador t where :DNI = t.DNI"),
 		@NamedQuery(name = "Negocio.TrabajadorJPA.Trabajador.findBynombre", query = "select t from Trabajador t where :nombre = t.nombre"),
 		@NamedQuery(name = "Negocio.TrabajadorJPA.Trabajador.findByactivo", query = "select t from Trabajador t where :activo = t.activo"),
-		@NamedQuery(name = "Negocio.TrabajadorJPA.Trabajador.findByversion", query = "select t from Trabajador t where :version = t.version") })
+		@NamedQuery(name = "Negocio.TrabajadorJPA.Trabajador.findByversion", query = "select t from Trabajador t where :version = t.version"),
+		@NamedQuery(name = "negocio.TrabajadorJPA.Trabajador.findAll", query = "select t from Trabajador t") })
 public class Trabajador {
 	
 	private static final long serialVersionUID = 0;
@@ -47,7 +48,7 @@ public class Trabajador {
 	@Column(name = "ACTIVO")
 	private int activo;
 	
-	@ManyToMany
+	@ManyToMany(mappedBy= "trabajadores")
 	@JoinTable(name = "transporte_trabajador", joinColumns = @JoinColumn(name = "id_trabajador"), inverseJoinColumns = @JoinColumn(name = "id_transporte"))
 	private Set<Transporte> transportes;
 	

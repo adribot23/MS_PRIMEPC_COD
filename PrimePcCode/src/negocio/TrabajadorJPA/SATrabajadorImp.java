@@ -28,9 +28,11 @@ public class SATrabajadorImp implements SATrabajador {
 			tr.begin();
 			
 
-			Trabajador r = em
+			List<Trabajador> listaTrabajador = em
 					.createNamedQuery("Negocio.TrabajadorJPA.Trabajador.findByDNI", Trabajador.class)
-					.setParameter("DNI", trabajador.getDNI()).getSingleResult();
+					.setParameter("DNI", trabajador.getDNI()).getResultList();
+			
+			Trabajador r = listaTrabajador.isEmpty() ? null : listaTrabajador.get(0);
 
 			//Trabajador r = listaTrabajador;
 
@@ -153,7 +155,7 @@ public class SATrabajadorImp implements SATrabajador {
 		try {
 
 			em.getTransaction().begin();
-			Trabajador trabajadorByID = em.find(Trabajador.class, LockModeType.OPTIMISTIC);
+			Trabajador trabajadorByID = em.find(Trabajador.class,id_trabajador, LockModeType.OPTIMISTIC);
 
 			if (trabajadorByID != null) {
 				trabajador = trabajadorByID.entityToTransfer();
@@ -183,13 +185,17 @@ public class SATrabajadorImp implements SATrabajador {
 
 			TypedQuery<Trabajador> query = em.createNamedQuery("negocio.TrabajadorJPA.Trabajador.findAll",
 					Trabajador.class);
-			Set<Trabajador> listaTrabajadores = new LinkedHashSet<>(query.getResultList());
+			query.setLockMode(LockModeType.OPTIMISTIC);
+			List<Trabajador> listaTrabajadores = query.getResultList();
 
-			for (Trabajador t: listaTrabajadores) {
-				em.lock(t, LockModeType.OPTIMISTIC);
-
-				TTrabajador tt = t.entityToTransfer();
-				trabajadores.add(tt);
+			if(!listaTrabajadores.isEmpty()) {
+				for (Trabajador t: listaTrabajadores) {
+					TTrabajador tt = t.entityToTransfer();
+					trabajadores.add(tt);
+				}
+			}
+			else {
+				tr.rollback();
 			}
 
 		} catch (Exception e) {
