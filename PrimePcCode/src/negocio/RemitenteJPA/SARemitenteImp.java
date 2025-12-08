@@ -24,7 +24,7 @@ public class SARemitenteImp implements SARemitente {
 		try {
 			tr.begin();
 
-			TypedQuery<Remitente> query = em.createNamedQuery("Negocio.RemitenteJPA.Remitente.findByNombre",
+			TypedQuery<Remitente> query = em.createNamedQuery("Negocio.RemitenteJPA.Remitente.findBynombre",
 					Remitente.class);
 
 			query.setParameter("nombre", tRemitente.getNombre());

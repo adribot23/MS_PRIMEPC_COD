@@ -20,6 +20,16 @@ import presentacion.Empleado.VBuscarEmpleado;
 import presentacion.Empleado.VCalcularImporteMasVendido;
 import presentacion.Empleado.VModificarEmpleado;
 import presentacion.Empleado.VMostrarEmpleado;
+import presentacion.FacturaJPA.GUIFactura;
+import presentacion.FacturaJPA.VAbrirFactura;
+import presentacion.FacturaJPA.VAnyadirPaquete;
+import presentacion.FacturaJPA.VBuscarFactura;
+import presentacion.FacturaJPA.VCerrarFactura;
+import presentacion.FacturaJPA.VDevolucion;
+import presentacion.FacturaJPA.VEliminarPaquete;
+import presentacion.FacturaJPA.VListarFacturasPorRemitente;
+import presentacion.FacturaJPA.VModificarFactura;
+import presentacion.FacturaJPA.VMostrarFactura;
 import presentacion.PaqueteJPA.GUIPaquete;
 import presentacion.PaqueteJPA.VAltaPaquete;
 import presentacion.PaqueteJPA.VBajaPaquete;
@@ -513,6 +523,49 @@ public class GUIAbstractFactoryImp extends GUIAbstractFactory {
 		case RES_VER_PAQUETES_POR_RUTA_OK:
 		case RES_VER_PAQUETES_POR_RUTA_KO:
 			return new VVerPaquetesPorRuta();
+			
+			/*
+			 * ============================== ======== PAQUETE ==============================
+			 */
+		case FACTURA:
+			return new GUIFactura();
+		case VABRIR_FACTURA:
+		case RES_ABRIR_FACTURA_OK:
+		case RES_ABRIR_FACTURA_KO:
+			return new VAbrirFactura();
+		case VCERRAR_FACTURA:
+		case RES_CERRAR_FACTURA_OK:
+		case RES_CERRAR_FACTURA_KO:
+			return new VCerrarFactura();
+		case VINSERTAR_PAQUETE_FACTURA:
+		case RES_INSERTAR_PAQUETE_FACTURA_OK:
+		case RES_INSERTAR_PAQUETE_FACTURA_KO:
+			return new VAnyadirPaquete();
+		case VQUITAR_PAQUETE_FACTURA:
+		case RES_QUITAR_PAQUETE_FACTURA_OK:
+		case RES_QUITAR_PAQUETE_FACTURA_KO:
+			return new VEliminarPaquete();
+		case VMODIFICAR_FACTURA:
+		case RES_MODIFICAR_FACTURA_OK:
+		case RES_MODIFICAR_FACTURA_KO:
+			return new VModificarFactura();
+		case VBUSCAR_FACTURA:
+		case RES_BUSCAR_FACTURA_OK:
+		case RES_BUSCAR_FACTURA_KO:
+			return new VBuscarFactura();
+		case VMOSTRAR_TODAS_FACTURAS:
+		case RES_MOSTRAR_TODAS_FACTURAS_OK:
+		case RES_MOSTRAR_TODAS_FACTURAS_KO:
+			return new VMostrarFactura();
+		case VVER_FACTURAS_POR_REMITENTE:
+		case RES_VER_FACTURAS_POR_REMITENTE_OK:
+		case RES_VER_FACTURAS_POR_REMITENTE_KO:
+			return new VListarFacturasPorRemitente();
+		case VDEVOLUCION:
+		case RES_DEVOLUCION_OK:
+		case RES_DEVOLUCION_KO:
+			return new VDevolucion();
+
 
 		default:
 			return null;
