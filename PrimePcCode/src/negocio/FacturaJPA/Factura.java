@@ -6,6 +6,7 @@ package negocio.FacturaJPA;
 import jakarta.persistence.Entity;
 import java.io.Serializable;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.NamedQueries;
@@ -22,7 +23,8 @@ import jakarta.persistence.ManyToOne;
 		@NamedQuery(name = "negocio.FacturaJPA.Factura.findByprecio_total", query = "select obj from Factura obj where :precio_total = obj.precio_total "),
 		@NamedQuery(name = "negocio.FacturaJPA.Factura.findByremitente", query = "select obj from Factura obj where :remitente = obj.remitente "),
 		@NamedQuery(name = "negocio.FacturaJPA.Factura.findBylineaFactura", query = "select obj from Factura obj where :lineaFactura MEMBER OF obj.lineaFactura "),
-		@NamedQuery(name = "negocio.FacturaJPA.Factura.findBypaquete", query = "select obj from Factura obj where :paquete = obj.paquete ") })
+		//@NamedQuery(name = "negocio.FacturaJPA.Factura.findBypaquete", query = "select obj from Factura obj where :paquete = obj.paquete ")
+		})
 public class Factura implements Serializable {
 
 	private static final long serialVersionUID = 0;
@@ -41,6 +43,7 @@ public class Factura implements Serializable {
 	private Set<LineaFactura> lineaFactura;
 
 	@ManyToOne
+	@JoinColumn(name="id_remitente")
 	private Remitente remitente;
 
 	public Factura() {

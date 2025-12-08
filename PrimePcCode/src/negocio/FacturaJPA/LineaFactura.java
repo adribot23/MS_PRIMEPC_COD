@@ -4,6 +4,8 @@
 package negocio.FacturaJPA;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+
 import java.io.Serializable;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.NamedQuery;
@@ -34,6 +36,7 @@ public class LineaFactura implements Serializable {
 	private Integer version;
 
 	@ManyToOne
+	@JoinColumn(name="id_factura")
 	private Factura factura;
 
 	@OneToOne
