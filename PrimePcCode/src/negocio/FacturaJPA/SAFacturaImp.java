@@ -183,7 +183,7 @@ public class SAFacturaImp implements SAFactura {
 		Set<TFactura> listaFacturas = new HashSet<TFactura>();
 		try {
 			em.getTransaction().begin();
-			TypedQuery<Factura> query = em.createQuery("SELECT f FROM Factura f", Factura.class); 
+			TypedQuery<Factura> query = em.createQuery("SELECT f FROM Factura f", Factura.class);
 			List<Factura> facturas = query.getResultList();
 			for (Factura f : facturas) {
 				// OPTIMISTA por si se modifica factura en otro hilo y altera la version
@@ -248,20 +248,22 @@ public class SAFacturaImp implements SAFactura {
 		try {
 			em.getTransaction().begin();
 			Paquete paquete = em.find(Paquete.class, tCarritoFactura.get_idPaquete(), LockModeType.OPTIMISTIC);
-			Set<TLineaFactura> set = tCarritoFactura.get_tLineasFactura();
-			TLineaFactura lineaFactura = (buscar_en_carrito(set, tCarritoFactura.get_idPaquete()));
+			if (paquete != null) {
+				Set<TLineaFactura> set = tCarritoFactura.get_tLineasFactura();
+				TLineaFactura lineaFactura = (buscar_en_carrito(set, tCarritoFactura.get_idPaquete()));
 
-			if (lineaFactura == null) {
-				lineaFactura = new TLineaFactura();
-				lineaFactura.set_idPaquete(paquete.getId());
-				lineaFactura.set_precioTotal(paquete.getPrecio());
-				set.add(lineaFactura);
-				tCarritoFactura.set_tLineasFactura(set);
-				res = 1;
-				em.getTransaction().commit();
-			} else
-				em.getTransaction().rollback();
-
+				if (lineaFactura == null) {
+					lineaFactura = new TLineaFactura();
+					lineaFactura.set_idPaquete(paquete.getId());
+					lineaFactura.set_precioTotal(paquete.getPrecio());
+					set.add(lineaFactura);
+					tCarritoFactura.set_tLineasFactura(set);
+					res = 1;
+					em.getTransaction().commit();
+				} else
+					em.getTransaction().rollback();
+			}
+			else em.getTransaction().rollback();
 		} catch (Exception e) {
 			em.getTransaction().rollback();
 			e.printStackTrace();

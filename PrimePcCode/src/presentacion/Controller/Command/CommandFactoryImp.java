@@ -26,6 +26,9 @@ import presentacion.Controller.Command.CommandFacturaJPA.EliminarPaqueteCommand;
 import presentacion.Controller.Command.CommandFacturaJPA.ListarFacturasPorRemitenteCommand;
 import presentacion.Controller.Command.CommandFacturaJPA.ModificarFacturaCommand;
 import presentacion.Controller.Command.CommandFacturaJPA.MostrarFacturasCommand;
+import presentacion.Controller.Command.CommandFacturaJPA.PasarCarritoFacturaACerrarCommand;
+import presentacion.Controller.Command.CommandFacturaJPA.PasarCarritoFacturaAEliminarCommand;
+import presentacion.Controller.Command.CommandFacturaJPA.PasarCarritoFacturaAInsertarCommand;
 import presentacion.Controller.Command.CommandPaqueteJPA.AltaPaqueteCommand;
 import presentacion.Controller.Command.CommandPaqueteJPA.BajaPaqueteCommand;
 import presentacion.Controller.Command.CommandPaqueteJPA.BuscarPaqueteCommand;
@@ -49,6 +52,12 @@ import presentacion.Controller.Command.CommandProveedor.MostrarProveedoresComman
 import presentacion.Controller.Command.CommandProveedor.ProveedorConMasUnidadesDeProductoVendidasCommand;
 import presentacion.Controller.Command.CommandProveedor.VerProvPorProductoCommand;
 import presentacion.Controller.Command.CommandProveedor.VincularProveedorProductoCommand;
+import presentacion.Controller.Command.CommandRemitenteJPA.AltaRemitenteCommand;
+import presentacion.Controller.Command.CommandRemitenteJPA.BajaRemitenteCommand;
+import presentacion.Controller.Command.CommandRemitenteJPA.BuscarRemitenteCommand;
+import presentacion.Controller.Command.CommandRemitenteJPA.CalcularPrecioPaquetesRemitenteCommand;
+import presentacion.Controller.Command.CommandRemitenteJPA.ModificarRemitenteCommand;
+import presentacion.Controller.Command.CommandRemitenteJPA.MostrarRemitentesCommand;
 import presentacion.Controller.Command.CommandRutaJPA.AltaRutaCommand;
 import presentacion.Controller.Command.CommandRutaJPA.BajaRutaCommand;
 import presentacion.Controller.Command.CommandRutaJPA.BuscarRutaCommand;
@@ -58,12 +67,6 @@ import presentacion.Controller.Command.CommandRutaJPA.MostrarRutasCommand;
 import presentacion.Controller.Command.CommandRutaJPA.VerRutasPorTrabajadorCommand;
 import presentacion.Controller.Command.CommandRutaJPA.VerTrabajadoresPorRutaCommand;
 import presentacion.Controller.Command.CommandRutaJPA.VincularRutaTrabajadorCommand;
-import presentacion.Controller.Command.CommandRemitenteJPA.AltaRemitenteCommand;
-import presentacion.Controller.Command.CommandRemitenteJPA.BajaRemitenteCommand;
-import presentacion.Controller.Command.CommandRemitenteJPA.BuscarRemitenteCommand;
-import presentacion.Controller.Command.CommandRemitenteJPA.CalcularPrecioPaquetesRemitenteCommand;
-import presentacion.Controller.Command.CommandRemitenteJPA.ModificarRemitenteCommand;
-import presentacion.Controller.Command.CommandRemitenteJPA.MostrarRemitentesCommand;
 import presentacion.Controller.Command.CommandTrabajadorJPA.AltaTrabajadorCommand;
 import presentacion.Controller.Command.CommandTrabajadorJPA.BajaTrabajadorCommand;
 import presentacion.Controller.Command.CommandTrabajadorJPA.BuscarTrabajadorCommand;
@@ -377,6 +380,15 @@ public class CommandFactoryImp extends CommandFactory {
  		case DEVOLUCION:
  			command = new DevolucionCommand();
  			break;
+ 		case PASAR_CARRITOFACTURA_A_INSERTAR:
+			command = new PasarCarritoFacturaAInsertarCommand();
+			break;
+		case PASAR_CARRITOFACTURA_A_ELIMINAR:
+			command = new PasarCarritoFacturaAEliminarCommand();
+			break;
+		case PASAR_CARRITOFACTURA_A_CERRAR:
+			command = new PasarCarritoFacturaACerrarCommand();
+			break;
 
 		 // --- TRABAJADOR ---
 		 		case ALTA_TRABAJADOR:

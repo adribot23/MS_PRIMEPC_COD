@@ -134,13 +134,13 @@ public class VAnyadirPaquete extends JFrame implements IGUI {
 			if (datos instanceof TCarritoFactura) {
 				Controlador.getInstancia().accion(new Context(Evento.PASAR_CARRITOFACTURA_A_CERRAR, datos));
 			} else {
-				Controlador.getInstancia().accion(new Context(Evento.PASAR_CARRITOFACTURA_A_CERRAR, carrito));
+				Controlador.getInstancia().accion(new Context(Evento.PASAR_CARRITOFACTURA_A_CERRAR, datos));
 			}
 			break;
 		case RES_INSERTAR_PAQUETE_FACTURA_KO:
 			cerrarTodasLasVentanasDeEsteipo();
 			JOptionPane.showMessageDialog(null, "No se pudo añadir el paquete al carrito. Compruebe los datos.");
-			Controlador.getInstancia().accion(new Context(Evento.PASAR_CARRITOFACTURA_A_CERRAR, carrito));
+			Controlador.getInstancia().accion(new Context(Evento.PASAR_CARRITOFACTURA_A_CERRAR, datos));
 			break;
 		default:
 			break;

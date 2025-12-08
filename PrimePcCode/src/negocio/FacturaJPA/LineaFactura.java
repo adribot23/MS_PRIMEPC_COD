@@ -4,6 +4,8 @@
 package negocio.FacturaJPA;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.JoinColumn;
 
 import java.io.Serializable;
@@ -11,6 +13,7 @@ import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.NamedQuery;
 
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.SequenceGenerator;
 import negocio.PaqueteJPA.Paquete;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.ManyToOne;
@@ -27,6 +30,8 @@ public class LineaFactura implements Serializable {
 
 	private static final long serialVersionUID = 0;
 
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_lineafactura")
+	@SequenceGenerator(name = "seq_lineafactura", sequenceName = "LINEAFACTURA_SEQ", allocationSize = 1)
 	@EmbeddedId
 	private LineaFacturaID id;
 
