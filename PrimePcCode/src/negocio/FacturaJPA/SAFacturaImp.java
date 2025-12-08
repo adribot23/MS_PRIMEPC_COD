@@ -65,7 +65,7 @@ public class SAFacturaImp implements SAFactura {
 							.createNamedQuery("negocio.FacturaJPA.LineaFactura.findBypaquete", LineaFactura.class)
 							.setParameter("paquete", paquete);
 
-					if (paquete != null && paquete.getActivo() == 1 && paquete.getFactura().get_idFactura() == null) {
+					if (paquete != null && paquete.getActivo() == 1 ) {
 
 						for (LineaFactura l : queryf.getResultList()) {
 							if (l.get_devuelto() != 1)

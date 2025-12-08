@@ -23,7 +23,6 @@ import jakarta.persistence.ManyToOne;
 		@NamedQuery(name = "negocio.FacturaJPA.Factura.findByprecio_total", query = "select obj from Factura obj where :precio_total = obj.precio_total "),
 		@NamedQuery(name = "negocio.FacturaJPA.Factura.findByremitente", query = "select obj from Factura obj where :remitente = obj.remitente "),
 		@NamedQuery(name = "negocio.FacturaJPA.Factura.findBylineaFactura", query = "select obj from Factura obj where :lineaFactura MEMBER OF obj.lineaFactura "),
-		//@NamedQuery(name = "negocio.FacturaJPA.Factura.findBypaquete", query = "select obj from Factura obj where :paquete = obj.paquete ")
 		})
 public class Factura implements Serializable {
 
