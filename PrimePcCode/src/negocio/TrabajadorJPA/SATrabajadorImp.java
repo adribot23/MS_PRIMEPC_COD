@@ -155,7 +155,7 @@ public class SATrabajadorImp implements SATrabajador {
 		try {
 
 			em.getTransaction().begin();
-			Trabajador trabajadorByID = em.find(Trabajador.class, LockModeType.OPTIMISTIC);
+			Trabajador trabajadorByID = em.find(Trabajador.class,id_trabajador, LockModeType.OPTIMISTIC);
 
 			if (trabajadorByID != null) {
 				trabajador = trabajadorByID.entityToTransfer();

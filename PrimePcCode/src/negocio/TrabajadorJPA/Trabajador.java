@@ -48,7 +48,7 @@ public class Trabajador {
 	@Column(name = "ACTIVO")
 	private int activo;
 	
-	@ManyToMany
+	@ManyToMany(mappedBy= "trabajadores")
 	@JoinTable(name = "transporte_trabajador", joinColumns = @JoinColumn(name = "id_trabajador"), inverseJoinColumns = @JoinColumn(name = "id_transporte"))
 	private Set<Transporte> transportes;
 	
