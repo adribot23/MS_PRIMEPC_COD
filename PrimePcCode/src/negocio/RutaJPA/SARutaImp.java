@@ -31,6 +31,7 @@ public class SARutaImp implements SARuta {
 			if (rutas.isEmpty()) {
 
 				Ruta ruta = new Ruta(truta);
+				ruta.setActivo(1);
 				em.persist(ruta);
 				em.getTransaction().commit();
 				res = ruta.getId();
@@ -168,7 +169,7 @@ public class SARutaImp implements SARuta {
 			em.getTransaction().begin();
 
 		
-			TypedQuery<Ruta> query = em.createQuery("SELECT r FROM Modelo r", Ruta.class);
+			TypedQuery<Ruta> query = em.createQuery("SELECT r FROM Ruta r", Ruta.class);
 			query.setLockMode(LockModeType.OPTIMISTIC);
 
 			List<Ruta> result = query.getResultList();
