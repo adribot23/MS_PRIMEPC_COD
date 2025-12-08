@@ -24,7 +24,6 @@ import negocio.TransporteJPA.Transporte;
 
 @Table(uniqueConstraints = { @UniqueConstraint(columnNames = "DNI") })
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
 @NamedQueries({
 		@NamedQuery(name = "Negocio.TrabajadorJPA.Trabajador.findByid", query = "select t from Trabajador t where :id_trabajador = t.id_trabajador"),
 		@NamedQuery(name = "Negocio.TrabajadorJPA.Trabajador.findByDNI", query = "select t from Trabajador t where :DNI = t.DNI"),

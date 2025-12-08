@@ -28,11 +28,11 @@ public class SATrabajadorImp implements SATrabajador {
 			tr.begin();
 			
 
-			List<Trabajador> listaTrabajador = em
+			Trabajador r = em
 					.createNamedQuery("Negocio.TrabajadorJPA.Trabajador.findByDNI", Trabajador.class)
-					.setParameter("DNI", trabajador.getDNI()).getResultList();
+					.setParameter("DNI", trabajador.getDNI()).getSingleResult();
 
-			Trabajador r = listaTrabajador.isEmpty() ? null : listaTrabajador.get(0);
+			//Trabajador r = listaTrabajador;
 
 			if (r == null) {
 				// Lo persisto como nuevo
