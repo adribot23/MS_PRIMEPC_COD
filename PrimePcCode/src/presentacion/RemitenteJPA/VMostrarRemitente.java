@@ -13,6 +13,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
+import negocio.RemitenteJPA.TEmpresa;
+import negocio.RemitenteJPA.TParticular;
 import negocio.RemitenteJPA.TRemitente;
 import presentacion.Controller.Controlador;
 import presentacion.Controller.Command.Context;
@@ -23,23 +25,21 @@ public class VMostrarRemitente extends JFrame implements IGUI {
 
 	private static final long serialVersionUID = 1L;
 	private JButton btnMostrar, btnVolver;
-	private JTable tabla;
 
 	public VMostrarRemitente() {
 		super("Mostrar Remitentes");
 		initGUI();
 	}
 
-	private void initGUI() {
+	private void initGUI() {		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setSize(600, 400);
+		setSize(400, 200);
 		setLocationRelativeTo(null);
 
-		// Panel superior con botones
-		JPanel panelBotones = new JPanel(new GridLayout(1, 2, 10, 10));
-		panelBotones.setBorder(BorderFactory.createTitledBorder("Remitentes"));
+		JPanel panel = new JPanel(new GridLayout(2, 1, 10, 10));
+		panel.setBorder(BorderFactory.createTitledBorder("Mostrar Transportes"));
 
-		btnMostrar = new JButton("Mostrar todos los Remitentes");
+		btnMostrar = new JButton("Mostrar todos los remitentes");
 		btnMostrar.setBackground(new Color(200, 255, 200));
 		btnMostrar.addActionListener(
 				e -> Controlador.getInstancia().accion(new Context(Evento.MOSTRAR_TODOS_REMITENTES, null)));
@@ -51,20 +51,13 @@ public class VMostrarRemitente extends JFrame implements IGUI {
 			dispose();
 		});
 
-		panelBotones.add(btnMostrar);
-		panelBotones.add(btnVolver);
+		panel.add(btnMostrar);
+		panel.add(btnVolver);
+		add(panel);
 
-		// Tabla con scroll
-		tabla = new JTable();
-		tabla.setFillsViewportHeight(true);
-		tabla.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
-		tabla.setEnabled(false);
-		JScrollPane scroll = new JScrollPane(tabla);
-
-		// Layout principal
-		setLayout(new BorderLayout(10, 10));
-		add(panelBotones, BorderLayout.NORTH);
-		add(scroll, BorderLayout.CENTER);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setSize(300, 150);
+		setLocationRelativeTo(null);
 	}
 
 	@Override
@@ -91,18 +84,48 @@ public class VMostrarRemitente extends JFrame implements IGUI {
 	}
 
 	private void mostrarTabla(Set<TRemitente> Remitentes) {
-		String[] columnas = { "ID", "Telefono", "Direccion", "Activo" };
+		String[] columnas = { "ID", "Nombre", "Telefono", "Direccion", "Activo", "Tipo", "Num. Registro Fiscal", "Fecha Nacimiento" };
 		Object[][] datos = new Object[Remitentes.size()][columnas.length];
 
 		int i = 0;
-		for (TRemitente t : Remitentes) {
-			datos[i][0] = t.getId();
-			datos[i][2] = t.getTelefono();
-			datos[i][3] = t.getDireccion();
-			datos[i][4] = t.getActivo();
-			i++;
-		}
+	    for (TRemitente t : Remitentes) {
 
-		tabla.setModel(new javax.swing.table.DefaultTableModel(datos, columnas));
+	        datos[i][0] = t.getId();
+	        datos[i][1] = t.getNombre();
+	        datos[i][2] = t.getTelefono();
+	        datos[i][3] = t.getDireccion();
+	        datos[i][4] = t.getActivo();
+
+	        if (t instanceof TEmpresa) {
+	            TEmpresa e = (TEmpresa) t;
+
+	            datos[i][5] = "Empresa";
+	            datos[i][6] = e.getNumRegistroFiscal();
+	            datos[i][7] = "---";               
+	        } 
+	        else if (t instanceof TParticular) {
+	            TParticular p = (TParticular) t;
+
+	            datos[i][5] = "Particular";
+	            datos[i][6] = "---";               
+	            datos[i][7] = p.getFechaNacimiento(); 
+	        } 
+	        else {
+	            datos[i][4] = "Desconocido";
+	            datos[i][5] = "---";
+	            datos[i][6] = "---";
+	        }
+
+	        i++;
+	    }
+
+	    JTable table = new JTable(datos, columnas);
+		table.setFillsViewportHeight(true);
+		table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+		table.setEnabled(false);
+
+		JScrollPane scrollPane = new JScrollPane(table);
+		scrollPane.setPreferredSize(new java.awt.Dimension(900, 400));
+		JOptionPane.showMessageDialog(null, scrollPane, "Remitentes", JOptionPane.PLAIN_MESSAGE);
 	}
 }

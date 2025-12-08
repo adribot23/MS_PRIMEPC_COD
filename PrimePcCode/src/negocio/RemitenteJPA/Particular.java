@@ -1,19 +1,27 @@
 package negocio.RemitenteJPA;
 
-import jakarta.persistence.Entity;
 import java.io.Serializable;
-import jakarta.persistence.NamedQuery;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 import jakarta.persistence.NamedQueries;
+import jakarta.persistence.NamedQuery;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "PARTICULAR")
 @NamedQueries({
-		@NamedQuery(name = "Negocio.RemitenteJPA.Particular.findByfechaNacimiento", query = "select p from Particular p where :fechaNacimiento = p.fechaNacimiento") })
+		@NamedQuery(name = "Negocio.RemitenteJPA.Particular.findByfechaNacimiento", query = "select p from Particular p where p.fechaNacimiento = :fechaNacimiento") })
 public class Particular extends Remitente implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	@Column(name = "NACIMIENTO")
 	private String fechaNacimiento;
-	public Particular() {}
+
+	public Particular() {
+	}
+
 	public Particular(TParticular particular) {
 		super(particular);
 		this.fechaNacimiento = particular.getFechaNacimiento();
@@ -41,5 +49,4 @@ public class Particular extends Remitente implements Serializable {
 
 		return particular;
 	}
-
 }
