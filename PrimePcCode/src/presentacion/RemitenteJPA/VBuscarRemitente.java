@@ -10,6 +10,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
+import negocio.RemitenteJPA.TEmpresa;
+import negocio.RemitenteJPA.TParticular;
 import negocio.RemitenteJPA.TRemitente;
 import presentacion.Controller.Controlador;
 import presentacion.Controller.Command.Context;
@@ -72,8 +74,20 @@ public class VBuscarRemitente extends JFrame implements IGUI {
 
 		case RES_BUSCAR_REMITENTE_OK:
 			TRemitente t = (TRemitente) context.getDatos();
-			JOptionPane.showMessageDialog(null, "ID: " + t.getId() + "\nNombre: " + t.getNombre() + "\nTeléfono: "
-					+ t.getTelefono() + "\nDirección: " + t.getDireccion() + "\nActivo: " + t.getActivo());
+
+			String msg = "ID: " + t.getId() + "\nNombre: " + t.getNombre() + "\nTeléfono: " + t.getTelefono()
+					+ "\nDirección: " + t.getDireccion() + "\nActivo: " + t.getActivo();
+
+			// === DETECCIÓN DEL SUBTIPO ===
+			if (t instanceof TEmpresa) {
+				TEmpresa e = (TEmpresa) t;
+				msg += "\nTipo: Empresa" + "\nNúmero Registro Fiscal: " + e.getNumRegistroFiscal();
+			} else if (t instanceof TParticular) {
+				TParticular p = (TParticular) t;
+				msg += "\nTipo: Particular" + "\nFecha de nacimiento: " + p.getFechaNacimiento();
+			}
+
+			JOptionPane.showMessageDialog(null, msg);
 			break;
 
 		case RES_BUSCAR_REMITENTE_KO:

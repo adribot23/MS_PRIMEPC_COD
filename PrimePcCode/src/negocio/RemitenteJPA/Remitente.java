@@ -1,95 +1,75 @@
 package negocio.RemitenteJPA;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Inheritance;
-
 import java.io.Serializable;
-import jakarta.persistence.NamedQuery;
-import jakarta.persistence.SequenceGenerator;
-import jakarta.persistence.Version;
-import negocio.FacturaJPA.Factura;
-import jakarta.persistence.InheritanceType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.NamedQueries;
+// import java.util.Set;   // Ya NO hace falta si quitamos facturas
+
+import jakarta.persistence.*;
 
 @Entity
+@Table(name = "REMITENTE")
 @Inheritance(strategy = InheritanceType.JOINED)
 @NamedQueries({
-		@NamedQuery(name = "Negocio.RemitenteJPA.Remitente.findByid", query = "select r from Remitente r where :id_remitente = r.id_remitente"),
-		@NamedQuery(name = "Negocio.RemitenteJPA.Remitente.findBydireccion", query = "select r from Remitente r where :direccion = r.direccion"),
-		@NamedQuery(name = "Negocio.RemitenteJPA.Remitente.findBynombre", query = "select r from Remitente r where :nombre = r.nombre"),
-		@NamedQuery(name = "Negocio.RemitenteJPA.Remitente.findBytelefono", query = "select r from Remitente r where :telefono = r.telefono"),
-		@NamedQuery(name = "Negocio.RemitenteJPA.Remitente.findByactivo", query = "select r from Remitente r where :activo = r.activo"),
-		@NamedQuery(name = "Negocio.RemitenteJPA.Remitente.findByversion", query = "select r from Remitente r where :version = r.version") })
+		@NamedQuery(name = "Negocio.RemitenteJPA.Remitente.findByid", query = "select r from Remitente r where r.id_remitente = :id_remitente"),
+		@NamedQuery(name = "Negocio.RemitenteJPA.Remitente.findBynombre", query = "select r from Remitente r where r.nombre = :nombre"),
+		@NamedQuery(name = "Negocio.RemitenteJPA.Remitente.findBydireccion", query = "select r from Remitente r where r.direccion = :direccion"),
+		@NamedQuery(name = "Negocio.RemitenteJPA.Remitente.findBytelefono", query = "select r from Remitente r where r.telefono = :telefono"),
+		@NamedQuery(name = "Negocio.RemitenteJPA.Remitente.findByactivo", query = "select r from Remitente r where r.activo = :activo"),
+		@NamedQuery(name = "Negocio.RemitenteJPA.Remitente.findByversion", query = "select r from Remitente r where r.version = :version") })
 public class Remitente implements Serializable {
 
-	private static final long serialVersionUID = 0;
+	private static final long serialVersionUID = 1L;
 
-	@ManyToOne
-	private Factura factura;
-
+	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_remitente")
 	@SequenceGenerator(name = "seq_remitente", sequenceName = "REMITENTE_SEQ", allocationSize = 1)
-	@Id
 	@Column(name = "ID")
 	private int id_remitente;
 
-	
-	private int activo;
+	private String nombre;
 	private String direccion;
 	private String telefono;
-	private String nombre;
 
-	public Remitente() {
-
-	}
-
-	public Remitente(TRemitente remitente) {
-		this.id_remitente = remitente.getId();
-		this.nombre = remitente.getNombre();
-		this.telefono = remitente.getTelefono();
-		this.activo = remitente.getActivo();
-		this.direccion = remitente.getDireccion();
-	}
-
-	public TRemitente entityToTransfer() {
-
-		TRemitente tremitente = new TRemitente();
-		tremitente.setId(this.id_remitente);
-		tremitente.setNombre(this.nombre);
-		tremitente.setActivo(this.activo);
-		tremitente.setDireccion(this.direccion);
-
-		return tremitente;
-
-	}
+	@Column(name = "ACTIVO")
+	private int activo;
 
 	@Version
 	private Integer version;
 
-	public Integer get_version() {
-		return version;
+	public Remitente() {
+	}
+
+	public Remitente(TRemitente t) {
+		// this.id_remitente = t.getId();
+		this.nombre = t.getNombre();
+		this.direccion = t.getDireccion();
+		this.telefono = t.getTelefono();
+		this.activo = t.getActivo();
+	}
+
+	public TRemitente entityToTransfer() {
+		TRemitente t = new TRemitente();
+		t.setId(id_remitente);
+		t.setNombre(nombre);
+		t.setDireccion(direccion);
+		t.setTelefono(telefono);
+		t.setActivo(activo);
+		return t;
 	}
 
 	public int getId() {
 		return id_remitente;
 	}
 
-	public void setId(int id_remitente) {
-		this.id_remitente = id_remitente;
+	public void setId(int id) {
+		this.id_remitente = id;
 	}
 
-	public int getActivo() {
-		return activo;
+	public String getNombre() {
+		return nombre;
 	}
 
-	public void setActivo(int activo) {
-		this.activo = activo;
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 
 	public String getDireccion() {
@@ -108,12 +88,16 @@ public class Remitente implements Serializable {
 		this.telefono = telefono;
 	}
 
-	public String getNombre() {
-		return nombre;
+	public int getActivo() {
+		return activo;
 	}
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public void setActivo(int activo) {
+		this.activo = activo;
+	}
+
+	public Integer getVersion() {
+		return version;
 	}
 
 }
