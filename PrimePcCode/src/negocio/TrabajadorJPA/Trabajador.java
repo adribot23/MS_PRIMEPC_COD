@@ -14,12 +14,12 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import jakarta.persistence.Version;
-
-
+import negocio.RutaJPA.VinculacionRutaTrabajador;
 import negocio.TransporteJPA.Transporte;
 
 @Table(uniqueConstraints = { @UniqueConstraint(columnNames = "DNI") })
@@ -51,6 +51,9 @@ public class Trabajador {
 	@ManyToMany
 	@JoinTable(name = "transporte_trabajador", joinColumns = @JoinColumn(name = "id_trabajador"), inverseJoinColumns = @JoinColumn(name = "id_transporte"))
 	private Set<Transporte> transportes;
+	
+	@OneToMany(mappedBy = "trabajador")
+	private Set<VinculacionRutaTrabajador> vinculaciones;
 	@Version
 	private Integer version;
 
@@ -116,6 +119,14 @@ public class Trabajador {
 
 	public Set<Transporte> getTransportes() {
 		return transportes;
+	}
+	
+	public Set<VinculacionRutaTrabajador> get_vinculaciones() {
+		return this.vinculaciones;
+	}
+	
+	public void set_vinculaciones(Set<VinculacionRutaTrabajador> vinculaciones) {
+		this.vinculaciones = vinculaciones;
 	}
 
 
