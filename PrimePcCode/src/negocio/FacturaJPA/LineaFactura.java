@@ -54,6 +54,16 @@ public class LineaFactura implements Serializable {
 		this.factura = factura;
 	}
 
+	public TLineaFactura toTransfer() {
+        TLineaFactura t = new TLineaFactura();
+        t.set_idFactura(id.get_idFactura());
+        t.set_devuelto(devuelto);
+        t.set_idPaquete(id.get_idPaquete());
+        t.set_precioTotal(precio_total);
+
+        return t;
+    }
+	
 	public Integer get_devuelto() {
 		return this.devuelto;
 	}

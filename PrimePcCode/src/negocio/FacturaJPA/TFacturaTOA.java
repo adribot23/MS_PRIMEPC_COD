@@ -12,8 +12,6 @@ public class TFacturaTOA {
 
 	private TFactura tFactura;
 
-	private TPaquete tPaquete;
-
 	private TRemitente tRemitente;
 
 	private Set<TLineaFactura> tLineasFactura;
@@ -23,10 +21,6 @@ public class TFacturaTOA {
 
 	public void set_tFactura(TFactura tFactura) {
 		this.tFactura = tFactura;
-	}
-
-	public void set_tPaquete(TPaquete tPaquete) {
-		this.tPaquete = tPaquete;
 	}
 
 	public void set_tRemitente(TRemitente tRemitente) {
@@ -39,10 +33,6 @@ public class TFacturaTOA {
 
 	public TFactura get_tFactura() {
 		return this.tFactura;
-	}
-
-	public Object get_tPaquete() {
-		return this.tPaquete;
 	}
 
 	public TRemitente get_tRemitente() {
