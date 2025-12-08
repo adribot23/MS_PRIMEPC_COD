@@ -20,13 +20,12 @@ public class SAPaqueteImp implements SAPaquete {
 
 	    try {
 	        em.getTransaction().begin();
-	        /*
+	        
 	        Ruta ruta = em.find(Ruta.class, tPaquete.getIdRuta());
 	        if (ruta == null || ruta.getActivo() == 0) { 
 	            em.getTransaction().rollback();
 	            return -1;
 	        }
-			*/
 	        List<Paquete> lista = em
 	                .createNamedQuery("Paquete.findByNumSerie", Paquete.class)
 	                .setParameter("numSerie", tPaquete.getNumSerie())
@@ -49,7 +48,7 @@ public class SAPaqueteImp implements SAPaquete {
 	                return -1;
 	            }
 
-	            //nuevo.setRuta(ruta);
+	            nuevo.setRuta(ruta);
 
 	            em.persist(nuevo);
 
@@ -64,7 +63,7 @@ public class SAPaqueteImp implements SAPaquete {
 	            existente.setPeso(tPaquete.getPeso());
 	            existente.setPrecio(tPaquete.getPrecio());
 	            existente.setEstado(tPaquete.getEstado());
-	            //existente.setRuta(ruta);
+	            existente.setRuta(ruta);
 
 	            em.lock(existente, LockModeType.OPTIMISTIC_FORCE_INCREMENT);
 
@@ -256,12 +255,18 @@ public class SAPaqueteImp implements SAPaquete {
     @Override
     public Set<TPaquete> mostrarPaquetesPorRuta(int id_ruta) {
         Set<TPaquete> setPaquetes = new LinkedHashSet<>();
-        EntityManager em = EMFSingleton.getInstancia().getEntityManagerFactory().createEntityManager();
+        EntityManager em = EMFSingleton.getInstancia()
+                                       .getEntityManagerFactory()
+                                       .createEntityManager();
 
         try {
-            TypedQuery<Paquete> query = em.createQuery(
-                "SELECT p FROM Paquete p WHERE p.ruta.id = :idRuta", Paquete.class);
+            TypedQuery<Paquete> query = em.createNamedQuery(
+                    "negocio.PaqueteJPA.Paquete.findByRuta",
+                    Paquete.class
+            );
+
             query.setParameter("idRuta", id_ruta);
+
             List<Paquete> paquetes = query.getResultList();
 
             for (Paquete p : paquetes) {
@@ -276,4 +281,5 @@ public class SAPaqueteImp implements SAPaquete {
 
         return setPaquetes;
     }
+
 }
