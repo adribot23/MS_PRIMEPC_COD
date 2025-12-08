@@ -11,6 +11,7 @@ import java.io.Serializable;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Version;
+import negocio.FacturaJPA.Factura;
 import jakarta.persistence.InheritanceType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -30,8 +31,7 @@ public class Remitente implements Serializable {
 	private static final long serialVersionUID = 0;
 
 	@ManyToOne
-	@JoinColumn(name = "FACTURA_ID")
-	//private FacturaJPA factura;
+	private Factura factura;
 
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_remitente")
 	@SequenceGenerator(name = "seq_remitente", sequenceName = "REMITENTE_SEQ", allocationSize = 1)
