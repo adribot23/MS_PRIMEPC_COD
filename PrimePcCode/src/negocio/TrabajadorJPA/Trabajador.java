@@ -57,14 +57,6 @@ public class Trabajador {
 	@Version
 	private Integer version;
 
-	/*
-	 * @ManyToMany private Ruta ruta;
-	 */
-
-	/*
-	 * @ManyToMany private Transporte transporte;
-	 */
-
 	public Trabajador() {
 	}
 
@@ -80,6 +72,7 @@ public class Trabajador {
 		tTrabajador.setId(this.id_trabajador);
 		tTrabajador.setDNI(DNI);
 		tTrabajador.setNombre(nombre);
+		tTrabajador.setActivo(activo);
 		return tTrabajador;
 	}
 
