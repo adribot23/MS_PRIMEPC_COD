@@ -63,6 +63,13 @@ import presentacion.RemitenteJPA.VBuscarRemitente;
 import presentacion.RemitenteJPA.VCalcularPrecioPaquete;
 import presentacion.RemitenteJPA.VModificarRemitente;
 import presentacion.RemitenteJPA.VMostrarRemitente;
+import presentacion.TrabajadorJPA.GUITrabajador;
+import presentacion.TrabajadorJPA.VAltaTrabajador;
+import presentacion.TrabajadorJPA.VBajaTrabajador;
+import presentacion.TrabajadorJPA.VBuscarTrabajador;
+import presentacion.TrabajadorJPA.VModificarTrabajador;
+import presentacion.TrabajadorJPA.VMostrarTrabajadorPorTransporte;
+import presentacion.TrabajadorJPA.VMostrarTrabajadores;
 import presentacion.TransporteJPA.GUITransporte;
 import presentacion.TransporteJPA.VAltaTransporte;
 import presentacion.TransporteJPA.VBajaTransporte;
@@ -525,6 +532,7 @@ public class GUIAbstractFactoryImp extends GUIAbstractFactory {
 			return new VVerPaquetesPorRuta();
 			
 			/*
+
 			 * ============================== ======== FACTURA ==============================
 			 */
 		case FACTURA:
@@ -571,6 +579,36 @@ public class GUIAbstractFactoryImp extends GUIAbstractFactory {
 		case RES_DEVOLUCION_OK:
 		case RES_DEVOLUCION_KO:
 			return new VDevolucion();
+/*
+			 * ============================== ======== TRABAJADOR ============
+			 * ==============================
+			 */
+			case TRABAJADOR:
+				return new GUITrabajador();
+			case VALTA_TRABAJADOR:
+			case RES_ALTA_TRABAJADOR_OK:
+			case RES_ALTA_TRABAJADOR_KO:
+				return new VAltaTrabajador();
+			case VBAJA_TRABAJADOR:
+			case RES_BAJA_TRABAJADOR_OK:
+			case RES_BAJA_TRABAJADOR_KO:
+				return new VBajaTrabajador();
+			case VBUSCAR_TRABAJADOR:
+			case RES_BUSCAR_TRABAJADOR_OK:
+			case RES_BUSCAR_TRABAJADOR_KO:
+				return new VBuscarTrabajador();
+			case VMODIFICAR_TRABAJADOR:
+			case RES_MODIFICAR_TRABAJADOR_OK:
+			case RES_MODIFICAR_TRABAJADOR_KO:
+				return new VModificarTrabajador();
+			case VMOSTRAR_TODOS_TRABAJADORES:
+			case RES_MOSTRAR_TODOS_TRABAJADORES_OK:
+			case RES_MOSTRAR_TODOS_TRABAJADORES_KO:
+				return new VMostrarTrabajadores();
+			case VVER_TRABAJADOR_POR_TRANSPORTE:
+			case RES_VER_TRABAJADOR_POR_TRANSPORTE_OK:
+			case RES_VER_TRABAJADOR_POR_TRANSPORTE_KO:
+				return new VMostrarTrabajadorPorTransporte();
 
 
 		default:

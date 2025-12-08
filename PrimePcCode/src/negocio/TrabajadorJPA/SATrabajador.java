@@ -4,11 +4,11 @@ import java.util.Set;
 
 public interface SATrabajador {
 
-	public int AltaTrabajador(TTrabajador trabajador);
+	public int altaTrabajador(TTrabajador trabajador);
 
-	public int BajaTrabajador(int id_trabajador);
+	public int bajaTrabajador(int id_trabajador);
 
-	public int ModificarTrabajador(TTrabajador trabajador);
+	public int modificarTrabajador(TTrabajador trabajador);
 
 	public TTrabajador leerTrabajador(int id_trabajador);
 
