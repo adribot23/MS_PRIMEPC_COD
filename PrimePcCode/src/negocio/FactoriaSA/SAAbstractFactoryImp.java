@@ -7,6 +7,8 @@ import negocio.Cliente.SACliente;
 import negocio.Cliente.SAClienteImp;
 import negocio.Empleado.SAEmpleado;
 import negocio.Empleado.SAEmpleadoImp;
+import negocio.FacturaJPA.SAFactura;
+import negocio.FacturaJPA.SAFacturaImp;
 import negocio.PaqueteJPA.SAPaquete;
 import negocio.PaqueteJPA.SAPaqueteImp;
 import negocio.Producto.SAProducto;
@@ -69,6 +71,10 @@ public class SAAbstractFactoryImp extends SAAbstractFactory {
 	@Override
 	public SATrabajador generarSATrabajador() {
 		return new SATrabajadorImp();
+	}
+	
+	public SAFactura generarSAFactura() {
+		return new SAFacturaImp();
 	}
 
 	@Override

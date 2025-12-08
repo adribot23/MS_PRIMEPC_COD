@@ -3,6 +3,7 @@ package negocio.RutaJPA;
 import java.io.Serializable;
 import java.util.Set;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -24,6 +25,7 @@ public class Ruta implements Serializable {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
 	@SequenceGenerator(name = "seq", sequenceName = "RUTA_SEQ", allocationSize = 1)
 	@Id
+	@Column(name = "ID")
 	private int id_ruta;
 
 	@Version

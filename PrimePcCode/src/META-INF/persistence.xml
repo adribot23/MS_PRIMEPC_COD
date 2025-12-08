@@ -15,11 +15,13 @@
         <class>negocio.PaqueteJPA.PaqueteExpress</class>
         <class>negocio.PaqueteJPA.PaqueteNormal</class>
         <class>negocio.TransporteJPA.Transporte</class>
-        <class>negocio.FacturaJPA</class>
+        <class>negocio.FacturaJPA.Factura</class>
+        <class>negocio.FacturaJPA.LineaFactura</class>
         <class>negocio.RemitenteJPA.Remitente</class>
         <class>negocio.RemitenteJPA.Particular</class>
         <class>negocio.RemitenteJPA.Empresa</class>
-        <class>negocio.RutaJPA</class>
+        <class>negocio.RutaJPA.Ruta</class>
+        <class>negocio.RutaJPA.VinculacionRutaTrabajador</class>
         <class>negocio.TrabajadorJPA.Trabajador</class>
 
         <shared-cache-mode>NONE</shared-cache-mode>
