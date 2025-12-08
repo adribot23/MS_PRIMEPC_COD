@@ -46,6 +46,12 @@ import presentacion.Controller.Command.CommandRemitenteJPA.BuscarRemitenteComman
 import presentacion.Controller.Command.CommandRemitenteJPA.CalcularPrecioPaquetesRemitenteCommand;
 import presentacion.Controller.Command.CommandRemitenteJPA.ModificarRemitenteCommand;
 import presentacion.Controller.Command.CommandRemitenteJPA.MostrarRemitentesCommand;
+import presentacion.Controller.Command.CommandTrabajadorJPA.AltaTrabajadorCommand;
+import presentacion.Controller.Command.CommandTrabajadorJPA.BajaTrabajadorCommand;
+import presentacion.Controller.Command.CommandTrabajadorJPA.BuscarTrabajadorCommand;
+import presentacion.Controller.Command.CommandTrabajadorJPA.ModificarTrabajadorCommand;
+import presentacion.Controller.Command.CommandTrabajadorJPA.MostrarTrabajadorCommand;
+import presentacion.Controller.Command.CommandTrabajadorJPA.MostrarTrabajadorPorTransporteCommand;
 import presentacion.Controller.Command.CommandTransporteJPA.AltaTransporteCommand;
 import presentacion.Controller.Command.CommandTransporteJPA.BajaTransporteCommand;
 import presentacion.Controller.Command.CommandTransporteJPA.BuscarTransporteCommand;
@@ -296,6 +302,25 @@ public class CommandFactoryImp extends CommandFactory {
 		    command = new VerPaquetesPorRutaCommand();
 		    break;
 
+		 // --- TRABAJADOR ---
+		 		case ALTA_TRABAJADOR:
+		 		    command = new AltaTrabajadorCommand();
+		 		    break;
+		 		case BAJA_TRABAJADOR:
+		 		    command = new BajaTrabajadorCommand();
+		 		    break;
+		 		case MODIFICAR_TRABAJADOR:
+		 		    command = new ModificarTrabajadorCommand();
+		 		    break;
+		 		case BUSCAR_TRABAJADOR:
+		 		    command = new BuscarTrabajadorCommand();
+		 		    break;
+		 		case MOSTRAR_TODOS_TRABAJADORES:
+		 		    command = new MostrarTrabajadorCommand();
+		 		    break;
+		 		case VER_TRABAJADOR_POR_TRANSPORTE:
+		 		    command = new MostrarTrabajadorPorTransporteCommand();
+		 		    break;
 		
 			
 		default:
