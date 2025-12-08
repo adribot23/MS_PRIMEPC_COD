@@ -32,9 +32,9 @@ import java.io.Serializable;
     ),
     */
     @NamedQuery(
-        name = "negocio.PaqueteJPA.Paquete.findByRuta",
-        query = "SELECT p FROM Paquete p WHERE p.id_ruta = :idRuta"
-    ),
+    	    name = "negocio.PaqueteJPA.Paquete.findByRuta",
+    	    query = "SELECT p FROM Paquete p WHERE p.ruta.id = :idRuta"
+    	),
     
     @NamedQuery(
             name = "Paquete.findByNumSerie",
