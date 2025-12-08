@@ -76,8 +76,7 @@ public class VMostrarFactura extends JFrame implements IGUI {
 		for (TFactura f : facturas) {
 			tableData[i][0] = f.get_idFactura();
 			tableData[i][1] = f.get_idRemitente();
-			tableData[i][2] = f.get_precioBruto();
-			tableData[i][3] = f.get_precioNeto();
+			tableData[i][2] = f.get_precioTotal();
 			i++;
 		}
 

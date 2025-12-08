@@ -93,8 +93,41 @@ public class SAFacturaImp implements SAFactura {
 	}
 
 	public Integer modificarFactura(TFactura tFactura) {
-		// begin-user-code
-		return -1;
+		int res = -1;
+		EntityManager em = EMFSingleton.getInstancia().getEntityManagerFactory().createEntityManager();
+		try {
+			em.getTransaction().begin();
+			Factura f = em.find(Factura.class, tFactura.get_idFactura());
+
+			if (f != null && f.get_activo() == 1 && tFactura.get_precioTotal() >= 0) {
+				Remitente remitenteActual = em.find(Remitente.class, f.get_Remitente().getId());
+				Remitente nuevoRemitente = em.find(Remitente.class, tFactura.get_idRemitente());
+
+				if (nuevoRemitente != null && nuevoRemitente.getActivo() == 1) {
+					if (nuevoRemitente.getId() != remitenteActual.getId()) {
+						em.lock(nuevoRemitente, LockModeType.OPTIMISTIC_FORCE_INCREMENT);
+						em.lock(remitenteActual, LockModeType.OPTIMISTIC_FORCE_INCREMENT);
+						f.set_Remitente(nuevoRemitente);
+					}
+					f.set_precioTotal(tFactura.get_precioTotal());
+					em.persist(f);
+					em.getTransaction().commit();
+					res = f.get_idFactura();
+				} else {
+					em.getTransaction().rollback();
+				}
+
+			} else {
+				em.getTransaction().rollback();
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			em.getTransaction().rollback();
+		} finally {
+			em.close();
+		}
+		return res;
 	}
 
 	public TFacturaTOA buscarFactura(Integer idFactura) {
@@ -133,7 +166,8 @@ public class SAFacturaImp implements SAFactura {
 		Set<TFactura> listaFacturas = new HashSet<TFactura>();
 		try {
 			em.getTransaction().begin();
-			TypedQuery<Factura> query = em.createQuery("SELECT a FROM Factura f", Factura.class);
+			TypedQuery<Factura> query = em.createQuery("SELECT a FROM Factura f", Factura.class); // CAMBIAR A
+																									// NAMEDQUERY
 
 			List<Factura> facturas = query.getResultList();
 			for (Factura f : facturas) {
@@ -145,6 +179,7 @@ public class SAFacturaImp implements SAFactura {
 			}
 			em.getTransaction().commit();
 		} catch (Exception e) {
+			em.getTransaction().rollback();
 			e.printStackTrace();
 		} finally {
 			em.close();
@@ -153,10 +188,33 @@ public class SAFacturaImp implements SAFactura {
 	}
 
 	public Integer devolucion(TLineaFactura tLineaFactura) {
-		// begin-user-code
-		// TODO Ap�ndice de m�todo generado autom�ticamente
-		return null;
-		// end-user-code
+		Integer res = -1;
+		EntityManager em = EMFSingleton.getInstancia().getEntityManagerFactory().createEntityManager();
+		try {
+			em.getTransaction().begin();
+			Factura f = em.find(Factura.class, tLineaFactura.get_idFactura());
+			if (f != null && f.get_activo() == 1) {
+				LineaFacturaID lineaFacturaID = new LineaFacturaID(tLineaFactura.get_idFactura(),
+						tLineaFactura.get_idPaquete());
+				LineaFactura lineaFactura = em.find(LineaFactura.class, lineaFacturaID);
+				if (lineaFactura != null) {
+
+					if (lineaFactura.get_devuelto() == 0) {
+						lineaFactura.set_devuelto(1);
+						Paquete paquete=em.find(Paquete.class, tLineaFactura.get_idPaquete());
+					} else
+						em.getTransaction().rollback();
+				} else
+					em.getTransaction().rollback();
+			} else
+				em.getTransaction().rollback();
+		} catch (Exception e) {
+			em.getTransaction().rollback();
+			e.printStackTrace();
+		} finally {
+			em.close();
+		}
+		return res;
 	}
 
 	public Integer anyadirPaquete(TCarritoFactura tCarritoFactura) {
