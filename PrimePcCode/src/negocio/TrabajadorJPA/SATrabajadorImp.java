@@ -18,7 +18,7 @@ import negocio.TransporteJPA.Transporte;
 public class SATrabajadorImp implements SATrabajador {
 
 	@Override
-	public synchronized int AltaTrabajador(TTrabajador trabajador) {
+	public synchronized int altaTrabajador(TTrabajador trabajador) {
 		int res = -1;
 		EntityManager em = EMFSingleton.getInstancia().getEntityManagerFactory().createEntityManager();
 		
@@ -59,7 +59,7 @@ public class SATrabajadorImp implements SATrabajador {
 	}
 
 	@Override
-	public int BajaTrabajador(int id_trabajador) {
+	public int bajaTrabajador(int id_trabajador) {
 
 		int res = -1;
 		EntityManager em = EMFSingleton.getInstancia().getEntityManagerFactory().createEntityManager();
@@ -92,7 +92,7 @@ public class SATrabajadorImp implements SATrabajador {
 	}
 
 	@Override
-	public int ModificarTrabajador(TTrabajador trabajador) {
+	public int modificarTrabajador(TTrabajador trabajador) {
 
 		int res = -1;
 		EntityManager em = EMFSingleton.getInstancia().getEntityManagerFactory().createEntityManager();
