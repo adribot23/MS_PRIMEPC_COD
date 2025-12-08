@@ -8,6 +8,9 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.LockModeType;
 import jakarta.persistence.TypedQuery;
+import negocio.FacturaJPA.Factura;
+import negocio.FacturaJPA.LineaFactura;
+import negocio.PaqueteJPA.Paquete;
 import negocio.TransporteJPA.Transporte;
 import integracion.EMFSingleton.EMFSingleton;
 
@@ -313,41 +316,32 @@ public class SARemitenteImp implements SARemitente {
 
 		return remitentes;
 	}
-
+	
 	@Override
 	public double calcularPrecioPaquetesRemitente(int id_remitente) {
 
-	    EntityManager em = EMFSingleton.getInstancia().getEntityManagerFactory().createEntityManager();
-	    double precio = -1;
+		EntityManager em = EMFSingleton.getInstancia().getEntityManagerFactory().createEntityManager();
 
-	    try {
+	    Remitente remitente = em.find(Remitente.class, id_remitente);
 
-	        Remitente remitente = em.find(Remitente.class, id_remitente);
+	    if (remitente == null) return 0;
 
-	        if (remitente == null || remitente.getActivo() == 0) {
-	            return -1;
+	    double total = 0;
+	    for (Factura factura : remitente.getFactura()) {
+
+	        for (LineaFactura lf : factura.get_lineaFactura()) {
+
+	            Paquete p = lf.get_Paquete();
+
+	            if (p != null) {
+	                total += p.getPrecio();  
+	            }
 	        }
-
-	        TypedQuery<Double> query = em.createQuery(
-	            "SELECT COALESCE(SUM(p.precio), 0) " +
-	            "FROM Factura f " +
-	            "JOIN f.remitentes r " +
-	            "JOIN f.paquetes p " +
-	            "WHERE r.id = :id", Double.class
-	        );
-
-	        query.setParameter("id", id_remitente);
-
-	        precio = query.getSingleResult();
-
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	    } finally {
-	        em.close();
 	    }
 
-	    return precio;
+	    return total;
 	}
+
 
 }
 
