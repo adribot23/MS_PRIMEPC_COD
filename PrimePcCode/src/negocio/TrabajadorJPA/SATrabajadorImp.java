@@ -74,15 +74,14 @@ public class SATrabajadorImp implements SATrabajador {
 			Trabajador t = em.find(Trabajador.class, id_trabajador);
 			
 			
-			if (t == null && t.getActivo() == 1) {
+			if (t != null && t.getActivo() == 1) {
 				t.setActivo(0);
 				tr.commit();
 				res = t.getId();
 
 			} else {
-				em.getTransaction().rollback();
+				tr.rollback();
 			}
-			tr.rollback();
 		} catch (Exception e) {
 			e.printStackTrace();
 			tr.rollback();
