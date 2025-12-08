@@ -17,8 +17,7 @@ import jakarta.persistence.ManyToOne;
 @NamedQueries({
 		@NamedQuery(name = "negocio.FacturaJPA.LineaFactura.findByid", query = "select obj from LineaFactura obj where :id = obj.id "),
 		@NamedQuery(name = "negocio.FacturaJPA.LineaFactura.findBydevuelto", query = "select obj from LineaFactura obj where :devuelto = obj.devuelto "),
-		@NamedQuery(name = "negocio.FacturaJPA.LineaFactura.findByprecioNeto", query = "select obj from LineaFactura obj where :precioNeto = obj.precioNeto "),
-		@NamedQuery(name = "negocio.FacturaJPA.LineaFactura.findByprecioBruto", query = "select obj from LineaFactura obj where :precioBruto = obj.precioBruto "),
+		@NamedQuery(name = "negocio.FacturaJPA.LineaFactura.findByprecioTotal", query = "select obj from LineaFactura obj where :precio_total = obj.precio_total "),
 		@NamedQuery(name = "negocio.FacturaJPA.LineaFactura.findByversion", query = "select obj from LineaFactura obj where :version = obj.version "),
 		@NamedQuery(name = "negocio.FacturaJPA.LineaFactura.findByfactura", query = "select obj from LineaFactura obj where :factura = obj.factura ") })
 public class LineaFactura implements Serializable {
@@ -30,9 +29,7 @@ public class LineaFactura implements Serializable {
 
 	private Integer devuelto;
 
-	private double precioNeto;
-
-	private double precioBruto;
+	private double precio_total;
 
 	private Integer version;
 
@@ -47,8 +44,7 @@ public class LineaFactura implements Serializable {
 
 	public LineaFactura(TLineaFactura tLineaFactura) {
 		this.devuelto = tLineaFactura.get_devuelto();
-		this.precioNeto = tLineaFactura.get_precioNeto();
-		this.precioBruto = tLineaFactura.get_precioBruto();
+		this.precio_total = tLineaFactura.get_precioTotal();
 		this.id = new LineaFacturaID(tLineaFactura.get_idFactura(), tLineaFactura.get_idPaquete());
 	}
 
@@ -66,20 +62,12 @@ public class LineaFactura implements Serializable {
 		this.devuelto = devuelto;
 	}
 
-	public double get_precioNeto() {
-		return this.precioNeto;
+	public double get_precioTotal() {
+		return this.precio_total;
 	}
 
-	public void set_precioNeto(double precioNeto) {
-		this.precioNeto = precioNeto;
-	}
-
-	public double get_precioBruto() {
-		return this.precioBruto;
-	}
-
-	public void set_precioBruto(double precioBruto) {
-		this.precioBruto = precioBruto;
+	public void set_precioTotal(double precioTotal) {
+		this.precio_total = precioTotal;
 	}
 
 	public Factura get_factura() {

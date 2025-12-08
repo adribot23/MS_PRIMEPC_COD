@@ -11,9 +11,7 @@ public class TLineaFactura {
 
 	private Integer devuelto;
 
-	private double precioBruto;
-
-	private double precioNeto;
+	private double precio_total;
 
 	public void set_idFactura(Integer idFactura) {
 		this.idFactura = idFactura;
@@ -39,19 +37,12 @@ public class TLineaFactura {
 		return this.idPaquete;
 	}
 
-	public void set_precioBruto(double precioBruto) {
-		this.precioBruto = precioBruto;
+	public void set_precioTotal(double precioTotal) {
+		this.precio_total = precioTotal;
 	}
 
-	public double get_precioBruto() {
-		return this.precioBruto;
+	public double get_precioTotal() {
+		return this.precio_total;
 	}
 
-	public void set_precioNeto(double precioNeto) {
-		this.precioNeto = precioNeto;
-	}
-
-	public double get_precioNeto() {
-		return this.precioNeto;
-	}
 }

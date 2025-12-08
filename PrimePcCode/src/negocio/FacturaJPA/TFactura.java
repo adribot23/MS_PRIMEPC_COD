@@ -11,9 +11,7 @@ public class TFactura {
 
 	private Integer activo;
 
-	private double precioNeto;
-
-	private Double precioBruto;
+	private Double precio_total;
 
 	public TFactura() {
 	}
@@ -21,8 +19,7 @@ public class TFactura {
 	public TFactura(Factura f) {
 		this.idFactura = f.get_idFactura();
 		this.activo = f.get_activo();
-		this.precioBruto = f.get_precioBruto();
-		this.precioNeto = f.get_precioNeto();
+		this.precio_total = f.get_precioTotal();
 		this.idRemitente= f.get_Remitente().getId();
 	}
 
@@ -42,20 +39,12 @@ public class TFactura {
 		return activo;
 	}
 
-	public void set_precioNeto(double precioN) {
-		this.precioNeto=precioN;
+	public void set_precioTotal(double precioT) {
+		this.precio_total=precioT;
 	}
 
-	public double get_precioNeto() {
-		return this.precioNeto;
-	}
-
-	public void set_precioBruto(double precioB) {
-		this.precioBruto=precioB;
-	}
-
-	public double get_precioBruto() {
-		return precioBruto;
+	public double get_precioTotal() {
+		return this.precio_total;
 	}
 
 	public Integer get_idFactura() {

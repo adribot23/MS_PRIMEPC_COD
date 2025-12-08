@@ -9,10 +9,10 @@ public class TCarritoFactura {
 
 	private TFactura tFactura;
 
-	private Integer idRemitente;
+	private Integer idPaquete;
 
 	private Set<TLineaFactura> tLineasFactura;
-
+	
 	private double precioTotal;
 
 	public void set_tFactura(TFactura tFactura) {
@@ -39,11 +39,11 @@ public class TCarritoFactura {
 		return this.precioTotal;
 	}
 
-	public void set_idRemitente(Integer idRemitente) {
-		this.idRemitente = idRemitente;
+	public void set_idPaquete(Integer idPaquete) {
+		this.idPaquete = idPaquete;
 	}
 
-	public Integer get_idRemitente() { // supongo q esto hace falta
-		return this.idRemitente;
+	public Integer get_idPaquete() {
+		return this.idPaquete;
 	}
 }
