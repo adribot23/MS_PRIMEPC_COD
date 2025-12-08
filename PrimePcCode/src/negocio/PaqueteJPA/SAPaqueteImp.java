@@ -20,13 +20,13 @@ public class SAPaqueteImp implements SAPaquete {
 
 	    try {
 	        em.getTransaction().begin();
-
+	        /*
 	        Ruta ruta = em.find(Ruta.class, tPaquete.getIdRuta());
 	        if (ruta == null || ruta.getActivo() == 0) { 
 	            em.getTransaction().rollback();
 	            return -1;
 	        }
-
+			*/
 	        List<Paquete> lista = em
 	                .createNamedQuery("Paquete.findByNumSerie", Paquete.class)
 	                .setParameter("numSerie", tPaquete.getNumSerie())
@@ -49,7 +49,7 @@ public class SAPaqueteImp implements SAPaquete {
 	                return -1;
 	            }
 
-	            nuevo.setRuta(ruta);
+	            //nuevo.setRuta(ruta);
 
 	            em.persist(nuevo);
 
@@ -64,7 +64,7 @@ public class SAPaqueteImp implements SAPaquete {
 	            existente.setPeso(tPaquete.getPeso());
 	            existente.setPrecio(tPaquete.getPrecio());
 	            existente.setEstado(tPaquete.getEstado());
-	            existente.setRuta(ruta);
+	            //existente.setRuta(ruta);
 
 	            em.lock(existente, LockModeType.OPTIMISTIC_FORCE_INCREMENT);
 

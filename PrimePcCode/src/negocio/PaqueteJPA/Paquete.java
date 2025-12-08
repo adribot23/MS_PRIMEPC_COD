@@ -30,12 +30,12 @@ import java.io.Serializable;
         name = "negocio.PaqueteJPA.Paquete.findByFactura",
         query = "SELECT p FROM Paquete p WHERE p.id_factura = :idFactura"
     ),
-    */
+   
     @NamedQuery(
     	    name = "negocio.PaqueteJPA.Paquete.findByRuta",
     	    query = "SELECT p FROM Paquete p WHERE p.ruta.id = :idRuta"
     	),
-    
+     */
     @NamedQuery(
             name = "Paquete.findByNumSerie",
             query = "SELECT p FROM Paquete p WHERE p.numero_serie = :numSerie"
@@ -58,11 +58,11 @@ public abstract class Paquete implements Serializable{
     private double peso;
     private double precio;
     private int activo;
-    
+    /*
     @ManyToOne
     @JoinColumn(name = "id_ruta")
     private Ruta ruta;
-    /*
+    
     @ManyToOne
     @JoinColumn(name = "id_factura")
     private Factura factura;
@@ -79,7 +79,7 @@ public abstract class Paquete implements Serializable{
     public double getPeso() { return peso; }
     public double getPrecio() { return precio; }
     public int getActivo() { return activo; }
-    public Ruta getRuta() { return ruta; }
+    //public Ruta getRuta() { return ruta; }
     //public Factura getFactura() { return factura; }
 
 
@@ -89,7 +89,7 @@ public abstract class Paquete implements Serializable{
     public void setPeso(double peso) { this.peso = peso; }
     public void setPrecio(double precio) { this.precio = precio; }
     public void setActivo(int activo) { this.activo = activo; }
-    public void setRuta(Ruta ruta) { this.ruta = ruta; }
+    //public void setRuta(Ruta ruta) { this.ruta = ruta; }
     //public void setFactura(Factura factura) { this.factura = factura; }
 
 
@@ -114,7 +114,7 @@ public abstract class Paquete implements Serializable{
         t.setPrecio(this.precio);
         t.setActivo(this.activo);
 
-        t.setIdRuta(ruta != null ? ruta.getId() : -1);
+        //t.setIdRuta(ruta != null ? ruta.getId() : -1);
         //t.setIdFactura(factura != null ? factura.getId() : -1);
 
         return t;
