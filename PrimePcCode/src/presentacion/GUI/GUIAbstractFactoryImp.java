@@ -525,7 +525,7 @@ public class GUIAbstractFactoryImp extends GUIAbstractFactory {
 			return new VVerPaquetesPorRuta();
 			
 			/*
-			 * ============================== ======== PAQUETE ==============================
+			 * ============================== ======== FACTURA ==============================
 			 */
 		case FACTURA:
 			return new GUIFactura();
@@ -536,14 +536,20 @@ public class GUIAbstractFactoryImp extends GUIAbstractFactory {
 		case VCERRAR_FACTURA:
 		case RES_CERRAR_FACTURA_OK:
 		case RES_CERRAR_FACTURA_KO:
+		case RES_PASAR_CARRITOFACTURA_A_CERRAR_OK:
+		case RES_PASAR_CARRITOFACTURA_A_CERRAR_KO:
 			return new VCerrarFactura();
 		case VINSERTAR_PAQUETE_FACTURA:
 		case RES_INSERTAR_PAQUETE_FACTURA_OK:
 		case RES_INSERTAR_PAQUETE_FACTURA_KO:
+		case RES_PASAR_CARRITOFACTURA_A_INSERTAR_OK:
+		case RES_PASAR_CARRITOFACTURA_A_INSERTAR_KO:
 			return new VAnyadirPaquete();
 		case VQUITAR_PAQUETE_FACTURA:
 		case RES_QUITAR_PAQUETE_FACTURA_OK:
 		case RES_QUITAR_PAQUETE_FACTURA_KO:
+		case RES_PASAR_CARRITOFACTURA_A_ELIMINAR_OK:
+		case RES_PASAR_CARRITOFACTURA_A_ELIMINAR_KO:
 			return new VEliminarPaquete();
 		case VMODIFICAR_FACTURA:
 		case RES_MODIFICAR_FACTURA_OK:

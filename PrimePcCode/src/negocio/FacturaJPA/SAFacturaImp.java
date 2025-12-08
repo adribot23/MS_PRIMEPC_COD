@@ -65,7 +65,7 @@ public class SAFacturaImp implements SAFactura {
 							.createNamedQuery("negocio.FacturaJPA.LineaFactura.findBypaquete", LineaFactura.class)
 							.setParameter("paquete", paquete);
 
-					if (paquete != null && paquete.getActivo() == 1 ) {
+					if (paquete != null && paquete.getActivo() == 1) {
 
 						for (LineaFactura l : queryf.getResultList()) {
 							if (l.get_devuelto() != 1)
@@ -183,9 +183,7 @@ public class SAFacturaImp implements SAFactura {
 		Set<TFactura> listaFacturas = new HashSet<TFactura>();
 		try {
 			em.getTransaction().begin();
-			TypedQuery<Factura> query = em.createQuery("SELECT a FROM Factura f", Factura.class); // CAMBIAR A
-																									// NAMEDQUERY
-
+			TypedQuery<Factura> query = em.createQuery("SELECT f FROM Factura f", Factura.class); 
 			List<Factura> facturas = query.getResultList();
 			for (Factura f : facturas) {
 				// OPTIMISTA por si se modifica factura en otro hilo y altera la version
@@ -226,7 +224,7 @@ public class SAFacturaImp implements SAFactura {
 							if (f.get_precioTotal() < 0)
 								f.set_precioTotal(0);
 							em.getTransaction().commit();
-							res=1;
+							res = 1;
 						} else
 							em.getTransaction().rollback();
 					} else
@@ -260,8 +258,10 @@ public class SAFacturaImp implements SAFactura {
 				set.add(lineaFactura);
 				tCarritoFactura.set_tLineasFactura(set);
 				res = 1;
-			}
-			em.getTransaction().commit();
+				em.getTransaction().commit();
+			} else
+				em.getTransaction().rollback();
+
 		} catch (Exception e) {
 			em.getTransaction().rollback();
 			e.printStackTrace();

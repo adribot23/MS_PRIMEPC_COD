@@ -60,6 +60,16 @@ public class VModificarFactura extends JFrame implements IGUI {
 		textFieldPanel.add(remitenteLabel);
 		textFieldPanel.add(remitenteTextField);
 		
+		JLabel precioLabel = new JLabel("Precio total: ");
+		precioLabel.setPreferredSize(new Dimension(60, 20)); // Aumenta el ancho
+		JTextField precioTextField = new JTextField();
+		precioTextField.setVisible(true);
+		precioTextField.setPreferredSize(new Dimension(60, 40));
+		textFieldPanel.add(precioLabel);
+		textFieldPanel.add(precioTextField);
+		
+		
+		
 		JButton aceptar = new JButton("Guardar cambios");
 		aceptar.setBackground(new Color(200, 255, 200));
 		aceptar.addActionListener(e -> {
@@ -77,10 +87,18 @@ public class VModificarFactura extends JFrame implements IGUI {
 					JOptionPane.showMessageDialog(null, "Error: El id remitente debe ser mayor que 0");
 					return;
 				}
+				
+				int precio=Integer.parseInt(precioTextField.getText());
+				
+				if(precio<0) {
+					JOptionPane.showMessageDialog(null, "Error: el precio total debe ser positivo");
+					return;
+				}
 
 				TFactura tFactura = new TFactura();
 				tFactura.set_idFactura(id_factura);
 				tFactura.set_idRemitente(id_remitente);
+				tFactura.set_precioTotal(precio);
 				
 				Controlador.getInstancia().accion(new Context(Evento.MODIFICAR_FACTURA, tFactura));
 				
