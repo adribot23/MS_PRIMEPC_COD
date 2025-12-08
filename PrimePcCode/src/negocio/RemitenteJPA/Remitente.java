@@ -2,8 +2,10 @@ package negocio.RemitenteJPA;
 
 import java.io.Serializable;
 // import java.util.Set;   // Ya NO hace falta si quitamos facturas
+import java.util.Set;
 
 import jakarta.persistence.*;
+import negocio.FacturaJPA.Factura;
 
 @Entity
 @Table(name = "REMITENTE")
@@ -34,6 +36,10 @@ public class Remitente implements Serializable {
 
 	@Version
 	private Integer version;
+	
+	@OneToMany(mappedBy = "remitente")
+	private Set<Factura> facturas;
+
 
 	public Remitente() {
 	}
@@ -99,5 +105,14 @@ public class Remitente implements Serializable {
 	public Integer getVersion() {
 		return version;
 	}
+	
+    public Set<Factura> getFactura() { 
+    	return facturas;
+    }
+	
+    public void setFactura(Set<Factura> factura){ 
+    	this.facturas = factura; 
+    }
+
 
 }
