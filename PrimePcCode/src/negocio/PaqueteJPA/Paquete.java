@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Version;
+import negocio.FacturaJPA.Factura;
 import negocio.RutaJPA.Ruta;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.SequenceGenerator;
@@ -58,7 +59,7 @@ public abstract class Paquete implements Serializable{
     private double peso;
     private double precio;
     private int activo;
-    /*
+    
     @ManyToOne
     @JoinColumn(name = "id_ruta")
     private Ruta ruta;
@@ -66,7 +67,7 @@ public abstract class Paquete implements Serializable{
     @ManyToOne
     @JoinColumn(name = "id_factura")
     private Factura factura;
-	*/
+	
     @Version
     private Integer version;
 
