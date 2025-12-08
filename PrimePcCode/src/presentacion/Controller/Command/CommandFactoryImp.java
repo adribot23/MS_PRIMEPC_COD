@@ -40,6 +40,15 @@ import presentacion.Controller.Command.CommandProveedor.MostrarProveedoresComman
 import presentacion.Controller.Command.CommandProveedor.ProveedorConMasUnidadesDeProductoVendidasCommand;
 import presentacion.Controller.Command.CommandProveedor.VerProvPorProductoCommand;
 import presentacion.Controller.Command.CommandProveedor.VincularProveedorProductoCommand;
+import presentacion.Controller.Command.CommandRutaJPA.AltaRutaCommand;
+import presentacion.Controller.Command.CommandRutaJPA.BajaRutaCommand;
+import presentacion.Controller.Command.CommandRutaJPA.BuscarRutaCommand;
+import presentacion.Controller.Command.CommandRutaJPA.DesvincularRutaTrabajadorCommand;
+import presentacion.Controller.Command.CommandRutaJPA.ModificarRutaCommand;
+import presentacion.Controller.Command.CommandRutaJPA.MostrarRutasCommand;
+import presentacion.Controller.Command.CommandRutaJPA.VerRutasPorTrabajadorCommand;
+import presentacion.Controller.Command.CommandRutaJPA.VerTrabajadoresPorRutaCommand;
+import presentacion.Controller.Command.CommandRutaJPA.VincularRutaTrabajadorCommand;
 import presentacion.Controller.Command.CommandRemitenteJPA.AltaRemitenteCommand;
 import presentacion.Controller.Command.CommandRemitenteJPA.BajaRemitenteCommand;
 import presentacion.Controller.Command.CommandRemitenteJPA.BuscarRemitenteCommand;
@@ -189,6 +198,35 @@ public class CommandFactoryImp extends CommandFactory {
 			command = new ProveedorConMasUnidadesDeProductoVendidasCommand();
 			break;
 
+		// ---- RUTA ----
+		case ALTA_RUTA:
+			command = new AltaRutaCommand();
+			break;
+		case BAJA_RUTA:
+			command = new BajaRutaCommand();
+			break;
+		case MODIFICAR_RUTA:
+			command = new ModificarRutaCommand();
+			break;
+		case BUSCAR_RUTA:
+			command = new BuscarRutaCommand();
+			break;
+		case MOSTRAR_TODAS_RUTAS:
+			command = new MostrarRutasCommand();
+			break;
+		case VINCULAR_RUTA_TRABAJADOR:
+			command = new VincularRutaTrabajadorCommand();
+			break;
+		case DESVINCULAR_RUTA_TRABAJADOR:
+			command = new DesvincularRutaTrabajadorCommand();
+			break;
+		case VER_RUTA_POR_TRABAJADOR:
+			command = new VerRutasPorTrabajadorCommand();
+			break;
+		case VER_TRABAJADOR_POR_RUTA:
+			command = new VerTrabajadoresPorRutaCommand();
+			break;
+			
 		// ---- VENTA ----
 		case ABRIR_VENTA:
 			command = new AbrirVentaCommand();
