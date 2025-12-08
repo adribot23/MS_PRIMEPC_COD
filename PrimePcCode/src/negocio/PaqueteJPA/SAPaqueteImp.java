@@ -234,23 +234,25 @@ public class SAPaqueteImp implements SAPaquete {
         EntityManager em = EMFSingleton.getInstancia().getEntityManagerFactory().createEntityManager();
 
         try {
-            TypedQuery<Paquete> query = em.createQuery(
-                "SELECT p FROM Paquete p WHERE p.factura.id = :idFactura", Paquete.class);
+        	em.getTransaction().begin();
+            TypedQuery<Paquete> query = em.createNamedQuery(
+                "negocio.PaqueteJPA.Paquete.findByFactura", Paquete.class);
             query.setParameter("idFactura", id_factura);
             List<Paquete> paquetes = query.getResultList();
 
             for (Paquete p : paquetes) {
-                em.lock(p, LockModeType.OPTIMISTIC);
                 setPaquetes.add(p.entityToTransfer());
             }
         } catch (Exception e) {
             e.printStackTrace();
+            em.getTransaction().rollback();
         } finally {
             em.close();
         }
 
         return setPaquetes;
     }
+
 
     @Override
     public Set<TPaquete> mostrarPaquetesPorRuta(int id_ruta) {

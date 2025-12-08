@@ -91,7 +91,7 @@ public class VVerPaquetesPorRuta extends JFrame implements IGUI {
     }
 
     private void mostrarTabla(Set<TPaquete> paquetes) {
-        String[] columnNames = { "ID", "Número de Serie", "Peso", "Precio", "ID Ruta", "Tipo", "Extra" };
+        String[] columnNames = { "ID", "Número de Serie", "Peso", "Precio", "ID Ruta", "ID Factura", "Tipo", "Extra", "Activo" };
         Object[][] tableData = new Object[paquetes.size()][columnNames.length];
 
         int i = 0;
@@ -101,16 +101,18 @@ public class VVerPaquetesPorRuta extends JFrame implements IGUI {
             tableData[i][2] = p.getPeso();
             tableData[i][3] = p.getPrecio();
             tableData[i][4] = p.getIdRuta();
+            tableData[i][5] = p.getIdFactura();
+            tableData[i][8] = p.getActivo();
 
             if (p instanceof TPaqueteNormal normal) {
-                tableData[i][5] = "Normal";
-                tableData[i][6] = normal.getDescuento();
+                tableData[i][6] = "Normal";
+                tableData[i][7] = normal.getDescuento();
             } else if (p instanceof TPaqueteExpress express) {
-                tableData[i][5] = "Express";
-                tableData[i][6] = express.getPrioridad();
+                tableData[i][6] = "Express";
+                tableData[i][7] = express.getPrioridad();
             } else {
-                tableData[i][5] = "Desconocido";
-                tableData[i][6] = "";
+                tableData[i][6] = "Desconocido";
+                tableData[i][7] = "";
             }
             i++;
         }
