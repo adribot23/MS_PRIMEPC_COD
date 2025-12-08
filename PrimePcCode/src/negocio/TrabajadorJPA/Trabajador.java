@@ -2,6 +2,7 @@ package negocio.TrabajadorJPA;
 
 import java.util.Set;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -14,11 +15,14 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 import jakarta.persistence.Version;
 
 
 import negocio.TransporteJPA.Transporte;
 
+@Table(uniqueConstraints = { @UniqueConstraint(columnNames = "DNI") })
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @NamedQueries({
@@ -33,10 +37,15 @@ public class Trabajador {
 	
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_trabajador")
 	@SequenceGenerator(name = "seq_trabajador", sequenceName = "TRABAJADOR_SEQ", allocationSize = 1)
+	
+	
 	@Id
+	@Column(name = "ID")
 	private int id_trabajador;
+	@Column(unique = true)
 	private String DNI;
 	private String nombre;
+	@Column(name = "ACTIVO")
 	private int activo;
 	
 	@ManyToMany
