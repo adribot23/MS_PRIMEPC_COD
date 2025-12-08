@@ -8,7 +8,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.LockModeType;
 import jakarta.persistence.TypedQuery;
-
+import negocio.RutaJPA.Ruta;
 import integracion.EMFSingleton.EMFSingleton;
 
 public class SAPaqueteImp implements SAPaquete {
@@ -21,6 +21,12 @@ public class SAPaqueteImp implements SAPaquete {
 	    try {
 	        em.getTransaction().begin();
 
+	        Ruta ruta = em.find(Ruta.class, tPaquete.getIdRuta());
+	        if (ruta == null || ruta.getActivo() == 0) { 
+	            em.getTransaction().rollback();
+	            return -1;
+	        }
+
 	        List<Paquete> lista = em
 	                .createNamedQuery("Paquete.findByNumSerie", Paquete.class)
 	                .setParameter("numSerie", tPaquete.getNumSerie())
@@ -28,7 +34,6 @@ public class SAPaqueteImp implements SAPaquete {
 
 	        Paquete existente = lista.isEmpty() ? null : lista.get(0);
 
-	        //No existe y creamos crear nuevo paquete
 	        if (existente == null) {
 
 	            Paquete nuevo = null;
@@ -43,26 +48,31 @@ public class SAPaqueteImp implements SAPaquete {
 	                em.getTransaction().rollback();
 	                return -1;
 	            }
+
+	            nuevo.setRuta(ruta);
+
 	            em.persist(nuevo);
 
 	            em.getTransaction().commit();
 	            res = nuevo.getId();
 
 	        }
-	        // Existe pero esta inactivo
+	        
 	        else if (existente.getActivo() == 0) {
 
 	            existente.setActivo(1);
 	            existente.setPeso(tPaquete.getPeso());
 	            existente.setPrecio(tPaquete.getPrecio());
 	            existente.setEstado(tPaquete.getEstado());
+	            existente.setRuta(ruta);
 
 	            em.lock(existente, LockModeType.OPTIMISTIC_FORCE_INCREMENT);
 
 	            em.getTransaction().commit();
 	            res = existente.getId();
+
 	        }
-	        // Existe y esta activo
+
 	        else {
 	            em.getTransaction().rollback();
 	        }
@@ -76,6 +86,7 @@ public class SAPaqueteImp implements SAPaquete {
 
 	    return res;
 	}
+
 
     @Override
     public int bajaPaquete(int id_paquete) {
