@@ -21,7 +21,8 @@ import jakarta.persistence.ManyToOne;
 		@NamedQuery(name = "negocio.FacturaJPA.LineaFactura.findBydevuelto", query = "select obj from LineaFactura obj where :devuelto = obj.devuelto "),
 		@NamedQuery(name = "negocio.FacturaJPA.LineaFactura.findByprecioTotal", query = "select obj from LineaFactura obj where :precio_total = obj.precio_total "),
 		@NamedQuery(name = "negocio.FacturaJPA.LineaFactura.findByversion", query = "select obj from LineaFactura obj where :version = obj.version "),
-		@NamedQuery(name = "negocio.FacturaJPA.LineaFactura.findByfactura", query = "select obj from LineaFactura obj where :factura = obj.factura ") })
+		@NamedQuery(name = "negocio.FacturaJPA.LineaFactura.findByfactura", query = "select obj from LineaFactura obj where :factura = obj.factura "),
+		@NamedQuery(name = "negocio.FacturaJPA.LineaFactura.findBypaquete", query = "select obj from LineaFactura obj where :paquete = obj.paquete ")})
 public class LineaFactura implements Serializable {
 
 	private static final long serialVersionUID = 0;
