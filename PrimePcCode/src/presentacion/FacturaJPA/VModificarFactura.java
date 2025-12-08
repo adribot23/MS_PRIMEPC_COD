@@ -41,22 +41,22 @@ public class VModificarFactura extends JFrame implements IGUI {
 		mainPanel.setLayout(new BorderLayout());
 		this.setContentPane(mainPanel);
 
-		JPanel textFieldPanel = new JPanel(new GridLayout(2, 2, 10, 10));
+		JPanel textFieldPanel = new JPanel(new GridLayout(4, 1, 10, 10));
 		mainPanel.add(textFieldPanel, BorderLayout.PAGE_START);
 		
 		JLabel facturaLabel = new JLabel("ID Factura: ");
-		facturaLabel.setPreferredSize(new Dimension(60, 30)); // Aumenta el ancho
+		facturaLabel.setPreferredSize(new Dimension(60, 20)); // Aumenta el ancho
 		JTextField facturaTextField = new JTextField();
 		facturaTextField.setVisible(true);
-		facturaTextField.setPreferredSize(new Dimension(60, 30));
+		facturaTextField.setPreferredSize(new Dimension(60, 40));
 		textFieldPanel.add(facturaLabel);
 		textFieldPanel.add(facturaTextField);
 		
 		JLabel remitenteLabel = new JLabel("ID Remitente: ");
-		remitenteLabel.setPreferredSize(new Dimension(60, 30)); // Aumenta el ancho
+		remitenteLabel.setPreferredSize(new Dimension(60, 20)); // Aumenta el ancho
 		JTextField remitenteTextField = new JTextField();
 		remitenteTextField.setVisible(true);
-		remitenteTextField.setPreferredSize(new Dimension(60, 30));
+		remitenteTextField.setPreferredSize(new Dimension(60, 40));
 		textFieldPanel.add(remitenteLabel);
 		textFieldPanel.add(remitenteTextField);
 		
@@ -67,14 +67,14 @@ public class VModificarFactura extends JFrame implements IGUI {
 				int id_factura = Integer.parseInt(facturaTextField.getText());
 
 				if (id_factura <= 0) {
-					JOptionPane.showMessageDialog(null, "Error: El id alquiler debe ser mayor que 0");
+					JOptionPane.showMessageDialog(null, "Error: El id factura debe ser mayor que 0");
 					return;
 				}
 
 				int id_remitente = Integer.parseInt(remitenteTextField.getText());
 
 				if (id_remitente <= 0) {
-					JOptionPane.showMessageDialog(null, "Error: El id cliente debe ser mayor que 0");
+					JOptionPane.showMessageDialog(null, "Error: El id remitente debe ser mayor que 0");
 					return;
 				}
 
@@ -96,7 +96,7 @@ public class VModificarFactura extends JFrame implements IGUI {
 		this.dispose();
 		});
 
-		JPanel botonesPanel = new JPanel(new GridLayout(1, 2, 10, 10));
+		JPanel botonesPanel = new JPanel(new GridLayout(1, 1, 10, 10));
 		botonesPanel.add(aceptar);
 		botonesPanel.add(volver);
 		botonesPanel.setBorder(BorderFactory.createEmptyBorder(0, 15, 15, 15));

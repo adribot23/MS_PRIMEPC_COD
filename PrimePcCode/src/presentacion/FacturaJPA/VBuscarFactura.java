@@ -41,11 +41,11 @@ public class VBuscarFactura extends JFrame implements IGUI {
 
 	private void initGUI() {
 		
-		setLayout(new GridLayout(4, 2, 10, 10));
+		setLayout(new GridLayout(2, 2, 10, 10));
 		getRootPane().setBorder(BorderFactory.createTitledBorder("Buscar Factura"));
 		JTextField txtFactura = new JTextField();
 
-		JPanel topPanel = new JPanel(new GridLayout(1, 3, 10, 10));
+		JPanel topPanel = new JPanel(new GridLayout(1, 2, 10, 10));
 		topPanel.add(new JLabel("Id factura:"));
 		topPanel.add(txtFactura);
 		JButton buscarButton = new JButton("Buscar");
