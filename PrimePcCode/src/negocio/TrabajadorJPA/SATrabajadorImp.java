@@ -97,31 +97,23 @@ public class SATrabajadorImp implements SATrabajador {
 
 		int res = -1;
 		EntityManager em = EMFSingleton.getInstancia().getEntityManagerFactory().createEntityManager();
+		
+		EntityTransaction tr = em.getTransaction();
 
 		try {
 
-			em.getTransaction().begin();
+			tr.begin();
 			Trabajador tExistente = em.find(Trabajador.class, trabajador.getId());
 			
-			if (tExistente == null || tExistente.getActivo() == 0) {
-				em.getTransaction().rollback();
-				em.close();
-				return res;
-			}
-
+			if (tExistente != null && tExistente.getActivo() == 1) {
+	
 				TypedQuery<Trabajador> query = em
 						.createNamedQuery("Negocio.TrabajadorJPA.Trabajador.findByDNI", Trabajador.class);
 				query.setParameter("DNI", tExistente.getDNI());
 				List<Trabajador> lista = query.getResultList();
 				
-				boolean nombreDisponible = lista.isEmpty() || (lista.size() == 1 && lista.get(0).getId() == tExistente.getId());
+				//boolean nombreDisponible = lista.isEmpty() || (lista.size() == 1 && lista.get(0).getId() == tExistente.getId());
 				
-				if (!nombreDisponible) {
-					em.getTransaction().rollback();
-					em.close();
-					return res;
-				}
-
 				if (lista.isEmpty()
 						|| (lista.size() == 1 && lista.get(0).getId() == trabajador.getId())) {
 
@@ -131,6 +123,10 @@ public class SATrabajadorImp implements SATrabajador {
 
 					em.getTransaction().commit();
 					res = tExistente.getId();
+				}
+				else {
+					em.getTransaction().rollback();
+				}
 
 			} else {
 				em.getTransaction().rollback();
