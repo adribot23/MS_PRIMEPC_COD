@@ -3,6 +3,7 @@ package negocio.RutaJPA;
 import java.io.Serializable;
 import java.util.Objects;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 
 @Embeddable
@@ -10,7 +11,10 @@ public class VinculacionRutaTrabajadorID implements Serializable {
 
 	private static final long serialVersionUID = 0;
 
+	@Column(name = "ID_RUTA")
 	int ruta;
+	
+	@Column(name = "ID_TRABAJADOR")
 	int trabajador;
 
 	public VinculacionRutaTrabajadorID() {

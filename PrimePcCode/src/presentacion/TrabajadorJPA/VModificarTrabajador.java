@@ -35,7 +35,7 @@ public class VModificarTrabajador extends JFrame implements IGUI{
 		JLabel lblNombre = new JLabel("Nombre:");
 		JTextField txtNombre = new JTextField();
 
-		JLabel lblDNI = new JLabel("Capacidad:");
+		JLabel lblDNI = new JLabel("DNI:");
 		JTextField txtDNI = new JTextField();
 
 		JButton btnModificar = new JButton("Modificar");
@@ -91,11 +91,11 @@ public class VModificarTrabajador extends JFrame implements IGUI{
 			break;
 
 		case RES_MODIFICAR_TRABAJADOR_OK:
-			JOptionPane.showMessageDialog(null, "Transporte modificado correctamente.");
+			JOptionPane.showMessageDialog(null, "Trabajador modificado correctamente.");
 			break;
 
 		case RES_MODIFICAR_TRABAJADOR_KO:
-			JOptionPane.showMessageDialog(null, "Error al modificar transporte.");
+			JOptionPane.showMessageDialog(null, "Error al modificar trabjador.");
 			break;
 		default:
 			JOptionPane.showMessageDialog(null, "Evento no reconocido: " + context.getEvento());

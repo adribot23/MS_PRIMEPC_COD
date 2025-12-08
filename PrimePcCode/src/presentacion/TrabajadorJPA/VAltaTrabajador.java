@@ -49,7 +49,7 @@ public class VAltaTrabajador extends JFrame implements IGUI{
 				return;
 			}
 
-			TTrabajador t = new TTrabajador(nombre, DNI);
+			TTrabajador t = new TTrabajador(nombre, DNI,1);
 			Controlador.getInstancia().accion(new Context(Evento.ALTA_TRABAJADOR, t));
 
 			txtNombre.setText("");

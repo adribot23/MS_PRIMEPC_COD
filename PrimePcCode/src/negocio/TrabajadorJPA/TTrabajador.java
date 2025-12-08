@@ -11,9 +11,10 @@ public class TTrabajador {
 	public TTrabajador() {
 	}
 	
-	public TTrabajador(String nombre, String DNI) {
+	public TTrabajador(String nombre, String DNI,int activo) {
 		this.nombre = nombre;
 		this.DNI = DNI;
+		this.activo = activo;
 	}
 	
 	public TTrabajador(int id_trabajador, int activo, String nombre, String DNI) {

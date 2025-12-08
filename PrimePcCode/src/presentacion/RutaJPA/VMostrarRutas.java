@@ -104,6 +104,12 @@ public class VMostrarRutas extends JFrame implements IGUI {
 			i++;
 		}
 
-		tabla.setModel(new javax.swing.table.DefaultTableModel(datos, columnas));
+		JTable table = new JTable(datos, columnas);
+		table.setFillsViewportHeight(true);
+		table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+		table.setEnabled(false);
+
+		JScrollPane scrollPane = new JScrollPane(table);
+		JOptionPane.showMessageDialog(null, scrollPane, "Rutas", JOptionPane.PLAIN_MESSAGE);
 	}
 }

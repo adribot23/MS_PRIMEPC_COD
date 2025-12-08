@@ -54,18 +54,11 @@ public class VMostrarTrabajadores extends JFrame implements IGUI{
 
 		panelBotones.add(btnMostrar);
 		panelBotones.add(btnVolver);
+		add(panelBotones);
 
-		// Tabla con scroll
-		tabla = new JTable();
-		tabla.setFillsViewportHeight(true);
-		tabla.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
-		tabla.setEnabled(false);
-		JScrollPane scroll = new JScrollPane(tabla);
-
-		// Layout principal
-		setLayout(new BorderLayout(10, 10));
-		add(panelBotones, BorderLayout.NORTH);
-		add(scroll, BorderLayout.CENTER);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setSize(300, 150);
+		setLocationRelativeTo(null);
 	}
 
 	@Override
@@ -104,6 +97,12 @@ public class VMostrarTrabajadores extends JFrame implements IGUI{
 			i++;
 		}
 
-		tabla.setModel(new javax.swing.table.DefaultTableModel(datos, columnas));
+		JTable table = new JTable(datos, columnas);
+		table.setFillsViewportHeight(true);
+		table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+		table.setEnabled(false);
+
+		JScrollPane scrollPane = new JScrollPane(table);
+		JOptionPane.showMessageDialog(null, scrollPane, "Trabajadores", JOptionPane.PLAIN_MESSAGE);
 	}
 }

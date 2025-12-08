@@ -12,13 +12,16 @@ import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.Table;
 import jakarta.persistence.Version;
 
 import negocio.PaqueteJPA.Paquete;
 
 @Entity
+@Table(name = "RUTA")
 @NamedQueries({
-	@NamedQuery(name = "negocio.RutaJPA.Ruta.findByid", query = "select obj from Ruta obj where :id_ruta = obj.id_ruta ")})
+	@NamedQuery(name = "negocio.RutaJPA.Ruta.findById", query = "select obj from Ruta obj where obj.id_ruta = :id"),
+	@NamedQuery(name = "negocio.RutaJPA.Ruta.findAll", query = "select r from Ruta r")})
 public class Ruta implements Serializable {
 	private static final long serialVersionUID = 0;
 	
