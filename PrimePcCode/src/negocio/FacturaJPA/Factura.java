@@ -66,6 +66,7 @@ public class Factura implements Serializable {
 		tFactura.set_idFactura(id);
 		tFactura.set_activo(activo);
 		tFactura.set_precioTotal(precio_total);
+		tFactura.set_idRemitente(remitente.getId());
 		return tFactura;
 	}
 
