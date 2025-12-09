@@ -22,7 +22,8 @@ public class SAFacturaImp implements SAFactura {
 		EntityManager em = EMFSingleton.getInstancia().getEntityManagerFactory().createEntityManager();
 		try {
 			em.getTransaction().begin();
-			Remitente remitente = em.find(Remitente.class, tFactura.get_idRemitente(), LockModeType.OPTIMISTIC);
+			Remitente remitente = em.find(Remitente.class, tFactura.get_idRemitente(),
+					LockModeType.OPTIMISTIC_FORCE_INCREMENT); // NO SE SI HACE FALTA FORCE INCREMENT
 			if (remitente != null && remitente.getActivo() == 1) {
 				carrito = new TCarritoFactura();
 				carrito.set_tLineasFactura(new HashSet<TLineaFactura>());
@@ -46,7 +47,8 @@ public class SAFacturaImp implements SAFactura {
 		EntityManager em = EMFSingleton.getInstancia().getEntityManagerFactory().createEntityManager();
 		try {
 			em.getTransaction().begin();
-			Remitente remitente = em.find(Remitente.class, tCarritoFactura.get_tFactura().get_idRemitente());
+			Remitente remitente = em.find(Remitente.class, tCarritoFactura.get_tFactura().get_idRemitente(),
+					LockModeType.OPTIMISTIC_FORCE_INCREMENT); // NO SE SI HACE FALTA FORCE INCREMENT
 			if (remitente != null && remitente.getActivo() != 0) {
 				double total = 0;
 				Factura factura = new Factura();
@@ -55,20 +57,35 @@ public class SAFacturaImp implements SAFactura {
 				em.persist(factura);
 				Set<LineaFactura> lineasFacturaPersistentes = new HashSet<LineaFactura>();
 				Set<TLineaFactura> tLineasFacturaPersistente = new HashSet<TLineaFactura>();
+				int cuenta = 0;
 				for (TLineaFactura tLineaFactura : tCarritoFactura.get_tLineasFactura()) {
 					Paquete paquete = em.find(Paquete.class, tLineaFactura.get_idPaquete());
-					if (paquete != null && paquete.getActivo() == 1 && paquete.getFactura().get_idFactura() == null) {
-						LineaFactura lineaFactura = new LineaFactura(factura, paquete);
-						lineaFactura.set_devuelto(0);
-						lineaFactura.set_precioTotal(paquete.getPrecio());
-						tLineaFactura.set_precioTotal(lineaFactura.get_precioTotal());
-						tLineasFacturaPersistente.add(tLineaFactura);
-						em.persist(lineaFactura);
-						total += lineaFactura.get_precioTotal();
-						lineasFacturaPersistentes.add(lineaFactura);
+
+					TypedQuery<LineaFactura> queryf = em
+							.createNamedQuery("negocio.FacturaJPA.LineaFactura.findBypaquete", LineaFactura.class)
+							.setParameter("paquete", paquete);
+
+					if (paquete != null && paquete.getActivo() == 1) {
+
+						for (LineaFactura l : queryf.getResultList()) {
+							if (l.get_devuelto() != 1)
+								cuenta++;
+						}
+						if (cuenta == 0) {
+							LineaFactura lineaFactura = new LineaFactura(factura, paquete);
+							lineaFactura.set_devuelto(0);
+							lineaFactura.set_precioTotal(paquete.getPrecio());
+							tLineaFactura.set_precioTotal(lineaFactura.get_precioTotal());
+							tLineasFacturaPersistente.add(tLineaFactura);
+							em.persist(lineaFactura);
+							total += lineaFactura.get_precioTotal();
+							lineasFacturaPersistentes.add(lineaFactura);
+						} else {
+							break;
+						}
 					}
 				}
-				if (total != 0) {
+				if (total != 0 && cuenta == 0) {
 					factura.set_precioTotal(total);
 					factura.set_lineaFactura(lineasFacturaPersistentes);
 					em.persist(factura);
@@ -93,15 +110,48 @@ public class SAFacturaImp implements SAFactura {
 	}
 
 	public Integer modificarFactura(TFactura tFactura) {
-		// begin-user-code
-		return -1;
+		int res = -1;
+		EntityManager em = EMFSingleton.getInstancia().getEntityManagerFactory().createEntityManager();
+		try {
+			em.getTransaction().begin();
+			Factura f = em.find(Factura.class, tFactura.get_idFactura());
+
+			if (f != null && f.get_activo() == 1 && tFactura.get_precioTotal() >= 0) {
+				Remitente remitenteActual = em.find(Remitente.class, f.get_Remitente().getId());
+				Remitente nuevoRemitente = em.find(Remitente.class, tFactura.get_idRemitente());
+
+				if (nuevoRemitente != null && nuevoRemitente.getActivo() == 1) {
+					if (nuevoRemitente.getId() != remitenteActual.getId()) {
+						em.lock(nuevoRemitente, LockModeType.OPTIMISTIC_FORCE_INCREMENT);
+						em.lock(remitenteActual, LockModeType.OPTIMISTIC_FORCE_INCREMENT);
+						f.set_Remitente(nuevoRemitente);
+					}
+					f.set_precioTotal(tFactura.get_precioTotal());
+					em.persist(f);
+					em.getTransaction().commit();
+					res = f.get_idFactura();
+				} else {
+					em.getTransaction().rollback();
+				}
+
+			} else {
+				em.getTransaction().rollback();
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			em.getTransaction().rollback();
+		} finally {
+			em.close();
+		}
+		return res;
 	}
 
 	public TFacturaTOA buscarFactura(Integer idFactura) {
 		TFacturaTOA ftoa = null;
 		EntityManager em = EMFSingleton.getInstancia().getEntityManagerFactory().createEntityManager();
 		try {
-
+			em.getTransaction().begin();
 			Factura f = em.find(Factura.class, idFactura, LockModeType.OPTIMISTIC);
 			if (f != null) {
 				ftoa = new TFacturaTOA();
@@ -133,8 +183,7 @@ public class SAFacturaImp implements SAFactura {
 		Set<TFactura> listaFacturas = new HashSet<TFactura>();
 		try {
 			em.getTransaction().begin();
-			TypedQuery<Factura> query = em.createQuery("SELECT a FROM Factura f", Factura.class);
-
+			TypedQuery<Factura> query = em.createQuery("SELECT f FROM Factura f", Factura.class);
 			List<Factura> facturas = query.getResultList();
 			for (Factura f : facturas) {
 				// OPTIMISTA por si se modifica factura en otro hilo y altera la version
@@ -145,6 +194,7 @@ public class SAFacturaImp implements SAFactura {
 			}
 			em.getTransaction().commit();
 		} catch (Exception e) {
+			em.getTransaction().rollback();
 			e.printStackTrace();
 		} finally {
 			em.close();
@@ -153,10 +203,43 @@ public class SAFacturaImp implements SAFactura {
 	}
 
 	public Integer devolucion(TLineaFactura tLineaFactura) {
-		// begin-user-code
-		// TODO Ap�ndice de m�todo generado autom�ticamente
-		return null;
-		// end-user-code
+		Integer res = -1;
+		EntityManager em = EMFSingleton.getInstancia().getEntityManagerFactory().createEntityManager();
+		try {
+			em.getTransaction().begin();
+			Factura f = em.find(Factura.class, tLineaFactura.get_idFactura());
+			if (f != null && f.get_activo() == 1) {
+				LineaFacturaID lineaFacturaID = new LineaFacturaID(tLineaFactura.get_idFactura(),
+						tLineaFactura.get_idPaquete());
+				LineaFactura lineaFactura = em.find(LineaFactura.class, lineaFacturaID);
+				if (lineaFactura != null) {
+
+					if (lineaFactura.get_devuelto() == 0) {
+
+						Paquete paquete = em.find(Paquete.class, tLineaFactura.get_idPaquete(),
+								LockModeType.OPTIMISTIC);
+						if (paquete != null) {
+							lineaFactura.set_devuelto(1);
+							f.set_precioTotal(f.get_precioTotal() - lineaFactura.get_precioTotal());
+							if (f.get_precioTotal() < 0)
+								f.set_precioTotal(0);
+							em.getTransaction().commit();
+							res = 1;
+						} else
+							em.getTransaction().rollback();
+					} else
+						em.getTransaction().rollback();
+				} else
+					em.getTransaction().rollback();
+			} else
+				em.getTransaction().rollback();
+		} catch (Exception e) {
+			em.getTransaction().rollback();
+			e.printStackTrace();
+		} finally {
+			em.close();
+		}
+		return res;
 	}
 
 	public Integer anyadirPaquete(TCarritoFactura tCarritoFactura) {
@@ -165,18 +248,22 @@ public class SAFacturaImp implements SAFactura {
 		try {
 			em.getTransaction().begin();
 			Paquete paquete = em.find(Paquete.class, tCarritoFactura.get_idPaquete(), LockModeType.OPTIMISTIC);
-			Set<TLineaFactura> set = tCarritoFactura.get_tLineasFactura();
-			TLineaFactura lineaFactura = (buscar_en_carrito(set, tCarritoFactura.get_idPaquete()));
+			if (paquete != null) {
+				Set<TLineaFactura> set = tCarritoFactura.get_tLineasFactura();
+				TLineaFactura lineaFactura = (buscar_en_carrito(set, tCarritoFactura.get_idPaquete()));
 
-			if (lineaFactura == null) {
-				lineaFactura = new TLineaFactura();
-				lineaFactura.set_idPaquete(paquete.getId());
-				lineaFactura.set_precioTotal(paquete.getPrecio());
-				set.add(lineaFactura);
-				tCarritoFactura.set_tLineasFactura(set);
-				res = 1;
+				if (lineaFactura == null) {
+					lineaFactura = new TLineaFactura();
+					lineaFactura.set_idPaquete(paquete.getId());
+					lineaFactura.set_precioTotal(paquete.getPrecio());
+					set.add(lineaFactura);
+					tCarritoFactura.set_tLineasFactura(set);
+					res = 1;
+					em.getTransaction().commit();
+				} else
+					em.getTransaction().rollback();
 			}
-			em.getTransaction().commit();
+			else em.getTransaction().rollback();
 		} catch (Exception e) {
 			em.getTransaction().rollback();
 			e.printStackTrace();
@@ -213,7 +300,7 @@ public class SAFacturaImp implements SAFactura {
 			if (remitente != null && remitente.getActivo() == 1) {
 				TypedQuery<Factura> queryf = em
 						.createNamedQuery("negocio.FacturaJPA.Factura.findByremitente", Factura.class)
-						.setParameter("idRemitente", idRemitente);
+						.setParameter("remitente", remitente);
 
 				for (Factura f : queryf.getResultList()) {
 					if (f.get_activo() == 1) {

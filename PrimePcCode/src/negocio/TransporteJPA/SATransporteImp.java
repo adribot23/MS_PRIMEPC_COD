@@ -59,9 +59,14 @@ public class SATransporteImp implements SATransporte {
 
             Transporte t = em.find(Transporte.class, id); // No lock necesario, versión controla conflictos
             if (t != null && t.getActivo() == 1) {
-                t.setActivo(0); // marca como inactivo
-                em.getTransaction().commit();
-                res = t.getId();
+            	
+            	if(t.getTrabajadores().isEmpty()) {
+                    t.setActivo(0); // marca como inactivo
+                    em.getTransaction().commit();
+                    res = t.getId();
+            	}else {
+            		em.getTransaction().rollback();
+            	}
             } else {
                 em.getTransaction().rollback();
             }
@@ -120,7 +125,7 @@ public class SATransporteImp implements SATransporte {
 
         try {
             em.getTransaction().begin();
-          
+                 
             Transporte transporteById = em.find(Transporte.class, id, LockModeType.OPTIMISTIC);
 
             if (transporteById != null) {

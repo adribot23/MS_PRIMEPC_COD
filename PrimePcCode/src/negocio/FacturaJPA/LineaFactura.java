@@ -4,6 +4,8 @@
 package negocio.FacturaJPA;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.JoinColumn;
 
 import java.io.Serializable;
@@ -11,9 +13,12 @@ import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.NamedQuery;
 
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.Version;
 import negocio.PaqueteJPA.Paquete;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.MapsId;
 
 @Entity
 @NamedQueries({
@@ -21,7 +26,8 @@ import jakarta.persistence.ManyToOne;
 		@NamedQuery(name = "negocio.FacturaJPA.LineaFactura.findBydevuelto", query = "select obj from LineaFactura obj where :devuelto = obj.devuelto "),
 		@NamedQuery(name = "negocio.FacturaJPA.LineaFactura.findByprecioTotal", query = "select obj from LineaFactura obj where :precio_total = obj.precio_total "),
 		@NamedQuery(name = "negocio.FacturaJPA.LineaFactura.findByversion", query = "select obj from LineaFactura obj where :version = obj.version "),
-		@NamedQuery(name = "negocio.FacturaJPA.LineaFactura.findByfactura", query = "select obj from LineaFactura obj where :factura = obj.factura ") })
+		@NamedQuery(name = "negocio.FacturaJPA.LineaFactura.findByfactura", query = "select obj from LineaFactura obj where :factura = obj.factura "),
+		@NamedQuery(name = "negocio.FacturaJPA.LineaFactura.findBypaquete", query = "select obj from LineaFactura obj where :paquete = obj.paquete ")})
 public class LineaFactura implements Serializable {
 
 	private static final long serialVersionUID = 0;
@@ -33,13 +39,15 @@ public class LineaFactura implements Serializable {
 
 	private double precio_total;
 
+	@Version
 	private Integer version;
 
 	@ManyToOne
-	@JoinColumn(name="id_factura")
+	@MapsId
 	private Factura factura;
 
 	@OneToOne
+	@MapsId
 	private Paquete paquete;
 
 	public LineaFactura() {
