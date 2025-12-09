@@ -151,7 +151,7 @@ public class SAFacturaImp implements SAFactura {
 		TFacturaTOA ftoa = null;
 		EntityManager em = EMFSingleton.getInstancia().getEntityManagerFactory().createEntityManager();
 		try {
-
+			em.getTransaction().begin();
 			Factura f = em.find(Factura.class, idFactura, LockModeType.OPTIMISTIC);
 			if (f != null) {
 				ftoa = new TFacturaTOA();

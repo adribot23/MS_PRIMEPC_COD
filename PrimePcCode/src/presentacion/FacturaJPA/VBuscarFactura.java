@@ -30,8 +30,12 @@ import presentacion.GUI.Evento;
 import presentacion.GUI.IGUI;
 import presentacion.Venta.VBuscarVenta;
 
-@SuppressWarnings("serial")
+
 public class VBuscarFactura extends JFrame implements IGUI {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	JTextArea resultadoArea = new JTextArea();
 
 	public VBuscarFactura() {
@@ -51,13 +55,13 @@ public class VBuscarFactura extends JFrame implements IGUI {
 		JButton buscarButton = new JButton("Buscar");
 		buscarButton.setBackground(new Color(200, 255, 200));
 		buscarButton.addActionListener(e -> {try {
-			int idVenta = Integer.parseInt(txtFactura.getText().trim());
-			if (idVenta <= 0) {
+			int idFactura = Integer.parseInt(txtFactura.getText().trim());
+			if (idFactura <= 0) {
 				JOptionPane.showMessageDialog(this, "El Id factura debe ser un numero positivo.", "Datos incorrectos",
 						JOptionPane.ERROR_MESSAGE);
 				return;
 			}
-			Controlador.getInstancia().accion(new Context(Evento.BUSCAR_FACTURA, idVenta));
+			Controlador.getInstancia().accion(new Context(Evento.BUSCAR_FACTURA, idFactura));
 		} catch (NumberFormatException ex) {
 			JOptionPane.showMessageDialog(this, "El Id factura debe ser un numero entero positivo.", "Datos incorrectos",
 					JOptionPane.ERROR_MESSAGE);
