@@ -115,12 +115,12 @@ public class VDevolucion extends JFrame implements IGUI {
 			this.setVisible(true);
 		else if (context.getEvento() == Evento.RES_DEVOLUCION_OK) {
 			JOptionPane.showMessageDialog(null, "Exito al procesar la devolucion.");
-			Controlador.getInstancia().accion(new Context(Evento.DEVOLUCION, null));
+			Controlador.getInstancia().accion(new Context(Evento.VDEVOLUCION, null));
 			this.dispose();
 		}
 		else if (context.getEvento() == Evento.RES_DEVOLUCION_KO) {
 			JOptionPane.showMessageDialog(null, "Error al procesar la devolucion.");
-			Controlador.getInstancia().accion(new Context(Evento.FACTURA, null));
+			Controlador.getInstancia().accion(new Context(Evento.VDEVOLUCION, null));
 			this.dispose();
 		}
 	}

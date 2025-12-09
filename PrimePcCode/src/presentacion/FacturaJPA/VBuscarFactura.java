@@ -187,7 +187,7 @@ public class VBuscarFactura extends JFrame implements IGUI {
 		sb.append("Factura encontrada con id: ").append(factura.get_idFactura()).append("\n");
 		sb.append("Remitente: ").append(factura.get_idRemitente()).append("\n");
 		sb.append("Precio Total: ").append(factura.get_precioTotal()).append("\n");
-		sb.append("Activa: ").append(factura.get_activo() == 1 ? "Si" : "No");
+		
 		return sb.toString();
 	}
 

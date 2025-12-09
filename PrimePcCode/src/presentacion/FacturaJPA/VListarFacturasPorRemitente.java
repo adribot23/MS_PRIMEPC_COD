@@ -74,7 +74,7 @@ public class VListarFacturasPorRemitente extends JFrame implements IGUI{
 	}
 
 	private void mostrarTabla(Set<TFactura> facturas) {
-		String[] columnNames = { "ID Factura", "ID Remitente", "Precio Total", "Activo" }; 
+		String[] columnNames = { "ID Factura", "ID Remitente", "Precio Total" }; 
 		Object[][] tableData = new Object[facturas.size()][columnNames.length];
 
 		int i = 0;
@@ -82,7 +82,6 @@ public class VListarFacturasPorRemitente extends JFrame implements IGUI{
 			tableData[i][0] = f.get_idFactura();
 			tableData[i][1] = f.get_idRemitente();
 			tableData[i][2] = f.get_precioTotal();
-			tableData[i][3] = f.get_activo();
 			i++;
 		}
 
