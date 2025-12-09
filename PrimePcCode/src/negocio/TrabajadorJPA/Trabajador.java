@@ -49,7 +49,7 @@ public class Trabajador {
 	private int activo;
 	
 	@ManyToMany(mappedBy= "trabajadores")
-	@JoinTable(name = "transporte_trabajador", joinColumns = @JoinColumn(name = "id_trabajador"), inverseJoinColumns = @JoinColumn(name = "id_transporte"))
+	@JoinTable(name = "trabajador_transporte", joinColumns = @JoinColumn(name = "id_transporte"), inverseJoinColumns = @JoinColumn(name = "id_trabajador"))
 	private Set<Transporte> transportes;
 	
 	@OneToMany(mappedBy = "trabajador")

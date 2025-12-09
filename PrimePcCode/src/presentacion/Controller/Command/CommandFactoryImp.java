@@ -379,24 +379,24 @@ public class CommandFactoryImp extends CommandFactory {
  			break;
 
 		 // --- TRABAJADOR ---
-		 		case ALTA_TRABAJADOR:
-		 		    command = new AltaTrabajadorCommand();
-		 		    break;
-		 		case BAJA_TRABAJADOR:
-		 		    command = new BajaTrabajadorCommand();
-		 		    break;
-		 		case MODIFICAR_TRABAJADOR:
-		 		    command = new ModificarTrabajadorCommand();
-		 		    break;
-		 		case BUSCAR_TRABAJADOR:
-		 		    command = new BuscarTrabajadorCommand();
-		 		    break;
-		 		case MOSTRAR_TODOS_TRABAJADORES:
-		 		    command = new MostrarTrabajadorCommand();
-		 		    break;
-		 		case VER_TRABAJADOR_POR_TRANSPORTE:
-		 		    command = new MostrarTrabajadorPorTransporteCommand();
-		 		    break;
+	 		case ALTA_TRABAJADOR:
+	 		    command = new AltaTrabajadorCommand();
+	 		    break;
+	 		case BAJA_TRABAJADOR:
+	 		    command = new BajaTrabajadorCommand();
+	 		    break;
+	 		case MODIFICAR_TRABAJADOR:
+	 		    command = new ModificarTrabajadorCommand();
+	 		    break;
+	 		case BUSCAR_TRABAJADOR:
+	 		    command = new BuscarTrabajadorCommand();
+	 		    break;
+	 		case MOSTRAR_TODOS_TRABAJADORES:
+	 		    command = new MostrarTrabajadorCommand();
+	 		    break;
+	 		case MOSTRAR_TRABAJADOR_POR_TRANSPORTE:
+	 		    command = new MostrarTrabajadorPorTransporteCommand();
+	 		    break;
 		
 			
 		default:

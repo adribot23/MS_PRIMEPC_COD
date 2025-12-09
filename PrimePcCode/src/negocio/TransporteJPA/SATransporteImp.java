@@ -120,7 +120,7 @@ public class SATransporteImp implements SATransporte {
 
         try {
             em.getTransaction().begin();
-          
+                 
             Transporte transporteById = em.find(Transporte.class, id, LockModeType.OPTIMISTIC);
 
             if (transporteById != null) {
