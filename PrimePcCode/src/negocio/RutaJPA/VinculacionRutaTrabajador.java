@@ -4,16 +4,18 @@ import java.io.Serializable;
 
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
+import jakarta.persistence.Table;
 import jakarta.persistence.Version;
 
 import negocio.TrabajadorJPA.Trabajador;
 
 @Entity
-
+@Table(name = "VINCULACION_RUTA_TRABAJADOR")
 @NamedQueries({
 	@NamedQuery(name = "negocio.RutaJPA.VinculacionRutaTrabajador.findByid_ruta", query = "select obj from VinculacionRutaTrabajador obj where :id_ruta = obj.ruta"),
 	@NamedQuery(name = "negocio.TrabajadorJPA.VinculacionRutaTrabajador.findByid_trabajador", query = "select obj from VinculacionRutaTrabajador obj where :id_trabajador = obj.trabajador") })
@@ -28,11 +30,13 @@ private VinculacionRutaTrabajadorID id_vinculacion;
 private Integer version;
 
 @ManyToOne
-@MapsId
+@MapsId("trabajador")
+@JoinColumn(name = "ID_TRABAJADOR")
 private Trabajador trabajador;
 
 @ManyToOne
-@MapsId
+@MapsId("ruta")
+@JoinColumn(name = "ID_RUTA")
 private Ruta ruta;
 
 private String hora_salida;

@@ -606,8 +606,8 @@ public class GUIAbstractFactoryImp extends GUIAbstractFactory {
 			case RES_MOSTRAR_TODOS_TRABAJADORES_KO:
 				return new VMostrarTrabajadores();
 			case VVER_TRABAJADOR_POR_TRANSPORTE:
-			case RES_VER_TRABAJADOR_POR_TRANSPORTE_OK:
-			case RES_VER_TRABAJADOR_POR_TRANSPORTE_KO:
+			case RES_MOSTRAR_TRABAJADOR_POR_TRANSPORTE_OK:
+			case RES_MOSTRAR_TRABAJADOR_POR_TRANSPORTE_KO:
 				return new VMostrarTrabajadorPorTransporte();
 
 
