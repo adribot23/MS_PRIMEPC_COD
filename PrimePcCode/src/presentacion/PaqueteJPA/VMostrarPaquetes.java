@@ -89,7 +89,7 @@ public class VMostrarPaquetes extends JFrame implements IGUI {
             tableData[i][2] = p.getPeso();
             tableData[i][3] = p.getPrecio();
             tableData[i][4] = p.getIdRuta();
-            tableData[i][5] = p.getIdFactura();
+            tableData[i][5] = (p.getIdFactura() == -1) ? "No hay factura" : p.getIdFactura();
             tableData[i][8] = p.getActivo();
 
             if (p instanceof TPaqueteNormal normal) {

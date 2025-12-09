@@ -300,7 +300,7 @@ public class SAFacturaImp implements SAFactura {
 			if (remitente != null && remitente.getActivo() == 1) {
 				TypedQuery<Factura> queryf = em
 						.createNamedQuery("negocio.FacturaJPA.Factura.findByremitente", Factura.class)
-						.setParameter("idRemitente", idRemitente);
+						.setParameter("remitente", remitente);
 
 				for (Factura f : queryf.getResultList()) {
 					if (f.get_activo() == 1) {
