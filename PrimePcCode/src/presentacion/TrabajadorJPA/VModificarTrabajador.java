@@ -17,7 +17,7 @@ import presentacion.Controller.Command.Context;
 import presentacion.GUI.Evento;
 import presentacion.GUI.IGUI;
 
-public class VModificarTrabajador extends JFrame implements IGUI{
+public class VModificarTrabajador extends JFrame implements IGUI {
 
 	public VModificarTrabajador() {
 		super("Modificar Trabajador");
@@ -26,7 +26,7 @@ public class VModificarTrabajador extends JFrame implements IGUI{
 
 	private void initGUI() {
 
-		setLayout(new GridLayout(5, 2, 10, 10));
+		setLayout(new GridLayout(4, 2, 10, 10));
 		getRootPane().setBorder(BorderFactory.createTitledBorder("Modificar Trabajdor"));
 
 		JLabel lblId = new JLabel("ID:");

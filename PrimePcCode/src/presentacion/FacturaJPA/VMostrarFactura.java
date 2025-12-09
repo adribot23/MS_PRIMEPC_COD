@@ -101,7 +101,7 @@ public class VMostrarFactura extends JFrame implements IGUI {
 			mostrarTabla((Set<TFactura>) datos);
 			break;
 		case RES_MOSTRAR_TODAS_FACTURAS_KO:
-			JOptionPane.showMessageDialog(this, "No se pudieron mostrar las facturas.");
+			JOptionPane.showMessageDialog(null, "No se pudieron mostrar las facturas.");
 			break;
 		default:
 			break;

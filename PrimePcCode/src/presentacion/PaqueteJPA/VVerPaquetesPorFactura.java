@@ -83,7 +83,7 @@ public class VVerPaquetesPorFactura extends JFrame implements IGUI {
                 mostrarTabla((Set<TPaquete>) datos);
                 break;
             case RES_VER_PAQUETES_POR_FACTURA_KO:
-                JOptionPane.showMessageDialog(this, "No se encontraron paquetes para esa factura.");
+                JOptionPane.showMessageDialog(null, "No se encontraron paquetes para esa factura.");
                 break;
             default:
                 break;

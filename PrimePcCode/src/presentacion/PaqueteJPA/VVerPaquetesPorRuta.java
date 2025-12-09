@@ -83,7 +83,7 @@ public class VVerPaquetesPorRuta extends JFrame implements IGUI {
                 mostrarTabla((Set<TPaquete>) datos);
                 break;
             case RES_VER_PAQUETES_POR_RUTA_KO:
-                JOptionPane.showMessageDialog(this, "No se encontraron paquetes para esa ruta.");
+                JOptionPane.showMessageDialog(null, "No se encontraron paquetes para esa ruta.");
                 break;
             default:
                 break;
