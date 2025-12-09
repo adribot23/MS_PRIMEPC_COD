@@ -8,103 +8,97 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.LockModeType;
 import jakarta.persistence.TypedQuery;
-
+import negocio.FacturaJPA.Factura;
+import negocio.FacturaJPA.LineaFactura;
+import negocio.PaqueteJPA.Paquete;
+import negocio.TransporteJPA.Transporte;
 import integracion.EMFSingleton.EMFSingleton;
 
 public class SARemitenteImp implements SARemitente {
-
+	
 	@Override
 	public synchronized int altaRemitente(TRemitente tRemitente) {
-		int id = -1;
+	    int res = -1;
+	    EntityManager em = EMFSingleton.getInstancia().getEntityManagerFactory().createEntityManager();
 
-		EntityManager em = EMFSingleton.getInstancia().getEntityManagerFactory().createEntityManager();
+	    try {
+	        em.getTransaction().begin();
 
-		EntityTransaction tr = em.getTransaction();
+	        List<Remitente> lista = em
+	                .createNamedQuery("Negocio.RemitenteJPA.Remitente.findBynombre", Remitente.class)
+	                .setParameter("nombre", tRemitente.getNombre())
+	                .getResultList();
 
-		try {
-			tr.begin();
+	        Remitente existente = lista.isEmpty() ? null : lista.get(0);
 
-			TypedQuery<Remitente> query = em.createNamedQuery("Negocio.RemitenteJPA.Remitente.findByNombre",
-					Remitente.class);
+	        if (existente == null) {
 
-			query.setParameter("nombre", tRemitente.getNombre());
+	            Remitente nuevo = null;
 
-			Remitente existente = null;
+	            if (tRemitente instanceof TEmpresa) {
+	                nuevo = new Empresa((TEmpresa) tRemitente);
 
-			try {
-				existente = query.getSingleResult();
-			} catch (Exception e) {
-			}
+	            } else if (tRemitente instanceof TParticular) {
+	                nuevo = new Particular((TParticular) tRemitente);
+	            }
 
-			Remitente nuevo = null;
+	            if (nuevo == null) {
+	                em.getTransaction().rollback();
+	                return -1;
+	            }
 
-			if (existente == null) {
+	            em.persist(nuevo);
+	            em.getTransaction().commit();
+	            res = nuevo.getId();
+	        }
 
-				if (tRemitente instanceof TEmpresa) {
-					TEmpresa te = (TEmpresa) tRemitente;
-					Empresa empresa = new Empresa(te);
-					nuevo = empresa;
-					em.persist(nuevo);
-					tr.commit();
-					id = nuevo.getId();
 
-				} else if (tRemitente instanceof TParticular) {
-					TParticular tp = (TParticular) tRemitente;
-					Particular particular = new Particular(tp);
-					nuevo = particular;
-					em.persist(nuevo);
-					tr.commit();
-					id = nuevo.getId();
+	        else if (existente.getActivo() == 0) {
 
-				} else {
-					tr.rollback();
-				}
-			}
+	            if (existente instanceof Empresa && tRemitente instanceof TEmpresa) {
 
-			else if (existente != null && existente.getActivo() == 0) {
+	                Empresa e = (Empresa) existente;
+	                TEmpresa te = (TEmpresa) tRemitente;
 
-				if (existente instanceof Empresa && tRemitente instanceof TEmpresa) {
+	                e.setActivo(1);
+	                e.setDireccion(te.getDireccion());
+	                e.setTelefono(te.getTelefono());
+	                e.setNombre(te.getNombre());
+	                e.setNumRegistroFiscal(te.getNumRegistroFiscal());
 
-					TEmpresa te = (TEmpresa) tRemitente;
-					Empresa emp = (Empresa) existente;
+	            } else if (existente instanceof Particular && tRemitente instanceof TParticular) {
 
-					emp.setActivo(1);
-					emp.setDireccion(te.getDireccion());
-					emp.setTelefono(te.getTelefono());
-					emp.setNombre(te.getNombre());
-					emp.setNumRegistroFiscal(te.getNumRegistroFiscal());
+	                Particular p = (Particular) existente;
+	                TParticular tp = (TParticular) tRemitente;
 
-					tr.commit();
-					id = emp.getId();
-				} else if (existente instanceof Particular && tRemitente instanceof TParticular) {
+	                p.setActivo(1);
+	                p.setDireccion(tp.getDireccion());
+	                p.setTelefono(tp.getTelefono());
+	                p.setNombre(tp.getNombre());
+	                p.setFechaNacimiento(tp.getFechaNacimiento());
 
-					TParticular tp = (TParticular) tRemitente;
-					Particular par = (Particular) existente;
+	            } else {
+	                em.getTransaction().rollback();
+	                return -1;
+	            }
 
-					par.setActivo(1);
-					par.setDireccion(tp.getDireccion());
-					par.setTelefono(tp.getTelefono());
-					par.setNombre(tp.getNombre());
-					par.setFechaNacimiento(tp.getFechaNacimiento());
+	            em.lock(existente, LockModeType.OPTIMISTIC_FORCE_INCREMENT);
+	            em.getTransaction().commit();
+	            res = existente.getId();
+	        }
+	        else {
+	            em.getTransaction().rollback();
+	        }
 
-					tr.commit();
-					id = par.getId();
-				} else {
-					tr.rollback();
-				}
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        if (em.getTransaction().isActive())
+	            em.getTransaction().rollback();
+	    } finally {
+	        em.close();
+	    }
 
-			} else {
-				tr.rollback();
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			tr.rollback();
-		} finally {
-			em.close();
-		}
-
-		return id;
+	    return res;
 	}
 
 	@Override
@@ -138,7 +132,7 @@ public class SARemitenteImp implements SARemitente {
 		}
 		return exito;
 	}
-
+/*
 	@Override
 	public int modificarRemitente(TRemitente tRem) {
 		int res = -1;
@@ -156,7 +150,7 @@ public class SARemitenteImp implements SARemitente {
 				return res;
 			}
 
-			TypedQuery<Remitente> query = em.createNamedQuery("Negocio.RemitenteJPA.Remitente.findByNombre",
+			TypedQuery<Remitente> query = em.createNamedQuery("Negocio.RemitenteJPA.Remitente.findBynombre",
 					Remitente.class);
 			query.setParameter("nombre", tRem.getNombre());
 
@@ -211,6 +205,66 @@ public class SARemitenteImp implements SARemitente {
 		em.close();
 		return res;
 	}
+	*/
+	
+	@Override
+	public int modificarRemitente(TRemitente tRem) {
+		int res = -1;
+        EntityManager em = EMFSingleton.getInstancia().getEntityManagerFactory().createEntityManager();
+
+        try {
+            em.getTransaction().begin();
+
+            Remitente rExistente = em.find(Remitente.class, tRem.getId()); // No lock necesario al modificar con @Version
+            TRemitente transferExistente = rExistente.entityToTransfer();
+            
+            if(!tRem.getClass().equals(transferExistente.getClass())) {
+            	em.getTransaction().rollback();
+				em.close();
+				return res;
+            }
+            
+            if (rExistente != null && rExistente.getActivo() == 1) {
+
+                List<Remitente> tNombre = em
+                        .createNamedQuery("Negocio.RemitenteJPA.Remitente.findBynombre", Remitente.class)
+                        .setParameter("nombre", tRem.getNombre()).getResultList();
+
+                if (tNombre.isEmpty() || (tNombre.size() == 1 && tNombre.get(0).getId() == tRem.getId())) {
+                    rExistente.setNombre(tRem.getNombre());
+                    rExistente.setDireccion(tRem.getDireccion());
+                    rExistente.setTelefono(tRem.getTelefono());
+                    
+                    if(rExistente instanceof Empresa) {
+                    	Empresa emp = (Empresa)rExistente;
+                    	TEmpresa tEmp = (TEmpresa) tRem;
+                    	emp.setNumRegistroFiscal(tEmp.getNumRegistroFiscal());
+                    } else if (rExistente instanceof Particular) {
+                    	Particular part = (Particular) rExistente;
+                    	TParticular tPart = (TParticular) tRem;
+                    	part.setFechaNacimiento(tPart.getFechaNacimiento());
+                    }
+
+                    em.getTransaction().commit();
+                    res = rExistente.getId();
+                } else {
+                    em.getTransaction().rollback();
+                }
+            } else {
+                em.getTransaction().rollback();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            em.getTransaction().rollback();
+        } finally {
+            em.close();
+        }
+
+        return res;
+		
+		
+		
+	}
 
 	@Override
 	public TRemitente buscarRemitente(int id_remitente) {
@@ -262,9 +316,32 @@ public class SARemitenteImp implements SARemitente {
 
 		return remitentes;
 	}
-
+	
 	@Override
 	public double calcularPrecioPaquetesRemitente(int id_remitente) {
-		return 0;
+
+		EntityManager em = EMFSingleton.getInstancia().getEntityManagerFactory().createEntityManager();
+
+	    Remitente remitente = em.find(Remitente.class, id_remitente);
+
+	    if (remitente == null) return 0;
+
+	    double total = 0;
+	    for (Factura factura : remitente.getFactura()) {
+
+	        for (LineaFactura lf : factura.get_lineaFactura()) {
+
+	            Paquete p = lf.get_Paquete();
+
+	            if (p != null) {
+	                total += p.getPrecio();  
+	            }
+	        }
+	    }
+
+	    return total;
 	}
+
+
 }
+

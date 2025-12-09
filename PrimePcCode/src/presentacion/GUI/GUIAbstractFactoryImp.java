@@ -20,6 +20,16 @@ import presentacion.Empleado.VBuscarEmpleado;
 import presentacion.Empleado.VCalcularImporteMasVendido;
 import presentacion.Empleado.VModificarEmpleado;
 import presentacion.Empleado.VMostrarEmpleado;
+import presentacion.FacturaJPA.GUIFactura;
+import presentacion.FacturaJPA.VAbrirFactura;
+import presentacion.FacturaJPA.VAnyadirPaquete;
+import presentacion.FacturaJPA.VBuscarFactura;
+import presentacion.FacturaJPA.VCerrarFactura;
+import presentacion.FacturaJPA.VDevolucion;
+import presentacion.FacturaJPA.VEliminarPaquete;
+import presentacion.FacturaJPA.VListarFacturasPorRemitente;
+import presentacion.FacturaJPA.VModificarFactura;
+import presentacion.FacturaJPA.VMostrarFactura;
 import presentacion.PaqueteJPA.GUIPaquete;
 import presentacion.PaqueteJPA.VAltaPaquete;
 import presentacion.PaqueteJPA.VBajaPaquete;
@@ -53,6 +63,13 @@ import presentacion.RemitenteJPA.VBuscarRemitente;
 import presentacion.RemitenteJPA.VCalcularPrecioPaquete;
 import presentacion.RemitenteJPA.VModificarRemitente;
 import presentacion.RemitenteJPA.VMostrarRemitente;
+import presentacion.TrabajadorJPA.GUITrabajador;
+import presentacion.TrabajadorJPA.VAltaTrabajador;
+import presentacion.TrabajadorJPA.VBajaTrabajador;
+import presentacion.TrabajadorJPA.VBuscarTrabajador;
+import presentacion.TrabajadorJPA.VModificarTrabajador;
+import presentacion.TrabajadorJPA.VMostrarTrabajadorPorTransporte;
+import presentacion.TrabajadorJPA.VMostrarTrabajadores;
 import presentacion.TransporteJPA.GUITransporte;
 import presentacion.TransporteJPA.VAltaTransporte;
 import presentacion.TransporteJPA.VBajaTransporte;
@@ -62,6 +79,16 @@ import presentacion.TransporteJPA.VModificarTransporte;
 import presentacion.TransporteJPA.VMostrarTransporte;
 import presentacion.TransporteJPA.VVerTransportePorTrabajador;
 import presentacion.TransporteJPA.VVincularTransporteTrabajador;
+import presentacion.RutaJPA.GUIRuta;
+import presentacion.RutaJPA.VAltaRuta;
+import presentacion.RutaJPA.VBajaRuta;
+import presentacion.RutaJPA.VBuscarRuta;
+import presentacion.RutaJPA.VDesvincularRutaTrabajador;
+import presentacion.RutaJPA.VModificarRuta;
+import presentacion.RutaJPA.VMostrarRutas;
+import presentacion.RutaJPA.VVincularRutaTrabajador;
+import presentacion.RutaJPA.VVerRutasPorTrabajador;
+import presentacion.RutaJPA.VVerTrabajadoresPorRuta;
 import presentacion.Venta.GUIVenta;
 import presentacion.Venta.VAbrirVenta;
 import presentacion.Venta.VAñadirProducto;
@@ -353,6 +380,54 @@ public class GUIAbstractFactoryImp extends GUIAbstractFactory {
 			return new VBajaVenta();
 
 		/*
+		 * ============================== ======== RUTA ============
+		 * ==============================
+		 */
+		case RUTA:
+			return new GUIRuta();
+
+		case VALTA_RUTA:
+		case RES_ALTA_RUTA_OK:
+		case RES_ALTA_RUTA_KO:
+			return new VAltaRuta();
+
+		case VBAJA_RUTA:
+		case RES_BAJA_RUTA_OK:
+		case RES_BAJA_RUTA_KO:
+			return new VBajaRuta();
+
+		case VBUSCAR_RUTA:
+		case RES_BUSCAR_RUTA_OK:
+		case RES_BUSCAR_RUTA_KO:
+			return new VBuscarRuta();
+
+		case VMODIFICAR_RUTA:
+		case RES_MODIFICAR_RUTA_OK:
+		case RES_MODIFICAR_RUTA_KO:
+			return new VModificarRuta();
+
+		case VMOSTRAR_TODAS_RUTAS:
+		case RES_MOSTRAR_TODAS_RUTAS_OK:
+		case RES_MOSTRAR_TODAS_RUTAS_KO:
+			return new VMostrarRutas();
+		case VAVINCULAR_RUTA_TRABAJADOR:
+		case RES_VINCULAR_RUTA_TRABAJADOR_OK:
+		case RES_VINCULAR_RUTA_TRABAJADOR_KO:
+			return new VVincularRutaTrabajador();
+		case VDESVINCULAR_RUTA_TRABAJADOR:
+		case RES_DESVINCULAR_RUTA_TRABAJADOR_OK:
+		case RES_DESVINCULAR_RUTA_TRABAJADOR_KO:
+			return new VDesvincularRutaTrabajador();
+		case VVER_RUTA_POR_TRABAJADOR:
+		case RES_VER_RUTA_POR_TRABAJADOR_OK:
+		case RES_VER_RUTA_POR_TRABAJADOR_KO:
+			return new VVerRutasPorTrabajador();
+		case VVER_TRABAJADOR_POR_RUTA:
+		case RES_VER_TRABAJADOR_POR_RUTA_OK:
+		case RES_VER_TRABAJADOR_POR_RUTA_KO:
+			return new VVerTrabajadoresPorRuta();
+
+		/*
 		 * ============================== ======== TRANSPORTE ============
 		 * ==============================
 		 */
@@ -455,6 +530,86 @@ public class GUIAbstractFactoryImp extends GUIAbstractFactory {
 		case RES_VER_PAQUETES_POR_RUTA_OK:
 		case RES_VER_PAQUETES_POR_RUTA_KO:
 			return new VVerPaquetesPorRuta();
+			
+			/*
+
+			 * ============================== ======== FACTURA ==============================
+			 */
+		case FACTURA:
+			return new GUIFactura();
+		case VABRIR_FACTURA:
+		case RES_ABRIR_FACTURA_OK:
+		case RES_ABRIR_FACTURA_KO:
+			return new VAbrirFactura();
+		case VCERRAR_FACTURA:
+		case RES_CERRAR_FACTURA_OK:
+		case RES_CERRAR_FACTURA_KO:
+		case RES_PASAR_CARRITOFACTURA_A_CERRAR_OK:
+		case RES_PASAR_CARRITOFACTURA_A_CERRAR_KO:
+			return new VCerrarFactura();
+		case VINSERTAR_PAQUETE_FACTURA:
+		case RES_INSERTAR_PAQUETE_FACTURA_OK:
+		case RES_INSERTAR_PAQUETE_FACTURA_KO:
+		case RES_PASAR_CARRITOFACTURA_A_INSERTAR_OK:
+		case RES_PASAR_CARRITOFACTURA_A_INSERTAR_KO:
+			return new VAnyadirPaquete();
+		case VQUITAR_PAQUETE_FACTURA:
+		case RES_QUITAR_PAQUETE_FACTURA_OK:
+		case RES_QUITAR_PAQUETE_FACTURA_KO:
+		case RES_PASAR_CARRITOFACTURA_A_ELIMINAR_OK:
+		case RES_PASAR_CARRITOFACTURA_A_ELIMINAR_KO:
+			return new VEliminarPaquete();
+		case VMODIFICAR_FACTURA:
+		case RES_MODIFICAR_FACTURA_OK:
+		case RES_MODIFICAR_FACTURA_KO:
+			return new VModificarFactura();
+		case VBUSCAR_FACTURA:
+		case RES_BUSCAR_FACTURA_OK:
+		case RES_BUSCAR_FACTURA_KO:
+			return new VBuscarFactura();
+		case VMOSTRAR_TODAS_FACTURAS:
+		case RES_MOSTRAR_TODAS_FACTURAS_OK:
+		case RES_MOSTRAR_TODAS_FACTURAS_KO:
+			return new VMostrarFactura();
+		case VVER_FACTURAS_POR_REMITENTE:
+		case RES_VER_FACTURAS_POR_REMITENTE_OK:
+		case RES_VER_FACTURAS_POR_REMITENTE_KO:
+			return new VListarFacturasPorRemitente();
+		case VDEVOLUCION:
+		case RES_DEVOLUCION_OK:
+		case RES_DEVOLUCION_KO:
+			return new VDevolucion();
+/*
+			 * ============================== ======== TRABAJADOR ============
+			 * ==============================
+			 */
+			case TRABAJADOR:
+				return new GUITrabajador();
+			case VALTA_TRABAJADOR:
+			case RES_ALTA_TRABAJADOR_OK:
+			case RES_ALTA_TRABAJADOR_KO:
+				return new VAltaTrabajador();
+			case VBAJA_TRABAJADOR:
+			case RES_BAJA_TRABAJADOR_OK:
+			case RES_BAJA_TRABAJADOR_KO:
+				return new VBajaTrabajador();
+			case VBUSCAR_TRABAJADOR:
+			case RES_BUSCAR_TRABAJADOR_OK:
+			case RES_BUSCAR_TRABAJADOR_KO:
+				return new VBuscarTrabajador();
+			case VMODIFICAR_TRABAJADOR:
+			case RES_MODIFICAR_TRABAJADOR_OK:
+			case RES_MODIFICAR_TRABAJADOR_KO:
+				return new VModificarTrabajador();
+			case VMOSTRAR_TODOS_TRABAJADORES:
+			case RES_MOSTRAR_TODOS_TRABAJADORES_OK:
+			case RES_MOSTRAR_TODOS_TRABAJADORES_KO:
+				return new VMostrarTrabajadores();
+			case VVER_TRABAJADOR_POR_TRANSPORTE:
+			case RES_MOSTRAR_TRABAJADOR_POR_TRANSPORTE_OK:
+			case RES_MOSTRAR_TRABAJADOR_POR_TRANSPORTE_KO:
+				return new VMostrarTrabajadorPorTransporte();
+
 
 		default:
 			return null;

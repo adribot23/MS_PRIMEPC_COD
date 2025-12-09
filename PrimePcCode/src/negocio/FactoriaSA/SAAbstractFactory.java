@@ -4,10 +4,13 @@ package negocio.FactoriaSA;
 import negocio.Almacen.SAAlmacen;
 import negocio.Cliente.SACliente;
 import negocio.Empleado.SAEmpleado;
+import negocio.FacturaJPA.SAFactura;
 import negocio.PaqueteJPA.SAPaquete;
 import negocio.Producto.SAProducto;
 import negocio.Proveedor.SAProveedor;
 import negocio.RemitenteJPA.SARemitente;
+import negocio.RutaJPA.SARuta;
+import negocio.RutaJPA.SAVinculacionRutaTrabajador;
 import negocio.TrabajadorJPA.SATrabajador;
 import negocio.TransporteJPA.SATransporte;
 import negocio.Venta.SAVenta;
@@ -45,4 +48,10 @@ public abstract class SAAbstractFactory {
 
 	public abstract SATrabajador generarSATrabajador();
 
+
+	public abstract SAFactura generarSAFactura();
+	
+	public abstract SARuta generarSARuta();
+
+	public abstract SAVinculacionRutaTrabajador generarSAVinculacionRutaTrabajador();
 }

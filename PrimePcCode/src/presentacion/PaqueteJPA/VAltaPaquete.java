@@ -27,7 +27,8 @@ public class VAltaPaquete extends JFrame implements IGUI {
         JTextField txtNumSerie = new JTextField();
 
         JLabel lblEstado = new JLabel("Estado:");
-        JTextField txtEstado = new JTextField();
+        String[] estados = { "No enviado", "Enviado", "Entregado" };
+        JComboBox<String> cbEstado = new JComboBox<>(estados);
 
         JLabel lblPeso = new JLabel("Peso:");
         JTextField txtPeso = new JTextField();
@@ -61,30 +62,68 @@ public class VAltaPaquete extends JFrame implements IGUI {
         btnAlta.setBackground(new Color(200, 255, 200));
         btnAlta.addActionListener(e -> {
             try {
-
                 String numSerie = txtNumSerie.getText().trim();
-                String estado = txtEstado.getText().trim();
+                String estado = (String) cbEstado.getSelectedItem();
                 String pesoTxt = txtPeso.getText().trim();
                 String precioTxt = txtPrecio.getText().trim();
                 String idRutaTxt = txtIdRuta.getText().trim();
                 String extraTxt = txtExtra.getText().trim();
 
-                if (numSerie.isEmpty() || estado.isEmpty() || pesoTxt.isEmpty()
-                        || precioTxt.isEmpty() || idRutaTxt.isEmpty() || extraTxt.isEmpty()) {
-                    JOptionPane.showMessageDialog(null, "Rellena todos los campos.");
+                if (numSerie.isEmpty()) {
+                    JOptionPane.showMessageDialog(this, "El campo 'Número de serie' está vacío.");
+                    return;
+                }
+                if (pesoTxt.isEmpty()) {
+                    JOptionPane.showMessageDialog(this, "El campo 'Peso' está vacío.");
+                    return;
+                }
+                if (precioTxt.isEmpty()) {
+                    JOptionPane.showMessageDialog(this, "El campo 'Precio' está vacío.");
+                    return;
+                }
+                if (idRutaTxt.isEmpty()) {
+                    JOptionPane.showMessageDialog(this, "El campo 'ID Ruta' está vacío.");
+                    return;
+                }
+                if (extraTxt.isEmpty()) {
+                    JOptionPane.showMessageDialog(this, "El campo 'Descuento/Prioridad' está vacío.");
                     return;
                 }
 
-                double peso = Double.parseDouble(pesoTxt);
-                double precio = Double.parseDouble(precioTxt);
-                int idRuta = Integer.parseInt(idRutaTxt);
+                double peso;
+                double precio;
+                int idRuta;
+                try {
+                    peso = Double.parseDouble(pesoTxt);
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(this, "Peso inválido. Debe ser un número.");
+                    return;
+                }
+                try {
+                    precio = Double.parseDouble(precioTxt);
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(this, "Precio inválido. Debe ser un número.");
+                    return;
+                }
+                try {
+                    idRuta = Integer.parseInt(idRutaTxt);
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(this, "ID Ruta inválido. Debe ser un número entero.");
+                    return;
+                }
 
                 TPaquete t;
 
                 if (rdbNormal.isSelected()) {
-                    double descuento = Double.parseDouble(extraTxt);
+                    double descuento;
+                    try {
+                        descuento = Double.parseDouble(extraTxt);
+                    } catch (NumberFormatException ex) {
+                        JOptionPane.showMessageDialog(this, "Descuento inválido. Debe ser un número.");
+                        return;
+                    }
                     TPaqueteNormal tPn = new TPaqueteNormal();
-                    tPn.setId(-1);
+                    //tPn.setId(-1);
                     tPn.setActivo(1);
                     tPn.setNumSerie(numSerie);
                     tPn.setEstado(estado);
@@ -95,7 +134,13 @@ public class VAltaPaquete extends JFrame implements IGUI {
                     t = tPn;
 
                 } else {
-                    int prioridad = Integer.parseInt(extraTxt);
+                    int prioridad;
+                    try {
+                        prioridad = Integer.parseInt(extraTxt);
+                    } catch (NumberFormatException ex) {
+                        JOptionPane.showMessageDialog(this, "Prioridad inválida. Debe ser un número entero.");
+                        return;
+                    }
                     TPaqueteExpress tPe = new TPaqueteExpress();
                     tPe.setId(-1);
                     tPe.setActivo(1);
@@ -110,15 +155,17 @@ public class VAltaPaquete extends JFrame implements IGUI {
 
                 Controlador.getInstancia().accion(new Context(Evento.ALTA_PAQUETE, t));
 
+                // Limpiar campos
                 txtNumSerie.setText("");
-                txtEstado.setText("");
+                cbEstado.setSelectedIndex(0);
                 txtPeso.setText("");
                 txtPrecio.setText("");
                 txtIdRuta.setText("");
                 txtExtra.setText("");
 
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(null, "Datos inválidos.");
+                //JOptionPane.showMessageDialog(this, "Error inesperado: " + ex.getMessage());
+                ex.printStackTrace();
             }
         });
 
@@ -134,7 +181,7 @@ public class VAltaPaquete extends JFrame implements IGUI {
         add(txtNumSerie);
 
         add(lblEstado);
-        add(txtEstado);
+        add(cbEstado);
 
         add(lblPeso);
         add(txtPeso);
@@ -161,22 +208,19 @@ public class VAltaPaquete extends JFrame implements IGUI {
 
     @Override
     public void actualizar(Context context) {
-
         switch (context.getEvento()) {
-
-        case VALTA_PAQUETE:
-            setVisible(true);
-            break;
-
-        case RES_ALTA_PAQUETE_OK:
-            JOptionPane.showMessageDialog(null, "Paquete dado de alta con ID: " + context.getDatos());
-            break;
-
-        case RES_ALTA_PAQUETE_KO:
-            JOptionPane.showMessageDialog(null, "Error al dar de alta el Paquete.");
-            break;
+            case VALTA_PAQUETE:
+                setVisible(true);
+                break;
+            case RES_ALTA_PAQUETE_OK:
+                JOptionPane.showMessageDialog(this, "Paquete dado de alta con ID: " + context.getDatos());
+                break;
+            case RES_ALTA_PAQUETE_KO:
+                JOptionPane.showMessageDialog(this, "Error al dar de alta el Paquete.");
+                break;
         }
     }
 }
+
 
 

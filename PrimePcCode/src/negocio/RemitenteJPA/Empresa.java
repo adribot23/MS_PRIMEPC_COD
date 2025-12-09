@@ -1,18 +1,26 @@
 package negocio.RemitenteJPA;
 
-import jakarta.persistence.Entity;
 import java.io.Serializable;
-import jakarta.persistence.NamedQuery;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 import jakarta.persistence.NamedQueries;
+import jakarta.persistence.NamedQuery;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "EMPRESA")
 @NamedQueries({
-		@NamedQuery(name = "Negocio.RemitenteJPA.Empresa.findBynumRegistroFiscal", query = "select e from Empresa e where :numRegistroFiscal = e.numRegistroFiscal") })
+		@NamedQuery(name = "Negocio.RemitenteJPA.Empresa.findBynumRegistroFiscal", query = "select e from Empresa e where e.numRegistroFiscal = :numRegistroFiscal") })
 public class Empresa extends Remitente implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	@Column(name = "NUMERO_REGISTRO_FISCAL")
 	private int numRegistroFiscal;
+
+	public Empresa() {
+	}
 
 	public Empresa(TEmpresa empresa) {
 		super(empresa);

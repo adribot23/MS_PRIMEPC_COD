@@ -7,6 +7,8 @@ import negocio.Cliente.SACliente;
 import negocio.Cliente.SAClienteImp;
 import negocio.Empleado.SAEmpleado;
 import negocio.Empleado.SAEmpleadoImp;
+import negocio.FacturaJPA.SAFactura;
+import negocio.FacturaJPA.SAFacturaImp;
 import negocio.PaqueteJPA.SAPaquete;
 import negocio.PaqueteJPA.SAPaqueteImp;
 import negocio.Producto.SAProducto;
@@ -15,6 +17,10 @@ import negocio.Proveedor.SAProveedor;
 import negocio.Proveedor.SAProveedorImp;
 import negocio.RemitenteJPA.SARemitente;
 import negocio.RemitenteJPA.SARemitenteImp;
+import negocio.RutaJPA.SARuta;
+import negocio.RutaJPA.SARutaImp;
+import negocio.RutaJPA.SAVinculacionRutaTrabajador;
+import negocio.RutaJPA.SAVinculacionRutaTrabajadorImp;
 import negocio.TrabajadorJPA.SATrabajador;
 import negocio.TrabajadorJPA.SATrabajadorImp;
 import negocio.TransporteJPA.SATransporte;
@@ -64,7 +70,20 @@ public class SAAbstractFactoryImp extends SAAbstractFactory {
 
 	@Override
 	public SATrabajador generarSATrabajador() {
-
 		return new SATrabajadorImp();
+	}
+	
+	public SAFactura generarSAFactura() {
+		return new SAFacturaImp();
+	}
+
+	@Override
+	public SARuta generarSARuta() {
+		return new SARutaImp();
+	}
+
+	@Override
+	public SAVinculacionRutaTrabajador generarSAVinculacionRutaTrabajador() {
+		return new SAVinculacionRutaTrabajadorImp();
 	}
 }
