@@ -11,7 +11,7 @@ import jakarta.persistence.TypedQuery;
 import negocio.RutaJPA.Ruta;
 import integracion.EMFSingleton.EMFSingleton;
 
-public class SAPaqueteImp implements SAPaquete {
+public class SAPaqueteImp implements SAPaquete{
 
 	@Override
 	public synchronized int altaPaquete(TPaquete tPaquete) {
@@ -20,12 +20,13 @@ public class SAPaqueteImp implements SAPaquete {
 
 	    try {
 	        em.getTransaction().begin();
-	        
+
 	        Ruta ruta = em.find(Ruta.class, tPaquete.getIdRuta());
-	        if (ruta == null || ruta.getActivo() == 0) { 
+	        if (ruta == null || ruta.getActivo() == 0) {
 	            em.getTransaction().rollback();
-	            return -1;
+	            throw new RuntimeException("La ruta no existe o está inactiva.");
 	        }
+
 	        List<Paquete> lista = em
 	                .createNamedQuery("Paquete.findByNumSerie", Paquete.class)
 	                .setParameter("numSerie", tPaquete.getNumSerie())
@@ -34,7 +35,6 @@ public class SAPaqueteImp implements SAPaquete {
 	        Paquete existente = lista.isEmpty() ? null : lista.get(0);
 
 	        if (existente == null) {
-
 	            Paquete nuevo = null;
 
 	            if (tPaquete instanceof TPaqueteExpress) {
@@ -45,19 +45,22 @@ public class SAPaqueteImp implements SAPaquete {
 
 	            if (nuevo == null) {
 	                em.getTransaction().rollback();
-	                return -1;
+	                throw new RuntimeException("Error al crear el paquete: tipo desconocido.");
 	            }
 
 	            nuevo.setRuta(ruta);
-
 	            em.persist(nuevo);
-
 	            em.getTransaction().commit();
 	            res = nuevo.getId();
 
-	        }
-	        
-	        else if (existente.getActivo() == 0) {
+	        } else if (existente.getActivo() == 0) {
+	            boolean mismoTipo = (tPaquete instanceof TPaqueteExpress && existente instanceof PaqueteExpress) ||
+	                                (tPaquete instanceof TPaqueteNormal && existente instanceof PaqueteNormal);
+
+	            if (!mismoTipo) {
+	                em.getTransaction().rollback();
+	                throw new RuntimeException("Existe un paquete inactivo con el mismo número de serie pero de distinto tipo.");
+	            }
 
 	            existente.setActivo(1);
 	            existente.setPeso(tPaquete.getPeso());
@@ -66,19 +69,17 @@ public class SAPaqueteImp implements SAPaquete {
 	            existente.setRuta(ruta);
 
 	            em.lock(existente, LockModeType.OPTIMISTIC_FORCE_INCREMENT);
-
 	            em.getTransaction().commit();
 	            res = existente.getId();
 
-	        }
-
-	        else {
+	        } else {
 	            em.getTransaction().rollback();
+	            throw new RuntimeException("Ya existe un paquete activo con el mismo número de serie.");
 	        }
 
-	    } catch (Exception e) {
-	        e.printStackTrace();
+	    } catch (RuntimeException e) {
 	        if (em.getTransaction().isActive()) em.getTransaction().rollback();
+	        throw e;
 	    } finally {
 	        em.close();
 	    }
@@ -87,84 +88,113 @@ public class SAPaqueteImp implements SAPaquete {
 	}
 
 
-    @Override
-    public int bajaPaquete(int id_paquete) {
-        int res = -1;
 
-        EntityManager em = EMFSingleton.getInstancia().getEntityManagerFactory().createEntityManager();
-        EntityTransaction tr = em.getTransaction();
 
-        try {
-            tr.begin();
-            Paquete paquete = em.find(Paquete.class, id_paquete);
+	@Override
+	public int bajaPaquete(int id_paquete) {
+	    int res = -1;
 
-            if (paquete != null && paquete.getActivo() == 1) {
-                paquete.setActivo(0);
-                em.lock(paquete, LockModeType.OPTIMISTIC_FORCE_INCREMENT);
-                tr.commit();
-                res = paquete.getId();
-            } else {
-                tr.rollback();
-            }
-        } catch (Exception e) {
-            if (tr.isActive()) tr.rollback();
-            e.printStackTrace();
-        } finally {
-            em.close();
-        }
+	    EntityManager em = EMFSingleton.getInstancia().getEntityManagerFactory().createEntityManager();
+	    EntityTransaction tr = em.getTransaction();
 
-        return res;
-    }
+	    try {
+	        tr.begin();
+	        Paquete paquete = em.find(Paquete.class, id_paquete);
 
-    @Override
-    public int modificarPaquete(TPaquete t) {
-        int res = -1;
-        EntityManager em = EMFSingleton.getInstancia().getEntityManagerFactory().createEntityManager();
+	        if (paquete == null) {
+	            tr.rollback();
+	            throw new RuntimeException("El paquete con ID " + id_paquete + " no existe.");
+	        }
 
-        try {
-            em.getTransaction().begin();
+	        if (paquete.getActivo() == 0) {
+	            tr.rollback();
+	            throw new RuntimeException("El paquete con ID " + id_paquete + " ya está desactivado.");
+	        }
+	        paquete.setActivo(0);
+	        em.lock(paquete, LockModeType.OPTIMISTIC_FORCE_INCREMENT);
+	        tr.commit();
+	        res = paquete.getId();
 
-            Paquete pExistente = em.find(Paquete.class, t.getId()); // @Version controla concurrencia
-            if (pExistente != null && pExistente.getActivo() == 1) {
+	    } catch (RuntimeException e) {
+	        if (tr.isActive()) tr.rollback();
+	        throw e;
+	    } finally {
+	        em.close();
+	    }
 
-                List<Paquete> paquetesNumSerie = em
-                        .createNamedQuery("Paquete.findByNumSerie", Paquete.class)
-                        .setParameter("numSerie", t.getNumSerie())
-                        .getResultList();
+	    return res;
+	}
 
-                if (paquetesNumSerie.isEmpty() || 
-                    (paquetesNumSerie.size() == 1 && paquetesNumSerie.get(0).getId() == t.getId())) {
-                    
-                    pExistente.setNumSerie(t.getNumSerie());
-                    pExistente.setPeso(t.getPeso());
-                    pExistente.setEstado(t.getEstado());
-                    pExistente.setPrecio(t.getPrecio());
 
-                    em.getTransaction().commit();
-                    res = pExistente.getId();
-                } else {
-                    em.getTransaction().rollback();
-                }
+	@Override
+	public int modificarPaquete(TPaquete t) {
+	    EntityManager em = EMFSingleton.getInstancia().getEntityManagerFactory().createEntityManager();
+	    int res = -1;
 
-            } else {
-                em.getTransaction().rollback();
-            }
+	    try {
+	        em.getTransaction().begin();
 
-        } catch (Exception e) {
-            e.printStackTrace();
-            em.getTransaction().rollback();
-        } finally {
-            em.close();
-        }
+	        Paquete pExistente = em.find(Paquete.class, t.getId()); // @Version controla concurrencia
+	        if (pExistente == null || pExistente.getActivo() == 0) {
+	            em.getTransaction().rollback();
+	            throw new RuntimeException("El paquete no existe o está inactivo.");
+	        }
 
-        return res;
-    }
+	        boolean tipoCoincide = (pExistente instanceof PaqueteExpress && t instanceof TPaqueteExpress) ||
+	                               (pExistente instanceof PaqueteNormal && t instanceof TPaqueteNormal);
+	        if (!tipoCoincide) {
+	            em.getTransaction().rollback();
+	            throw new RuntimeException("El tipo de paquete a modificar no coincide con el existente.");
+	        }
+
+	        Ruta ruta = em.find(Ruta.class, t.getIdRuta());
+	        if (ruta == null || ruta.getActivo() == 0) {
+	            em.getTransaction().rollback();
+	            throw new RuntimeException("La ruta indicada no existe o está inactiva.");
+	        }
+
+	        List<Paquete> paquetesNumSerie = em
+	                .createNamedQuery("Paquete.findByNumSerie", Paquete.class)
+	                .setParameter("numSerie", t.getNumSerie())
+	                .getResultList();
+
+	        if (!paquetesNumSerie.isEmpty() && !(paquetesNumSerie.size() == 1 && paquetesNumSerie.get(0).getId() == t.getId())) {
+	            em.getTransaction().rollback();
+	            throw new RuntimeException("Ya existe otro paquete activo con el mismo número de serie.");
+	        }
+
+	        pExistente.setNumSerie(t.getNumSerie());
+	        pExistente.setPeso(t.getPeso());
+	        pExistente.setEstado(t.getEstado());
+	        pExistente.setPrecio(t.getPrecio());
+	        pExistente.setRuta(ruta);
+
+	        if (pExistente instanceof PaqueteExpress && t instanceof TPaqueteExpress) {
+	            ((PaqueteExpress) pExistente).setPrioridad(((TPaqueteExpress) t).getPrioridad());
+	        } else if (pExistente instanceof PaqueteNormal && t instanceof TPaqueteNormal) {
+	            ((PaqueteNormal) pExistente).setDescuento(((TPaqueteNormal) t).getDescuento());
+	        }
+
+	        em.lock(pExistente, LockModeType.OPTIMISTIC_FORCE_INCREMENT);
+	        em.getTransaction().commit();
+	        res = pExistente.getId();
+
+	    } catch (RuntimeException e) {
+	        if (em.getTransaction().isActive()) em.getTransaction().rollback();
+	        throw e;
+	    } finally {
+	        em.close();
+	    }
+
+	    return res;
+	}
+
+
 
 
 
     @Override
     public TPaquete buscarPaquete(int id_paquete) {
-        TPaquete tPaquete = null;
         EntityManager em = EMFSingleton.getInstancia().getEntityManagerFactory().createEntityManager();
 
         try {
@@ -172,22 +202,23 @@ public class SAPaqueteImp implements SAPaquete {
 
             Paquete paquete = em.find(Paquete.class, id_paquete, LockModeType.OPTIMISTIC);
 
-            if (paquete != null && paquete.getActivo() == 1) {
-                tPaquete = paquete.entityToTransfer();
-                em.getTransaction().commit();
-            } else {
+            if (paquete == null) {
                 em.getTransaction().rollback();
+                throw new RuntimeException("No existe ningún paquete con ID " + id_paquete + ".");
             }
 
-        } catch (Exception e) {
-            e.printStackTrace();
-            em.getTransaction().rollback();
+            TPaquete tPaquete = paquete.entityToTransfer();
+            em.getTransaction().commit();
+            return tPaquete;
+
+        } catch (RuntimeException e) {
+            if (em.getTransaction().isActive()) em.getTransaction().rollback();
+            throw e;
         } finally {
             em.close();
         }
-
-        return tPaquete;
     }
+
 
     @Override
     public Set<TPaquete> mostrarPaquetes() {
