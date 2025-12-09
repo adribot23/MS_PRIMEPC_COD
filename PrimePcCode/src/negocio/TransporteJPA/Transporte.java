@@ -49,10 +49,10 @@ public class Transporte implements Serializable {
 	@ManyToMany
 	@JoinTable(name = "trabajador_transporte", joinColumns = @JoinColumn(name = "id_transporte"), inverseJoinColumns = @JoinColumn(name = "id_trabajador"))
 	private Set<Trabajador> trabajadores;
-	
+
 	public Transporte() {
-    }
-	
+	}
+
 	public Transporte(TTransporte t) {
 		this.id_transporte = t.getId();
 		this.nombre = t.getNombre();

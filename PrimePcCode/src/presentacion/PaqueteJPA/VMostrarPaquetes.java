@@ -71,7 +71,7 @@ public class VMostrarPaquetes extends JFrame implements IGUI {
                 mostrarTabla((Set<TPaquete>) datos);
                 break;
             case RES_MOSTRAR_TODOS_PAQUETES_KO:
-                JOptionPane.showMessageDialog(this, "No se pudieron mostrar los paquetes.");
+                JOptionPane.showMessageDialog(null, "No se pudieron mostrar los paquetes.");
                 break;
             default:
                 break;

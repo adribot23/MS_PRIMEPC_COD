@@ -75,7 +75,7 @@ public class VMostrarRemitente extends JFrame implements IGUI {
 			break;
 
 		case RES_MOSTRAR_TODOS_REMITENTES_KO:
-			JOptionPane.showMessageDialog(this, "No se pudieron mostrar los Remitentes.");
+			JOptionPane.showMessageDialog(null, "No se pudieron mostrar los Remitentes.");
 			break;
 
 		default:

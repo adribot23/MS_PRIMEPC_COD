@@ -17,7 +17,7 @@ import presentacion.Controller.Command.Context;
 import presentacion.GUI.Evento;
 import presentacion.GUI.IGUI;
 
-public class VAltaTrabajador extends JFrame implements IGUI{
+public class VAltaTrabajador extends JFrame implements IGUI {
 
 	public VAltaTrabajador() {
 		super("Alta de Trabajador");
@@ -26,7 +26,7 @@ public class VAltaTrabajador extends JFrame implements IGUI{
 
 	private void initGUI() {
 
-		setLayout(new GridLayout(4, 2, 10, 10));
+		setLayout(new GridLayout(3, 2, 10, 10));
 		getRootPane().setBorder(BorderFactory.createTitledBorder("Alta Trabajador"));
 
 		JLabel lblNombre = new JLabel("Nombre:");
@@ -40,23 +40,23 @@ public class VAltaTrabajador extends JFrame implements IGUI{
 
 		btnAlta.addActionListener(e -> {
 
-			 try {
-			String nombre = txtNombre.getText().trim();
-			String DNI = txtDNI.getText().trim();
+			try {
+				String nombre = txtNombre.getText().trim();
+				String DNI = txtDNI.getText().trim();
 
-			if (nombre.isEmpty() || DNI.isEmpty()) {
-				JOptionPane.showMessageDialog(null, "Rellena todos los campos.");
-				return;
-			}
+				if (nombre.isEmpty() || DNI.isEmpty()) {
+					JOptionPane.showMessageDialog(null, "Rellena todos los campos.");
+					return;
+				}
 
-			TTrabajador t = new TTrabajador(nombre, DNI,1);
-			Controlador.getInstancia().accion(new Context(Evento.ALTA_TRABAJADOR, t));
+				TTrabajador t = new TTrabajador(nombre, DNI, 1);
+				Controlador.getInstancia().accion(new Context(Evento.ALTA_TRABAJADOR, t));
 
-			txtNombre.setText("");
-			txtDNI.setText("");
+				txtNombre.setText("");
+				txtDNI.setText("");
 
-			 } catch (NumberFormatException ex) {
-			JOptionPane.showMessageDialog(null, "Datos inválidos.");
+			} catch (NumberFormatException ex) {
+				JOptionPane.showMessageDialog(null, "Datos inválidos.");
 			}
 		});
 
@@ -75,7 +75,7 @@ public class VAltaTrabajador extends JFrame implements IGUI{
 		add(btnVolver);
 
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		setSize(400, 250);
+		setSize(350, 200);
 		setLocationRelativeTo(null);
 	}
 
