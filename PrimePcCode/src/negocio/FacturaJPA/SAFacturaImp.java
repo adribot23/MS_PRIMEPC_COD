@@ -35,7 +35,8 @@ public class SAFacturaImp implements SAFactura {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			em.getTransaction().rollback();
+			if (em.getTransaction().isActive())
+				em.getTransaction().rollback();
 		} finally {
 			em.close();
 		}
@@ -102,7 +103,8 @@ public class SAFacturaImp implements SAFactura {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			em.getTransaction().rollback();
+			if (em.getTransaction().isActive())
+				em.getTransaction().rollback();
 		} finally {
 			em.close();
 		}
@@ -140,7 +142,8 @@ public class SAFacturaImp implements SAFactura {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			em.getTransaction().rollback();
+			if (em.getTransaction().isActive())
+				em.getTransaction().rollback();
 		} finally {
 			em.close();
 		}
@@ -168,10 +171,14 @@ public class SAFacturaImp implements SAFactura {
 				ftoa.set_tFactura(f.toTransfer());
 				ftoa.set_tLineasFactura(listaTLineasFactura);
 				ftoa.set_tRemitente(r.entityToTransfer());
-			}
+				em.getTransaction().commit();
+			} else
+				em.getTransaction().rollback();
 
 		} catch (Exception e) {
 			e.printStackTrace();
+			if (em.getTransaction().isActive())
+				em.getTransaction().rollback();
 		} finally {
 			em.close();
 		}
@@ -194,7 +201,8 @@ public class SAFacturaImp implements SAFactura {
 			}
 			em.getTransaction().commit();
 		} catch (Exception e) {
-			em.getTransaction().rollback();
+			if (em.getTransaction().isActive())
+				em.getTransaction().rollback();
 			e.printStackTrace();
 		} finally {
 			em.close();
@@ -220,6 +228,13 @@ public class SAFacturaImp implements SAFactura {
 								LockModeType.OPTIMISTIC);
 						if (paquete != null) {
 							lineaFactura.set_devuelto(1);
+
+							// para lo de paquete pero creo q debería tener lineafactura en vez de esto
+							TFactura tF = new TFactura();
+							tF.set_idFactura(-1);
+							Factura fac = new Factura(tF);
+							paquete.setFactura(fac);
+
 							f.set_precioTotal(f.get_precioTotal() - lineaFactura.get_precioTotal());
 							if (f.get_precioTotal() < 0)
 								f.set_precioTotal(0);
@@ -234,7 +249,8 @@ public class SAFacturaImp implements SAFactura {
 			} else
 				em.getTransaction().rollback();
 		} catch (Exception e) {
-			em.getTransaction().rollback();
+			if (em.getTransaction().isActive())
+				em.getTransaction().rollback();
 			e.printStackTrace();
 		} finally {
 			em.close();
@@ -262,10 +278,11 @@ public class SAFacturaImp implements SAFactura {
 					em.getTransaction().commit();
 				} else
 					em.getTransaction().rollback();
-			}
-			else em.getTransaction().rollback();
+			} else
+				em.getTransaction().rollback();
 		} catch (Exception e) {
-			em.getTransaction().rollback();
+			if (em.getTransaction().isActive())
+				em.getTransaction().rollback();
 			e.printStackTrace();
 		} finally {
 			em.close();
@@ -310,7 +327,8 @@ public class SAFacturaImp implements SAFactura {
 			}
 			em.getTransaction().commit();
 		} catch (Exception e) {
-			em.getTransaction().rollback();
+			if (em.getTransaction().isActive())
+				em.getTransaction().rollback();
 			e.printStackTrace();
 		} finally {
 			em.close();
