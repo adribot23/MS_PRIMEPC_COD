@@ -38,7 +38,7 @@ public class VVerPaquetesPorRuta extends JFrame implements IGUI {
         setSize(400, 200);
         setLocationRelativeTo(null);
 
-        JPanel panel = new JPanel(new GridLayout(3, 2, 10, 10));
+        JPanel panel = new JPanel(new GridLayout(2, 2, 10, 10));
         panel.setBorder(BorderFactory.createTitledBorder("Filtrar paquetes por Ruta"));
 
         JLabel lblIdRuta = new JLabel("ID Ruta:");
@@ -101,7 +101,7 @@ public class VVerPaquetesPorRuta extends JFrame implements IGUI {
             tableData[i][2] = p.getPeso();
             tableData[i][3] = p.getPrecio();
             tableData[i][4] = p.getIdRuta();
-            tableData[i][5] = p.getIdFactura();
+            tableData[i][5] = (p.getIdFactura() == -1) ? "No hay factura" : p.getIdFactura();
             tableData[i][8] = p.getActivo();
 
             if (p instanceof TPaqueteNormal normal) {
