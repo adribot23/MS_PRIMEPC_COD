@@ -15,6 +15,7 @@ import negocio.RemitenteJPA.Remitente;
 import java.util.Set;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.Version;
 import jakarta.persistence.ManyToOne;
 
 @Entity
@@ -39,6 +40,7 @@ public class Factura implements Serializable {
 
 	private Integer activo;
 
+	@Version
 	private Integer version;
 
 	private double precio_total;

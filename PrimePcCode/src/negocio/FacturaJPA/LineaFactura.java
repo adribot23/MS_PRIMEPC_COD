@@ -14,9 +14,11 @@ import jakarta.persistence.NamedQuery;
 
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.Version;
 import negocio.PaqueteJPA.Paquete;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.MapsId;
 
 @Entity
 @NamedQueries({
@@ -30,8 +32,6 @@ public class LineaFactura implements Serializable {
 
 	private static final long serialVersionUID = 0;
 
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_lineafactura")
-	@SequenceGenerator(name = "seq_lineafactura", sequenceName = "LINEAFACTURA_SEQ", allocationSize = 1)
 	@EmbeddedId
 	private LineaFacturaID id;
 
@@ -39,13 +39,15 @@ public class LineaFactura implements Serializable {
 
 	private double precio_total;
 
+	@Version
 	private Integer version;
 
 	@ManyToOne
-	@JoinColumn(name="id_factura")
+	@MapsId
 	private Factura factura;
 
 	@OneToOne
+	@MapsId
 	private Paquete paquete;
 
 	public LineaFactura() {
