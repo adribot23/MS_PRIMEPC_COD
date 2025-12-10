@@ -8,11 +8,14 @@ import java.io.Serializable;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.NamedQueries;
 import negocio.RemitenteJPA.Remitente;
 import java.util.Set;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.Version;
 import jakarta.persistence.ManyToOne;
 
 @Entity
@@ -23,18 +26,21 @@ import jakarta.persistence.ManyToOne;
 		@NamedQuery(name = "negocio.FacturaJPA.Factura.findByprecio_total", query = "select obj from Factura obj where :precio_total = obj.precio_total "),
 		@NamedQuery(name = "negocio.FacturaJPA.Factura.findByremitente", query = "select obj from Factura obj where :remitente = obj.remitente "),
 		@NamedQuery(name = "negocio.FacturaJPA.Factura.findBylineaFactura", query = "select obj from Factura obj where :lineaFactura MEMBER OF obj.lineaFactura "),
-		//@NamedQuery(name = "negocio.FacturaJPA.Factura.findBypaquete", query = "select obj from Factura obj where :paquete = obj.paquete ")
 		})
 public class Factura implements Serializable {
+	
+	
 
 	private static final long serialVersionUID = 0;
-
-	@GeneratedValue
+	
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_factura")
+	@SequenceGenerator(name = "seq_factura", sequenceName = "FACTURA_SEQ", allocationSize = 1)
 	@Id
 	private Integer id;
 
 	private Integer activo;
 
+	@Version
 	private Integer version;
 
 	private double precio_total;
@@ -60,6 +66,7 @@ public class Factura implements Serializable {
 		tFactura.set_idFactura(id);
 		tFactura.set_activo(activo);
 		tFactura.set_precioTotal(precio_total);
+		tFactura.set_idRemitente(remitente.getId());
 		return tFactura;
 	}
 

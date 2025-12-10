@@ -11,9 +11,9 @@ public class EliminarPaqueteCommand implements Command{
 		Integer res = SAAbstractFactory.getInstancia().generarSAFactura().eliminarPaquete((TCarritoFactura) data);
 
 		if (res > 0) {
-			return new Context(Evento.RES_QUITAR_PAQUETE_FACTURA_OK, null);
+			return new Context(Evento.RES_QUITAR_PAQUETE_FACTURA_OK, data);
 		} else {
-			return new Context(Evento.RES_QUITAR_PAQUETE_FACTURA_KO, null);
+			return new Context(Evento.RES_QUITAR_PAQUETE_FACTURA_KO, data);
 		}
 	}
 }

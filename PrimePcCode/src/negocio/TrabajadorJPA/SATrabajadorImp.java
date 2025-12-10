@@ -21,20 +21,17 @@ public class SATrabajadorImp implements SATrabajador {
 	public synchronized int altaTrabajador(TTrabajador trabajador) {
 		int res = -1;
 		EntityManager em = EMFSingleton.getInstancia().getEntityManagerFactory().createEntityManager();
-		
+
 		EntityTransaction tr = em.getTransaction();
 
 		try {
 			tr.begin();
-			
 
 			List<Trabajador> listaTrabajador = em
 					.createNamedQuery("Negocio.TrabajadorJPA.Trabajador.findByDNI", Trabajador.class)
 					.setParameter("DNI", trabajador.getDNI()).getResultList();
-			
-			Trabajador r = listaTrabajador.isEmpty() ? null : listaTrabajador.get(0);
 
-			//Trabajador r = listaTrabajador;
+			Trabajador r = listaTrabajador.isEmpty() ? null : listaTrabajador.get(0);
 
 			if (r == null) {
 				// Lo persisto como nuevo
@@ -43,7 +40,10 @@ public class SATrabajadorImp implements SATrabajador {
 				tr.commit();
 				res = n.getId();
 			} else if (r.getActivo() == 0) {
+				
 				// Lo pongo activo
+				r.setDNI(trabajador.getDNI());
+				r.setNombre(trabajador.getNombre());
 				r.setActivo(1);
 				tr.commit();
 				res = r.getId();
@@ -65,16 +65,15 @@ public class SATrabajadorImp implements SATrabajador {
 
 		int res = -1;
 		EntityManager em = EMFSingleton.getInstancia().getEntityManagerFactory().createEntityManager();
-		
+
 		EntityTransaction tr = em.getTransaction();
 
 		try {
 			tr.begin();
-			
+
 			Trabajador t = em.find(Trabajador.class, id_trabajador);
-			
-			
-			if (t != null && t.getActivo() == 1) {
+
+			if (t != null && t.getActivo() == 1 && t.getTransportes().isEmpty()&& t.get_vinculaciones().isEmpty()) {
 				t.setActivo(0);
 				tr.commit();
 				res = t.getId();
@@ -97,34 +96,32 @@ public class SATrabajadorImp implements SATrabajador {
 
 		int res = -1;
 		EntityManager em = EMFSingleton.getInstancia().getEntityManagerFactory().createEntityManager();
-		
+
 		EntityTransaction tr = em.getTransaction();
 
 		try {
 
 			tr.begin();
 			Trabajador tExistente = em.find(Trabajador.class, trabajador.getId());
-			
+
 			if (tExistente != null && tExistente.getActivo() == 1) {
-	
-				TypedQuery<Trabajador> query = em
-						.createNamedQuery("Negocio.TrabajadorJPA.Trabajador.findByDNI", Trabajador.class);
+
+				TypedQuery<Trabajador> query = em.createNamedQuery("Negocio.TrabajadorJPA.Trabajador.findByDNI",
+						Trabajador.class);
 				query.setParameter("DNI", tExistente.getDNI());
 				List<Trabajador> lista = query.getResultList();
-				
-				//boolean nombreDisponible = lista.isEmpty() || (lista.size() == 1 && lista.get(0).getId() == tExistente.getId());
-				
-				if (lista.isEmpty()
-						|| (lista.size() == 1 && lista.get(0).getId() == trabajador.getId())) {
+
+				// boolean nombreDisponible = lista.isEmpty() || (lista.size() == 1 &&
+				// lista.get(0).getId() == tExistente.getId());
+
+				if (lista.isEmpty() || (lista.size() == 1 && lista.get(0).getId() == trabajador.getId())) {
 
 					tExistente.setNombre(trabajador.getNombre());
 					tExistente.setDNI(trabajador.getDNI());
-					tExistente.setActivo(trabajador.isActivo());
 
 					em.getTransaction().commit();
 					res = tExistente.getId();
-				}
-				else {
+				} else {
 					em.getTransaction().rollback();
 				}
 
@@ -150,7 +147,7 @@ public class SATrabajadorImp implements SATrabajador {
 		try {
 
 			em.getTransaction().begin();
-			Trabajador trabajadorByID = em.find(Trabajador.class,id_trabajador, LockModeType.OPTIMISTIC);
+			Trabajador trabajadorByID = em.find(Trabajador.class, id_trabajador, LockModeType.OPTIMISTIC);
 
 			if (trabajadorByID != null) {
 				trabajador = trabajadorByID.entityToTransfer();
@@ -183,13 +180,12 @@ public class SATrabajadorImp implements SATrabajador {
 			query.setLockMode(LockModeType.OPTIMISTIC);
 			List<Trabajador> listaTrabajadores = query.getResultList();
 
-			if(!listaTrabajadores.isEmpty()) {
-				for (Trabajador t: listaTrabajadores) {
+			if (!listaTrabajadores.isEmpty()) {
+				for (Trabajador t : listaTrabajadores) {
 					TTrabajador tt = t.entityToTransfer();
 					trabajadores.add(tt);
 				}
-			}
-			else {
+			} else {
 				tr.rollback();
 			}
 
@@ -238,6 +234,5 @@ public class SATrabajadorImp implements SATrabajador {
 
 		return trabajadores;
 	}
-
 
 }

@@ -47,12 +47,12 @@ public class Transporte implements Serializable {
 
 	// No tiene argumentos la relación por lo que no se necesita clase intermedia
 	@ManyToMany
-	@JoinTable(name = "transporte_trabajador", joinColumns = @JoinColumn(name = "id_transporte"), inverseJoinColumns = @JoinColumn(name = "id_trabajador"))
+	@JoinTable(name = "trabajador_transporte", joinColumns = @JoinColumn(name = "id_transporte"), inverseJoinColumns = @JoinColumn(name = "id_trabajador"))
 	private Set<Trabajador> trabajadores;
-	
+
 	public Transporte() {
-    }
-	
+	}
+
 	public Transporte(TTransporte t) {
 		this.id_transporte = t.getId();
 		this.nombre = t.getNombre();

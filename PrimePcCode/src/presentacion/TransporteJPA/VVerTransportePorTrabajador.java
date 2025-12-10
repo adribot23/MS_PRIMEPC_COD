@@ -19,93 +19,92 @@ import presentacion.GUI.IGUI;
 
 public class VVerTransportePorTrabajador extends JFrame implements IGUI {
 
-    private static final long serialVersionUID = 1L;
-    private JButton btnBuscar, btnVolver;
+	private static final long serialVersionUID = 1L;
+	private JButton btnBuscar, btnVolver;
 
-    public VVerTransportePorTrabajador() {
-        super("Transportes por Trabajador");
-        initGUI();
-    }
+	public VVerTransportePorTrabajador() {
+		super("Transportes por Trabajador");
+		initGUI();
+	}
 
-    private void initGUI() {
-       
+	private void initGUI() {
 
-        JPanel panel = new JPanel(new GridLayout(2, 1, 10, 10));
-        panel.setBorder(BorderFactory.createTitledBorder("Buscar Transportes por Trabajador"));
+		JPanel panel = new JPanel(new GridLayout(2, 1, 10, 10));
+		panel.setBorder(BorderFactory.createTitledBorder("Buscar Transportes por Trabajador"));
 
-        btnBuscar = new JButton("Buscar transporte del trabajador");
-        btnBuscar.setBackground(new Color(200, 255, 200));
-        btnBuscar.addActionListener(e -> {
-            String input = JOptionPane.showInputDialog(this, "Introduce ID del trabajador:");
-            if (input != null) {
-                try {
-                    int id = Integer.parseInt(input.trim());
-                    Controlador.getInstancia().accion(new Context(Evento.VER_TRANSPORTE_POR_TRABAJADOR, id));
-                } catch (NumberFormatException ex) {
-                    JOptionPane.showMessageDialog(this, "ID inválido.");
-                }
-            }
-        });
+		btnBuscar = new JButton("Buscar transporte del trabajador");
+		btnBuscar.setBackground(new Color(200, 255, 200));
+		btnBuscar.addActionListener(e -> {
+			String input = JOptionPane.showInputDialog(this, "Introduce ID del trabajador:");
+			if (input != null) {
+				try {
+					int id = Integer.parseInt(input.trim());
+					Controlador.getInstancia().accion(new Context(Evento.VER_TRANSPORTE_POR_TRABAJADOR, id));
+				} catch (NumberFormatException ex) {
+					JOptionPane.showMessageDialog(this, "ID inválido.");
+				}
+			}
+		});
 
-        btnVolver = new JButton("Volver");
-        btnVolver.setBackground(new Color(255, 220, 220));
-        btnVolver.addActionListener(e -> {
-            Controlador.getInstancia().accion(new Context(Evento.TRANSPORTE, null));
-            dispose();
-        });
+		btnVolver = new JButton("Volver");
+		btnVolver.setBackground(new Color(255, 220, 220));
+		btnVolver.addActionListener(e -> {
+			Controlador.getInstancia().accion(new Context(Evento.TRANSPORTE, null));
+			dispose();
+		});
 
-        panel.add(btnBuscar);
-        panel.add(btnVolver);
-        add(panel);
-        
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setSize(300, 150);
-        setLocationRelativeTo(null);
-    }
+		panel.add(btnBuscar);
+		panel.add(btnVolver);
+		add(panel);
 
-    @Override
-    public void actualizar(Context context) {
-        Evento evento = context.getEvento();
-        Object datos = context.getDatos();
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setSize(300, 150);
+		setLocationRelativeTo(null);
+	}
 
-        switch (evento) {
-            case VVER_TRANSPORTE_POR_TRABAJADOR:
-                setVisible(true);
-                break;
+	@Override
+	public void actualizar(Context context) {
+		Evento evento = context.getEvento();
+		Object datos = context.getDatos();
 
-            case RES_VER_TRANSPORTE_POR_TRABAJADOR_OK:
-                mostrarTabla((Set<TTransporte>) datos);
-                break;
+		switch (evento) {
+		case VVER_TRANSPORTE_POR_TRABAJADOR:
+			setVisible(true);
+			break;
 
-            case RES_VER_TRANSPORTE_POR_TRABAJADOR_KO:
-                JOptionPane.showMessageDialog(this, "Este trabajador no tiene transportes asignados.");
-                break;
+		case RES_VER_TRANSPORTE_POR_TRABAJADOR_OK:
+			mostrarTabla((Set<TTransporte>) datos);
+			break;
 
-            default:
-                JOptionPane.showMessageDialog(null, "Evento no reconocido: " + context.getEvento());
-        }
-    }
+		case RES_VER_TRANSPORTE_POR_TRABAJADOR_KO:
+			JOptionPane.showMessageDialog(null, "Este trabajador no tiene transportes asignados.");
+			break;
 
-    private void mostrarTabla(Set<TTransporte> transportes) {
-        String[] columnas = { "ID", "Nombre", "Capacidad", "Matrícula", "Activo" };
-        Object[][] datos = new Object[transportes.size()][columnas.length];
+		default:
+			JOptionPane.showMessageDialog(null, "Evento no reconocido: " + context.getEvento());
+		}
+	}
 
-        int i = 0;
-        for (TTransporte t : transportes) {
-            datos[i][0] = t.getId();
-            datos[i][1] = t.getNombre();
-            datos[i][2] = t.getCapacidad();
-            datos[i][3] = t.getMatricula();
-            datos[i][4] = t.getActivo();
-            i++;
-        }
+	private void mostrarTabla(Set<TTransporte> transportes) {
+		String[] columnas = { "ID", "Nombre", "Capacidad", "Matrícula", "Activo" };
+		Object[][] datos = new Object[transportes.size()][columnas.length];
 
-        JTable table = new JTable(datos, columnas);
-        table.setFillsViewportHeight(true);
-        table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
-        table.setEnabled(false);
+		int i = 0;
+		for (TTransporte t : transportes) {
+			datos[i][0] = t.getId();
+			datos[i][1] = t.getNombre();
+			datos[i][2] = t.getCapacidad();
+			datos[i][3] = t.getMatricula();
+			datos[i][4] = t.getActivo();
+			i++;
+		}
 
-        JScrollPane scrollPane = new JScrollPane(table);
-        JOptionPane.showMessageDialog(null, scrollPane, "Transportes del Trabajador", JOptionPane.PLAIN_MESSAGE);
-    }
+		JTable table = new JTable(datos, columnas);
+		table.setFillsViewportHeight(true);
+		table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+		table.setEnabled(false);
+
+		JScrollPane scrollPane = new JScrollPane(table);
+		JOptionPane.showMessageDialog(null, scrollPane, "Transportes del Trabajador", JOptionPane.PLAIN_MESSAGE);
+	}
 }

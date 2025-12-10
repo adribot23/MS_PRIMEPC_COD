@@ -12,32 +12,32 @@ public class LineaFacturaID implements Serializable {
 
 	private static final long serialVersionUID = 0;
 
-	private Integer idFactura;
+	private Integer factura;
 
-	private Integer idPaquete;
+	private Integer paquete;
 
 	public LineaFacturaID() {
 	}
 
 	public LineaFacturaID(Integer factura, Integer paquete) {
-		this.idFactura = factura;
-		this.idPaquete = paquete;
+		this.factura = factura;
+		this.paquete = paquete;
 	}
 
 	public Integer get_idFactura() {
-		return idFactura;
+		return factura;
 	}
 
 	public void set_idFactura(Integer idFactura) {
-		this.idFactura = idFactura;
+		this.factura = idFactura;
 	}
 
 	public Integer get_idPaquete() {
-		return idPaquete;
+		return paquete;
 	}
 
 	public void set_idPaquete(Integer idPaquete) {
-		this.idPaquete = idPaquete;
+		this.paquete = idPaquete;
 	}
 
 	public boolean equals(Object obj) {
@@ -46,30 +46,18 @@ public class LineaFacturaID implements Serializable {
 		if (!(obj instanceof LineaFacturaID))
 			return false;
 		LineaFacturaID pk = (LineaFacturaID) obj;
-		if ((idFactura == null && pk.idFactura != null) || (idFactura != null && !idFactura.equals(pk.idFactura)))
+		if ((factura == null && pk.factura != null) || (factura != null && !factura.equals(pk.factura)))
 			return false;
-		if ((idPaquete == null && pk.idPaquete != null) || (idPaquete != null && !idPaquete.equals(pk.idPaquete)))
+		if ((paquete == null && pk.paquete != null) || (paquete != null && !paquete.equals(pk.paquete)))
 			return false;
 		return true;
 	}
 
-	private UUID uuid;
-
 	public int hashCode() {
 		final int prime = 31;
 		int hash = 17;
-		if (idFactura != null) {
-			hash = hash * prime + idFactura.hashCode();
-		}
-		if (idPaquete != null) {
-			hash = hash * prime + idPaquete.hashCode();
-		}
-		if (hash == 17) {
-			if (uuid == null) {
-				uuid = UUID.randomUUID();
-			}
-			hash = uuid.hashCode();
-		}
+		hash = hash * prime + factura;
+		hash = hash * prime + paquete;
 		return hash;
 	}
 }

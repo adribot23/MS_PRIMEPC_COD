@@ -24,4 +24,5 @@ public interface SAFactura {
 	public Integer eliminarPaquete(TCarritoFactura tCarritoFactura);
 	
 	public Set<TFactura> listarFacturasPorRemitente(Integer idRemitente);
+	
 }

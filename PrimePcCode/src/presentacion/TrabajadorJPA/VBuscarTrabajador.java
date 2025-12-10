@@ -17,7 +17,7 @@ import presentacion.Controller.Command.Context;
 import presentacion.GUI.Evento;
 import presentacion.GUI.IGUI;
 
-public class VBuscarTrabajador extends JFrame implements IGUI{
+public class VBuscarTrabajador extends JFrame implements IGUI {
 
 	public VBuscarTrabajador() {
 		super("Buscar Trabajador");

@@ -7,16 +7,16 @@ public class TTrabajador {
 	private String DNI;
 	private String nombre;
 	private int activo;
-	
+
 	public TTrabajador() {
 	}
-	
-	public TTrabajador(String nombre, String DNI,int activo) {
+
+	public TTrabajador(String nombre, String DNI, int activo) {
 		this.nombre = nombre;
 		this.DNI = DNI;
 		this.activo = activo;
 	}
-	
+
 	public TTrabajador(int id_trabajador, int activo, String nombre, String DNI) {
 		super();
 		this.id_trabajador = id_trabajador;
@@ -57,8 +57,6 @@ public class TTrabajador {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-
-
 
 	public int isActivo() {
 		return activo;

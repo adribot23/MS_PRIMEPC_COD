@@ -74,15 +74,14 @@ public class VListarFacturasPorRemitente extends JFrame implements IGUI{
 	}
 
 	private void mostrarTabla(Set<TFactura> facturas) {
-		String[] columnNames = { "ID Factura", "ID Remitente", "Precio Bruto", "Precio Neto" }; //hace falta num paquetes?
+		String[] columnNames = { "ID Factura", "ID Remitente", "Precio Total" }; 
 		Object[][] tableData = new Object[facturas.size()][columnNames.length];
 
 		int i = 0;
 		for (TFactura f : facturas) {
 			tableData[i][0] = f.get_idFactura();
 			tableData[i][1] = f.get_idRemitente();
-			tableData[i][2] = f.get_precioBruto();
-			tableData[i][3] = f.get_precioNeto();
+			tableData[i][2] = f.get_precioTotal();
 			i++;
 		}
 
@@ -107,7 +106,7 @@ public class VListarFacturasPorRemitente extends JFrame implements IGUI{
 			mostrarTabla((Set<TFactura>) datos);
 			break;
 		case RES_VER_FACTURAS_POR_REMITENTE_KO:
-			JOptionPane.showMessageDialog(this, "No se pudieron mostrar las facturas.");
+			JOptionPane.showMessageDialog(null, "No se pudieron mostrar las facturas.");
 			break;
 		default:
 			break;

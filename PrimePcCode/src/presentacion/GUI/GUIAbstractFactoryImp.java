@@ -532,6 +532,54 @@ public class GUIAbstractFactoryImp extends GUIAbstractFactory {
 			return new VVerPaquetesPorRuta();
 			
 			/*
+
+			 * ============================== ======== FACTURA ==============================
+			 */
+		case FACTURA:
+			return new GUIFactura();
+		case VABRIR_FACTURA:
+		case RES_ABRIR_FACTURA_OK:
+		case RES_ABRIR_FACTURA_KO:
+			return new VAbrirFactura();
+		case VCERRAR_FACTURA:
+		case RES_CERRAR_FACTURA_OK:
+		case RES_CERRAR_FACTURA_KO:
+		case RES_PASAR_CARRITOFACTURA_A_CERRAR_OK:
+		case RES_PASAR_CARRITOFACTURA_A_CERRAR_KO:
+			return new VCerrarFactura();
+		case VINSERTAR_PAQUETE_FACTURA:
+		case RES_INSERTAR_PAQUETE_FACTURA_OK:
+		case RES_INSERTAR_PAQUETE_FACTURA_KO:
+		case RES_PASAR_CARRITOFACTURA_A_INSERTAR_OK:
+		case RES_PASAR_CARRITOFACTURA_A_INSERTAR_KO:
+			return new VAnyadirPaquete();
+		case VQUITAR_PAQUETE_FACTURA:
+		case RES_QUITAR_PAQUETE_FACTURA_OK:
+		case RES_QUITAR_PAQUETE_FACTURA_KO:
+		case RES_PASAR_CARRITOFACTURA_A_ELIMINAR_OK:
+		case RES_PASAR_CARRITOFACTURA_A_ELIMINAR_KO:
+			return new VEliminarPaquete();
+		case VMODIFICAR_FACTURA:
+		case RES_MODIFICAR_FACTURA_OK:
+		case RES_MODIFICAR_FACTURA_KO:
+			return new VModificarFactura();
+		case VBUSCAR_FACTURA:
+		case RES_BUSCAR_FACTURA_OK:
+		case RES_BUSCAR_FACTURA_KO:
+			return new VBuscarFactura();
+		case VMOSTRAR_TODAS_FACTURAS:
+		case RES_MOSTRAR_TODAS_FACTURAS_OK:
+		case RES_MOSTRAR_TODAS_FACTURAS_KO:
+			return new VMostrarFactura();
+		case VVER_FACTURAS_POR_REMITENTE:
+		case RES_VER_FACTURAS_POR_REMITENTE_OK:
+		case RES_VER_FACTURAS_POR_REMITENTE_KO:
+			return new VListarFacturasPorRemitente();
+		case VDEVOLUCION:
+		case RES_DEVOLUCION_OK:
+		case RES_DEVOLUCION_KO:
+			return new VDevolucion();
+/*
 			 * ============================== ======== TRABAJADOR ============
 			 * ==============================
 			 */
@@ -558,52 +606,9 @@ public class GUIAbstractFactoryImp extends GUIAbstractFactory {
 			case RES_MOSTRAR_TODOS_TRABAJADORES_KO:
 				return new VMostrarTrabajadores();
 			case VVER_TRABAJADOR_POR_TRANSPORTE:
-			case RES_VER_TRABAJADOR_POR_TRANSPORTE_OK:
-			case RES_VER_TRABAJADOR_POR_TRANSPORTE_KO:
+			case RES_MOSTRAR_TRABAJADOR_POR_TRANSPORTE_OK:
+			case RES_MOSTRAR_TRABAJADOR_POR_TRANSPORTE_KO:
 				return new VMostrarTrabajadorPorTransporte();
-				
-				
-				/*
-				 * ============================== ======== PAQUETE ==============================
-				 */
-			case FACTURA:
-				return new GUIFactura();
-			case VABRIR_FACTURA:
-			case RES_ABRIR_FACTURA_OK:
-			case RES_ABRIR_FACTURA_KO:
-				return new VAbrirFactura();
-			case VCERRAR_FACTURA:
-			case RES_CERRAR_FACTURA_OK:
-			case RES_CERRAR_FACTURA_KO:
-				return new VCerrarFactura();
-			case VINSERTAR_PAQUETE_FACTURA:
-			case RES_INSERTAR_PAQUETE_FACTURA_OK:
-			case RES_INSERTAR_PAQUETE_FACTURA_KO:
-				return new VAnyadirPaquete();
-			case VQUITAR_PAQUETE_FACTURA:
-			case RES_QUITAR_PAQUETE_FACTURA_OK:
-			case RES_QUITAR_PAQUETE_FACTURA_KO:
-				return new VEliminarPaquete();
-			case VMODIFICAR_FACTURA:
-			case RES_MODIFICAR_FACTURA_OK:
-			case RES_MODIFICAR_FACTURA_KO:
-				return new VModificarFactura();
-			case VBUSCAR_FACTURA:
-			case RES_BUSCAR_FACTURA_OK:
-			case RES_BUSCAR_FACTURA_KO:
-				return new VBuscarFactura();
-			case VMOSTRAR_TODAS_FACTURAS:
-			case RES_MOSTRAR_TODAS_FACTURAS_OK:
-			case RES_MOSTRAR_TODAS_FACTURAS_KO:
-				return new VMostrarFactura();
-			case VVER_FACTURAS_POR_REMITENTE:
-			case RES_VER_FACTURAS_POR_REMITENTE_OK:
-			case RES_VER_FACTURAS_POR_REMITENTE_KO:
-				return new VListarFacturasPorRemitente();
-			case VDEVOLUCION:
-			case RES_DEVOLUCION_OK:
-			case RES_DEVOLUCION_KO:
-				return new VDevolucion();
 
 
 		default:

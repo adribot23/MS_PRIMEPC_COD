@@ -71,7 +71,7 @@ public class VMostrarPaquetes extends JFrame implements IGUI {
                 mostrarTabla((Set<TPaquete>) datos);
                 break;
             case RES_MOSTRAR_TODOS_PAQUETES_KO:
-                JOptionPane.showMessageDialog(this, "No se pudieron mostrar los paquetes.");
+                JOptionPane.showMessageDialog(null, "No se pudieron mostrar los paquetes.");
                 break;
             default:
                 break;
@@ -89,7 +89,7 @@ public class VMostrarPaquetes extends JFrame implements IGUI {
             tableData[i][2] = p.getPeso();
             tableData[i][3] = p.getPrecio();
             tableData[i][4] = p.getIdRuta();
-            tableData[i][5] = p.getIdFactura();
+            tableData[i][5] = (p.getIdFactura() == -1) ? "No hay factura" : p.getIdFactura();
             tableData[i][8] = p.getActivo();
 
             if (p instanceof TPaqueteNormal normal) {
