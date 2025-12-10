@@ -54,9 +54,9 @@ public class GUITrabajador extends JFrame implements IGUI {
 
 		// Fila 2
 		botonesPanel.add(crearBotonVerde("BUSCAR TRABAJADOR", Evento.VBUSCAR_TRABAJADOR));
-		botonesPanel.add(crearBotonVerde("LISTAR TODOS LOS TRABAJADOR", Evento.VMOSTRAR_TODOS_TRABAJADORES));
+		botonesPanel.add(crearBotonVerde("LISTAR TODOS LOS TRABAJADORES", Evento.VMOSTRAR_TODOS_TRABAJADORES));
 		botonesPanel.add(crearBotonVerde("LISTAR TRABAJADORES POR TRANSPORTE", Evento.VVER_TRABAJADOR_POR_TRANSPORTE));
-		botonesPanel.add(crearBotonVerde("LISTAR TRABAJADORES POR RUTA", Evento.VVER_TRABAJADOR_POR_RUTA));
+		botonesPanel.add(crearBotonVerde("LISTAR ASIGNACIONES POR RUTA", Evento.VVER_TRABAJADOR_POR_RUTA));
 
 		mainPanel.add(botonesPanel, BorderLayout.CENTER);
 
