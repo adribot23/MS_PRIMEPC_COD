@@ -73,7 +73,7 @@ public class VMostrarTransporte extends JFrame implements IGUI {
 			mostrarTabla((Set<TTransporte>) datos);
 			break;
 		case RES_MOSTRAR_TODOS_TRANSPORTES_KO:
-			JOptionPane.showMessageDialog(this, "No se pudieron mostrar los transportes.");
+			JOptionPane.showMessageDialog(null, "No se pudieron mostrar los transportes.");
 			break;
 		default:
 			break;

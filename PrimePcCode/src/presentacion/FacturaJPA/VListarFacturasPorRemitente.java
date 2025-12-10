@@ -106,7 +106,7 @@ public class VListarFacturasPorRemitente extends JFrame implements IGUI{
 			mostrarTabla((Set<TFactura>) datos);
 			break;
 		case RES_VER_FACTURAS_POR_REMITENTE_KO:
-			JOptionPane.showMessageDialog(this, "No se pudieron mostrar las facturas.");
+			JOptionPane.showMessageDialog(null, "No se pudieron mostrar las facturas.");
 			break;
 		default:
 			break;

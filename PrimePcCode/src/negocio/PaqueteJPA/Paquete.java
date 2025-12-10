@@ -29,7 +29,7 @@ import negocio.FacturaJPA.Factura;
     
     @NamedQuery(
         name = "negocio.PaqueteJPA.Paquete.findByFactura",
-        query = "SELECT p FROM Paquete p WHERE p.id = :idFactura"
+        query = "SELECT p FROM Paquete p WHERE p.factura.id= :idFactura"
     ),
    
     @NamedQuery(

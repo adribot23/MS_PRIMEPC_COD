@@ -41,7 +41,10 @@ public class VBajaPaquete extends JFrame implements IGUI {
                 txtId.setText("");
 
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(null, "ID inválido.");
+            	JOptionPane.showMessageDialog(this,
+                        "Ha ocurrido un error inesperado: " + ex.getMessage(),
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE);
             }
         });
 

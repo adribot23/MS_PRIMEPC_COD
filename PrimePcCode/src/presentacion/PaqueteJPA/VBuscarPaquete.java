@@ -42,7 +42,10 @@ public class VBuscarPaquete extends JFrame implements IGUI {
                 Controlador.getInstancia().accion(new Context(Evento.BUSCAR_PAQUETE, id));
                 txtId.setText("");
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(null, "ID inválido.");
+            	JOptionPane.showMessageDialog(this,
+                        "Ha ocurrido un error inesperado: " + ex.getMessage(),
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE);
             }
         });
 

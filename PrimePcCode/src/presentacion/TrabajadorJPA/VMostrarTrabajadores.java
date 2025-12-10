@@ -20,7 +20,7 @@ import presentacion.Controller.Command.Context;
 import presentacion.GUI.Evento;
 import presentacion.GUI.IGUI;
 
-public class VMostrarTrabajadores extends JFrame implements IGUI{
+public class VMostrarTrabajadores extends JFrame implements IGUI {
 
 	private static final long serialVersionUID = 1L;
 	private JButton btnMostrar, btnVolver;
@@ -37,7 +37,7 @@ public class VMostrarTrabajadores extends JFrame implements IGUI{
 		setLocationRelativeTo(null);
 
 		// Panel superior con botones
-		JPanel panelBotones = new JPanel(new GridLayout(1, 2, 10, 10));
+		JPanel panelBotones = new JPanel(new GridLayout(2, 1, 10, 10));
 		panelBotones.setBorder(BorderFactory.createTitledBorder("Trabajadores"));
 
 		btnMostrar = new JButton("Mostrar todos los trabajadores");
@@ -76,7 +76,7 @@ public class VMostrarTrabajadores extends JFrame implements IGUI{
 			break;
 
 		case RES_MOSTRAR_TODOS_TRABAJADORES_KO:
-			JOptionPane.showMessageDialog(this, "No se pudieron mostrar los transportes.");
+			JOptionPane.showMessageDialog(null, "No se pudieron mostrar los transportes.");
 			break;
 
 		default:

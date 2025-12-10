@@ -32,13 +32,12 @@ import negocio.TransporteJPA.Transporte;
 		@NamedQuery(name = "Negocio.TrabajadorJPA.Trabajador.findByversion", query = "select t from Trabajador t where :version = t.version"),
 		@NamedQuery(name = "negocio.TrabajadorJPA.Trabajador.findAll", query = "select t from Trabajador t") })
 public class Trabajador {
-	
+
 	private static final long serialVersionUID = 0;
-	
+
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_trabajador")
 	@SequenceGenerator(name = "seq_trabajador", sequenceName = "TRABAJADOR_SEQ", allocationSize = 1)
-	
-	
+
 	@Id
 	@Column(name = "ID")
 	private int id_trabajador;
@@ -47,11 +46,11 @@ public class Trabajador {
 	private String nombre;
 	@Column(name = "ACTIVO")
 	private int activo;
-	
-	@ManyToMany(mappedBy= "trabajadores")
+
+	@ManyToMany(mappedBy = "trabajadores")
 	@JoinTable(name = "trabajador_transporte", joinColumns = @JoinColumn(name = "id_transporte"), inverseJoinColumns = @JoinColumn(name = "id_trabajador"))
 	private Set<Transporte> transportes;
-	
+
 	@OneToMany(mappedBy = "trabajador")
 	private Set<VinculacionRutaTrabajador> vinculaciones;
 	@Version
@@ -113,14 +112,13 @@ public class Trabajador {
 	public Set<Transporte> getTransportes() {
 		return transportes;
 	}
-	
+
 	public Set<VinculacionRutaTrabajador> get_vinculaciones() {
 		return this.vinculaciones;
 	}
-	
+
 	public void set_vinculaciones(Set<VinculacionRutaTrabajador> vinculaciones) {
 		this.vinculaciones = vinculaciones;
 	}
-
 
 }

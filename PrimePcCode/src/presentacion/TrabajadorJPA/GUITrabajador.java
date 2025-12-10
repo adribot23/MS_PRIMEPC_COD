@@ -20,7 +20,7 @@ import presentacion.GUI.Evento;
 import presentacion.GUI.IGUI;
 import presentacion.TransporteJPA.GUITransporte;
 
-public class GUITrabajador extends JFrame implements IGUI{
+public class GUITrabajador extends JFrame implements IGUI {
 	private static final long serialVersionUID = 1L;
 
 	public GUITrabajador() {
@@ -118,4 +118,3 @@ public class GUITrabajador extends JFrame implements IGUI{
 		setVisible(true);
 	}
 }
-

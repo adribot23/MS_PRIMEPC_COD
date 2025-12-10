@@ -39,91 +39,66 @@ public class VAltaPaquete extends JFrame implements IGUI {
         JLabel lblIdRuta = new JLabel("ID Ruta:");
         JTextField txtIdRuta = new JTextField();
 
+
+        // -------- FILA EXTRA (DESCUENTO / PRIORIDAD) ------------
         JLabel lblExtra = new JLabel("Descuento:");
-        JTextField txtExtra = new JTextField();
+
+        JTextField txtDescuento = new JTextField(); // Solo para Normal
+
+        JComboBox<Integer> cbPrioridad = new JComboBox<>();
+        for (int i = 1; i <= 5; i++) cbPrioridad.addItem(i);
+        cbPrioridad.setVisible(false); // Empieza oculto (tipo normal inicial)
+
+        JPanel panelExtra = new JPanel(new GridLayout(1, 2));
+        panelExtra.add(txtDescuento);
+        panelExtra.add(cbPrioridad);
+
+        // ---------------------------------------------------------
+
 
         // Tipo de paquete
-        JRadioButton rdbNormal = new JRadioButton("Normal");
+        JRadioButton rdbNormal = new JRadioButton("Normal", true);
         JRadioButton rdbExpress = new JRadioButton("Express");
         ButtonGroup grupoTipo = new ButtonGroup();
         grupoTipo.add(rdbNormal);
         grupoTipo.add(rdbExpress);
-        rdbNormal.setSelected(true);
-
-        rdbNormal.addActionListener(e -> lblExtra.setText("Descuento:"));
-        rdbExpress.addActionListener(e -> lblExtra.setText("Prioridad:"));
 
         JPanel tipoPanel = new JPanel(new GridLayout(1, 2));
         tipoPanel.add(rdbNormal);
         tipoPanel.add(rdbExpress);
 
-        // Botón Alta
+        // Cambiar campo extra dinámicamente
+        rdbNormal.addActionListener(e -> {
+            lblExtra.setText("Descuento:");
+            txtDescuento.setVisible(true);
+            cbPrioridad.setVisible(false);
+        });
+
+        rdbExpress.addActionListener(e -> {
+            lblExtra.setText("Prioridad:");
+            txtDescuento.setVisible(false);
+            cbPrioridad.setVisible(true);
+        });
+
+
+        // Botón alta
         JButton btnAlta = new JButton("Dar de Alta");
         btnAlta.setBackground(new Color(200, 255, 200));
         btnAlta.addActionListener(e -> {
+
             try {
                 String numSerie = txtNumSerie.getText().trim();
                 String estado = (String) cbEstado.getSelectedItem();
-                String pesoTxt = txtPeso.getText().trim();
-                String precioTxt = txtPrecio.getText().trim();
-                String idRutaTxt = txtIdRuta.getText().trim();
-                String extraTxt = txtExtra.getText().trim();
-
-                if (numSerie.isEmpty()) {
-                    JOptionPane.showMessageDialog(this, "El campo 'Número de serie' está vacío.");
-                    return;
-                }
-                if (pesoTxt.isEmpty()) {
-                    JOptionPane.showMessageDialog(this, "El campo 'Peso' está vacío.");
-                    return;
-                }
-                if (precioTxt.isEmpty()) {
-                    JOptionPane.showMessageDialog(this, "El campo 'Precio' está vacío.");
-                    return;
-                }
-                if (idRutaTxt.isEmpty()) {
-                    JOptionPane.showMessageDialog(this, "El campo 'ID Ruta' está vacío.");
-                    return;
-                }
-                if (extraTxt.isEmpty()) {
-                    JOptionPane.showMessageDialog(this, "El campo 'Descuento/Prioridad' está vacío.");
-                    return;
-                }
-
-                double peso;
-                double precio;
-                int idRuta;
-                try {
-                    peso = Double.parseDouble(pesoTxt);
-                } catch (NumberFormatException ex) {
-                    JOptionPane.showMessageDialog(this, "Peso inválido. Debe ser un número.");
-                    return;
-                }
-                try {
-                    precio = Double.parseDouble(precioTxt);
-                } catch (NumberFormatException ex) {
-                    JOptionPane.showMessageDialog(this, "Precio inválido. Debe ser un número.");
-                    return;
-                }
-                try {
-                    idRuta = Integer.parseInt(idRutaTxt);
-                } catch (NumberFormatException ex) {
-                    JOptionPane.showMessageDialog(this, "ID Ruta inválido. Debe ser un número entero.");
-                    return;
-                }
+                double peso = Double.parseDouble(txtPeso.getText().trim());
+                double precio = Double.parseDouble(txtPrecio.getText().trim());
+                int idRuta = Integer.parseInt(txtIdRuta.getText().trim());
 
                 TPaquete t;
 
                 if (rdbNormal.isSelected()) {
-                    double descuento;
-                    try {
-                        descuento = Double.parseDouble(extraTxt);
-                    } catch (NumberFormatException ex) {
-                        JOptionPane.showMessageDialog(this, "Descuento inválido. Debe ser un número.");
-                        return;
-                    }
+                    double descuento = Double.parseDouble(txtDescuento.getText().trim());
+
                     TPaqueteNormal tPn = new TPaqueteNormal();
-                    //tPn.setId(-1);
                     tPn.setActivo(1);
                     tPn.setNumSerie(numSerie);
                     tPn.setEstado(estado);
@@ -134,15 +109,9 @@ public class VAltaPaquete extends JFrame implements IGUI {
                     t = tPn;
 
                 } else {
-                    int prioridad;
-                    try {
-                        prioridad = Integer.parseInt(extraTxt);
-                    } catch (NumberFormatException ex) {
-                        JOptionPane.showMessageDialog(this, "Prioridad inválida. Debe ser un número entero.");
-                        return;
-                    }
+                    int prioridad = (Integer) cbPrioridad.getSelectedItem();
+
                     TPaqueteExpress tPe = new TPaqueteExpress();
-                    tPe.setId(-1);
                     tPe.setActivo(1);
                     tPe.setNumSerie(numSerie);
                     tPe.setEstado(estado);
@@ -155,21 +124,21 @@ public class VAltaPaquete extends JFrame implements IGUI {
 
                 Controlador.getInstancia().accion(new Context(Evento.ALTA_PAQUETE, t));
 
-                // Limpiar campos
                 txtNumSerie.setText("");
                 cbEstado.setSelectedIndex(0);
                 txtPeso.setText("");
                 txtPrecio.setText("");
                 txtIdRuta.setText("");
-                txtExtra.setText("");
+                txtDescuento.setText("");
 
             } catch (Exception ex) {
-                //JOptionPane.showMessageDialog(this, "Error inesperado: " + ex.getMessage());
-                ex.printStackTrace();
+                JOptionPane.showMessageDialog(this,
+                        "Ha ocurrido un error inesperado: " + ex.getMessage(),
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE);
             }
         });
 
-        // Volver
         JButton btnVolver = new JButton("Volver");
         btnVolver.setBackground(new Color(255, 220, 220));
         btnVolver.addActionListener(e -> {
@@ -177,34 +146,22 @@ public class VAltaPaquete extends JFrame implements IGUI {
             this.dispose();
         });
 
-        add(lblNumSerie);
-        add(txtNumSerie);
 
-        add(lblEstado);
-        add(cbEstado);
-
-        add(lblPeso);
-        add(txtPeso);
-
-        add(lblPrecio);
-        add(txtPrecio);
-
-        add(lblIdRuta);
-        add(txtIdRuta);
-
-        add(new JLabel("Tipo de Paquete:"));
-        add(tipoPanel);
-
-        add(lblExtra);
-        add(txtExtra);
-
-        add(btnAlta);
-        add(btnVolver);
+        // Añadir componentes
+        add(lblNumSerie); add(txtNumSerie);
+        add(lblEstado); add(cbEstado);
+        add(lblPeso); add(txtPeso);
+        add(lblPrecio); add(txtPrecio);
+        add(lblIdRuta); add(txtIdRuta);
+        add(new JLabel("Tipo de Paquete:")); add(tipoPanel);
+        add(lblExtra); add(panelExtra);
+        add(btnAlta); add(btnVolver);
 
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setSize(450, 400);
+        setSize(460, 420);
         setLocationRelativeTo(null);
     }
+
 
     @Override
     public void actualizar(Context context) {
@@ -221,6 +178,7 @@ public class VAltaPaquete extends JFrame implements IGUI {
         }
     }
 }
+
 
 
 
