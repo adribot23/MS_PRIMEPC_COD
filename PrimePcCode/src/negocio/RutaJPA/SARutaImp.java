@@ -21,35 +21,35 @@ public class SARutaImp implements SARuta {
 		try {
 			em.getTransaction().begin();
 
-			TypedQuery<Ruta> query = em.createNamedQuery("negocio.RutaJPA.Ruta.findById", Ruta.class);
-			query.setParameter("id", truta.get_id());
+			// Buscar por origen + destino (clave única)
+			List<Ruta> listaRutas = em
+					.createNamedQuery("negocio.RutaJPA.Ruta.findByOrigenDestino", Ruta.class)
+					.setParameter("origen", truta.get_origen())
+					.setParameter("destino", truta.get_destino())
+					.getResultList();
 
+			Ruta r = listaRutas.isEmpty() ? null : listaRutas.get(0);
 
-			List<Ruta> rutas = query.getResultList();
-
-			// Si no existe, lo creamos
-			if (rutas.isEmpty()) {
-
+			if (r == null) {
+				// No existe, lo creamos
 				Ruta ruta = new Ruta(truta);
 				ruta.setActivo(1);
 				em.persist(ruta);
 				em.getTransaction().commit();
 				res = ruta.getId();
-
-				// Si existe, lo activamos
-			} else if (query.getSingleResult().getActivo() == 0) {
-
-				Ruta ruta = query.getSingleResult();
-				ruta.setActivo(1);
-				res = ruta.getId();
+			} else if (r.getActivo() == 0) {
+				// Existe pero está inactivo, lo reactivamos
+				r.setActivo(1);
+				r.setDistancia(truta.get_distancia());
 				em.getTransaction().commit();
-
-				// Si existe y está activo, no hacemos nada
+				res = r.getId();
 			} else {
+				// Ya existe y está activo
 				em.getTransaction().rollback();
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			em.getTransaction().rollback();
 		} finally {
 			em.close();
 		}
@@ -113,15 +113,27 @@ public class SARutaImp implements SARuta {
 		try {
 			em.getTransaction().begin();
 
-			Ruta ruta = em.find(Ruta.class, truta.get_id());
+			Ruta rutaExistente = em.find(Ruta.class, truta.get_id());
 
-			if (ruta != null && ruta.getActivo() == 1) {
-				ruta.setOrigen(truta.get_origen());
-				ruta.setDestino(truta.get_destino());
-				ruta.setDistancia(truta.get_distancia());
+			if (rutaExistente != null && rutaExistente.getActivo() == 1) {
+				// Verificar que no exista otra ruta con el mismo origen+destino
+				List<Ruta> rutasConMismoOrigenDestino = em
+						.createNamedQuery("negocio.RutaJPA.Ruta.findByOrigenDestino", Ruta.class)
+						.setParameter("origen", truta.get_origen())
+						.setParameter("destino", truta.get_destino())
+						.getResultList();
 
-				res = 1;
-				em.getTransaction().commit();
+				if (rutasConMismoOrigenDestino.isEmpty() || 
+					(rutasConMismoOrigenDestino.size() == 1 && rutasConMismoOrigenDestino.get(0).getId() == truta.get_id())) {
+					rutaExistente.setOrigen(truta.get_origen());
+					rutaExistente.setDestino(truta.get_destino());
+					rutaExistente.setDistancia(truta.get_distancia());
+
+					em.getTransaction().commit();
+					res = rutaExistente.getId();
+				} else {
+					em.getTransaction().rollback();
+				}
 			} else {
 				em.getTransaction().rollback();
 			}
