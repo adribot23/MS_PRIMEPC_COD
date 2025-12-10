@@ -33,6 +33,9 @@ public class SATransporteImp implements SATransporte {
 				em.getTransaction().commit();
 				res = n.getId();
 			} else if (r.getActivo() == 0) {
+				r.setNombre(t.getNombre());
+				r.setMatricula(t.getMatricula());
+				r.setCapacidad(t.getCapacidad());
 				r.setActivo(1);
 				em.getTransaction().commit();
 				res = r.getId();
