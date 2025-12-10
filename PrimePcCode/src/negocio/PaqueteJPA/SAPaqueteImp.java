@@ -8,6 +8,8 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.LockModeType;
 import jakarta.persistence.TypedQuery;
+import negocio.FacturaJPA.Factura;
+import negocio.FacturaJPA.LineaFactura;
 import negocio.RutaJPA.Ruta;
 import integracion.EMFSingleton.EMFSingleton;
 
@@ -284,8 +286,8 @@ public class SAPaqueteImp implements SAPaquete{
 
         return setPaquetes;
     }
-
-
+	
+    
     @Override
     public Set<TPaquete> mostrarPaquetesPorRuta(int id_ruta) {
         Set<TPaquete> setPaquetes = new LinkedHashSet<>();

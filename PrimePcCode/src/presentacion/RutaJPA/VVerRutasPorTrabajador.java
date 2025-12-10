@@ -2,6 +2,7 @@ package presentacion.RutaJPA;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.GridLayout;
 import java.util.Set;
 
 import javax.swing.BorderFactory;
@@ -13,6 +14,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
 import negocio.RutaJPA.TRuta;
+import negocio.RutaJPA.TVinculacionRutaTrabajador;
 import presentacion.Controller.Controlador;
 import presentacion.Controller.Command.Context;
 import presentacion.GUI.Evento;
@@ -30,12 +32,9 @@ public class VVerRutasPorTrabajador extends JFrame implements IGUI {
 	}
 
 	private void initGUI() {
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setSize(600, 400);
-		setLocationRelativeTo(null);
 
 		// Panel superior con botones
-		JPanel panelBotones = new JPanel();
+		JPanel panelBotones = new JPanel(new GridLayout(2, 1, 10, 10));
 		panelBotones.setBorder(BorderFactory.createTitledBorder("Buscar Rutas por Trabajador"));
 
 		btnBuscar = new JButton("Buscar rutas del trabajador");
@@ -43,22 +42,7 @@ public class VVerRutasPorTrabajador extends JFrame implements IGUI {
 
 		btnVolver = new JButton("Volver");
 		btnVolver.setBackground(new Color(255, 220, 220));
-
-		panelBotones.add(btnBuscar);
-		panelBotones.add(btnVolver);
-
-		// Tabla con scroll
-		tabla = new JTable();
-		tabla.setFillsViewportHeight(true);
-		tabla.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
-		tabla.setEnabled(false);
-		JScrollPane scroll = new JScrollPane(tabla);
-
-		// Layout principal
-		setLayout(new BorderLayout(10, 10));
-		add(panelBotones, BorderLayout.NORTH);
-		add(scroll, BorderLayout.CENTER);
-
+		
 		// Eventos
 		btnBuscar.addActionListener(e -> {
 			String input = JOptionPane.showInputDialog(this, "Introduce ID del trabajador:");
@@ -76,6 +60,15 @@ public class VVerRutasPorTrabajador extends JFrame implements IGUI {
 			Controlador.getInstancia().accion(new Context(Evento.RUTA, null));
 			dispose();
 		});
+
+		// Layout principal
+		panelBotones.add(btnBuscar);
+		panelBotones.add(btnVolver);
+		add(panelBotones);
+
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setSize(300, 150);
+		setLocationRelativeTo(null);
 	}
 
 	@Override
@@ -89,7 +82,7 @@ public class VVerRutasPorTrabajador extends JFrame implements IGUI {
 			break;
 
 		case RES_VER_RUTA_POR_TRABAJADOR_OK:
-			mostrarTabla((Set<TRuta>) datos);
+			mostrarTabla((Set<TVinculacionRutaTrabajador>) datos);
 			break;
 
 		case RES_VER_RUTA_POR_TRABAJADOR_KO:
@@ -101,17 +94,17 @@ public class VVerRutasPorTrabajador extends JFrame implements IGUI {
 		}
 	}
 
-	private void mostrarTabla(Set<TRuta> rutas) {
-		String[] columnas = { "ID", "Origen", "Destino", "Distancia (km)", "Activo" };
+	private void mostrarTabla(Set<TVinculacionRutaTrabajador> rutas) {
+		String[] columnas = { "ID_Ruta", "ID_Trabajador", "Hora Salida", "Estado", "Fecha de Asignación"  };
 		Object[][] datos = new Object[rutas.size()][columnas.length];
 
 		int i = 0;
-		for (TRuta ruta : rutas) {
-			datos[i][0] = ruta.get_id();
-			datos[i][1] = ruta.get_origen();
-			datos[i][2] = ruta.get_destino();
-			datos[i][3] = ruta.get_distancia();
-			datos[i][4] = ruta.get_activo();
+		for (TVinculacionRutaTrabajador ruta : rutas) {
+			datos[i][0] = ruta.get_id_ruta();
+			datos[i][1] = ruta.get_id_trabajador();
+			datos[i][2] = ruta.get_hora_salida();
+			datos[i][3] = ruta.get_estado();
+			datos[i][4] = ruta.get_fecha_asignacion();
 			i++;
 		}
 
