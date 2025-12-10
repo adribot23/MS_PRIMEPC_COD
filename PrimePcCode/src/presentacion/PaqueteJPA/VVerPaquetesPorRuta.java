@@ -35,7 +35,7 @@ public class VVerPaquetesPorRuta extends JFrame implements IGUI {
 
     private void initGUI() {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setSize(400, 200);
+        setSize(350, 150);
         setLocationRelativeTo(null);
 
         JPanel panel = new JPanel(new GridLayout(2, 2, 10, 10));
@@ -123,6 +123,7 @@ public class VVerPaquetesPorRuta extends JFrame implements IGUI {
         table.setEnabled(false);
 
         JScrollPane scrollPane = new JScrollPane(table);
+        scrollPane.setPreferredSize(new java.awt.Dimension(800, 400));
         JOptionPane.showMessageDialog(null, scrollPane, "Paquetes por Ruta", JOptionPane.PLAIN_MESSAGE);
     }
 }
