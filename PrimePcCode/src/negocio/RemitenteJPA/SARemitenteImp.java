@@ -114,7 +114,18 @@ public class SARemitenteImp implements SARemitente {
 
 			Remitente remitente = em.find(Remitente.class, id_remitente);
 
-			if (remitente != null && remitente.getActivo() == 1) {
+			Set<Factura> facturas = remitente.getFactura();
+			int facturasActivas = 0;
+			for(Factura f: facturas)
+			{
+				if(f.get_activo() == 1)
+				{
+					facturasActivas = 1;
+					break;
+				};
+			}
+			
+			if (remitente != null && remitente.getActivo() == 1 && facturasActivas == 0) {
 
 				remitente.setActivo(0);
 
@@ -132,81 +143,7 @@ public class SARemitenteImp implements SARemitente {
 		}
 		return exito;
 	}
-/*
-	@Override
-	public int modificarRemitente(TRemitente tRem) {
-		int res = -1;
 
-		EntityManager em = EMFSingleton.getInstancia().getEntityManagerFactory().createEntityManager();
-
-		try {
-			em.getTransaction().begin();
-
-			Remitente remitenteByID = em.find(Remitente.class, tRem.getId());
-
-			if (remitenteByID == null || remitenteByID.getActivo() == 0) {
-				em.getTransaction().rollback();
-				em.close();
-				return res;
-			}
-
-			TypedQuery<Remitente> query = em.createNamedQuery("Negocio.RemitenteJPA.Remitente.findBynombre",
-					Remitente.class);
-			query.setParameter("nombre", tRem.getNombre());
-
-			List<Remitente> lista = query.getResultList();
-
-			boolean nombreDisponible = lista.isEmpty() || (lista.size() == 1 && lista.get(0).getId() == tRem.getId());
-
-			if (!nombreDisponible) {
-				em.getTransaction().rollback();
-				em.close();
-				return res;
-			}
-
-			if (tRem instanceof TEmpresa && remitenteByID instanceof Empresa) {
-
-				TEmpresa te = (TEmpresa) tRem;
-				Empresa emp = (Empresa) remitenteByID;
-
-				emp.setNombre(te.getNombre());
-				emp.setDireccion(te.getDireccion());
-				emp.setTelefono(te.getTelefono());
-				emp.setNumRegistroFiscal(te.getNumRegistroFiscal());
-
-				em.getTransaction().commit();
-				res = emp.getId();
-			}
-
-			else if (tRem instanceof TParticular && remitenteByID instanceof Particular) {
-
-				TParticular tp = (TParticular) tRem;
-				Particular par = (Particular) remitenteByID;
-
-				par.setNombre(tp.getNombre());
-				par.setDireccion(tp.getDireccion());
-				par.setTelefono(tp.getTelefono());
-				par.setFechaNacimiento(tp.getFechaNacimiento());
-
-				em.getTransaction().commit();
-				res = par.getId();
-			}
-
-			else {
-				em.getTransaction().rollback();
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			if (em.getTransaction().isActive())
-				em.getTransaction().rollback();
-		}
-
-		em.close();
-		return res;
-	}
-	*/
-	
 	@Override
 	public int modificarRemitente(TRemitente tRem) {
 		int res = -1;

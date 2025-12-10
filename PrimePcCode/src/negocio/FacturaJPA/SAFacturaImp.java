@@ -81,6 +81,7 @@ public class SAFacturaImp implements SAFactura {
 							em.persist(lineaFactura);
 							total += lineaFactura.get_precioTotal();
 							lineasFacturaPersistentes.add(lineaFactura);
+							paquete.setFactura(factura);
 						} else {
 							break;
 						}
@@ -230,10 +231,8 @@ public class SAFacturaImp implements SAFactura {
 							lineaFactura.set_devuelto(1);
 
 							// para lo de paquete pero creo q debería tener lineafactura en vez de esto
-							TFactura tF = new TFactura();
-							tF.set_idFactura(-1);
-							Factura fac = new Factura(tF);
-							paquete.setFactura(fac);
+							
+							paquete.setFactura(null);
 
 							f.set_precioTotal(f.get_precioTotal() - lineaFactura.get_precioTotal());
 							if (f.get_precioTotal() < 0)

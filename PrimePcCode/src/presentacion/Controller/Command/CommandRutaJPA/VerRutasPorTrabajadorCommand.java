@@ -17,18 +17,8 @@ public class VerRutasPorTrabajadorCommand implements Command {
 		Set<TVinculacionRutaTrabajador> vinculaciones = SAAbstractFactory.getInstancia()
 				.generarSAVinculacionRutaTrabajador().listar_vinculaciones_por_trabajador((int) data);
 
-		Set<TRuta> rutas = new LinkedHashSet<>();
-		if (vinculaciones != null) {
-			for (TVinculacionRutaTrabajador vinc : vinculaciones) {
-				TRuta ruta = SAAbstractFactory.getInstancia().generarSARuta().buscar_ruta(vinc.get_id_ruta());
-				if (ruta != null) {
-					rutas.add(ruta);
-				}
-			}
-		}
-
-		if (!rutas.isEmpty()) {
-			return new Context(Evento.RES_VER_RUTA_POR_TRABAJADOR_OK, rutas);
+		if (!vinculaciones.isEmpty()) {
+			return new Context(Evento.RES_VER_RUTA_POR_TRABAJADOR_OK, vinculaciones);
 		} else {
 			return new Context(Evento.RES_VER_RUTA_POR_TRABAJADOR_KO, null);
 		}

@@ -55,12 +55,11 @@ public class GUIRuta extends JFrame implements IGUI {
 		// Fila 2
 		botonesPanel.add(crearBotonVerde("BUSCAR RUTA", Evento.VBUSCAR_RUTA));
 		botonesPanel.add(crearBotonVerde("LISTAR TODAS LAS RUTAS", Evento.VMOSTRAR_TODAS_RUTAS));
-		botonesPanel.add(crearBotonVerde("LISTAR RUTAS POR TRABAJADOR", Evento.VVER_RUTA_POR_TRABAJADOR));
+		botonesPanel.add(crearBotonVerde("LISTAR ASIGNACIONES POR TRABAJADOR", Evento.VVER_RUTA_POR_TRABAJADOR));
 
 		// Fila 3
 		botonesPanel.add(crearBotonVerde("VINCULAR RUTA A TRABAJADOR", Evento.VAVINCULAR_RUTA_TRABAJADOR));
 		botonesPanel.add(crearBotonVerde("DESVINCULAR RUTA DE TRABAJADOR", Evento.VDESVINCULAR_RUTA_TRABAJADOR));
-		botonesPanel.add(crearBotonVerde("LISTAR TRABAJADORES POR RUTA", Evento.VVER_TRABAJADOR_POR_RUTA));
 
 		mainPanel.add(botonesPanel, BorderLayout.CENTER);
 
