@@ -111,6 +111,7 @@ public class SAPaqueteImp implements SAPaquete{
 	            throw new RuntimeException("El paquete con ID " + id_paquete + " ya está desactivado.");
 	        }
 	        paquete.setActivo(0);
+	        paquete.setRuta(null);
 	        em.lock(paquete, LockModeType.OPTIMISTIC_FORCE_INCREMENT);
 	        tr.commit();
 	        res = paquete.getId();
