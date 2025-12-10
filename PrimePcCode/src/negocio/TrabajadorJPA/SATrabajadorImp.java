@@ -40,7 +40,10 @@ public class SATrabajadorImp implements SATrabajador {
 				tr.commit();
 				res = n.getId();
 			} else if (r.getActivo() == 0) {
+				
 				// Lo pongo activo
+				r.setDNI(trabajador.getDNI());
+				r.setNombre(trabajador.getNombre());
 				r.setActivo(1);
 				tr.commit();
 				res = r.getId();
@@ -70,7 +73,7 @@ public class SATrabajadorImp implements SATrabajador {
 
 			Trabajador t = em.find(Trabajador.class, id_trabajador);
 
-			if (t != null && t.getActivo() == 1 && t.getTransportes().isEmpty()) {
+			if (t != null && t.getActivo() == 1 && t.getTransportes().isEmpty()&& t.get_vinculaciones().isEmpty()) {
 				t.setActivo(0);
 				tr.commit();
 				res = t.getId();
