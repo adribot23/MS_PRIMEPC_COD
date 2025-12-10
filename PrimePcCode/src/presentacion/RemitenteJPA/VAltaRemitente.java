@@ -33,7 +33,7 @@ public class VAltaRemitente extends JFrame implements IGUI {
 
 	private void initGUI() {
 
-	    setLayout(new GridLayout(7, 2, 10, 10));
+	    setLayout(new GridLayout(6, 2, 10, 10));
 	    getRootPane().setBorder(BorderFactory.createTitledBorder("Alta Remitente"));
 
 	    JLabel lblNombre = new JLabel("Nombre:");

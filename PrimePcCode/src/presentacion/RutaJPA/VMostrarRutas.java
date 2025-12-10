@@ -23,7 +23,7 @@ public class VMostrarRutas extends JFrame implements IGUI {
 
 	private static final long serialVersionUID = 1L;
 	private JButton btnMostrar, btnVolver;
-	private JTable tabla;
+	
 
 	public VMostrarRutas() {
 		super("Mostrar Rutas");
@@ -31,12 +31,9 @@ public class VMostrarRutas extends JFrame implements IGUI {
 	}
 
 	private void initGUI() {
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setSize(600, 400);
-		setLocationRelativeTo(null);
-
+		
 		// Panel superior con botones
-		JPanel panelBotones = new JPanel(new GridLayout(1, 2, 10, 10));
+		JPanel panelBotones = new JPanel(new GridLayout(2, 1, 10, 10));
 		panelBotones.setBorder(BorderFactory.createTitledBorder("Rutas"));
 
 		btnMostrar = new JButton("Mostrar todas las rutas");
@@ -54,17 +51,11 @@ public class VMostrarRutas extends JFrame implements IGUI {
 		panelBotones.add(btnMostrar);
 		panelBotones.add(btnVolver);
 
-		// Tabla con scroll
-		tabla = new JTable();
-		tabla.setFillsViewportHeight(true);
-		tabla.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
-		tabla.setEnabled(false);
-		JScrollPane scroll = new JScrollPane(tabla);
-
-		// Layout principal
-		setLayout(new BorderLayout(10, 10));
-		add(panelBotones, BorderLayout.NORTH);
-		add(scroll, BorderLayout.CENTER);
+		add(panelBotones);
+		
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setSize(300, 150);
+		setLocationRelativeTo(null);
 	}
 
 	@Override

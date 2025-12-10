@@ -111,6 +111,7 @@ public class VMostrarPaquetes extends JFrame implements IGUI {
         table.setEnabled(false);
 
         JScrollPane scrollPane = new JScrollPane(table);
+        scrollPane.setPreferredSize(new java.awt.Dimension(800, 400));
         JOptionPane.showMessageDialog(null, scrollPane, "Paquetes", JOptionPane.PLAIN_MESSAGE);
     }
 }
