@@ -35,9 +35,7 @@ public class SAPaqueteImp implements SAPaquete{
 	                .getResultList();
 
 	        Paquete existente = lista.isEmpty() ? null : lista.get(0);
-	        if (existente != null) {
-		        em.lock(existente, LockModeType.OPTIMISTIC_FORCE_INCREMENT);//Modificamos el lado N de la relacion N a 1
-	        }
+	     
 	        if (existente == null) {
 	            Paquete nuevo = null;
 
@@ -51,7 +49,6 @@ public class SAPaqueteImp implements SAPaquete{
 	                em.getTransaction().rollback();
 	                throw new RuntimeException("Error al crear el paquete: tipo desconocido.");
 	            }
-
 	            nuevo.setRuta(ruta);
 	            em.persist(nuevo);
 	            em.getTransaction().commit();
@@ -59,6 +56,7 @@ public class SAPaqueteImp implements SAPaquete{
 
 	        }
 	        else if (existente.getActivo() == 0) {
+	        	em.lock(existente, LockModeType.OPTIMISTIC_FORCE_INCREMENT);//Modificamos el lado N de la relacion N a 1
 	            boolean mismoTipo = (tPaquete instanceof TPaqueteExpress && existente instanceof PaqueteExpress) ||
 	                                (tPaquete instanceof TPaqueteNormal && existente instanceof PaqueteNormal);
 
