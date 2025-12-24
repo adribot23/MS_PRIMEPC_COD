@@ -5,7 +5,7 @@ import jakarta.persistence.EntityManagerFactory;
 public abstract class EMFSingleton {
 	private static EMFSingleton instancia;
 
-	public static EMFSingleton getInstancia() {
+	public static synchronized EMFSingleton getInstancia() {
 
 		if (instancia == null)
 			instancia = new EMFSingletonImp();

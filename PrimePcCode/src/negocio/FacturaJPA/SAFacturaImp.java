@@ -225,13 +225,10 @@ public class SAFacturaImp implements SAFactura {
 
 					if (lineaFactura.get_devuelto() == 0) {
 
-						Paquete paquete = em.find(Paquete.class, tLineaFactura.get_idPaquete(),
-								LockModeType.OPTIMISTIC);
+						Paquete paquete = em.find(Paquete.class, tLineaFactura.get_idPaquete());
 						if (paquete != null) {
 							lineaFactura.set_devuelto(1);
 
-							// para lo de paquete pero creo q debería tener lineafactura en vez de esto
-							
 							paquete.setFactura(null);
 
 							f.set_precioTotal(f.get_precioTotal() - lineaFactura.get_precioTotal());

@@ -35,7 +35,7 @@ public class SAPaqueteImp implements SAPaquete{
 	                .getResultList();
 
 	        Paquete existente = lista.isEmpty() ? null : lista.get(0);
-
+	     
 	        if (existente == null) {
 	            Paquete nuevo = null;
 
@@ -49,13 +49,14 @@ public class SAPaqueteImp implements SAPaquete{
 	                em.getTransaction().rollback();
 	                throw new RuntimeException("Error al crear el paquete: tipo desconocido.");
 	            }
-
 	            nuevo.setRuta(ruta);
 	            em.persist(nuevo);
 	            em.getTransaction().commit();
 	            res = nuevo.getId();
 
-	        } else if (existente.getActivo() == 0) {
+	        }
+	        else if (existente.getActivo() == 0) {
+	        	em.lock(existente, LockModeType.OPTIMISTIC_FORCE_INCREMENT);//Modificamos el lado N de la relacion N a 1
 	            boolean mismoTipo = (tPaquete instanceof TPaqueteExpress && existente instanceof PaqueteExpress) ||
 	                                (tPaquete instanceof TPaqueteNormal && existente instanceof PaqueteNormal);
 
@@ -70,7 +71,7 @@ public class SAPaqueteImp implements SAPaquete{
 	            existente.setEstado(tPaquete.getEstado());
 	            existente.setRuta(ruta);
 
-	            em.lock(existente, LockModeType.OPTIMISTIC_FORCE_INCREMENT);
+	 
 	            em.getTransaction().commit();
 	            res = existente.getId();
 
@@ -102,19 +103,19 @@ public class SAPaqueteImp implements SAPaquete{
 	    try {
 	        tr.begin();
 	        Paquete paquete = em.find(Paquete.class, id_paquete);
-
+	        
 	        if (paquete == null) {
 	            tr.rollback();
 	            throw new RuntimeException("El paquete con ID " + id_paquete + " no existe.");
 	        }
-
+	        em.lock(paquete, LockModeType.OPTIMISTIC_FORCE_INCREMENT); //Modificamos el lado N de la relacion N a 1
 	        if (paquete.getActivo() == 0) {
 	            tr.rollback();
 	            throw new RuntimeException("El paquete con ID " + id_paquete + " ya está desactivado.");
 	        }
 	        paquete.setActivo(0);
 	        paquete.setRuta(null);
-	        em.lock(paquete, LockModeType.OPTIMISTIC_FORCE_INCREMENT);
+
 	        tr.commit();
 	        res = paquete.getId();
 
@@ -160,12 +161,13 @@ public class SAPaqueteImp implements SAPaquete{
 	                .createNamedQuery("Paquete.findByNumSerie", Paquete.class)
 	                .setParameter("numSerie", t.getNumSerie())
 	                .getResultList();
-
-	        if (!paquetesNumSerie.isEmpty() && !(paquetesNumSerie.size() == 1 && paquetesNumSerie.get(0).getId() == t.getId())) {
-	            em.getTransaction().rollback();
-	            throw new RuntimeException("Ya existe otro paquete activo con el mismo número de serie.");
+	        
+	        for (Paquete p : paquetesNumSerie) {
+	            if (!p.getId().equals(t.getId()) && p.getActivo() == 1) {
+	                em.getTransaction().rollback();
+	                throw new RuntimeException("Ya existe otro paquete activo con el mismo número de serie.");
+	            }
 	        }
-
 	        pExistente.setNumSerie(t.getNumSerie());
 	        pExistente.setPeso(t.getPeso());
 	        pExistente.setEstado(t.getEstado());
@@ -177,8 +179,6 @@ public class SAPaqueteImp implements SAPaquete{
 	        } else if (pExistente instanceof PaqueteNormal && t instanceof TPaqueteNormal) {
 	            ((PaqueteNormal) pExistente).setDescuento(((TPaqueteNormal) t).getDescuento());
 	        }
-
-	        em.lock(pExistente, LockModeType.OPTIMISTIC_FORCE_INCREMENT);
 	        em.getTransaction().commit();
 	        res = pExistente.getId();
 
@@ -275,6 +275,7 @@ public class SAPaqueteImp implements SAPaquete{
             List<Paquete> paquetes = query.getResultList();
 
             for (Paquete p : paquetes) {
+            	em.lock(p, LockModeType.OPTIMISTIC);
                 setPaquetes.add(p.entityToTransfer());
             }
         } catch (Exception e) {

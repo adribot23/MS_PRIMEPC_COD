@@ -61,7 +61,7 @@ public class VBuscarFactura extends JFrame implements IGUI {
 		setLayout(new BorderLayout(10, 10));
 
 		JPanel topPanel = new JPanel(new GridLayout(1, 3, 10, 10));
-		topPanel.add(new JLabel("Id venta:"));
+		topPanel.add(new JLabel("Id factura:"));
 		topPanel.add(idFacturaField);
 		JButton buscarButton = new JButton("Buscar");
 		buscarButton.setBackground(new Color(200, 255, 200));
