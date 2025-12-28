@@ -9,7 +9,6 @@ import negocio.FacturaJPA.Factura;
 import negocio.RutaJPA.Ruta;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.SequenceGenerator;
-import jakarta.persistence.Table;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Inheritance;
@@ -17,7 +16,6 @@ import jakarta.persistence.InheritanceType;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 import java.io.Serializable;
-import negocio.FacturaJPA.Factura;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -72,6 +70,18 @@ public abstract class Paquete implements Serializable{
     private Integer version;
 
     public Paquete() {}
+    
+    public Paquete(TPaquete t) {
+    	 t.setId(this.id);
+         t.setNumSerie(this.numero_serie);
+         t.setEstado(this.estado);
+         t.setPeso(this.peso);
+         t.setPrecio(this.precio);
+         t.setActivo(this.activo);
+
+         t.setIdRuta(ruta != null ? ruta.getId() : -1);
+         t.setIdFactura(factura != null ? factura.get_idFactura() : -1);
+    }
 
     // GETTERS
     public Integer getId() { return id; }

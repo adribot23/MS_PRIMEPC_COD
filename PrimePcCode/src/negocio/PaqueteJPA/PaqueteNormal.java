@@ -20,15 +20,7 @@ public class PaqueteNormal extends Paquete implements Serializable {
     public PaqueteNormal() { }
 
     public PaqueteNormal(TPaqueteNormal t) {
-        this.setId(t.getId());
-        this.setNumSerie(t.getNumSerie());
-        this.setEstado(t.getEstado());
-        this.setPeso(t.getPeso());
-        this.setPrecio(t.getPrecio());
-        this.setActivo(t.getActivo());
-
-        //this.setRuta(null);
-        //this.setFactura(null);
+        super(t);
         this.descuento = t.getDescuento();
     }
 
@@ -37,9 +29,20 @@ public class PaqueteNormal extends Paquete implements Serializable {
 
     @Override
     public TPaqueteNormal toTransfer() {
-        TPaqueteNormal t = new TPaqueteNormal();
-        t.setDescuento(this.descuento);
-        return t;
+    	 TPaqueteNormal t = new TPaqueteNormal();
+         t.setDescuento(this.descuento);
+         t.setId(this.getId());
+         t.setNumSerie(this.getNumSerie());
+         t.setEstado(this.getEstado());
+         t.setPeso(this.getPeso());
+         
+         double precioCalculado = t.getPrecio() - descuento;
+         double precio = Math.max(0, precioCalculado);
+         this.setPrecio(precio);
+         
+         t.setActivo(this.getActivo());
+
+         return t;
     }
 }
 
