@@ -7,6 +7,7 @@ import java.util.List;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.LockModeType;
+import jakarta.persistence.OptimisticLockException;
 import jakarta.persistence.TypedQuery;
 import negocio.FacturaJPA.Factura;
 import negocio.FacturaJPA.LineaFactura;
@@ -256,24 +257,44 @@ public class SARemitenteImp implements SARemitente {
 	
 	@Override
 	public double calcularPrecioPaquetesRemitente(int id_remitente) {
-
-		EntityManager em = EMFSingleton.getInstancia().getEntityManagerFactory().createEntityManager();
-
-	    Remitente remitente = em.find(Remitente.class, id_remitente);
-
-	    if (remitente == null) return 0;
-
+		
+	    EntityManager em = EMFSingleton.getInstancia().getEntityManagerFactory().createEntityManager();
+	    EntityTransaction tx = em.getTransaction();
 	    double total = 0;
-	    for (Factura factura : remitente.getFactura()) {
 
-	        for (LineaFactura lf : factura.get_lineaFactura()) {
+	    try {
+	        tx.begin(); 
+	        Remitente remitente = em.find(Remitente.class, id_remitente);
 
-	            Paquete p = lf.get_Paquete();
-
-	            if (p != null) {
-	                total += p.getPrecio();  
+	        if (remitente != null) {
+	        	
+	            for (Factura factura : remitente.getFactura()) {
+	            	
+	                for (LineaFactura lf : factura.get_lineaFactura()) {
+	                	
+	                    Paquete p = lf.get_Paquete();
+	                    if (p != null) 
+	                        total += p.getPrecio();
+	                    
+	                }
 	            }
 	        }
+
+	        tx.commit();
+	        
+	    } catch (OptimisticLockException e) {
+	        total = -1; 
+	        if (tx.isActive()) 
+	        	tx.rollback();
+	        
+	    } catch (Exception e) {
+	    	
+	        if (tx.isActive()) tx.rollback();
+	        e.printStackTrace();
+	        
+	    } finally {
+	    	
+	        em.close();
 	    }
 
 	    return total;

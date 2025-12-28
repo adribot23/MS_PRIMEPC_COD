@@ -20,26 +20,26 @@ public class PaqueteExpress extends Paquete implements Serializable {
     public PaqueteExpress() { }
 
     public PaqueteExpress(TPaqueteExpress t) {
-        this.setId(t.getId());
-        this.setNumSerie(t.getNumSerie());
-        this.setEstado(t.getEstado());
-        this.setPeso(t.getPeso());
-        this.setPrecio(t.getPrecio());
-        this.setActivo(t.getActivo());
-
-        //this.setRuta(null);
-        //this.setFactura(null);
-
+    	super(t);
         this.prioridad = t.getPrioridad();
     }
 
     public int getPrioridad() { return prioridad; }
     public void setPrioridad(int prioridad) { this.prioridad = prioridad; }
+   
 
     @Override
     public TPaqueteExpress toTransfer() {
+    	
         TPaqueteExpress t = new TPaqueteExpress();
         t.setPrioridad(this.prioridad);
+        t.setId(this.getId());
+        t.setNumSerie(this.getNumSerie());
+        t.setEstado(this.getEstado());
+        t.setPeso(this.getPeso());
+        t.setPrecio(this.getPrecio() + prioridad);
+        t.setActivo(this.getActivo());
+
         return t;
     }
 }

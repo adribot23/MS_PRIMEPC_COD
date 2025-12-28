@@ -23,7 +23,7 @@ public class SAFacturaImp implements SAFactura {
 		try {
 			em.getTransaction().begin();
 			Remitente remitente = em.find(Remitente.class, tFactura.get_idRemitente(),
-					LockModeType.OPTIMISTIC_FORCE_INCREMENT); // NO SE SI HACE FALTA FORCE INCREMENT
+					LockModeType.OPTIMISTIC); 
 			if (remitente != null && remitente.getActivo() == 1) {
 				carrito = new TCarritoFactura();
 				carrito.set_tLineasFactura(new HashSet<TLineaFactura>());
