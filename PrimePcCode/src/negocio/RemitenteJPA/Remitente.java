@@ -11,7 +11,6 @@ import negocio.FacturaJPA.Factura;
 @Table(name = "REMITENTE")
 @Inheritance(strategy = InheritanceType.JOINED)
 @NamedQueries({
-		@NamedQuery(name = "Negocio.RemitenteJPA.Remitente.findByid", query = "select r from Remitente r where r.id_remitente = :id_remitente"),
 		@NamedQuery(name = "Negocio.RemitenteJPA.Remitente.findBynombre", query = "select r from Remitente r where r.nombre = :nombre"),
 		@NamedQuery(name = "Negocio.RemitenteJPA.Remitente.findBydireccion", query = "select r from Remitente r where r.direccion = :direccion"),
 		@NamedQuery(name = "Negocio.RemitenteJPA.Remitente.findBytelefono", query = "select r from Remitente r where r.telefono = :telefono"),

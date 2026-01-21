@@ -22,7 +22,6 @@ import jakarta.persistence.MapsId;
 
 @Entity
 @NamedQueries({
-		@NamedQuery(name = "negocio.FacturaJPA.LineaFactura.findByid", query = "select obj from LineaFactura obj where :id = obj.id "),
 		@NamedQuery(name = "negocio.FacturaJPA.LineaFactura.findBydevuelto", query = "select obj from LineaFactura obj where :devuelto = obj.devuelto "),
 		@NamedQuery(name = "negocio.FacturaJPA.LineaFactura.findByprecioTotal", query = "select obj from LineaFactura obj where :precio_total = obj.precio_total "),
 		@NamedQuery(name = "negocio.FacturaJPA.LineaFactura.findByversion", query = "select obj from LineaFactura obj where :version = obj.version "),
