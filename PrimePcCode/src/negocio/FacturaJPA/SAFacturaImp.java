@@ -23,7 +23,7 @@ public class SAFacturaImp implements SAFactura {
 		try {
 			em.getTransaction().begin();
 			Remitente remitente = em.find(Remitente.class, tFactura.get_idRemitente(),
-					LockModeType.OPTIMISTIC_FORCE_INCREMENT); // NO SE SI HACE FALTA FORCE INCREMENT
+					LockModeType.OPTIMISTIC); 
 			if (remitente != null && remitente.getActivo() == 1) {
 				carrito = new TCarritoFactura();
 				carrito.set_tLineasFactura(new HashSet<TLineaFactura>());
@@ -225,13 +225,10 @@ public class SAFacturaImp implements SAFactura {
 
 					if (lineaFactura.get_devuelto() == 0) {
 
-						Paquete paquete = em.find(Paquete.class, tLineaFactura.get_idPaquete(),
-								LockModeType.OPTIMISTIC);
+						Paquete paquete = em.find(Paquete.class, tLineaFactura.get_idPaquete());
 						if (paquete != null) {
 							lineaFactura.set_devuelto(1);
 
-							// para lo de paquete pero creo q debería tener lineafactura en vez de esto
-							
 							paquete.setFactura(null);
 
 							f.set_precioTotal(f.get_precioTotal() - lineaFactura.get_precioTotal());

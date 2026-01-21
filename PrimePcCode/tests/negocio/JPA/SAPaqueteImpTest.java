@@ -26,8 +26,6 @@ public class SAPaqueteImpTest {
     public void setUp() {
         sa = new SAPaqueteImp();
         em = EMFSingleton.getInstancia().getEntityManagerFactory().createEntityManager();
-
-        // Crear ruta activa para pruebas
         EntityTransaction tx = em.getTransaction();
         tx.begin();
         Ruta r = new Ruta();
@@ -46,7 +44,7 @@ public class SAPaqueteImpTest {
         EntityTransaction tx = em.getTransaction();
         tx.begin();
 
-        // BORRADO FÍSICO COMPLETO
+
         em.createQuery("DELETE FROM LineaFactura").executeUpdate();
         em.createQuery("DELETE FROM PaqueteNormal").executeUpdate();
         em.createQuery("DELETE FROM PaqueteExpress").executeUpdate();
@@ -71,7 +69,6 @@ public class SAPaqueteImpTest {
 
         assertTrue(id > 0);
 
-        // Comprobar existencia en BD
         TPaquete buscado = sa.buscarPaquete(id);
         assertEquals("ABC123", buscado.getNumSerie());
     }
@@ -122,7 +119,6 @@ public class SAPaqueteImpTest {
 
         int id = sa.altaPaquete(t);
 
-        // modificar
         TPaqueteNormal mod = new TPaqueteNormal();
         mod.setId(id);
         mod.setNumSerie("MOD999");

@@ -23,7 +23,7 @@ public class SAPaqueteImp implements SAPaquete{
 	    try {
 	        em.getTransaction().begin();
 
-	        Ruta ruta = em.find(Ruta.class, tPaquete.getIdRuta());
+	        Ruta ruta = em.find(Ruta.class,tPaquete.getIdRuta(),LockModeType.OPTIMISTIC_FORCE_INCREMENT);
 	        if (ruta == null || ruta.getActivo() == 0) {
 	            em.getTransaction().rollback();
 	            throw new RuntimeException("La ruta no existe o está inactiva.");
@@ -35,9 +35,7 @@ public class SAPaqueteImp implements SAPaquete{
 	                .getResultList();
 
 	        Paquete existente = lista.isEmpty() ? null : lista.get(0);
-	        if (existente != null) {
-		        em.lock(existente, LockModeType.OPTIMISTIC_FORCE_INCREMENT);//Modificamos el lado N de la relacion N a 1
-	        }
+	     
 	        if (existente == null) {
 	            Paquete nuevo = null;
 
@@ -51,7 +49,6 @@ public class SAPaqueteImp implements SAPaquete{
 	                em.getTransaction().rollback();
 	                throw new RuntimeException("Error al crear el paquete: tipo desconocido.");
 	            }
-
 	            nuevo.setRuta(ruta);
 	            em.persist(nuevo);
 	            em.getTransaction().commit();
@@ -105,12 +102,14 @@ public class SAPaqueteImp implements SAPaquete{
 	    try {
 	        tr.begin();
 	        Paquete paquete = em.find(Paquete.class, id_paquete);
-	        
 	        if (paquete == null) {
 	            tr.rollback();
 	            throw new RuntimeException("El paquete con ID " + id_paquete + " no existe.");
 	        }
-	        em.lock(paquete, LockModeType.OPTIMISTIC_FORCE_INCREMENT); //Modificamos el lado N de la relacion N a 1
+	        Ruta ruta = paquete.getRuta();
+	        if (ruta != null) {
+	            em.lock(ruta, LockModeType.OPTIMISTIC_FORCE_INCREMENT);
+	        }
 	        if (paquete.getActivo() == 0) {
 	            tr.rollback();
 	            throw new RuntimeException("El paquete con ID " + id_paquete + " ya está desactivado.");
@@ -205,7 +204,7 @@ public class SAPaqueteImp implements SAPaquete{
         try {
             em.getTransaction().begin();
 
-            Paquete paquete = em.find(Paquete.class, id_paquete, LockModeType.OPTIMISTIC);
+            Paquete paquete = em.find(Paquete.class, id_paquete);
 
             if (paquete == null) {
                 em.getTransaction().rollback();
@@ -237,7 +236,7 @@ public class SAPaqueteImp implements SAPaquete{
                     "negocio.PaqueteJPA.Paquete.findAll",
                     Paquete.class
             );
-            query.setLockMode(LockModeType.OPTIMISTIC);
+            //query.setLockMode(LockModeType.OPTIMISTIC);
 
             List<Paquete> resultados = query.getResultList();
 

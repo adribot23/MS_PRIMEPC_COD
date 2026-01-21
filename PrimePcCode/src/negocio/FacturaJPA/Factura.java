@@ -20,7 +20,6 @@ import jakarta.persistence.ManyToOne;
 
 @Entity
 @NamedQueries({
-		@NamedQuery(name = "negocio.FacturaJPA.Factura.findByid", query = "select obj from Factura obj where :id = obj.id "),
 		@NamedQuery(name = "negocio.FacturaJPA.Factura.findByactivo", query = "select obj from Factura obj where :activo = obj.activo "),
 		@NamedQuery(name = "negocio.FacturaJPA.Factura.findByversion", query = "select obj from Factura obj where :version = obj.version "),
 		@NamedQuery(name = "negocio.FacturaJPA.Factura.findByprecio_total", query = "select obj from Factura obj where :precio_total = obj.precio_total "),

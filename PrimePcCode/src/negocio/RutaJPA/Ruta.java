@@ -21,7 +21,6 @@ import negocio.PaqueteJPA.Paquete;
 @Entity
 @Table(name = "RUTA", uniqueConstraints = { @UniqueConstraint(columnNames = { "origen", "destino" }) })
 @NamedQueries({
-	@NamedQuery(name = "negocio.RutaJPA.Ruta.findById", query = "select obj from Ruta obj where obj.id_ruta = :id"),
 	@NamedQuery(name = "negocio.RutaJPA.Ruta.findByOrigenDestino", query = "select r from Ruta r where r.origen = :origen and r.destino = :destino"),
 	@NamedQuery(name = "negocio.RutaJPA.Ruta.findAll", query = "select r from Ruta r")})
 public class Ruta implements Serializable {
