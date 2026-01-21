@@ -188,7 +188,7 @@ public class SATransporteImp implements SATransporte {
 			em.getTransaction().begin();
 
 			Transporte transporte = em.find(Transporte.class, t.getId_transporte());
-			Trabajador trabajador = em.find(Trabajador.class, t.getId_trabajador());
+			Trabajador trabajador = em.find(Trabajador.class, t.getId_trabajador(), LockModeType.OPTIMISTIC);
 
 			if (transporte != null && trabajador != null && transporte.getActivo() == 1
 					&& trabajador.getActivo() == 1) {
@@ -222,14 +222,15 @@ public class SATransporteImp implements SATransporte {
 		try {
 			em.getTransaction().begin();
 
-			Transporte transporte = em.find(Transporte.class, t.getId_transporte());
-			Trabajador trabajador = em.find(Trabajador.class, t.getId_trabajador());
+			Transporte transporte = em.find(Transporte.class, t.getId_transporte(),
+					LockModeType.OPTIMISTIC_FORCE_INCREMENT);
+
+			Trabajador trabajador = em.find(Trabajador.class, t.getId_trabajador(), LockModeType.OPTIMISTIC);
 
 			if (transporte != null && trabajador != null && transporte.getActivo() == 1
 					&& trabajador.getActivo() == 1) {
 				if (transporte.getTrabajadores().contains(trabajador)) {
 					transporte.getTrabajadores().remove(trabajador);
-					// EclipseLink incrementa automáticamente versión del transporte
 					em.getTransaction().commit();
 					res = 1;
 				} else {
@@ -259,8 +260,6 @@ public class SATransporteImp implements SATransporte {
 
 			if (trabajador != null && trabajador.getActivo() == 1) {
 				for (Transporte transporte : trabajador.getTransportes()) {
-					// No necesita FORCE_INCREMENT, la relación ManyToMany sin atributos se maneja
-					// sola
 					if (transporte.getActivo() == 1)
 						transportes.add(transporte.toTransfer());
 				}
