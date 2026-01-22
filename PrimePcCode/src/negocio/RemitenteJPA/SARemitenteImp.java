@@ -264,17 +264,18 @@ public class SARemitenteImp implements SARemitente {
 
 	    try {
 	        tx.begin(); 
-	        Remitente remitente = em.find(Remitente.class, id_remitente);
+	        Remitente remitente = em.find(Remitente.class, id_remitente, LockModeType.OPTIMISTIC);
 
 	        if (remitente != null) {
 	        	
 	            for (Factura factura : remitente.getFactura()) {
-	            	
+	            	em.lock(factura, LockModeType.OPTIMISTIC);
 	                for (LineaFactura lf : factura.get_lineaFactura()) {
-	                	
+	                	em.lock(lf, LockModeType.OPTIMISTIC);
 	                    Paquete p = lf.get_Paquete();
+	                    em.lock(p, LockModeType.OPTIMISTIC);
 	                    if (p != null) 
-	                        total += p.getPrecio();
+	                        total += p.calculaPrecioFinal();
 	                    
 	                }
 	            }

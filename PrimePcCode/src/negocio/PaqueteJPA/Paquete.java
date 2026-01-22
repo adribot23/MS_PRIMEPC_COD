@@ -72,16 +72,14 @@ public abstract class Paquete implements Serializable{
     public Paquete() {}
     
     public Paquete(TPaquete t) {
-    	 t.setId(this.id);
-         t.setNumSerie(this.numero_serie);
-         t.setEstado(this.estado);
-         t.setPeso(this.peso);
-         t.setPrecio(this.precio);
-         t.setActivo(this.activo);
-
-         t.setIdRuta(ruta != null ? ruta.getId() : -1);
-         t.setIdFactura(factura != null ? factura.get_idFactura() : -1);
+        this.id = t.getId();
+        this.numero_serie = t.getNumSerie();
+        this.estado = t.getEstado();
+        this.peso = t.getPeso();
+        this.precio = t.getPrecio();
+        this.activo = t.getActivo();
     }
+
 
     // GETTERS
     public Integer getId() { return id; }
@@ -92,7 +90,7 @@ public abstract class Paquete implements Serializable{
     public int getActivo() { return activo; }
     public Ruta getRuta() { return ruta; }
     public Factura getFactura() { return factura; }
-
+    public abstract double calculaPrecioFinal();
 
     public void setId(Integer id) { this.id = id; }
     public void setNumSerie(String numSerie) { this.numero_serie = numSerie; }
@@ -107,16 +105,8 @@ public abstract class Paquete implements Serializable{
     public TPaquete entityToTransfer() {
 
         TPaquete t;
-
-        if (this instanceof PaqueteNormal) {
-            t = ((PaqueteNormal) this).toTransfer();
-        }
-        else if (this instanceof PaqueteExpress) {
-            t = ((PaqueteExpress) this).toTransfer();
-        }
-        else {
-            t = new TPaquete(); // nunca debería pasar, pero por seguridad
-        }
+        
+        t = this.toTransfer(); //Carga los atributos especificos del tipo de paquete
 
         t.setId(this.id);
         t.setNumSerie(this.numero_serie);

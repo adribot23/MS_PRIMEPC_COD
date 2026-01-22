@@ -27,6 +27,10 @@ public class PaqueteExpress extends Paquete implements Serializable {
     public int getPrioridad() { return prioridad; }
     public void setPrioridad(int prioridad) { this.prioridad = prioridad; }
    
+    @Override
+	public double calculaPrecioFinal() {
+		return this.getPrecio() + prioridad * 5; //se le añade 5 euros por cada grado de prioridad
+	}
 
     @Override
     public TPaqueteExpress toTransfer() {
@@ -37,11 +41,13 @@ public class PaqueteExpress extends Paquete implements Serializable {
         t.setNumSerie(this.getNumSerie());
         t.setEstado(this.getEstado());
         t.setPeso(this.getPeso());
-        t.setPrecio(this.getPrecio() + prioridad);
+        t.setPrecio(this.getPrecio());
         t.setActivo(this.getActivo());
 
         return t;
     }
+
+	
 }
 
 
