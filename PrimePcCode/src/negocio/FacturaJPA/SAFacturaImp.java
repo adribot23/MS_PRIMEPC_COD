@@ -267,7 +267,7 @@ public class SAFacturaImp implements SAFactura {
 				if (lineaFactura == null) {
 					lineaFactura = new TLineaFactura();
 					lineaFactura.set_idPaquete(paquete.getId());
-					lineaFactura.set_precioTotal(paquete.getPrecio());
+					lineaFactura.set_precioTotal(paquete.calculaPrecioFinal());
 					set.add(lineaFactura);
 					tCarritoFactura.set_tLineasFactura(set);
 					res = 1;
