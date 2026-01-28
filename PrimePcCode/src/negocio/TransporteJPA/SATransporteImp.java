@@ -193,8 +193,9 @@ public class SATransporteImp implements SATransporte {
 			if (transporte != null && trabajador != null && transporte.getActivo() == 1
 					&& trabajador.getActivo() == 1) {
 				if (!transporte.getTrabajadores().contains(trabajador)) {
-					transporte.getTrabajadores().add(trabajador);
 					// EclipseLink incrementa automáticamente versión del transporte en ManyToMany
+					transporte.getTrabajadores().add(trabajador);
+					
 					em.getTransaction().commit();
 					res = 1;
 				} else {
@@ -222,14 +223,13 @@ public class SATransporteImp implements SATransporte {
 		try {
 			em.getTransaction().begin();
 
-			Transporte transporte = em.find(Transporte.class, t.getId_transporte(),
-					LockModeType.OPTIMISTIC_FORCE_INCREMENT);
-
+			Transporte transporte = em.find(Transporte.class, t.getId_transporte());
 			Trabajador trabajador = em.find(Trabajador.class, t.getId_trabajador(), LockModeType.OPTIMISTIC);
 
 			if (transporte != null && trabajador != null && transporte.getActivo() == 1
 					&& trabajador.getActivo() == 1) {
 				if (transporte.getTrabajadores().contains(trabajador)) {
+					// EclipseLink incrementa automáticamente versión del transporte en ManyToMany
 					transporte.getTrabajadores().remove(trabajador);
 					em.getTransaction().commit();
 					res = 1;
