@@ -188,7 +188,7 @@ public class SATransporteImp implements SATransporte {
 			em.getTransaction().begin();
 
 			Transporte transporte = em.find(Transporte.class, t.getId_transporte());
-			Trabajador trabajador = em.find(Trabajador.class, t.getId_trabajador(), LockModeType.OPTIMISTIC);
+			Trabajador trabajador = em.find(Trabajador.class, t.getId_trabajador(), LockModeType.OPTIMISTIC_FORCE_INCREMENT);
 
 			if (transporte != null && trabajador != null && transporte.getActivo() == 1
 					&& trabajador.getActivo() == 1) {
@@ -224,7 +224,7 @@ public class SATransporteImp implements SATransporte {
 			em.getTransaction().begin();
 
 			Transporte transporte = em.find(Transporte.class, t.getId_transporte());
-			Trabajador trabajador = em.find(Trabajador.class, t.getId_trabajador(), LockModeType.OPTIMISTIC);
+			Trabajador trabajador = em.find(Trabajador.class, t.getId_trabajador(), LockModeType.OPTIMISTIC_FORCE_INCREMENT);
 
 			if (transporte != null && trabajador != null && transporte.getActivo() == 1
 					&& trabajador.getActivo() == 1) {
