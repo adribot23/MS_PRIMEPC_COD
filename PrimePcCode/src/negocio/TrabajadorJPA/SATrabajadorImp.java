@@ -108,7 +108,7 @@ public class SATrabajadorImp implements SATrabajador {
 
 				TypedQuery<Trabajador> query = em.createNamedQuery("Negocio.TrabajadorJPA.Trabajador.findByDNI",
 						Trabajador.class);
-				query.setParameter("DNI", tExistente.getDNI());
+				query.setParameter("DNI", trabajador.getDNI());
 				List<Trabajador> lista = query.getResultList();
 
 				// boolean nombreDisponible = lista.isEmpty() || (lista.size() == 1 &&

@@ -98,6 +98,7 @@ public class SARutaImp implements SARuta {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			em.getTransaction().rollback();
 		} finally {
 			em.close();
 		}
@@ -139,6 +140,7 @@ public class SARutaImp implements SARuta {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			em.getTransaction().rollback();
 		} finally {
 			em.close();
 		}
@@ -167,6 +169,7 @@ public class SARutaImp implements SARuta {
 			e.printStackTrace();
 		} finally {
 			em.close();
+			em.getTransaction().rollback();
 		}
 
 		return res;
@@ -201,6 +204,7 @@ public class SARutaImp implements SARuta {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			em.getTransaction().rollback();
 		} finally {
 			em.close();
 		}

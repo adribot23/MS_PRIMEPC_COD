@@ -70,7 +70,12 @@ public class SAPaqueteImp implements SAPaquete{
 	            existente.setEstado(tPaquete.getEstado());
 	            existente.setRuta(ruta);
 
-	 
+	            if (existente instanceof PaqueteExpress && tPaquete instanceof TPaqueteExpress) {
+	                ((PaqueteExpress) existente).setPrioridad(((TPaqueteExpress) tPaquete).getPrioridad());
+	            } else if (existente instanceof PaqueteNormal && tPaquete instanceof TPaqueteNormal) {
+	                ((PaqueteNormal) existente).setDescuento(((TPaqueteNormal) tPaquete).getDescuento());
+	            }
+	            
 	            em.getTransaction().commit();
 	            res = existente.getId();
 

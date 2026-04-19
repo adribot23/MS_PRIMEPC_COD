@@ -28,7 +28,7 @@ public class SAVinculacionRutaTrabajadorImp implements SAVinculacionRutaTrabajad
 
 			if (trabajador != null && ruta != null && trabajador.getActivo() == 1 && ruta.getActivo() == 1
 					&& vinculacion == null) {
-				vinculacion = new VinculacionRutaTrabajador(ruta, trabajador, tvinculacion.get_estado(), tvinculacion.get_fecha_asignacion(), tvinculacion.get_hora_salida());
+				vinculacion = new VinculacionRutaTrabajador(ruta, trabajador, tvinculacion.get_hora_salida(), tvinculacion.get_estado(), tvinculacion.get_fecha_asignacion());
 				em.persist(vinculacion);
 				res = 1;
 				em.getTransaction().commit();
@@ -37,6 +37,7 @@ public class SAVinculacionRutaTrabajadorImp implements SAVinculacionRutaTrabajad
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			em.getTransaction().rollback();
 		} finally {
 			em.close();
 		}
@@ -75,6 +76,7 @@ public class SAVinculacionRutaTrabajadorImp implements SAVinculacionRutaTrabajad
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			em.getTransaction().rollback();
 		} finally {
 			em.close();
 		}
@@ -105,6 +107,7 @@ public class SAVinculacionRutaTrabajadorImp implements SAVinculacionRutaTrabajad
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			em.getTransaction().rollback();
 		} finally {
 			em.close();
 		}
@@ -135,6 +138,7 @@ public class SAVinculacionRutaTrabajadorImp implements SAVinculacionRutaTrabajad
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			em.getTransaction().rollback();
 		} finally {
 			em.close();
 		}

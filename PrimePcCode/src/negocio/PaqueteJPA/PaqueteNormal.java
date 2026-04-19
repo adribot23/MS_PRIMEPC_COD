@@ -40,7 +40,7 @@ public class PaqueteNormal extends Paquete implements Serializable {
          t.setNumSerie(this.getNumSerie());
          t.setEstado(this.getEstado());
          t.setPeso(this.getPeso());
-         this.setPrecio(this.getPrecio());
+         t.setPrecio(this.getPrecio());
          t.setActivo(this.getActivo());
 
          return t;

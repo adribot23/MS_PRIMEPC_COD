@@ -103,48 +103,50 @@ public class SARemitenteImp implements SARemitente {
 	}
 
 	@Override
-	public int bajaRemitente(int id_remitente) {
-		int exito = -1;
+    public int bajaRemitente(int id_remitente) {
+        int exito = -1;
 
-		EntityManager em = EMFSingleton.getInstancia().getEntityManagerFactory().createEntityManager();
+        EntityManager em = EMFSingleton.getInstancia().getEntityManagerFactory().createEntityManager();
 
-		EntityTransaction tr = em.getTransaction();
+        EntityTransaction tr = em.getTransaction();
 
-		try {
-			tr.begin();
+        try {
+            tr.begin();
 
-			Remitente remitente = em.find(Remitente.class, id_remitente);
+            Remitente remitente = em.find(Remitente.class, id_remitente);
 
-			Set<Factura> facturas = remitente.getFactura();
-			int facturasActivas = 0;
-			for(Factura f: facturas)
-			{
-				if(f.get_activo() == 1)
-				{
-					facturasActivas = 1;
-					break;
-				};
-			}
-			
-			if (remitente != null && remitente.getActivo() == 1 && facturasActivas == 0) {
+            if (remitente != null && remitente.getActivo() == 1) {
+                Set<Factura> facturas = remitente.getFactura();
+                int facturasActivas = 0;
+                for(Factura f: facturas)
+                {
+                    if(f.get_activo() == 1)
+                    {
+                        facturasActivas = 1;
+                        break;
+                    };
+                }
 
-				remitente.setActivo(0);
+                if (facturasActivas == 0) {
 
-				tr.commit();
-				exito = remitente.getId();
+                    remitente.setActivo(0);
 
-			} else {
-				tr.rollback();
-			}
-		} catch (Exception e) {
-			tr.rollback();
-			e.printStackTrace();
-		} finally {
-			em.close();
-		}
-		return exito;
-	}
-
+                    tr.commit();
+                    exito = remitente.getId();
+                } else {
+                    tr.rollback();
+                }
+            } else {
+                tr.rollback();
+            }
+        } catch (Exception e) {
+            tr.rollback();
+            e.printStackTrace();
+        } finally {
+            em.close();
+        }
+        return exito;
+    }
 	@Override
 	public int modificarRemitente(TRemitente tRem) {
 		int res = -1;
@@ -154,15 +156,14 @@ public class SARemitenteImp implements SARemitente {
             em.getTransaction().begin();
 
             Remitente rExistente = em.find(Remitente.class, tRem.getId()); // No lock necesario al modificar con @Version
-            TRemitente transferExistente = rExistente.entityToTransfer();
-            
-            if(!tRem.getClass().equals(transferExistente.getClass())) {
-            	em.getTransaction().rollback();
-				em.close();
-				return res;
-            }
-            
+
             if (rExistente != null && rExistente.getActivo() == 1) {
+                TRemitente transferExistente = rExistente.entityToTransfer();
+            
+                if(!tRem.getClass().equals(transferExistente.getClass())) {
+                	em.getTransaction().rollback();
+					return res;
+                }
 
                 List<Remitente> tNombre = em
                         .createNamedQuery("Negocio.RemitenteJPA.Remitente.findBynombre", Remitente.class)
@@ -199,8 +200,6 @@ public class SARemitenteImp implements SARemitente {
         }
 
         return res;
-		
-		
 		
 	}
 
