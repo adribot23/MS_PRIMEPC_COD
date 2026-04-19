@@ -77,7 +77,7 @@ public class SARutaImp implements SARuta {
 
 	        // ❗ Comprobación con query (NO con colecciones)
 	        Long paquetesActivos = em.createQuery(
-	                "SELECT COUNT(p) FROM Paquete p WHERE p.ruta.id = :id AND p.activo = 1",
+	                "SELECT COUNT(p) FROM Paquete p WHERE p.ruta.id_ruta = :id AND p.activo = 1",
 	                Long.class)
 	                .setParameter("id", id)
 	                .getSingleResult();
@@ -89,7 +89,7 @@ public class SARutaImp implements SARuta {
 
 
 	        Long vinculaciones = em.createQuery(
-	                "SELECT COUNT(v) FROM VinculacionRutaTrabajador v WHERE v.ruta.id = :id",
+	                "SELECT COUNT(v) FROM VinculacionRutaTrabajador v WHERE v.ruta.id_ruta = :id",
 	                Long.class)
 	                .setParameter("id", id)
 	                .getSingleResult();
