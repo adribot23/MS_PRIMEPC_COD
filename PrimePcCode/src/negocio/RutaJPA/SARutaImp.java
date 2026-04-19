@@ -6,6 +6,7 @@ import java.util.Set;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.LockModeType;
+import jakarta.persistence.OptimisticLockException;
 import jakarta.persistence.TypedQuery;
 import negocio.PaqueteJPA.Paquete;
 import integracion.EMFSingleton.EMFSingleton;
@@ -66,44 +67,57 @@ public class SARutaImp implements SARuta {
 		try {
 			em.getTransaction().begin();
 
-			Ruta ruta = em.find(Ruta.class, id);
+	        // 🔒 Lock optimista sobre la ruta
+	        Ruta ruta = em.find(Ruta.class, id, LockModeType.OPTIMISTIC);
 
-			if (ruta != null) {
-				boolean existeActivo = false;
+	        if (ruta == null) {
+	            em.getTransaction().rollback();
+	            return res;
+	        }
 
-				for (Paquete paquete : ruta.get_lista_paquetes()) {
-					if (paquete.getActivo() == 1) {
-						res = -2;
-						existeActivo = true;
-						break;
-					}
-				}
-				
-				
+	        // ❗ Comprobación con query (NO con colecciones)
+	        Long paquetesActivos = em.createQuery(
+	                "SELECT COUNT(p) FROM Paquete p WHERE p.ruta.id = :id AND p.activo = 1",
+	                Long.class)
+	                .setParameter("id", id)
+	                .getSingleResult();
 
-				if (!existeActivo && !ruta.get_vinculaciones().isEmpty()) {
-					res = -3;
-					existeActivo = true;
-				}
+	        if (paquetesActivos > 0) {
+	            em.getTransaction().rollback();
+	            return -2;
+	        }
 
-				if (!existeActivo) {
-					res = ruta.getId();
-					ruta.setActivo(0);
-					em.getTransaction().commit();
-				} else {
-					em.getTransaction().rollback();
-				}
-			} else {
-				em.getTransaction().rollback();
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			em.getTransaction().rollback();
-		} finally {
-			em.close();
-		}
 
-		return res;
+	        Long vinculaciones = em.createQuery(
+	                "SELECT COUNT(v) FROM VinculacionRutaTrabajador v WHERE v.ruta.id = :id",
+	                Long.class)
+	                .setParameter("id", id)
+	                .getSingleResult();
+
+	        if (vinculaciones > 0) {
+	            em.getTransaction().rollback();
+	            return -3;
+	        }
+
+	        ruta.setActivo(0);
+
+	        // Forzamos el incremento de version
+	        em.lock(ruta, LockModeType.OPTIMISTIC_FORCE_INCREMENT);
+
+	        em.getTransaction().commit();
+	        res = ruta.getId();
+
+	    } catch (OptimisticLockException e) {
+	        em.getTransaction().rollback();
+	        res = -4; 
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        em.getTransaction().rollback();
+	    } finally {
+	        em.close();
+	    }
+
+	    return res;
 	}
 	
 	@Override
