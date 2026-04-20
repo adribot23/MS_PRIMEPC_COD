@@ -183,7 +183,7 @@ public class SARutaImp implements SARuta {
 			e.printStackTrace();
 		} finally {
 			em.close();
-			em.getTransaction().rollback();
+			if (em.getTransaction().isActive()) em.getTransaction().rollback();
 		}
 
 		return res;
