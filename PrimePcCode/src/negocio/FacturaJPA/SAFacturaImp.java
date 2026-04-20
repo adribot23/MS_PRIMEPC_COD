@@ -60,19 +60,8 @@ public class SAFacturaImp implements SAFactura {
 				Set<TLineaFactura> tLineasFacturaPersistente = new HashSet<TLineaFactura>();
 				int cuenta = 0;
 				for (TLineaFactura tLineaFactura : tCarritoFactura.get_tLineasFactura()) {
-					Paquete paquete = em.find(Paquete.class, tLineaFactura.get_idPaquete());
-
-					TypedQuery<LineaFactura> queryf = em
-							.createNamedQuery("negocio.FacturaJPA.LineaFactura.findBypaquete", LineaFactura.class)
-							.setParameter("paquete", paquete);
-
-					if (paquete != null && paquete.getActivo() == 1) {
-
-						for (LineaFactura l : queryf.getResultList()) {
-							if (l.get_devuelto() != 1)
-								cuenta++;
-						}
-						if (cuenta == 0) {
+					Paquete paquete = em.find(Paquete.class, tLineaFactura.get_idPaquete());		
+					if (paquete != null && paquete.getActivo() == 1 && paquete.getFactura()==null) {	
 							LineaFactura lineaFactura = new LineaFactura(factura, paquete);
 							lineaFactura.set_devuelto(0);
 							lineaFactura.set_precioTotal(paquete.getPrecio());
@@ -82,9 +71,6 @@ public class SAFacturaImp implements SAFactura {
 							total += lineaFactura.get_precioTotal();
 							lineasFacturaPersistentes.add(lineaFactura);
 							paquete.setFactura(factura);
-						} else {
-							break;
-						}
 					}
 				}
 				if (total != 0 && cuenta == 0) {
